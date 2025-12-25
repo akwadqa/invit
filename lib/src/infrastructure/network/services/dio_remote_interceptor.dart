@@ -1,0 +1,170 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invit/features/auth/application/auth_service.dart';
+import 'package:invit/src/core/localization/current_language.dart';
+
+import '../../api/response/api_response.dart';
+import '../exception/dio_exceptions.dart';
+
+class RemoteInterceptor extends Interceptor {
+  final Ref ref;
+  RemoteInterceptor(this.ref);
+
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    final token = ref.read(userDataProvider);
+    final language = ref.read(currentLanguageProvider);
+
+    if (token != null) {
+      options.headers['Authorization'] = "token $token";
+    }
+
+    options.headers['Accept-Language'] = language;
+
+    debugPrint("🔵 [DIO REQUEST]");
+    debugPrint("➡️ ${options.method} ${options.uri}");
+    debugPrint("📦 Headers: ${options.headers}");
+    debugPrint("📝 Body: ${options.data}");
+
+    handler.next(options);
+  }
+
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    debugPrint("🟢 [DIO RESPONSE]");
+    debugPrint("✅ ${response.statusCode} ${response.requestOptions.uri}");
+    debugPrint("📦 Response data: ${_prettyJson(response.data)}");
+
+    handler.next(response);
+  }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    final request = err.requestOptions;
+
+    debugPrint("🔴 [DIO ERROR]");
+    debugPrint("⛔️ ${err.type} for ${request.method} ${request.uri}");
+    debugPrint("📥 Response status: ${_prettyJson(err.response?.statusCode)}");
+    debugPrint("📥 Response : ${_prettyJson(err.response)}");
+    debugPrint("📥 Response data: ${_prettyJson(err.response?.data)}");
+
+    final statusCode = err.response?.statusCode;
+    final responseData = err.response?.data;
+
+    // ✅ تحقق من إذا كان Unauthorized
+    final isUnauthorized = statusCode == 401||statusCode == 403 ;
+    // ||
+    //     (responseData is Map &&
+    //         responseData['message']?.toString().toLowerCase().contains("unauthorized") == true);
+
+    if (isUnauthorized) {
+      debugPrint("🚪 Session expired → redirect to Login");
+      // 1. مسح بيانات المستخدم (التوكن)
+      ref.read(userDataProvider.notifier).removeData();
+
+      // 2. توجيه المستخدم لصفحة تسجيل الدخول
+      // ref.read(appRouterProvider).replaceAll([]);
+      // لو تستخدم GoRouter:
+      // ref.read(goRouterProvider).go('/login');
+    }
+
+    // ⚠️ باقي الحالات: نفس السابق
+    switch (err.type) {
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
+        throw DeadlineExceededException(err.requestOptions, "Timeout");
+      case DioExceptionType.badResponse:
+        switch (statusCode) {
+          case 400:
+            throw BadRequestException(request, "Bad Request");
+          case 401:
+            throw UnauthorizedException(request, "Unauthorized");
+          case 403:
+            throw AccessForbiddenException(request, "Forbidden");
+          case 404:
+            throw NotFoundException(request, "Not Found");
+          case 409:
+            throw ConflictException(request, "Conflict");
+          case 422:
+            throw UnprocessableEntityException(request, "Unprocessable Entity");
+          case 500:
+            throw InternalServerErrorException(request, "Server Error");
+          default:
+            throw BadResponseException(request, "Bad Response");
+        }
+      case DioExceptionType.cancel:
+        break;
+      case DioExceptionType.unknown:
+        throw NoInternetConnectionException(request, "No Internet");
+      case DioExceptionType.badCertificate:
+        throw BadCertificateException(request, "Bad Certificate");
+      case DioExceptionType.connectionError:
+        // 👇 لو فيه توكن → غالباً معناها Unauthorized
+        // if (ref.read(userDataProvider) != null) {
+        //   debugPrint("⚠️ ConnectionError but user has token → force logout");
+        //   ref.read(userDataProvider.notifier).removeData();
+        //   ref.read(appRouterProvider).replaceAll([const LoginRoute()]);
+        // }
+        throw ConnectionErrorException(request, "Connection Error");
+    }
+
+    handler.next(err);
+  }
+
+  ApiResponse _handleErrorResponse(DioException err) {
+    final data = err.response?.data;
+    final statusCode = err.response?.statusCode;
+    final path = err.requestOptions.path;
+
+    String message;
+
+    if (data is Map && data['message'] != null) {
+      message = data['message'].toString();
+    } else {
+      message = _getDefaultMessageForStatusCode(statusCode) ??
+          err.message ??
+          'Unexpected error occurred';
+    }
+
+    return ApiResponse.error(
+      message: "$message\n[$statusCode] [$path]",
+      error: data,
+    );
+  }
+
+  String? _getDefaultMessageForStatusCode(int? status) {
+    switch (status) {
+      case 400:
+        return 'Bad Request';
+      case 401:
+        return 'Unauthorized';
+      case 403:
+        return 'Forbidden';
+      case 404:
+        return 'Not Found';
+      case 409:
+        return 'Conflict';
+      case 422:
+        return 'Unprocessable Entity';
+      case 500:
+        return 'Internal Server Error';
+      default:
+        return null;
+    }
+  }
+
+  String _prettyJson(dynamic data) {
+    try {
+      if (data is Map || data is List) {
+        return const JsonEncoder.withIndent('  ').convert(data);
+      }
+      return data.toString();
+    } catch (_) {
+      return 'Invalid JSON';
+    }
+  }
+}
