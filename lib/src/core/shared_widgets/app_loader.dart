@@ -8,14 +8,14 @@ class AppLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-                child: Lottie.asset(
-              width: 55,
-              height: 55,
-              Assets.lottie.openerLoading,
-              // Assets.lottie.processingCircle,
-              repeat: true,
-              // fit: BoxFit.cover,
-              // frameRate: FrameRate.max,
-            ));
+        child: Lottie.asset(
+      width: 55,
+      height: 55,
+      Assets.lottie.openerLoading,
+      // Assets.lottie.processingCircle,
+      repeat: true,
+      // fit: BoxFit.cover,
+      // frameRate: FrameRate.max,
+    ));
   }
 }

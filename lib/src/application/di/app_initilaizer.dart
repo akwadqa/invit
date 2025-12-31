@@ -2,7 +2,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:invit/features/auth/application/auth_service.dart';
@@ -35,7 +35,7 @@ abstract class AppInitializer {
     //-- Load base URL's  --
     ServicesUrls.init();
     
-    FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+    // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
     //-- Localization init  --
     await EasyLocalization.ensureInitialized();
@@ -65,5 +65,5 @@ Future<void> handleSplashScreen(ProviderContainer container) async {
         Duration(milliseconds: minSplashDuration - loadDuration));
   }
 
-  FlutterNativeSplash.remove();
+  // FlutterNativeSplash.remove();
 }

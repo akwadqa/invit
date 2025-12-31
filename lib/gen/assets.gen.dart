@@ -20,8 +20,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/app_icon.jpg
   AssetGenImage get appIcon => const AssetGenImage('assets/icons/app_icon.jpg');
 
+  /// File path: assets/icons/date_ic.svg
+  SvgGenImage get dateIc => const SvgGenImage('assets/icons/date_ic.svg');
+
   /// File path: assets/icons/google_ic.svg
   SvgGenImage get googleIc => const SvgGenImage('assets/icons/google_ic.svg');
+
+  /// File path: assets/icons/password_ic.svg
+  SvgGenImage get passwordIc =>
+      const SvgGenImage('assets/icons/password_ic.svg');
 
   /// File path: assets/icons/qatar_country.svg
   SvgGenImage get qatarCountry =>
@@ -32,7 +39,8 @@ class $AssetsIconsGen {
       const AssetGenImage('assets/icons/qatar_flag.png');
 
   /// List of all assets
-  List<dynamic> get values => [appIcon, googleIc, qatarCountry, qatarFlag];
+  List<dynamic> get values =>
+      [appIcon, dateIc, googleIc, passwordIc, qatarCountry, qatarFlag];
 }
 
 class $AssetsImagesGen {

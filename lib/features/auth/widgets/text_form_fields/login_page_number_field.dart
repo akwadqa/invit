@@ -12,8 +12,7 @@ import '../../../../src/core/shared_widgets/arabic_number_input_formatter.dart';
 
 class LoginPageNumberField extends ConsumerStatefulWidget {
   const LoginPageNumberField(
-    this.fullPhoneController,
-    {
+    this.fullPhoneController, {
     super.key,
   });
 
@@ -59,7 +58,7 @@ class _LoginPageNumberFieldState extends ConsumerState<LoginPageNumberField> {
         initialCountryCode: 'QA',
         onChanged: (phone) {
           _updateFullPhone(phone.countryCode);
-    
+
           // ref
           //     .read(authUiControllerProvider.notifier)
           //     .checkPhoneFilled(phone.number.isNotEmpty);
@@ -68,24 +67,25 @@ class _LoginPageNumberFieldState extends ConsumerState<LoginPageNumberField> {
           _updateFullPhone('+${country.dialCode}');
         },
         validator: mobileNumberValidationIntl(context),
-    // disableLengthCheck: true,
+        // disableLengthCheck: true,
         dropdownIcon: Icon(
           Icons.arrow_drop_down_rounded,
-          color: AppColors.primary,
+          color: AppColors.black,
         ),
         cursorColor: AppColors.primary,
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-            ArabicNumberInputFormatter(),
-          ],
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+          ArabicNumberInputFormatter(),
+        ],
         flagsButtonPadding: EdgeInsets.fromLTRB(16, 16, 0, 16),
         dropdownIconPosition: IconPosition.trailing,
         dropdownTextStyle: AppTextStyle.rubikRegular14.copyWith(
-          color: AppColors.primary,
+          color: AppColors.black,
         ),
-        keyboardType: TextInputType.phone, // أفضل للهاتف
+        keyboardType: TextInputType.phone,
         style: AppTextStyle.rubikRegular14.copyWith(color: AppColors.black),
         decoration: InputDecoration(
+          filled: true,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.primary),
             borderRadius: BorderRadius.circular(10),

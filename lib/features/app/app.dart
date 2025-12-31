@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invit/src/application/router/routing/app_router_provider.dart';
+import 'package:sizer/sizer.dart';
 import '../../src/core/localization/current_language.dart';
 import '../../src/core/utils/theme/app_theme.dart';
-
 
 class App extends ConsumerStatefulWidget {
   const App({super.key});
@@ -26,15 +26,20 @@ class _AppState extends ConsumerState<App> {
   Widget build(BuildContext context) {
     final appRouter = ref.watch(appRouterProvider);
     final currentLanguage = ref.watch(currentLanguageProvider);
-    return MaterialApp.router(
-      // routerDelegate: appRouter.delegate(
-      //     deepLinkBuilder: (deepLink) => DeepLink.defaultPath),
-      routerConfig: appRouter.goRouter,
-      theme: ref.watch(appThemeProvider),
-      onGenerateTitle: (context) => context.tr('appTitle'),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: Locale(currentLanguage),
+    return Sizer(
+      maxMobileWidth: 400,
+      builder: (context, oreintation, screenYupe) => MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        // routerDelegate: appRouter.delegate(
+        //     deepLinkBuilder: (deepLink) => DeepLink.defaultPath),
+        routerConfig: appRouter.goRouter,
+        theme: ref.watch(appThemeProvider),
+        onGenerateTitle: (context) => context.tr('appTitle'),
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: Locale(currentLanguage),
+        // locale: Locale('en'),
+      ),
     );
   }
 }

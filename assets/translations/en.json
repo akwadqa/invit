@@ -24,5 +24,9 @@
     "donot_have_account": "don`t have an account? ",
     "email": "Email",
     "phone_number": "Phone Number",
-    "full_name": "Full name"
+    "full_name": "Full name",
+    "firstName" : "First Name",
+    "password" : "Password",
+    "setPassword" : "Set Password",
+    "alreadyHaveAnAccount" : "Already have an account?" 
 }
