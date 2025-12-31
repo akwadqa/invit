@@ -4,7 +4,7 @@ class ApiEndPoints {
   static const String homeServices = 'api/services/';
   //? --- signIn ---
   static const String signIn = 'auth.send_otp';
-  static const String signUp = 'api/register/';
+  static const String signUp = 'auth.register';
   //? --- OrderService ---
   static const String orderService = 'api/service-request/create/';
   static const String myOrdersService = 'api/service-requests';

@@ -62,14 +62,14 @@ class AppTextFormField extends StatelessWidget {
           decoration: BoxDecoration(
             // color: AppColors.background,
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(0, 1),
-                blurRadius: 2,
-                spreadRadius: 3,
-                color: AppColors.grayHint.withValues(alpha: .24),
-              ),
-            ],
+            // boxShadow: [
+            //   BoxShadow(
+            //     offset: Offset(0, 1),
+            //     blurRadius: 2,
+            //     spreadRadius: 3,
+            //     color: AppColors.grayHint.withValues(alpha: .24),
+            //   ),
+            // ],
           ),
           child: TextFormField(
             obscureText: isPassword,
