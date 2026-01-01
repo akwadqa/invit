@@ -1,0 +1,45 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:invit/features/auth/signIn/presentation/widgets/divider_with_text.dart';
+import 'package:invit/features/auth/signIn/presentation/widgets/social_login_button.dart';
+import 'package:invit/features/auth/widgets/text_form_fields/phone_number_field.dart';
+import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
+import 'package:invit/src/resourses/color_manager/app_colors.dart';
+
+class SignUpFooter extends StatelessWidget {
+  const SignUpFooter({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Column(
+      spacing: 26,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 10,
+          children: [
+            Text(
+              'dont_have_account'.tr(),
+              style: textTheme.bodyLarge!.copyWith(
+                color: AppColors.gray02,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            Text(
+              'sign_up'.tr(),
+              style: textTheme.bodyLarge!.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ],
+        ),
+        const DividerWithText(),
+         SocialLoginButton.email(),
+         SocialLoginButton.google(),
+      ],
+    );
+  }
+}
