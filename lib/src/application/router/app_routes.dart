@@ -4,7 +4,9 @@ abstract class AppRoutes {
   static const String onBoarding = '/onBoarding';
   static const String signInScreen = '/sign_in';
   static const String signUpScreen = '/sign_up';
+  static const String verificationScreen = '/verification';
   static const String splashScreen = '/splash';
   static const String homeScreen = '/home';
+  static const String mainScreen = '/main';
   static const String serviceDetails = '/service_details';
 }

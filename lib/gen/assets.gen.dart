@@ -17,6 +17,10 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/add_event_ic.svg
+  SvgGenImage get addEventIc =>
+      const SvgGenImage('assets/icons/add_event_ic.svg');
+
   /// File path: assets/icons/app_icon.jpg
   AssetGenImage get appIcon => const AssetGenImage('assets/icons/app_icon.jpg');
 
@@ -25,6 +29,21 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/google_ic.svg
   SvgGenImage get googleIc => const SvgGenImage('assets/icons/google_ic.svg');
+
+  /// File path: assets/icons/home_ic.svg
+  SvgGenImage get homeIc => const SvgGenImage('assets/icons/home_ic.svg');
+
+  /// File path: assets/icons/location_ic.svg
+  SvgGenImage get locationIc =>
+      const SvgGenImage('assets/icons/location_ic.svg');
+
+  /// File path: assets/icons/messages_ic.svg
+  SvgGenImage get messagesIc =>
+      const SvgGenImage('assets/icons/messages_ic.svg');
+
+  /// File path: assets/icons/notification_ic.svg
+  SvgGenImage get notificationIc =>
+      const SvgGenImage('assets/icons/notification_ic.svg');
 
   /// File path: assets/icons/password_ic.svg
   SvgGenImage get passwordIc =>
@@ -38,13 +57,46 @@ class $AssetsIconsGen {
   AssetGenImage get qatarFlag =>
       const AssetGenImage('assets/icons/qatar_flag.png');
 
+  /// File path: assets/icons/save_event_ic.svg
+  SvgGenImage get saveEventIc =>
+      const SvgGenImage('assets/icons/save_event_ic.svg');
+
+  /// File path: assets/icons/scan_ic.svg
+  SvgGenImage get scanIc => const SvgGenImage('assets/icons/scan_ic.svg');
+
+  /// File path: assets/icons/settings_ic.svg
+  SvgGenImage get settingsIc =>
+      const SvgGenImage('assets/icons/settings_ic.svg');
+
   /// List of all assets
-  List<dynamic> get values =>
-      [appIcon, dateIc, googleIc, passwordIc, qatarCountry, qatarFlag];
+  List<dynamic> get values => [
+        addEventIc,
+        appIcon,
+        dateIc,
+        googleIc,
+        homeIc,
+        locationIc,
+        messagesIc,
+        notificationIc,
+        passwordIc,
+        qatarCountry,
+        qatarFlag,
+        saveEventIc,
+        scanIc,
+        settingsIc
+      ];
 }
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/all_event_image.jpg
+  AssetGenImage get allEventImage =>
+      const AssetGenImage('assets/images/all_event_image.jpg');
+
+  /// File path: assets/images/book_image.jpg
+  AssetGenImage get bookImage =>
+      const AssetGenImage('assets/images/book_image.jpg');
 
   /// File path: assets/images/empty_data.svg
   SvgGenImage get emptyData =>
@@ -53,6 +105,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/im_error_screen.png
   AssetGenImage get imErrorScreen =>
       const AssetGenImage('assets/images/im_error_screen.png');
+
+  /// File path: assets/images/invite_type_image.jpg
+  AssetGenImage get inviteTypeImage =>
+      const AssetGenImage('assets/images/invite_type_image.jpg');
 
   /// File path: assets/images/qatar_country.png
   AssetGenImage get qatarCountry =>
@@ -63,8 +119,15 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/qatar_flag.png');
 
   /// List of all assets
-  List<dynamic> get values =>
-      [emptyData, imErrorScreen, qatarCountry, qatarFlag];
+  List<dynamic> get values => [
+        allEventImage,
+        bookImage,
+        emptyData,
+        imErrorScreen,
+        inviteTypeImage,
+        qatarCountry,
+        qatarFlag
+      ];
 }
 
 class $AssetsLottieGen {

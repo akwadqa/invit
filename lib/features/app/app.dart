@@ -37,6 +37,7 @@ class _AppState extends ConsumerState<App> {
         onGenerateTitle: (context) => context.tr('appTitle'),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
+        // supportedLocales: [Locale('en')],
         locale: Locale(currentLanguage),
         // locale: Locale('en'),
       ),

@@ -13,7 +13,7 @@ class SignupHeader extends StatelessWidget {
       spacing: 20,
       children: [
         Text(
-          'signUp'.tr(),
+          'sign_up'.tr(),
           textAlign: TextAlign.center,
           style: textTheme.headlineLarge!.copyWith(
             color: AppColors.primary,
@@ -21,7 +21,7 @@ class SignupHeader extends StatelessWidget {
           ),
         ),
         Text(
-          'signUp_desc'.tr(),
+          'sign_up_desc'.tr(),
           textAlign: TextAlign.center,
           style: textTheme.displaySmall!.copyWith(
             color: AppColors.black,

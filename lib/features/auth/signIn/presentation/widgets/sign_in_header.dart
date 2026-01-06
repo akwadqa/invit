@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
+import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class SignInHeader extends StatelessWidget {
   const SignInHeader({super.key});
@@ -23,10 +24,11 @@ class SignInHeader extends StatelessWidget {
         Text(
           'login_desc'.tr(),
           textAlign: TextAlign.center,
-          style: textTheme.displaySmall!.copyWith(
-            color: AppColors.black,
-            fontWeight: FontWeight.w800,
-          ),
+          style: AppTextStyle.rubikMedium14,
+          // style: textTheme.displaySmall!.copyWith(
+          //   color: AppColors.black,
+          //   fontWeight: FontWeight.w800,
+          // ),
         ),
       ],
     );

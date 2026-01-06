@@ -28,5 +28,10 @@
     "firstName" : "First Name",
     "password" : "Password",
     "setPassword" : "Set Password",
-    "alreadyHaveAnAccount" : "Already have an account?" 
+    "alreadyHaveAnAccount" : "Already have an account?" ,
+    "enterVerificationCode" : "Enter Verification Code",
+    "we_sent_a_code_to" : "We sent a code to +974*******69",
+    "seconds" : "Seconds",
+    "verificationExpired" : "This code will expire in ",
+    "confirm" : "Confirm"
 }

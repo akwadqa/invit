@@ -12,45 +12,41 @@ class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-  bool _navigated = false;
-
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool _navigated = false;
 
     return Lottie.asset(
       'assets/splash/splash.json',
       repeat: false,
       fit: BoxFit.cover,
-          frameRate: FrameRate.max,
-
+      frameRate: FrameRate.max,
       onLoaded: (composition) {
-       if (_navigated) return;
-            _navigated = true;
+        if (_navigated) return;
+        _navigated = true;
 
-            Future.delayed(composition.duration +Duration(seconds: 2), () async {
+        Future.delayed(composition.duration + Duration(seconds: 2), () async {
+          final storage = ref.read(localStorageServiceProvider);
+          // final isFirstTime = await storage.isFirstTimeOpen();
+          final isAuth = await ref.read(isAuthenticatedProvider.future);
 
-              final storage = ref.read(localStorageServiceProvider);
-              // final isFirstTime = await storage.isFirstTimeOpen();
-              final isAuth = await ref.read(isAuthenticatedProvider.future);
+          Dev.logLine(' isAuth: $isAuth');
 
-              Dev.logLine(' isAuth: $isAuth');
+          // ===== First-time onboarding =====
+          // if (isFirstTime) {
+          //   context.goNamed(AppRoutes.onBoarding);
+          //   return;
+          // }
 
-              // ===== First-time onboarding =====
-              // if (isFirstTime) {
-              //   context.goNamed(AppRoutes.onBoarding);
-              //   return;
-              // }
+          // ===== Not authenticated =====
+          if (!isAuth) {
+            context.goNamed(AppRoutes.signInScreen);
+            return;
+          }
 
-              // ===== Not authenticated =====
-              if (!isAuth) {
-                context.goNamed(AppRoutes.signUpScreen);
-                return;
-              }
-
-              // ===== Authenticated =====
-              context.goNamed(AppRoutes.homeScreen);
-            });
+          // ===== Authenticated =====
+          context.goNamed(AppRoutes.homeScreen);
+        });
       },
     );
-    
   }
 }

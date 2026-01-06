@@ -7,7 +7,10 @@ import 'package:invit/src/resourses/color_manager/app_colors.dart';
 class AuthScreen extends StatelessWidget {
   final Widget child;
 
-  const AuthScreen({super.key, required this.child});
+  final bool withBackButton;
+
+  const AuthScreen(
+      {super.key, required this.child, this.withBackButton = false});
 
   @override
   Widget build(BuildContext context) {
@@ -15,47 +18,47 @@ class AuthScreen extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
 
     return InkWell(
-      onTap:() {
+      onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Container(
-          width: width,
-          height: height,
-          decoration: ShapeDecoration(
-            color: AppColors.background,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
+        width: width,
+        height: height,
+        decoration: ShapeDecoration(
+          color: AppColors.background,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
-          child: Stack(
-            children: [
-              // Gradient + White Dots Background
-              Container(
-                height: height / 2,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment(0.0, 0.5),
-                    end: Alignment(1.0, 0.5),
-                    colors: [
-                      AppColors.primary,
-                      AppColors.secondPrimary,
-                    ],
-                  ),
-                ),
-                child: Stack(
-                  children: [
-                    ...generateWhiteDots(
-                      count: 70,
-                      maxWidth: width,
-                      maxHeight: height / 2,
-                    ),
+        ),
+        child: Stack(
+          children: [
+            // Gradient + White Dots Background
+            Container(
+              height: height / 2,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment(0.0, 0.5),
+                  end: Alignment(1.0, 0.5),
+                  colors: [
+                    AppColors.primary,
+                    AppColors.secondPrimary,
                   ],
                 ),
               ),
-      
-              // Card with content
-              Center(
-                child: Container(
+              child: Stack(
+                children: [
+                  ...generateWhiteDots(
+                    count: 70,
+                    maxWidth: width,
+                    maxHeight: height / 2,
+                  ),
+                ],
+              ),
+            ),
+
+            // Card with content
+            Center(
+              child: Container(
                   width: width * 0.9,
                   padding: const EdgeInsets.all(24),
                   decoration: ShapeDecoration(
@@ -71,15 +74,39 @@ class AuthScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child:  child
+                  child: child
                   // _buildCardContent(),
-                ),
-              ),
-            ],
-          ),
+                  ),
+            ),
+
+            //? Back button
+            if (withBackButton)
+              Positioned(
+                  top: 73,
+                  left: 24,
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        begin: Alignment(0.0, 0.5),
+                        end: Alignment(1.0, 0.5),
+                        colors: [
+                          AppColors.primary,
+                          AppColors.secondPrimary,
+                        ],
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.arrow_back_outlined,
+                      color: AppColors.background,
+                    ),
+                  ))
+          ],
         ),
+      ),
     );
-   
   }
 
   // Widget _buildCardContent() {
@@ -171,5 +198,4 @@ class AuthScreen extends StatelessWidget {
   //       );
   //   }
   // }
-
 }

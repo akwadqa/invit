@@ -14,18 +14,18 @@ class SignupScreen extends StatelessWidget {
     );
   }
 }
+
 class _SignupContent extends StatelessWidget {
   const _SignupContent();
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child:  Column(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         spacing: 18,
-
         children: [
-          // SignupHeader(),
+          SignupHeader(),
           SignUpForm(),
           // SignUpFooter(),
         ],
@@ -147,7 +147,7 @@ class _SignupContent extends StatelessWidget {
 //             );
 //             // return Container();
 //           }),
-        
+
 //           Row(
 //             mainAxisAlignment: MainAxisAlignment.center,
 //             children: [

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/signUp/presentation/screens/signup_screen.dart';
+import 'package:invit/features/auth/verification/presentation/screens/verification_account_screen.dart';
 import 'package:invit/features/home/presentation/screens/home_screen.dart';
+import 'package:invit/features/home/presentation/screens/main_screen.dart';
 import 'package:invit/features/onBoarding/on_boarding.dart';
 import 'package:invit/features/auth/signIn/presentation/screens/sign_in_screen.dart';
 import 'package:invit/features/onBoarding/splash_screen.dart';
@@ -97,11 +99,27 @@ class AppRouter {
           },
         ),
         GoRoute(
+          path: AppRoutes.verificationScreen,
+          name: AppRoutes.verificationScreen,
+          parentNavigatorKey: rootKey,
+          builder: (BuildContext context, GoRouterState state) {
+            return VerificationAccountScreen();
+          },
+        ),
+        GoRoute(
           path: AppRoutes.homeScreen,
           name: AppRoutes.homeScreen,
           parentNavigatorKey: rootKey,
           builder: (BuildContext context, GoRouterState state) {
             return HomeScreen();
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.mainScreen,
+          name: AppRoutes.mainScreen,
+          parentNavigatorKey: rootKey,
+          builder: (BuildContext context, GoRouterState state) {
+            return MainScreen();
           },
         ),
 
