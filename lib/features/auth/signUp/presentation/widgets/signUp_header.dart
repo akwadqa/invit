@@ -20,14 +20,14 @@ class SignupHeader extends StatelessWidget {
             fontWeight: FontWeight.w900,
           ),
         ),
-        Text(
-          'sign_up_desc'.tr(),
-          textAlign: TextAlign.center,
-          style: textTheme.displaySmall!.copyWith(
-            color: AppColors.black,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
+        // Text(
+        //   'sign_up_desc'.tr(),
+        //   textAlign: TextAlign.center,
+        //   style: textTheme.displaySmall!.copyWith(
+        //     color: AppColors.black,
+        //     fontWeight: FontWeight.w800,
+        //   ),
+        // ),
       ],
     );
   }
