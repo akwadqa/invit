@@ -11,6 +11,7 @@ class CustomButtonWidget extends StatelessWidget {
   final VoidCallback onTap;
   final bool isFiled;
   final double height;
+  final TextStyle? style;
   final double width;
   final double? radius;
   final double? topPading;
@@ -25,6 +26,7 @@ class CustomButtonWidget extends StatelessWidget {
     required this.height,
     required this.width,
     this.radius,
+    this.style,
     this.fontSize,
     this.topPading,
   });
@@ -48,10 +50,11 @@ class CustomButtonWidget extends StatelessWidget {
         onTap();
       },
       child: Text(context.tr(text),
-              style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                  fontSize:fontSize?? 16,
-                  color: isFiled ? Colors.white : Colors.black,
-                  fontWeight: FontWeight.w500))
+              style: style ??
+                  Theme.of(context).textTheme.displaySmall!.copyWith(
+                      fontSize: fontSize ?? 16,
+                      color: isFiled ? Colors.white : Colors.black,
+                      fontWeight: FontWeight.w500))
           .centered(),
     ).onlyPadding(top: topPading ?? 0);
   }

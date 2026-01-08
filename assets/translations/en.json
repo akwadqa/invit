@@ -33,5 +33,11 @@
     "we_sent_a_code_to" : "We sent a code to +974*******69",
     "seconds" : "Seconds",
     "verificationExpired" : "This code will expire in ",
-    "confirm" : "Confirm"
+    "confirm" : "Confirm",
+    "book_a_hall_discount" : "Book a hall with 20% discount",
+    "booking_now" :"Booking now",
+    "invitation_type" : "Invitation type",
+    "welcome" : "Welcome",
+    "all_events" : "All Events",
+    "graduation" : "Graduation"
 }

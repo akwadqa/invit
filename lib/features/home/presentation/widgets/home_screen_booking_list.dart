@@ -4,6 +4,7 @@ import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
+import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class HomeScreenBookingList extends StatelessWidget {
   const HomeScreenBookingList({
@@ -38,16 +39,21 @@ class HomeScreenBookingList extends StatelessWidget {
               spacing: 18,
               children: [
                 Text(
-                  'Book a hall with 20% discount'.tr(),
+                  'book_a_hall_discount'.tr(),
+                  style: AppTextStyle.rubikSemiBold18
+                      .copyWith(color: AppColors.background),
                 ),
                 CustomButtonWidget(
-                    text: 'Booking now',
-                    onTap: () {},
-                    radius: 0,
-                    isFiled: false,
-                    backgroundColor: AppColors.background,
-                    height: 31,
-                    width: 109)
+                  text: 'booking_now',
+                  onTap: () {},
+                  style: AppTextStyle.rubikSemiBold18
+                      .copyWith(color: AppColors.primary),
+                  radius: 5,
+                  isFiled: false,
+                  backgroundColor: AppColors.background,
+                  height: 31,
+                  width: 120,
+                )
               ],
             ),
           ),
