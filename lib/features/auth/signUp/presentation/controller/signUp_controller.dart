@@ -8,7 +8,14 @@ part 'signUp_controller.g.dart';
 class SignUpController extends _$SignUpController {
   @override
   FutureOr<void> build() => null;
+  DateTime? selectedDate;
 
+  void setBirthDate(DateTime date) {
+    selectedDate = date;
+    // 🔥 force rebuild safely
+    ref.invalidateSelf();
+    // state = const AsyncData(null);
+  }
   Future<void> signUp(SignupParams params) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {

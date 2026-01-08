@@ -13,7 +13,7 @@ part of 'sign_in_controller.dart';
 const signInControllerProvider = SignInControllerProvider._();
 
 final class SignInControllerProvider
-    extends $AsyncNotifierProvider<SignInController, void> {
+    extends $AsyncNotifierProvider<SignInController, String?> {
   const SignInControllerProvider._()
       : super(
           from: null,
@@ -33,20 +33,20 @@ final class SignInControllerProvider
   SignInController create() => SignInController();
 }
 
-String _$signInControllerHash() => r'10751c9ba328dcbdfbadd3467f20685d2bced5bd';
+String _$signInControllerHash() => r'b2a4ae82eb542782ddaf9f22d4ff54111f4b9d04';
 
-abstract class _$SignInController extends $AsyncNotifier<void> {
-  FutureOr<void> build();
+abstract class _$SignInController extends $AsyncNotifier<String?> {
+  FutureOr<String?> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    build();
-    final ref = this.ref as $Ref<AsyncValue<void>, void>;
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<String?>, String?>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<void>, void>,
-        AsyncValue<void>,
+        AnyNotifier<AsyncValue<String?>, String?>,
+        AsyncValue<String?>,
         Object?,
         Object?>;
-    element.handleValue(ref, null);
+    element.handleValue(ref, created);
   }
 }

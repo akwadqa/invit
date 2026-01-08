@@ -9,26 +9,14 @@ class SignupHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      spacing: 20,
-      children: [
-        Text(
-          'sign_up'.tr(),
-          textAlign: TextAlign.center,
-          style: textTheme.headlineLarge!.copyWith(
-            color: AppColors.primary,
-            fontWeight: FontWeight.w900,
-          ),
-        ),
-        // Text(
-        //   'sign_up_desc'.tr(),
-        //   textAlign: TextAlign.center,
-        //   style: textTheme.displaySmall!.copyWith(
-        //     color: AppColors.black,
-        //     fontWeight: FontWeight.w800,
-        //   ),
-        // ),
-      ],
+    return Text(
+      'sign_up'.tr(),
+      textAlign: TextAlign.center,
+      style: textTheme.displayLarge!.copyWith(
+        color: AppColors.primary,
+        fontWeight: FontWeight.w800,
+        fontSize: 34
+      ),
     );
   }
 }

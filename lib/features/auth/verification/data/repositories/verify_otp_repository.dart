@@ -3,20 +3,20 @@ import 'package:invit/src/infrastructure/network/services/dio_client.dart';
 import 'package:invit/src/logger/failure/exceptions/app_exception.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../datasources/sign_in_data_source.dart';
-part 'sign_in_repository.g.dart';
+import '../datasources/verify_otp_data_source.dart';
+part 'verify_otp_repository.g.dart';
 
 @Riverpod(keepAlive: true)
-SignInRepository signInRepository(Ref ref) {
+VerifyOtpRepository verifyOtpRepository(Ref ref) {
   final networkService = ref.watch(networkServiceProvider());
-  return SignInRepository(SignInRemoteDataSource(networkService));
+  return VerifyOtpRepository(VerifyOtpRemoteDataSource(networkService));
 }
-class SignInRepository {
-  final SignInRemoteDataSource _remoteDataSource;
+class VerifyOtpRepository {
+  final VerifyOtpRemoteDataSource _remoteDataSource;
 
-  SignInRepository(this._remoteDataSource);
-  Future<ApiResponse> signIn(String phone) async {
-    final response = await _remoteDataSource.signIn(phone);
+  VerifyOtpRepository(this._remoteDataSource);
+  Future<ApiResponse>  verifyOtp(String phone,String otp) async {
+    final response = await _remoteDataSource.verifyOtp(otp,phone);
   
     if (response.status == 200) {
       return response;

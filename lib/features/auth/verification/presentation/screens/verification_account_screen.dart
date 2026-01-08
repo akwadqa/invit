@@ -4,23 +4,25 @@ import 'package:invit/features/auth/verification/presentation/widgets/verificati
 import 'package:invit/features/auth/verification/presentation/widgets/verification_screen_pin.dart';
 import 'package:invit/features/auth/verification/presentation/widgets/verification_screen_timer.dart';
 import 'package:invit/features/auth/widgets/auth_build_content.dart';
+import 'package:pinput/pinput.dart';
 
 class VerificationAccountScreen extends StatelessWidget {
-  const VerificationAccountScreen({super.key});
+  final String phone;
+  const VerificationAccountScreen({super.key, required this.phone});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: AuthScreen(
       withBackButton: true,
-      child: _VerificationScreenContent(),
+      child: _VerificationScreenContent(phone: phone,),
     ));
   }
 }
 
 class _VerificationScreenContent extends StatefulWidget {
-  const _VerificationScreenContent();
-
+  final String phone;
+  const _VerificationScreenContent({required this.phone});
   @override
   State<_VerificationScreenContent> createState() =>
       _VerificationScreenContentState();
@@ -29,7 +31,7 @@ class _VerificationScreenContent extends StatefulWidget {
 class _VerificationScreenContentState
     extends State<_VerificationScreenContent> {
   late TextEditingController controller;
-
+final key =GlobalKey<FormState>();
   @override
   void initState() {
     controller = TextEditingController();
@@ -44,17 +46,26 @@ class _VerificationScreenContentState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      spacing: 24,
-      children: [
-        VerificationScreenHeading(),
-        VerificationScreenPin(
-          controller: controller,
-        ),
-        VerificationScreenTimer(),
-        VerificationScreenConfirmationButtons()
-      ],
+    return Form(
+key: key,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: 24,
+        children: [
+          VerificationScreenHeading(phone:widget.phone),
+          VerificationScreenPin(
+            controller: controller,
+            onSaved: (v) {
+              controller.setText(v??"99");
+              setState(() {
+                
+              });
+            },
+          ),
+          VerificationScreenTimer(),
+          VerificationScreenConfirmationButtons(phone: widget.phone,otp:controller.text ,formKey: key,)
+        ],
+      ),
     );
   }
 }

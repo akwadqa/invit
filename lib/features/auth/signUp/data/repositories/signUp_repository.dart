@@ -19,8 +19,8 @@ class SignupRepository {
   Future<ApiResponse> signUp(SignupParams params) async {
     final response = await _remoteDataSource.signUp(params);
   
-    if (response.status == 200) {
-      return response.data!;
+    if (response.status == 200||response.status == 201) {
+      return response;
     }
   
     throw AppException(message: response.message);

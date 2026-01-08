@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'signUp_controller.dart';
+part of 'verify_otp_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,33 +9,34 @@ part of 'signUp_controller.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(SignUpController)
-const signUpControllerProvider = SignUpControllerProvider._();
+@ProviderFor(VerifyOtpController)
+const verifyOtpControllerProvider = VerifyOtpControllerProvider._();
 
-final class SignUpControllerProvider
-    extends $AsyncNotifierProvider<SignUpController, void> {
-  const SignUpControllerProvider._()
+final class VerifyOtpControllerProvider
+    extends $AsyncNotifierProvider<VerifyOtpController, void> {
+  const VerifyOtpControllerProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'signUpControllerProvider',
+          name: r'verifyOtpControllerProvider',
           isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$signUpControllerHash();
+  String debugGetCreateSourceHash() => _$verifyOtpControllerHash();
 
   @$internal
   @override
-  SignUpController create() => SignUpController();
+  VerifyOtpController create() => VerifyOtpController();
 }
 
-String _$signUpControllerHash() => r'd29a1e64b680214a0c64d07d37488d99c3b8e9a9';
+String _$verifyOtpControllerHash() =>
+    r'7fd7ac5e9e5bedbdb489cbd830abda6d37ae6638';
 
-abstract class _$SignUpController extends $AsyncNotifier<void> {
+abstract class _$VerifyOtpController extends $AsyncNotifier<void> {
   FutureOr<void> build();
   @$mustCallSuper
   @override

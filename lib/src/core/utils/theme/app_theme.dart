@@ -12,7 +12,7 @@ abstract class AppTheme {
   // Define shared styles to avoid repetition
   static const TextStyle _baseTextStyle = TextStyle(
     color: AppColors.black900,
-    // fontFamily: FontFamily.tajawal,
+    fontFamily: "Rubik",
     fontWeight: FontWeight.w700,
   );
 
@@ -78,7 +78,7 @@ final textTheme = TextTheme(
   displayLarge: TextStyle(
     fontSize: 57,
     height: 64 / 57,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.bold,
   ),
   displayMedium: TextStyle(
     fontSize: 45,

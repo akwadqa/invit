@@ -2,18 +2,19 @@ import 'package:invit/src/infrastructure/api/endpoint/api_endpoints.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/network_service.dart';
 import 'package:invit/src/logger/log_services/dev_logger.dart';
-class SignInRemoteDataSource {
+class VerifyOtpRemoteDataSource {
   final NetworkService _networkService;
 
-  SignInRemoteDataSource(this._networkService);
+  VerifyOtpRemoteDataSource(this._networkService);
 
 
-Future<ApiResponse> signIn(String phone) async {
+Future<ApiResponse> verifyOtp(String otp,String phone) async {
   try {
     final response = await _networkService.post(
-      ApiEndPoints.signIn,
-      queryParameters: {
+      ApiEndPoints.verifyOtp,
+      data: {
         "mobile_no":phone,
+        "otp":otp,
       },
     );
 

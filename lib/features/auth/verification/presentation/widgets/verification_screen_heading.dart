@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 
 class VerificationScreenHeading extends StatelessWidget {
-  const VerificationScreenHeading({super.key});
+  final String phone;
+  const VerificationScreenHeading({super.key, required this.phone});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class VerificationScreenHeading extends StatelessWidget {
               ),
         ),
         Text(
-          'we_sent_a_code_to'.tr(),
+          'we_sent_a_code_to'.tr(args: [phone.replaceRange(3, 9, "*******")]),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               // color: AppColors.primary,
