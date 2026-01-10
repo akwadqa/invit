@@ -12,23 +12,22 @@ class SignupDataSource {
   SignupDataSource(this._networkService);
   Future<ApiResponse<void>> signUp(SignupParams params) async {
     try {
-      final ApiResponse
-       response = await _networkService.post(
+      final ApiResponse response = await _networkService.post(
         ApiEndPoints.signUp,
         data: params.toMap(),
       );
-          if (response.data == null || response.error==1) {
-      throw Exception('Request signIn failed');
-    }
+      if (response.data == null || response.error == 1) {
+        throw Exception('Request signIn failed');
+      }
       // if (response.status == 200) {
-      Dev.logMap(response as Map<String,dynamic> );
-        return ApiResponse.fromJson(
-      response  as Map<String,dynamic> ,
-      (json) =>json,
-        );
+      Dev.logMap(response as Map<String, dynamic>);
+      return ApiResponse.fromJson(
+        response as Map<String, dynamic>,
+        (json) => json,
+      );
       // } else {
       //   throw AppException(message: response.message);
-      // } 
+      // }
     } on DioException catch (e) {
       String message = 'Something went wrong';
 

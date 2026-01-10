@@ -15,7 +15,9 @@ class VerificationAccountScreen extends StatelessWidget {
     return Scaffold(
         body: AuthScreen(
       withBackButton: true,
-      child: _VerificationScreenContent(phone: phone,),
+      child: _VerificationScreenContent(
+        phone: phone,
+      ),
     ));
   }
 }
@@ -31,7 +33,7 @@ class _VerificationScreenContent extends StatefulWidget {
 class _VerificationScreenContentState
     extends State<_VerificationScreenContent> {
   late TextEditingController controller;
-final key =GlobalKey<FormState>();
+  final key = GlobalKey<FormState>();
   @override
   void initState() {
     controller = TextEditingController();
@@ -47,23 +49,25 @@ final key =GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Form(
-key: key,
+      key: key,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         spacing: 24,
         children: [
-          VerificationScreenHeading(phone:widget.phone),
+          VerificationScreenHeading(phone: widget.phone),
           VerificationScreenPin(
             controller: controller,
             onSaved: (v) {
-              controller.setText(v??"99");
-              setState(() {
-                
-              });
+              controller.setText(v ?? "99");
+              setState(() {});
             },
           ),
           VerificationScreenTimer(),
-          VerificationScreenConfirmationButtons(phone: widget.phone,otp:controller.text ,formKey: key,)
+          VerificationScreenConfirmationButtons(
+            phone: widget.phone,
+            otp: controller.text,
+            formKey: key,
+          )
         ],
       ),
     );

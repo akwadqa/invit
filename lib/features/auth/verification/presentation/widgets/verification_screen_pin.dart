@@ -26,6 +26,7 @@ class VerificationScreenPin extends StatelessWidget {
       textDirection: TextDirection.ltr,
       
       child: Pinput(
+        
         onSubmitted:onSaved ,
         validator: (value) {
           if (value == null || value.isEmpty) {

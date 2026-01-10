@@ -29,7 +29,7 @@ class VerificationScreenConfirmationButtons extends ConsumerWidget {
             if (next is AsyncData) {
               // context.maybePop().then((_) {
               debugPrint("Success check");
-              context.pushReplacement(AppRoutes.homeScreen);
+              context.pushReplacement(AppRoutes.mainScreen);
               // context
               //     .pushRoute(VerificationRoute(inputedPhone: _phoneNumber!));
               // _showDialog();
@@ -47,9 +47,12 @@ class VerificationScreenConfirmationButtons extends ConsumerWidget {
           return CustomButtonWidget(
             text: 'confirm'.tr(),
             onTap: () {
+              // formKey.currentState.save()''
+              // print(otp);
               final isValid = formKey.currentState!.validate();
               debugPrint('FORM VALID: $isValid');
               if (!isValid) return;
+              formKey.currentState!.save();
               ref
                   .read(verifyOtpControllerProvider.notifier)
                   .verifyOtp(phone, otp);
