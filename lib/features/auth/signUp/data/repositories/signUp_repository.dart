@@ -1,3 +1,4 @@
+import 'package:invit/features/auth/signUp/domain/model/signup_response.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/dio_client.dart';
 import 'package:invit/src/logger/failure/exceptions/app_exception.dart';
@@ -16,7 +17,7 @@ class SignupRepository {
   final SignupDataSource _remoteDataSource;
 
   SignupRepository(this._remoteDataSource);
-  Future<ApiResponse> signUp(SignupParams params) async {
+  Future<ApiResponse<SignupResponseModel>> signUp(SignupParams params) async {
     final response = await _remoteDataSource.signUp(params);
   
     if (response.status == 200||response.status == 201) {

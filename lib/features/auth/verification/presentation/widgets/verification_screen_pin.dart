@@ -4,10 +4,10 @@ import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 import 'package:pinput/pinput.dart';
 
 class VerificationScreenPin extends StatelessWidget {
-  const VerificationScreenPin({super.key, required this.controller, this.onSaved});
+  const VerificationScreenPin(
+      {super.key, required this.controller, this.onSaved});
   final TextEditingController controller;
-    final void Function(String?)? onSaved;
-
+  final void Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +24,15 @@ class VerificationScreenPin extends StatelessWidget {
 
     return Directionality(
       textDirection: TextDirection.ltr,
-      
       child: Pinput(
-        
-        onSubmitted:onSaved ,
+        onSubmitted: onSaved,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter code';
           }
-          // if (value.length != 4) {
-          //   return 'The code must be 4 numbers';
-          // }
+          if (value.length != 6) {
+            return 'The code must be 6 numbers';
+          }
           return null;
         },
         readOnly: false,

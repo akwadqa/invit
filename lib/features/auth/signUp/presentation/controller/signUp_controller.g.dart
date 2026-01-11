@@ -13,7 +13,7 @@ part of 'signUp_controller.dart';
 const signUpControllerProvider = SignUpControllerProvider._();
 
 final class SignUpControllerProvider
-    extends $AsyncNotifierProvider<SignUpController, void> {
+    extends $AsyncNotifierProvider<SignUpController, SignupResponseModel?> {
   const SignUpControllerProvider._()
       : super(
           from: null,
@@ -33,20 +33,21 @@ final class SignUpControllerProvider
   SignUpController create() => SignUpController();
 }
 
-String _$signUpControllerHash() => r'd29a1e64b680214a0c64d07d37488d99c3b8e9a9';
+String _$signUpControllerHash() => r'1092b634e5760d7d6ae09a77e9b09e24c3f6935f';
 
-abstract class _$SignUpController extends $AsyncNotifier<void> {
-  FutureOr<void> build();
+abstract class _$SignUpController extends $AsyncNotifier<SignupResponseModel?> {
+  FutureOr<SignupResponseModel?> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    build();
-    final ref = this.ref as $Ref<AsyncValue<void>, void>;
+    final created = build();
+    final ref = this.ref
+        as $Ref<AsyncValue<SignupResponseModel?>, SignupResponseModel?>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<void>, void>,
-        AsyncValue<void>,
+        AnyNotifier<AsyncValue<SignupResponseModel?>, SignupResponseModel?>,
+        AsyncValue<SignupResponseModel?>,
         Object?,
         Object?>;
-    element.handleValue(ref, null);
+    element.handleValue(ref, created);
   }
 }

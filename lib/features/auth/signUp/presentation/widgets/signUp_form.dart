@@ -108,7 +108,7 @@ class _SignUpFormState extends State<SignUpForm> {
               LoginPageNumberField(
                 phoneController,
                 onChange: (phone) {
-                  phoneController.setText(phone?.number??"");
+                  // phoneController.setText(phone?.number??"");
                 },
               ),
             ],
@@ -128,8 +128,8 @@ class _SignUpFormState extends State<SignUpForm> {
               if (next is AsyncData) {
                 // context.maybePop().then((_) {
                 debugPrint("Success check");
-                              context
-                  .pushReplacement(AppRoutes.verificationScreen,extra: phoneController.text);
+                context.push(AppRoutes.verificationScreen,
+                    extra: phoneController.text);
                 // context
                 //     .pushRoute(VerificationRoute(inputedPhone: _phoneNumber!));
                 // _showDialog();
@@ -170,15 +170,16 @@ class _SignUpFormState extends State<SignUpForm> {
     if (!isValid) return;
 
     // if (_formKey.currentState?.validate() ?? false) {
-    //   _formKey.currentState?.save();
+    _formKey.currentState?.save();
     await ref.read(signUpControllerProvider.notifier).signUp(
           SignupParams(
-              email: emailController.text,
-              firstName: firstNameController.text,
-              lastName: lastNameController.text,
-              birthDate: eventDateController.text,
-              password: passwordController.text,
-              mobileNumber: phoneController.text,),
+            email: emailController.text,
+            firstName: firstNameController.text,
+            lastName: lastNameController.text,
+            birthDate: eventDateController.text,
+            password: passwordController.text,
+            mobileNumber: phoneController.text,
+          ),
         ); // }
   }
 }

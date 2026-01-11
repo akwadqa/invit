@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
@@ -21,7 +20,7 @@ class VerificationScreenHeading extends StatelessWidget {
               ),
         ),
         Text(
-          'we_sent_a_code_to'.tr(args: [phone.replaceRange(3, 9, "*******")]),
+          '${'we_sent_a_code_to'.tr()} ${phone.replaceRange(3, null, '********')}',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
               // color: AppColors.primary,
