@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
+import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class HomeScreenAppBar extends StatelessWidget {
   const HomeScreenAppBar({super.key});
@@ -9,13 +10,13 @@ class HomeScreenAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsGeometry.directional(end: 22, top: 60),
+      padding: EdgeInsetsGeometry.directional(end: 22,start: 22, top: 60),
       child: Row(
         children: [
           Text(
             'welcome'.tr(),
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: AppColors.primary, fontWeight: FontWeight.w600),
+            style:
+                AppTextStyle.rubikSemiBold16.copyWith(color: AppColors.primary),
           ),
           Spacer(),
           Container(

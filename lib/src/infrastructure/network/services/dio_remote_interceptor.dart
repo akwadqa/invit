@@ -18,6 +18,8 @@ class RemoteInterceptor extends Interceptor {
     final token = ref.read(userDataProvider);
     final language = ref.read(currentLanguageProvider);
 
+      options.headers['Authorization'] = "token fa80de0383ad9e9:dfd47e004b76c18";
+
     if (token != null) {
       options.headers['Authorization'] = "token $token";
     }

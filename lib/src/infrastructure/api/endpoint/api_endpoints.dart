@@ -1,7 +1,7 @@
 class ApiEndPoints {
   final domain="invite.api.";
   //? --- Home ---
-  static const String homeServices = 'api/services/';
+  static const String homeServices = 'invite.api.api.get_home_page_data';
   //? --- signIn ---
   static const String signIn = 'invite.api.auth.send_otp';
   static const String signUp = 'invite.api.auth.register';

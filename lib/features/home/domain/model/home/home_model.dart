@@ -1,0 +1,21 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:invit/features/home/domain/model/banners/banner_model.dart';
+import 'package:invit/features/home/domain/model/events/event_model.dart';
+import 'package:invit/features/home/domain/model/events/featured_event_model.dart';
+
+part 'home_model.freezed.dart';
+part 'home_model.g.dart';
+
+@freezed
+abstract class HomeModel with _$HomeModel {
+  factory HomeModel({
+    required List<BannerModel> banners,
+    required List<EventModel> events,
+    @JsonKey(name: 'featured_events')
+    required List<FeaturedEventModel> featuredEvents,
+    @JsonKey(name: 'occasion_types') required List<String> occasionTypes,
+  }) = _HomeModel;
+
+  factory HomeModel.fromJson(Map<String, dynamic> json) =>
+      _$HomeModelFromJson(json);
+}

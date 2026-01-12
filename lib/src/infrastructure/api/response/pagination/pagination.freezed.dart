@@ -18,7 +18,7 @@ mixin _$Pagination {
   int get totalItems;
   @JsonKey(name: 'total_pages')
   int get totalPages;
-  @JsonKey(name: 'page')
+  @JsonKey(name: 'current_page')
   int get currentPage;
 
   /// Create a copy of Pagination
@@ -64,7 +64,7 @@ abstract mixin class $PaginationCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'total_items') int totalItems,
       @JsonKey(name: 'total_pages') int totalPages,
-      @JsonKey(name: 'page') int currentPage});
+      @JsonKey(name: 'current_page') int currentPage});
 }
 
 /// @nodoc
@@ -196,7 +196,7 @@ extension PaginationPatterns on Pagination {
     TResult Function(
             @JsonKey(name: 'total_items') int totalItems,
             @JsonKey(name: 'total_pages') int totalPages,
-            @JsonKey(name: 'page') int currentPage)?
+            @JsonKey(name: 'current_page') int currentPage)?
         $default, {
     required TResult orElse(),
   }) {
@@ -227,7 +227,7 @@ extension PaginationPatterns on Pagination {
     TResult Function(
             @JsonKey(name: 'total_items') int totalItems,
             @JsonKey(name: 'total_pages') int totalPages,
-            @JsonKey(name: 'page') int currentPage)
+            @JsonKey(name: 'current_page') int currentPage)
         $default,
   ) {
     final _that = this;
@@ -256,7 +256,7 @@ extension PaginationPatterns on Pagination {
     TResult? Function(
             @JsonKey(name: 'total_items') int totalItems,
             @JsonKey(name: 'total_pages') int totalPages,
-            @JsonKey(name: 'page') int currentPage)?
+            @JsonKey(name: 'current_page') int currentPage)?
         $default,
   ) {
     final _that = this;
@@ -275,7 +275,7 @@ class _Pagination implements Pagination {
   const _Pagination(
       {@JsonKey(name: 'total_items') required this.totalItems,
       @JsonKey(name: 'total_pages') required this.totalPages,
-      @JsonKey(name: 'page') required this.currentPage});
+      @JsonKey(name: 'current_page') required this.currentPage});
   factory _Pagination.fromJson(Map<String, dynamic> json) =>
       _$PaginationFromJson(json);
 
@@ -286,7 +286,7 @@ class _Pagination implements Pagination {
   @JsonKey(name: 'total_pages')
   final int totalPages;
   @override
-  @JsonKey(name: 'page')
+  @JsonKey(name: 'current_page')
   final int currentPage;
 
   /// Create a copy of Pagination
@@ -339,7 +339,7 @@ abstract mixin class _$PaginationCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'total_items') int totalItems,
       @JsonKey(name: 'total_pages') int totalPages,
-      @JsonKey(name: 'page') int currentPage});
+      @JsonKey(name: 'current_page') int currentPage});
 }
 
 /// @nodoc

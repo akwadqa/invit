@@ -102,6 +102,10 @@ class $AssetsImagesGen {
   SvgGenImage get emptyData =>
       const SvgGenImage('assets/images/empty_data.svg');
 
+  /// File path: assets/images/error_data.png
+  AssetGenImage get errorData =>
+      const AssetGenImage('assets/images/error_data.png');
+
   /// File path: assets/images/im_error_screen.png
   AssetGenImage get imErrorScreen =>
       const AssetGenImage('assets/images/im_error_screen.png');
@@ -123,6 +127,7 @@ class $AssetsImagesGen {
         allEventImage,
         bookImage,
         emptyData,
+        errorData,
         imErrorScreen,
         inviteTypeImage,
         qatarCountry,

@@ -5,7 +5,8 @@ import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import '../../../gen/assets.gen.dart';
 
 class AppErrorWidget extends StatelessWidget {
-  const AppErrorWidget({super.key});
+ final  String? errorMsg;
+  const AppErrorWidget({super.key, this.errorMsg});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +14,10 @@ class AppErrorWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Assets.images.imErrorScreen.image(),
-          20.verticalSpace,
+          Assets.images.errorData.image(),
+          30.verticalSpace,
           Text(
-            context.tr("Unkown error occured"),
+            context.tr(errorMsg?? "Unkown error occured"),
             style: Theme.of(context).textTheme.displaySmall,
           ),
         ],

@@ -22,8 +22,11 @@ abstract class AppColors {
     },
   );
   static const Color gray = Color(0xFFAAAAAA);
+  static const Color cardWhite = Color(0xFFF5F5F5);
+
   static const Color rose = Color(0xFFF8D5CC);
   static const Color darkRed = Color(0xFFBC0000);
+  static const Color textDart = Color(0xFF050E13);
   static const Color black = Color(0xFF000000);
   static const Color black900 = Color(0xFF484848);
   static const Color lightGray = Color(0xFFE5E5E5);

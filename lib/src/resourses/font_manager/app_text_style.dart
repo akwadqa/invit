@@ -34,6 +34,14 @@ class AppTextStyle {
     fontWeight: FontWeight.w500,
     fontSize: 14,
   );
+  static TextStyle rubikMedium12 = GoogleFonts.rubik(
+    fontWeight: FontWeight.w500,
+    fontSize: 12,
+  );
+  static TextStyle rubikMedium10 = GoogleFonts.rubik(
+    fontWeight: FontWeight.w500,
+    fontSize: 10,
+  );
 
   //? Rubik regular :
   static TextStyle rubikRegular25 = GoogleFonts.rubik(
@@ -69,6 +77,10 @@ class AppTextStyle {
     fontWeight: FontWeight.w400,
     fontSize: 12,
   );
+  static TextStyle rubikRegular10 = GoogleFonts.rubik(
+    fontWeight: FontWeight.w400,
+    fontSize: 10,
+  );
 
   //************************* Poppins ////////////// */
   static TextStyle poppinsMedium16 = GoogleFonts.poppins(
@@ -78,7 +90,7 @@ class AppTextStyle {
 
   //************************ Nunito ///////////////// */
 
-  //? Semi bold : 
+  //? Semi bold :
   static TextStyle nunitoSemibold16 = GoogleFonts.nunitoSans(
     fontWeight: FontWeight.w600,
     fontSize: 16,
@@ -89,13 +101,11 @@ class AppTextStyle {
     fontSize: 14,
   );
 
-  //? Bold : 
+  //? Bold :
   static TextStyle nunitoBold16 = GoogleFonts.nunitoSans(
     fontWeight: FontWeight.w700,
     fontSize: 16,
   );
-
-
 
   //********************** INTER ////////////// */
 

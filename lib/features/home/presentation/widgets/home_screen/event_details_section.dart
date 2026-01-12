@@ -1,13 +1,13 @@
-
 import 'package:flutter/material.dart';
-// import 'package:invit/features/home/presentation/widgets/home_screen/event_location.dart';
-// import 'package:invit/features/home/presentation/widgets/home_screen/event_owner_name.dart';
-// import 'package:invit/features/home/presentation/widgets/home_screen/event_title.dart';
+import 'package:invit/features/home/domain/model/events/event_model.dart';
+import 'package:invit/features/home/presentation/widgets/home_screen/event_location.dart';
+import 'package:invit/features/home/presentation/widgets/home_screen/event_owner_name.dart';
+import 'package:invit/features/home/presentation/widgets/home_screen/event_title.dart';
 
 class EventDetailsSection extends StatelessWidget {
-  const EventDetailsSection({
-    super.key,
-  });
+  final EventModel? event;
+
+  const EventDetailsSection({super.key, this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class EventDetailsSection extends StatelessWidget {
       child: Column(
         spacing: 13,
         children: [
-          // EventTitle(),
-          // EventOwnerName(),
-          // EventLocation(),
+          EventTitle(title:event?.title, type: event?.type,),
+          EventOwnerName(owner: event?.role,),
+          EventLocation(location: event?.mapLink),
         ],
       ),
     );
