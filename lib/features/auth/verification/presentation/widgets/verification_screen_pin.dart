@@ -5,9 +5,9 @@ import 'package:pinput/pinput.dart';
 
 class VerificationScreenPin extends StatelessWidget {
   const VerificationScreenPin(
-      {super.key, required this.controller, this.onSaved});
+      {super.key, required this.controller,});
   final TextEditingController controller;
-  final void Function(String?)? onSaved;
+  // final void Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +25,12 @@ class VerificationScreenPin extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Pinput(
-        onSubmitted: onSaved,
+        // onSubmitted: onSaved,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter code';
           }
-          if (value.length != 6) {
+          if (value.length < 6) {
             return 'The code must be 6 numbers';
           }
           return null;

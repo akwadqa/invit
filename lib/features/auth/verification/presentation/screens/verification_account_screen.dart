@@ -57,15 +57,15 @@ class _VerificationScreenContentState
           VerificationScreenHeading(phone: widget.phone),
           VerificationScreenPin(
             controller: controller,
-            onSaved: (v) {
-              controller.setText(v ?? "99");
-              setState(() {});
-            },
+            // onSaved: (v) {
+            //   controller.setText(v ?? "99");
+            //   setState(() {});
+            // },
           ),
           VerificationScreenTimer(),
           VerificationScreenConfirmationButtons(
             phone: widget.phone,
-            otp: controller.text,
+            otp: controller,
             formKey: key,
           )
         ],

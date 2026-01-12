@@ -22,68 +22,71 @@ class SignInForm extends ConsumerStatefulWidget {
 }
 
 class _SignInFormState extends ConsumerState<SignInForm> {
-  String? _phoneNumber;
+  // String? _phoneNumber;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final phoneNotifier=ref.watch(signInControllerProvider.notifier).phoneController;
+    ref.listen(signInControllerProvider, (prev, next) {
+      if (next is AsyncData && prev is AsyncLoading) {
+        // context.maybePop().then((_) {
+        debugPrint("Success check");
+
+        context.push(AppRoutes.verificationScreen, extra: phoneController.text);
+        // _showDialog();
+        // });
+      } else if (next is AsyncError) {
+        showErrorDialog(context, next.error.toString());
+      }
+    });
+
+    // final phoneNotifier =
+    //     ref.watch(signInControllerProvider.notifier).phoneController;
     return Form(
       key: _formKey,
       child: Column(
         spacing: 33,
         children: [
-          LoginPageNumberField(phoneController,
-          onChange: (phone) {
-            ref
-              .read(signInControllerProvider.notifier)
-              .changePhoneNumber(phone?.number??"");
-              setState(() {
-                
-              });
-          },
-          
+          LoginPageNumberField(
+            phoneController,
+            onChange: (phone) {
+              ref
+                  .read(signInControllerProvider.notifier)
+                  .checkPhoneFilled(phone!.number.isNotEmpty);
+              // ref
+              //     .read(signInControllerProvider.notifier)
+              //     .changePhoneNumber(phone?.number ?? "");
+              setState(() {});
+            },
           ),
           // PhoneNumberField(
           //   onSaved: (value) => _phoneNumber = value,
           // ),
           Consumer(builder: (context, ref, child) {
-             ref.listen(signInControllerProvider, (prev, next) {
-            if (next is AsyncData) {
-              // context.maybePop().then((_) {
-              debugPrint("Success check");
-
-              context
-                  .push(AppRoutes.verificationScreen,extra: phoneController.text);
-              // _showDialog();
-              // });
-            } else if (next is AsyncError) {
-              showErrorDialog(context, next.error.toString());
-            }
-          });
-
             final signInProvider = ref.watch(signInControllerProvider);
 
-             if (signInProvider is AsyncLoading) {
-            return AppLoader();
-            // const FadeCircleLoadingIndicator();
+            if (signInProvider is AsyncLoading) {
+              return AppLoader();
+              // const FadeCircleLoadingIndicator();
             }
             // signInProvider.isLoading
             //     ?
 
             // :
+            final isEmpty =
+                ref.watch(signInControllerProvider).value!.isPhoneFilled ??
+                    false;
             return CustomButtonWidget(
               text: 'login'.tr(),
-              onTap: () =>phoneNotifier.text.isEmpty??false?null: _submit(ref),
+              onTap: () => !isEmpty ? null : _submit(ref),
               isFiled: true,
               height: 50,
               width: double.infinity,
-              backgroundColor:phoneNotifier.text.isEmpty??false?AppColors.gray: AppColors.primary,
+              backgroundColor: !isEmpty ? AppColors.gray : AppColors.primary,
               radius: 10,
             );
             // return Container();
           }),
-        
         ],
       ),
     );
@@ -92,11 +95,18 @@ class _SignInFormState extends ConsumerState<SignInForm> {
   Future<void> _submit(WidgetRef ref) async {
     final isValid = _formKey.currentState!.validate();
     debugPrint('FORM VALID: $isValid');
-      if (!isValid) return;
+    if (!isValid) return;
 
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
-      await ref.read(signInControllerProvider.notifier).signIn(phoneController.text);
+      await ref
+          .read(signInControllerProvider.notifier)
+          .signIn(phoneController.text)
+          .then((_) {
+        ref.read(signInControllerProvider.notifier)
+          ..makeResendButtonVisible(false)
+          ..makeConfirmButtonVisible(true);
+      });
     }
   }
 }
@@ -131,6 +141,7 @@ Future<bool?> showCustomDialog({
     },
   );
 }
+
 Future<bool?> showErrorDialog(BuildContext context, String message) {
   return showCustomDialog(
     context: context,

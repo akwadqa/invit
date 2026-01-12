@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/auth/signIn/presentation/controller/sign_in_controller.dart';
 import 'package:invit/features/auth/signUp/presentation/widgets/signUp_form.dart';
 import 'package:invit/features/auth/verification/presentation/controller/verify_otp_controller.dart';
 import 'package:invit/src/application/router/app_routes.dart';
@@ -10,7 +11,7 @@ import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 
 class VerificationScreenConfirmationButtons extends ConsumerWidget {
-  final String otp;
+  final TextEditingController otp;
   final String phone;
   final GlobalKey<FormState> formKey;
   const VerificationScreenConfirmationButtons(
@@ -26,7 +27,7 @@ class VerificationScreenConfirmationButtons extends ConsumerWidget {
       children: [
         Consumer(builder: (context, ref, child) {
           ref.listen(verifyOtpControllerProvider, (prev, next) {
-            if (next is AsyncData) {
+            if (next is AsyncData && prev is AsyncLoading) {
               // context.maybePop().then((_) {
               debugPrint("Success check");
               context.pushReplacement(AppRoutes.mainScreen);
@@ -34,12 +35,21 @@ class VerificationScreenConfirmationButtons extends ConsumerWidget {
               //     .pushRoute(VerificationRoute(inputedPhone: _phoneNumber!));
               // _showDialog();
               // });
-            } else if (next is AsyncError) {
+            }
+            if (next is AsyncError && prev is AsyncLoading) {
               showErrorDialog(context, next.error.toString());
             }
           });
+          final isVisible =
+              ref.watch(signInControllerProvider).value!.isVerify ?? true;
+          if (!isVisible) {
+            return SizedBox(
+              height: 50,
+            );
+          }
 
           final signInProvider = ref.watch(verifyOtpControllerProvider);
+
           if (signInProvider is AsyncLoading) {
             return AppLoader();
             // const FadeCircleLoadingIndicator();
@@ -47,15 +57,17 @@ class VerificationScreenConfirmationButtons extends ConsumerWidget {
           return CustomButtonWidget(
             text: 'confirm'.tr(),
             onTap: () {
-              // formKey.currentState.save()''
+              FocusScope.of(context).unfocus();
+
+              // formKey.currentState!.save();
               // print(otp);
               final isValid = formKey.currentState!.validate();
               debugPrint('FORM VALID: $isValid');
               if (!isValid) return;
-              formKey.currentState!.save();
+              // formKey.currentState!.save();
               ref
                   .read(verifyOtpControllerProvider.notifier)
-                  .verifyOtp(phone, otp);
+                  .verifyOtp(phone, otp.text);
             },
             isFiled: true,
             height: 50,
@@ -64,16 +76,40 @@ class VerificationScreenConfirmationButtons extends ConsumerWidget {
             radius: 10,
           );
         }),
-        CustomButtonWidget(
-          text: 'resend_code'.tr(),
-          // color: AppColors.black,
-          onTap: () {},
-          isFiled: false,
-          height: 50,
-          width: double.infinity,
-          backgroundColor: AppColors.background,
-          radius: 10,
-        ),
+        Consumer(builder: (context, ref, _) {
+          //? This for make resend code anvisible when send otp success :
+          ref.listen(
+              verifyOtpControllerProvider.select(
+                  (val) => val.value?.signinResponseModel), (prev, next) {
+            if (next is AsyncData) {
+              ref.read(signInControllerProvider.notifier)
+                ..makeResendButtonVisible(false)
+                ..makeConfirmButtonVisible(true);
+            }
+          });
+
+          //? This for visibility of resend button :
+          final isVisible =
+              ref.watch(signInControllerProvider).value!.isResend ?? false;
+          if (!isVisible) return SizedBox();
+
+          final notifier = ref.watch(verifyOtpControllerProvider
+              .select((val) => val.value?.signinResponseModel));
+          if (notifier is AsyncLoading) {
+            return AppLoader();
+          }
+          return CustomButtonWidget(
+            text: 'resend_code'.tr(),
+            onTap: () {
+              ref.read(verifyOtpControllerProvider.notifier).resendCoe(phone);
+            },
+            isFiled: false,
+            height: 50,
+            width: double.infinity,
+            backgroundColor: AppColors.background,
+            radius: 10,
+          );
+        }),
       ],
     );
   }
