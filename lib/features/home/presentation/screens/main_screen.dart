@@ -5,7 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/home/presentation/screens/home_screen.dart';
 import 'package:invit/features/home/presentation/widgets/bottom_navigation_bar_view.dart';
+import 'package:invit/features/messages/presentation/screens/messages_screen.dart';
+import 'package:invit/features/notifications/presentation/screens/notifications_screen.dart';
+import 'package:invit/features/settings/presentation/screens/settings_screen.dart';
 import 'package:invit/gen/assets.gen.dart';
+
+import '../controller/home_controller.dart';
 
 //
 class MainScreen extends ConsumerStatefulWidget {
@@ -23,33 +28,18 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   //     _selectedIndex = index;
   //   });
   // }
-
-  // DateTime? _lastBackPressed;
-  // Future<bool> _onWillPop() async {
-  //   final now = DateTime.now();
-  //   if (_lastBackPressed == null ||
-  //       now.difference(_lastBackPressed!) >= const Duration(seconds: 2)) {
-  //     _lastBackPressed = now;
-  //     Fluttertoast.showToast(
-  //       msg: 'click_again_to_exit'.tr(),
-  //       toastLength: Toast.LENGTH_SHORT,
-  //       gravity: ToastGravity.BOTTOM,
-  //       backgroundColor: Colors.black87,
-  //       textColor: Colors.white,
-  //       fontSize: 16.0,
-  //     );
-  //     return false;
-  //   }
-  //   return true;
-  // }
+  static final List<Widget> _pages = [
+    HomeScreen(),
+    Container(),
+    // NotificationsScreen(),
+    MessagesScreen(),
+    SettingsScreen(),
+  ];
+  
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> pages = [HomeScreen()];
-    // final index = ref.watch(bottomNavIndexProvider);
-    // final controller = ref.watch(
-    //   homeControllerProvider.select((val) => val.value!.utilsResponse),
-    // );
+        final selectedIndex = ref.watch(bottomNavIndexProvider);
 
     return Scaffold(
       extendBody: true,
@@ -63,7 +53,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         ),
       ),
       resizeToAvoidBottomInset: false,
-      body: pages[0],
+      body: _pages[selectedIndex],
       bottomNavigationBar: BottomNavigationBarView(),
     );
   }

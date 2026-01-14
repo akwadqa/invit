@@ -3,6 +3,8 @@ import 'package:invit/features/home/domain/model/banners/banner_model.dart';
 import 'package:invit/features/home/domain/model/events/event_model.dart';
 import 'package:invit/features/home/domain/model/events/featured_event_model.dart';
 
+import '../ocation type/ocation_type_model.dart';
+
 part 'home_model.freezed.dart';
 part 'home_model.g.dart';
 
@@ -13,7 +15,7 @@ abstract class HomeModel with _$HomeModel {
     required List<EventModel> events,
     @JsonKey(name: 'featured_events')
     required List<FeaturedEventModel> featuredEvents,
-    @JsonKey(name: 'occasion_types') required List<String> occasionTypes,
+    @JsonKey(name: 'occasion_types') required List<OcationTypeModel> occasionTypes,
   }) = _HomeModel;
 
   factory HomeModel.fromJson(Map<String, dynamic> json) =>

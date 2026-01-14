@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:invit/features/home/data/repositories/home_repository.dart';
 import 'package:invit/features/home/domain/model/home/home_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -24,3 +25,4 @@ class HomeController extends _$HomeController {
     return result.value!;
   }
 }
+final bottomNavIndexProvider = StateProvider<int>((ref) => 0);

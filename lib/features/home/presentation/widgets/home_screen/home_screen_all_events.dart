@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invit/features/featured_events/presentation/screens/all_events_screen.dart';
 import 'package:invit/features/home/presentation/controller/home_controller.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen/event_item_widget.dart';
+import 'package:invit/features/invitation_type/presentation/screens/invitation_types_screen.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
@@ -20,13 +22,23 @@ class HomeScreenAllEvents extends ConsumerWidget {
       spacing: 15,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'all_events'.tr(),
-          style: AppTextStyle.rubikSemiBold18.copyWith(
-            color: AppColors.primary,
-          ),
-        ).onlyPadding(start: 20),
-
+           Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('all_events'.tr(),
+                style: AppTextStyle.rubikSemiBold18
+                    .copyWith(color: AppColors.primary)),
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => AllEventsScreen(),
+              )),
+              child: Text('view_all'.tr(),
+                  style: AppTextStyle.rubikMedium16
+                      .copyWith(color: AppColors.secondPrimary)),
+            ),
+          ],
+        ).symmetricPadding(horizontal: 20),
+   
         SizedBox(
           height: 220,
           child: homeAsync.when(

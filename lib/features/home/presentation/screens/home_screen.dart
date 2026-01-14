@@ -37,12 +37,13 @@ class _HomeScreenContent extends ConsumerWidget {
       data: (data) {
         return ListView(
           padding: EdgeInsetsGeometry.zero,
+          
           children: [
             HomeScreenAppBar(),
             20.verticalSpace,
             HomeScreenBookingList(),
             20.verticalSpace,
-            HomeScreenInvitationType(),
+            HomeScreenInvitationType(ocationTypeModel: data.occasionTypes),
             20.verticalSpace,
             HomeScreenAllEvents(),
             140.verticalSpace

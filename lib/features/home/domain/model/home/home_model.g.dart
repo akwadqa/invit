@@ -17,7 +17,7 @@ _HomeModel _$HomeModelFromJson(Map<String, dynamic> json) => _HomeModel(
           .map((e) => FeaturedEventModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       occasionTypes: (json['occasion_types'] as List<dynamic>)
-          .map((e) => e as String)
+          .map((e) => OcationTypeModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

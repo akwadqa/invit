@@ -14,7 +14,7 @@ class AppErrorWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Assets.images.errorData.image(),
+          Assets.images.emptyMessages.image(),
           30.verticalSpace,
           Text(
             context.tr(errorMsg?? "Unkown error occured"),

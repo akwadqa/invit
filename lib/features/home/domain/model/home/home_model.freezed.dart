@@ -19,7 +19,7 @@ mixin _$HomeModel {
   @JsonKey(name: 'featured_events')
   List<FeaturedEventModel> get featuredEvents;
   @JsonKey(name: 'occasion_types')
-  List<String> get occasionTypes;
+  List<OcationTypeModel> get occasionTypes;
 
   /// Create a copy of HomeModel
   /// with the given fields replaced by the non-null parameter values.
@@ -68,7 +68,7 @@ abstract mixin class $HomeModelCopyWith<$Res> {
       {List<BannerModel> banners,
       List<EventModel> events,
       @JsonKey(name: 'featured_events') List<FeaturedEventModel> featuredEvents,
-      @JsonKey(name: 'occasion_types') List<String> occasionTypes});
+      @JsonKey(name: 'occasion_types') List<OcationTypeModel> occasionTypes});
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class _$HomeModelCopyWithImpl<$Res> implements $HomeModelCopyWith<$Res> {
       occasionTypes: null == occasionTypes
           ? _self.occasionTypes
           : occasionTypes // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<OcationTypeModel>,
     ));
   }
 }
@@ -207,7 +207,8 @@ extension HomeModelPatterns on HomeModel {
             List<EventModel> events,
             @JsonKey(name: 'featured_events')
             List<FeaturedEventModel> featuredEvents,
-            @JsonKey(name: 'occasion_types') List<String> occasionTypes)?
+            @JsonKey(name: 'occasion_types')
+            List<OcationTypeModel> occasionTypes)?
         $default, {
     required TResult orElse(),
   }) {
@@ -241,7 +242,8 @@ extension HomeModelPatterns on HomeModel {
             List<EventModel> events,
             @JsonKey(name: 'featured_events')
             List<FeaturedEventModel> featuredEvents,
-            @JsonKey(name: 'occasion_types') List<String> occasionTypes)
+            @JsonKey(name: 'occasion_types')
+            List<OcationTypeModel> occasionTypes)
         $default,
   ) {
     final _that = this;
@@ -273,7 +275,8 @@ extension HomeModelPatterns on HomeModel {
             List<EventModel> events,
             @JsonKey(name: 'featured_events')
             List<FeaturedEventModel> featuredEvents,
-            @JsonKey(name: 'occasion_types') List<String> occasionTypes)?
+            @JsonKey(name: 'occasion_types')
+            List<OcationTypeModel> occasionTypes)?
         $default,
   ) {
     final _that = this;
@@ -296,7 +299,7 @@ class _HomeModel implements HomeModel {
       @JsonKey(name: 'featured_events')
       required final List<FeaturedEventModel> featuredEvents,
       @JsonKey(name: 'occasion_types')
-      required final List<String> occasionTypes})
+      required final List<OcationTypeModel> occasionTypes})
       : _banners = banners,
         _events = events,
         _featuredEvents = featuredEvents,
@@ -329,10 +332,10 @@ class _HomeModel implements HomeModel {
     return EqualUnmodifiableListView(_featuredEvents);
   }
 
-  final List<String> _occasionTypes;
+  final List<OcationTypeModel> _occasionTypes;
   @override
   @JsonKey(name: 'occasion_types')
-  List<String> get occasionTypes {
+  List<OcationTypeModel> get occasionTypes {
     if (_occasionTypes is EqualUnmodifiableListView) return _occasionTypes;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_occasionTypes);
@@ -393,7 +396,7 @@ abstract mixin class _$HomeModelCopyWith<$Res>
       {List<BannerModel> banners,
       List<EventModel> events,
       @JsonKey(name: 'featured_events') List<FeaturedEventModel> featuredEvents,
-      @JsonKey(name: 'occasion_types') List<String> occasionTypes});
+      @JsonKey(name: 'occasion_types') List<OcationTypeModel> occasionTypes});
 }
 
 /// @nodoc
@@ -429,7 +432,7 @@ class __$HomeModelCopyWithImpl<$Res> implements _$HomeModelCopyWith<$Res> {
       occasionTypes: null == occasionTypes
           ? _self._occasionTypes
           : occasionTypes // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<OcationTypeModel>,
     ));
   }
 }

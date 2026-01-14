@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,6 +34,8 @@ class _AppState extends ConsumerState<App> {
         // routerDelegate: appRouter.delegate(
         //     deepLinkBuilder: (deepLink) => DeepLink.defaultPath),
         routerConfig: appRouter.goRouter,
+        builder: BotToastInit(),
+        
         theme: ref.watch(appThemeProvider),
         onGenerateTitle: (context) => context.tr('appTitle'),
         localizationsDelegates: context.localizationDelegates,

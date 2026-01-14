@@ -8,5 +8,8 @@ abstract class AppRoutes {
   static const String splashScreen = '/splash';
   static const String homeScreen = '/home';
   static const String mainScreen = '/main';
+  static const String notificationScreen = '/notification';
+  static const String invitationsSecreen = '/invitationsSecreen';
+  static const String allEventsSecreen = '/allEventsSecreen';
   static const String serviceDetails = '/service_details';
 }

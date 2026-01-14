@@ -1,11 +1,52 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
   static const Color primary = Color(0xFF3B41C5);
   static const Color secondPrimary = Color(0xFFA981BB);
+  static const Color primaryOpacity = Color(0xFFA0A3E3);
   static const Color background = Color(0xFFF6F8FA);
   static const Color fieldBackground = Color(0xFFEFF0F6);
   static const Color dividerColor = Color(0xFFEDF1F3);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color cardWhite = Color(0xFFF5F5F5);
+  static const Color redOpacity = Color(0xFFFFF6E5);
+  static const Color orangeOpacity = Color(0xFFFFF6E5);
+  static const Color greenOpacity = Color(0xFFE9F7EF);
+  static const Color shadow = Color(0x3F3B41C5);
+  static const Color dark = Color(0xFF201C11);
+  
+ // Invitation Colors – Wedding
+  static const Color weddingBg = Color(0xFFFFDCDC);
+  static const Color weddingTop = Color(0xFFC63A3A);
+  static const Color weddingIcon = Color(0x33F8A5A5);
+
+  // Graduation
+  static const Color graduationBg = Color(0xFFD7E5FF);
+  static const Color graduationTop = Color(0xFF436FBF);
+  static const Color graduationIcon = Color(0x3361779E);
+
+  // Dinner Party
+  static const Color dinnerBg = Color(0xFFFFF2EB);
+  static const Color dinnerTop = Color(0xFFE8AA49);
+  static const Color dinnerIcon = Color(0x33E8AB49);
+
+  // Events
+  static const Color eventsBg = Color(0xFFE8F5E9);
+  static const Color eventsTop = Color(0xFF7BAB8E);
+  static const Color eventsIcon = Color(0x337BAB8E);
+
+  // Match
+  static const Color matchBg = Color(0xFFDAD7FA);
+  static const Color matchTop = Color(0xFF7F76E0);
+  static const Color matchIcon = Color(0x338077E0);
+
+  // Other
+  static const Color otherBg = Color(0xFFF8E8EE);
+  static const Color otherTop = Color(0xFFF292B6);
+  static const Color otherIcon = Color(0x33F293B7);
+
   static const MaterialColor primarySwatch = MaterialColor(
     0xFFFD4057, // Base color
     <int, Color>{
@@ -22,7 +63,6 @@ abstract class AppColors {
     },
   );
   static const Color gray = Color(0xFFAAAAAA);
-  static const Color cardWhite = Color(0xFFF5F5F5);
 
   static const Color rose = Color(0xFFF8D5CC);
   static const Color darkRed = Color(0xFFBC0000);
@@ -47,4 +87,21 @@ abstract class AppColors {
   static const Color lightPeach = Color(0xFFFFF5F1);
   static const Color dimGray = Color(0xFF555555);
   static const Color grayishCharcoal = Color(0xFF595959);
+}
+
+class AvatarColors {
+  static final List<Color> _colors = [
+    const Color(0xFF3F51B5), // Blue
+    const Color(0xFF6D4C41), // Brown
+    const Color(0xFF7CB342), // Green
+    const Color(0xFF8E24AA), // Purple
+    const Color(0xFF039BE5), // Light Blue
+    const Color(0xFF5D4037), // Dark Brown
+    const Color(0xFF455A64), // Blue Grey
+  ];
+
+  static Color random() {
+    final random = Random();
+    return _colors[random.nextInt(_colors.length)];
+  }
 }

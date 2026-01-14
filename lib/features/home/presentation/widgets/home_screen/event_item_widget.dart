@@ -9,19 +9,25 @@ class EventItemWidget extends StatelessWidget {
 
   const EventItemWidget({super.key, this.event});
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 210,
-      height: 206,
+      // height: 206,
+      
       decoration: BoxDecoration(
-          color: AppColors.cardWhite, borderRadius: BorderRadius.circular(5)),
+          boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 6),
+        ],
+          color: AppColors.cardWhite, borderRadius: BorderRadius.circular(16
+          
+          )),
       child: Column(
         spacing: 12,
-        children: [          EventImage(event: event),
+        children: [
+          EventImage(event: event),
           EventDetailsSection(event: event),
-],
+        ],
       ),
     );
   }

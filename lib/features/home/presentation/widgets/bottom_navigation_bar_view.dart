@@ -9,12 +9,17 @@ import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 
+import '../controller/home_controller.dart';
+
 class BottomNavigationBarView extends ConsumerWidget {
-  const BottomNavigationBarView({super.key});
+
+  const BottomNavigationBarView({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final index = 0;
+    final selectedIndex = ref.watch(bottomNavIndexProvider);
 
     final iconList = [
       Assets.icons.homeIc.svg(),
@@ -26,8 +31,8 @@ class BottomNavigationBarView extends ConsumerWidget {
     final labelList = [
       context.tr('home'),
       context.tr('scan'),
-      context.tr('profile'),
-      context.tr('notification'),
+      context.tr('messages'),
+      context.tr('settings'),
     ];
 
     return Directionality(
@@ -50,7 +55,7 @@ class BottomNavigationBarView extends ConsumerWidget {
                   // width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: index == i ? AppColors.primary : Colors.transparent,
+                    color: selectedIndex == i ? AppColors.primary : Colors.transparent,
                   ),
                   width: 27,
                   height: 4,
@@ -73,8 +78,9 @@ class BottomNavigationBarView extends ConsumerWidget {
           gapLocation: GapLocation.center,
           splashSpeedInMilliseconds: 1,
           notchSmoothness: NotchSmoothness.smoothEdge,
-          activeIndex: index,
-          onTap: (i) {},
+          activeIndex: selectedIndex,
+              onTap: (i) =>
+              ref.read(bottomNavIndexProvider.notifier).state = i,
           backgroundColor: Colors.white,
           shadow: Shadow(
             blurRadius: 24,

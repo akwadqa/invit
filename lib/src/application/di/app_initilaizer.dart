@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:invit/features/auth/application/auth_service.dart';
 import 'package:invit/src/application/di/riverpod_observer.dart';
+import 'package:invit/src/core/shared_widgets/main_error_widget.dart';
 import 'package:invit/src/infrastructure/storage/local_storage_service.dart';
 
 import '../../infrastructure/api/endpoint/services_urls.dart';
@@ -36,7 +37,9 @@ abstract class AppInitializer {
     ServicesUrls.init();
     
     // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return ErrorPage(details: details);
+  };
     //-- Localization init  --
     await EasyLocalization.ensureInitialized();
   }

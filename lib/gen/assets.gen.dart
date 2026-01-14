@@ -24,8 +24,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/app_icon.jpg
   AssetGenImage get appIcon => const AssetGenImage('assets/icons/app_icon.jpg');
 
+  /// File path: assets/icons/chat_ic.svg
+  SvgGenImage get chatIc => const SvgGenImage('assets/icons/chat_ic.svg');
+
   /// File path: assets/icons/date_ic.svg
   SvgGenImage get dateIc => const SvgGenImage('assets/icons/date_ic.svg');
+
+  /// File path: assets/icons/delete_ic.svg
+  SvgGenImage get deleteIc => const SvgGenImage('assets/icons/delete_ic.svg');
+
+  /// File path: assets/icons/edit_profile_ic.svg
+  SvgGenImage get editProfileIc =>
+      const SvgGenImage('assets/icons/edit_profile_ic.svg');
 
   /// File path: assets/icons/google_ic.svg
   SvgGenImage get googleIc => const SvgGenImage('assets/icons/google_ic.svg');
@@ -33,9 +43,19 @@ class $AssetsIconsGen {
   /// File path: assets/icons/home_ic.svg
   SvgGenImage get homeIc => const SvgGenImage('assets/icons/home_ic.svg');
 
+  /// File path: assets/icons/icon_corner.svg
+  SvgGenImage get iconCorner =>
+      const SvgGenImage('assets/icons/icon_corner.svg');
+
+  /// File path: assets/icons/lang_ic.svg
+  SvgGenImage get langIc => const SvgGenImage('assets/icons/lang_ic.svg');
+
   /// File path: assets/icons/location_ic.svg
   SvgGenImage get locationIc =>
       const SvgGenImage('assets/icons/location_ic.svg');
+
+  /// File path: assets/icons/logout_ic.svg
+  SvgGenImage get logoutIc => const SvgGenImage('assets/icons/logout_ic.svg');
 
   /// File path: assets/icons/messages_ic.svg
   SvgGenImage get messagesIc =>
@@ -48,6 +68,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/password_ic.svg
   SvgGenImage get passwordIc =>
       const SvgGenImage('assets/icons/password_ic.svg');
+
+  /// File path: assets/icons/privacy_ic.svg
+  SvgGenImage get privacyIc => const SvgGenImage('assets/icons/privacy_ic.svg');
 
   /// File path: assets/icons/qatar_country.svg
   SvgGenImage get qatarCountry =>
@@ -72,13 +95,20 @@ class $AssetsIconsGen {
   List<dynamic> get values => [
         addEventIc,
         appIcon,
+        chatIc,
         dateIc,
+        deleteIc,
+        editProfileIc,
         googleIc,
         homeIc,
+        iconCorner,
+        langIc,
         locationIc,
+        logoutIc,
         messagesIc,
         notificationIc,
         passwordIc,
+        privacyIc,
         qatarCountry,
         qatarFlag,
         saveEventIc,
@@ -94,6 +124,10 @@ class $AssetsImagesGen {
   AssetGenImage get allEventImage =>
       const AssetGenImage('assets/images/all_event_image.jpg');
 
+  /// File path: assets/images/background_event_im.png
+  AssetGenImage get backgroundEventIm =>
+      const AssetGenImage('assets/images/background_event_im.png');
+
   /// File path: assets/images/book_image.jpg
   AssetGenImage get bookImage =>
       const AssetGenImage('assets/images/book_image.jpg');
@@ -102,9 +136,9 @@ class $AssetsImagesGen {
   SvgGenImage get emptyData =>
       const SvgGenImage('assets/images/empty_data.svg');
 
-  /// File path: assets/images/error_data.png
-  AssetGenImage get errorData =>
-      const AssetGenImage('assets/images/error_data.png');
+  /// File path: assets/images/empty_messages.png
+  AssetGenImage get emptyMessages =>
+      const AssetGenImage('assets/images/empty_messages.png');
 
   /// File path: assets/images/im_error_screen.png
   AssetGenImage get imErrorScreen =>
@@ -125,9 +159,10 @@ class $AssetsImagesGen {
   /// List of all assets
   List<dynamic> get values => [
         allEventImage,
+        backgroundEventIm,
         bookImage,
         emptyData,
-        errorData,
+        emptyMessages,
         imErrorScreen,
         inviteTypeImage,
         qatarCountry,

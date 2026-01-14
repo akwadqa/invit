@@ -3,8 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/signUp/presentation/screens/signup_screen.dart';
 import 'package:invit/features/auth/verification/presentation/screens/verification_account_screen.dart';
+import 'package:invit/features/featured_events/presentation/screens/all_events_screen.dart';
 import 'package:invit/features/home/presentation/screens/home_screen.dart';
 import 'package:invit/features/home/presentation/screens/main_screen.dart';
+import 'package:invit/features/invitation_type/presentation/screens/invitation_types_screen.dart';
+import 'package:invit/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:invit/features/onBoarding/on_boarding.dart';
 import 'package:invit/features/auth/signIn/presentation/screens/sign_in_screen.dart';
 import 'package:invit/features/onBoarding/splash_screen.dart';
@@ -117,39 +120,60 @@ class AppRouter {
           },
         ),
         GoRoute(
-          path: AppRoutes.mainScreen,
-          name: AppRoutes.mainScreen,
-          parentNavigatorKey: rootKey,
-          builder: (BuildContext context, GoRouterState state) {
-            return MainScreen();
-          },
-        ),
-
-        // GoRoute(
-        //   path: AppRoutes.homeScreen,
-        //   parentNavigatorKey: rootKey,
-        //   builder: (BuildContext context, GoRouterState state) {
-        //     return OnBoarding();
-        //   },
-        // ),
-        // GoRoute(
-        //   path: AppRoutes.serviceDetails,
-        //   name: AppRoutes.serviceDetails,
-        //   // parentNavigatorKey: rootKey,
-
-        //   builder: (BuildContext context, GoRouterState state) {
-        //     final ServicesEntity? services=state.extra as ServicesEntity?;
-        //     // final serviceName = state.pathParameters['name'] ?? '';
-        //     // final serviceImage = state.pathParameters['image'] ?? '';
-        //     // final int serviceId = state.pathParameters['serviceId'] as int;
-        //     // final serviceDescription =
-        //     //     state.pathParameters['description'] ?? '';
-
-        //     return ServiceDetailsPage(
-        //       services: services,
-        //     );
-        //   },
-        // ),
+            path: AppRoutes.mainScreen,
+            name: AppRoutes.mainScreen,
+            parentNavigatorKey: rootKey,
+            builder: (BuildContext context, GoRouterState state) {
+              return MainScreen();
+            },
+            routes: [
+              GoRoute(
+                path: AppRoutes.notificationScreen,
+                name: AppRoutes.notificationScreen,
+                parentNavigatorKey: rootKey,
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  return CustomTransitionPage(
+                    key: state.pageKey,
+                    child: NotificationsScreen(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(opacity: animation, child: child);
+                    },
+                  );
+                },
+              ),
+            ]),
+        GoRoute(
+            path: AppRoutes.invitationsSecreen,
+            name: AppRoutes.invitationsSecreen,
+            parentNavigatorKey: rootKey,
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: InvitationTypesScreen(
+                  fromCreateEvent: state.extra as bool
+                ),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+              );
+            }),
+        GoRoute(
+            path: AppRoutes.allEventsSecreen,
+            name: AppRoutes.allEventsSecreen,
+            parentNavigatorKey: rootKey,
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: AllEventsScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+              );
+            }),
+     
       ],
     );
   }
