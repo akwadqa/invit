@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
+import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 import 'package:sizer/sizer.dart';
 
 class AppTextFormField extends StatefulWidget {
@@ -58,26 +59,23 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   // 👈 control password visibility
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-    TextTheme textTheme = theme.textTheme;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 12,
       children: [
-        Text(widget.label, style: textTheme.labelLarge),
+        Text(widget.label, style: AppTextStyle.rubikMedium16),
         // 12.verticalSpace,
         Container(
           // width: double.infinity,
           clipBehavior: Clip.antiAlias,
 
           decoration: BoxDecoration(
-              color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-
-            ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: TextFormField(
-            obscureText: widget.isPassword?_obscurePassword:false,
+            obscureText: widget.isPassword ? _obscurePassword : false,
             obscuringCharacter: '*', // key: ValueKey(value),
             // initialValue: value,
             onTap: widget.onTap,
@@ -89,36 +87,29 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                     ? requiredVal(val, context)
                     : emailVal(val, context),
             cursorColor: AppColors.primary,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: AppTextStyle.rubikRegular16,
             // style: AppTextStyle.rubikRegular16.copyWith(
             //   color: AppColors.primary,
             // ),
             decoration: InputDecoration(
               filled: true,
-              suffixIcon: widget.isReadOnly
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Assets.icons.dateIc.svg(),
+              suffixIcon: widget.isPassword
+                  ? IconButton(
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
                     )
-                  : widget.isPassword
-                      ? IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            size: 20,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                        )
-                      : null,
+                  : null,
               hintText: widget.hint,
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
+              hintStyle: AppTextStyle.rubikRegular16
                   .copyWith(color: AppColors.grayHint),
               // hintStyle: AppTextStyle.rubikRegular16.copyWith(
               //   color: AppColors.grayHint,
@@ -149,7 +140,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: AppColors.darkRed),
               ),
-focusedErrorBorder: OutlineInputBorder(
+              focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: AppColors.grayBorder),
               ),

@@ -3,6 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/signUp/presentation/screens/signup_screen.dart';
 import 'package:invit/features/auth/verification/presentation/screens/verification_account_screen.dart';
+import 'package:invit/features/home/event/presentation/screens/contact_list_screen.dart';
+import 'package:invit/features/home/event/presentation/screens/create_event_screen.dart';
+import 'package:invit/features/home/event/presentation/screens/guest_list_screen.dart';
+import 'package:invit/features/home/event/presentation/screens/successfull_event_creation_screen.dart';
+import 'package:invit/features/home/event/presentation/screens/upload_image_screen.dart';
 import 'package:invit/features/home/presentation/screens/home_screen.dart';
 import 'package:invit/features/home/presentation/screens/main_screen.dart';
 import 'package:invit/features/onBoarding/on_boarding.dart';
@@ -70,41 +75,76 @@ class AppRouter {
         GoRoute(
           path: AppRoutes.splashScreen,
           parentNavigatorKey: rootKey,
-          builder: (BuildContext context, GoRouterState state) {
-            return SplashScreen();
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: SplashScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
           },
         ),
         GoRoute(
           path: AppRoutes.onBoarding,
           name: AppRoutes.onBoarding,
           parentNavigatorKey: rootKey,
-          builder: (BuildContext context, GoRouterState state) {
-            return OnBoarding();
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: OnBoarding(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
           },
         ),
         GoRoute(
           path: AppRoutes.signInScreen,
           name: AppRoutes.signInScreen,
           parentNavigatorKey: rootKey,
-          builder: (BuildContext context, GoRouterState state) {
-            return SignInScreen();
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: SignInScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
           },
         ),
         GoRoute(
           path: AppRoutes.signUpScreen,
           name: AppRoutes.signUpScreen,
           parentNavigatorKey: rootKey,
-          builder: (BuildContext context, GoRouterState state) {
-            return SignupScreen();
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: SignupScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
           },
         ),
         GoRoute(
           path: AppRoutes.verificationScreen,
           name: AppRoutes.verificationScreen,
           parentNavigatorKey: rootKey,
-          builder: (BuildContext context, GoRouterState state) {
-            return VerificationAccountScreen(
-              phone: state.extra as String,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: VerificationAccountScreen(
+                phone: state.extra as String,
+              ),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
             );
           },
         ),
@@ -112,23 +152,112 @@ class AppRouter {
           path: AppRoutes.homeScreen,
           name: AppRoutes.homeScreen,
           parentNavigatorKey: rootKey,
-          builder: (BuildContext context, GoRouterState state) {
-            return HomeScreen();
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: HomeScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
           },
         ),
         GoRoute(
           path: AppRoutes.mainScreen,
           name: AppRoutes.mainScreen,
           parentNavigatorKey: rootKey,
-          builder: (BuildContext context, GoRouterState state) {
-            return MainScreen();
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: MainScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.createEventScreen,
+          name: AppRoutes.createEventScreen,
+          parentNavigatorKey: rootKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: CreateEventScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.guestListScreen,
+          name: AppRoutes.guestListScreen,
+          parentNavigatorKey: rootKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: GuestListScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.contactListScreen,
+          name: AppRoutes.contactListScreen,
+          parentNavigatorKey: rootKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: ContactListScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.uploadImageScreen,
+          name: AppRoutes.uploadImageScreen,
+          parentNavigatorKey: rootKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: UploadImageScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.successEventScreen,
+          name: AppRoutes.successEventScreen,
+          parentNavigatorKey: rootKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: SuccessfullEventCreationScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
           },
         ),
 
         // GoRoute(
         //   path: AppRoutes.homeScreen,
         //   parentNavigatorKey: rootKey,
-        //   builder: (BuildContext context, GoRouterState state) {
+        //   pageBuilder: (BuildContext context, GoRouterState state) {
         //     return OnBoarding();
         //   },
         // ),
@@ -137,7 +266,7 @@ class AppRouter {
         //   name: AppRoutes.serviceDetails,
         //   // parentNavigatorKey: rootKey,
 
-        //   builder: (BuildContext context, GoRouterState state) {
+        //   pageBuilder: (BuildContext context, GoRouterState state) {
         //     final ServicesEntity? services=state.extra as ServicesEntity?;
         //     // final serviceName = state.pathParameters['name'] ?? '';
         //     // final serviceImage = state.pathParameters['image'] ?? '';

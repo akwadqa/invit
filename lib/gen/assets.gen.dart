@@ -17,6 +17,10 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/add_contact_ic.svg
+  SvgGenImage get addContactIc =>
+      const SvgGenImage('assets/icons/add_contact_ic.svg');
+
   /// File path: assets/icons/add_event_ic.svg
   SvgGenImage get addEventIc =>
       const SvgGenImage('assets/icons/add_event_ic.svg');
@@ -24,8 +28,32 @@ class $AssetsIconsGen {
   /// File path: assets/icons/app_icon.jpg
   AssetGenImage get appIcon => const AssetGenImage('assets/icons/app_icon.jpg');
 
+  /// File path: assets/icons/contacts_ic.svg
+  SvgGenImage get contactsIc =>
+      const SvgGenImage('assets/icons/contacts_ic.svg');
+
   /// File path: assets/icons/date_ic.svg
   SvgGenImage get dateIc => const SvgGenImage('assets/icons/date_ic.svg');
+
+  /// File path: assets/icons/delete_contact_alert_ic.svg
+  SvgGenImage get deleteContactAlertIc =>
+      const SvgGenImage('assets/icons/delete_contact_alert_ic.svg');
+
+  /// File path: assets/icons/delete_contact_ic.svg
+  SvgGenImage get deleteContactIc =>
+      const SvgGenImage('assets/icons/delete_contact_ic.svg');
+
+  /// File path: assets/icons/event_date_ic.svg
+  SvgGenImage get eventDateIc =>
+      const SvgGenImage('assets/icons/event_date_ic.svg');
+
+  /// File path: assets/icons/event_time_ic.svg
+  SvgGenImage get eventTimeIc =>
+      const SvgGenImage('assets/icons/event_time_ic.svg');
+
+  /// File path: assets/icons/full_name_ic.svg
+  SvgGenImage get fullNameIc =>
+      const SvgGenImage('assets/icons/full_name_ic.svg');
 
   /// File path: assets/icons/google_ic.svg
   SvgGenImage get googleIc => const SvgGenImage('assets/icons/google_ic.svg');
@@ -49,6 +77,10 @@ class $AssetsIconsGen {
   SvgGenImage get passwordIc =>
       const SvgGenImage('assets/icons/password_ic.svg');
 
+  /// File path: assets/icons/phone_number_ic.svg
+  SvgGenImage get phoneNumberIc =>
+      const SvgGenImage('assets/icons/phone_number_ic.svg');
+
   /// File path: assets/icons/qatar_country.svg
   SvgGenImage get qatarCountry =>
       const SvgGenImage('assets/icons/qatar_country.svg');
@@ -68,22 +100,39 @@ class $AssetsIconsGen {
   SvgGenImage get settingsIc =>
       const SvgGenImage('assets/icons/settings_ic.svg');
 
+  /// File path: assets/icons/title_ic.svg
+  SvgGenImage get titleIc => const SvgGenImage('assets/icons/title_ic.svg');
+
+  /// File path: assets/icons/upload_image_ic.svg
+  SvgGenImage get uploadImageIc =>
+      const SvgGenImage('assets/icons/upload_image_ic.svg');
+
   /// List of all assets
   List<dynamic> get values => [
+        addContactIc,
         addEventIc,
         appIcon,
+        contactsIc,
         dateIc,
+        deleteContactAlertIc,
+        deleteContactIc,
+        eventDateIc,
+        eventTimeIc,
+        fullNameIc,
         googleIc,
         homeIc,
         locationIc,
         messagesIc,
         notificationIc,
         passwordIc,
+        phoneNumberIc,
         qatarCountry,
         qatarFlag,
         saveEventIc,
         scanIc,
-        settingsIc
+        settingsIc,
+        titleIc,
+        uploadImageIc
       ];
 }
 
@@ -101,6 +150,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/empty_data.svg
   SvgGenImage get emptyData =>
       const SvgGenImage('assets/images/empty_data.svg');
+
+  /// File path: assets/images/event_success_image.png
+  AssetGenImage get eventSuccessImage =>
+      const AssetGenImage('assets/images/event_success_image.png');
 
   /// File path: assets/images/im_error_screen.png
   AssetGenImage get imErrorScreen =>
@@ -123,6 +176,7 @@ class $AssetsImagesGen {
         allEventImage,
         bookImage,
         emptyData,
+        eventSuccessImage,
         imErrorScreen,
         inviteTypeImage,
         qatarCountry,

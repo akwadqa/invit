@@ -37,4 +37,13 @@ FutureOr<String?> Function(PhoneNumber?) mobileNumberValidationIntl(
 
     return null;
   };
+
+  
 }
+
+String? Function(String?) nameValidation(BuildContext context) {
+  return qValidator([
+    IsRequired(context.tr('required')),
+  ]);
+}
+

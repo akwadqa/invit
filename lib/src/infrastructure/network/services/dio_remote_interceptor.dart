@@ -3,8 +3,12 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/application/auth_service.dart';
+import 'package:invit/src/application/router/app_router.dart';
+import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/localization/current_language.dart';
+import 'package:invit/src/infrastructure/storage/local_storage_service.dart';
 
 import '../../api/response/api_response.dart';
 import '../exception/dio_exceptions.dart';
@@ -14,8 +18,9 @@ class RemoteInterceptor extends Interceptor {
   RemoteInterceptor(this.ref);
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final token = ref.read(userDataProvider);
+  Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    // final token = ref.read(userDataProvider);
+    final token = await ref.read(localStorageServiceProvider).getToken();
     final language = ref.read(currentLanguageProvider);
 
     if (token != null) {
@@ -55,20 +60,24 @@ class RemoteInterceptor extends Interceptor {
     final responseData = err.response?.data;
 
     // ✅ تحقق من إذا كان Unauthorized
-    final isUnauthorized = statusCode == 401 || statusCode == 403;
-    // ||
-    //     (responseData is Map &&
-    //         responseData['message']?.toString().toLowerCase().contains("unauthorized") == true);
+
+    final isUnauthorized = (statusCode == 401 &&
+            (responseData['message']?.toString().toLowerCase().contains(
+                      "otp",
+                    )) ==
+                false) ||
+        (responseData['exc_type']?.toString().contains(
+                  'PermissionError',
+                )) ==
+            true;
 
     if (isUnauthorized) {
       debugPrint("🚪 Session expired → redirect to Login");
-      // 1. مسح بيانات المستخدم (التوكن)
-      ref.read(userDataProvider.notifier).removeData();
 
-      // 2. توجيه المستخدم لصفحة تسجيل الدخول
-      // ref.read(appRouterProvider).replaceAll([]);
-      // لو تستخدم GoRouter:
-      // ref.read(goRouterProvider).go('/login');
+      ref.read(userDataProvider.notifier).removeData();
+      rootKey.currentContext!.go(AppRoutes.signInScreen);
+
+      // ref.read().go(Routes.login);
     }
 
     // ⚠️ باقي الحالات: نفس السابق

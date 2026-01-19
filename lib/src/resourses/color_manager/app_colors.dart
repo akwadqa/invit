@@ -4,6 +4,7 @@ abstract class AppColors {
   static const Color primary = Color(0xFF3B41C5);
   static const Color secondPrimary = Color(0xFFA981BB);
   static const Color background = Color(0xFFF6F8FA);
+  static const Color white = Color(0xFFffffff);
   static const Color fieldBackground = Color(0xFFEFF0F6);
   static const Color dividerColor = Color(0xFFEDF1F3);
   static const MaterialColor primarySwatch = MaterialColor(
@@ -26,12 +27,15 @@ abstract class AppColors {
 
   static const Color rose = Color(0xFFF8D5CC);
   static const Color darkRed = Color(0xFFBC0000);
+  static const Color red = Color(0xFFBD2C06);
+
+  static const Color bodyColor = Color(0xFF576B74);
   static const Color textDart = Color(0xFF050E13);
   static const Color black = Color(0xFF000000);
   static const Color black900 = Color(0xFF484848);
   static const Color lightGray = Color(0xFFE5E5E5);
   static const Color grey600 = Color(0xFF757575);
-  static const Color grey = Color(0xFF6C7278);
+  static const Color grey = Color(0xFFE7e7e7);
   static const Color green = Color(0xFF69A94B);
   static const Color mediumGray = Color(0xFFD7D7D7);
   static const Color grayBorder = Color(0xFFCCCCCC);

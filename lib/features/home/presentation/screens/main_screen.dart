@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:invit/features/home/presentation/screens/home_screen.dart';
 import 'package:invit/features/home/presentation/widgets/bottom_navigation_bar_view.dart';
 import 'package:invit/gen/assets.gen.dart';
+import 'package:invit/src/application/router/app_routes.dart';
 
 //
 class MainScreen extends ConsumerStatefulWidget {
@@ -55,7 +56,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          context.pushNamed(AppRoutes.createEventScreen);
+        },
         child: SizedBox(
           width: 70,
           height: 70,
