@@ -55,7 +55,7 @@ class RemoteInterceptor extends Interceptor {
     final responseData = err.response?.data;
 
     // ✅ تحقق من إذا كان Unauthorized
-    final isUnauthorized = statusCode == 401||statusCode == 403 ;
+    final isUnauthorized = statusCode == 401 || statusCode == 403;
     // ||
     //     (responseData is Map &&
     //         responseData['message']?.toString().toLowerCase().contains("unauthorized") == true);
@@ -80,21 +80,31 @@ class RemoteInterceptor extends Interceptor {
       case DioExceptionType.badResponse:
         switch (statusCode) {
           case 400:
-            throw BadRequestException(request, "Bad Request");
+            throw BadRequestException(
+                request, responseData['message'] ?? "Bad Request");
           case 401:
-            throw UnauthorizedException(request, "Unauthorized");
+            throw UnauthorizedException(
+                request, responseData['message'] ?? "Unauthorized");
           case 403:
-            throw AccessForbiddenException(request, "Forbidden");
+            throw AccessForbiddenException(
+                request, responseData['message'] ?? "Forbidden");
           case 404:
-            throw NotFoundException(request, "Not Found");
+            throw NotFoundException(
+                request, responseData['message'] ?? "Not Found");
           case 409:
-            throw ConflictException(request, "Conflict");
+            throw ConflictException(
+                request, responseData['message'] ?? "Conflict");
+          //TODO:
           case 422:
-            throw UnprocessableEntityException(request, "Unprocessable Entity");
+            // throw UnprocessableEntityException(request, "Unprocessable Entity");
+            throw UnprocessableEntityException(
+                request, responseData['message'] ?? "Unprocessable Entity");
           case 500:
-            throw InternalServerErrorException(request, "Server Error");
+            throw InternalServerErrorException(
+                request, responseData['message'] ?? "Server Error");
           default:
-            throw BadResponseException(request, "Bad Response");
+            throw BadResponseException(
+                request, responseData['message'] ?? "Bad Response");
         }
       case DioExceptionType.cancel:
         break;

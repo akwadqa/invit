@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:invit/src/logger/log_services/dev_logger.dart';
 import 'package:queen_validators/queen_validators.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,9 +20,10 @@ FutureOr<String?> Function(PhoneNumber?) mobileNumberValidationIntl(
   BuildContext context,
 ) {
   return (PhoneNumber? value) {
+    Dev.logLine(value);
     final number = value?.number ?? '';
 
-    if (number.isEmpty) {
+    if (number.isEmpty||value ==null) {
       return context.tr('required');
     }
 

@@ -43,8 +43,9 @@ class SplashScreen extends ConsumerWidget {
             return;
           }
 
+
           // ===== Authenticated =====
-          context.goNamed(AppRoutes.homeScreen);
+          context.goNamed(AppRoutes.mainScreen);
         });
       },
     );

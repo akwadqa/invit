@@ -58,25 +58,28 @@ class AuthScreen extends StatelessWidget {
 
             // Card with content
             Center(
-              child: Container(
-                  width: width * 0.9,
-                  padding: const EdgeInsets.all(24),
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    shadows: [
-                      BoxShadow(
-                        color: AppColors.grayBorder,
-                        blurRadius: 1,
-                        offset: Offset(0, 0),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: height * 0.8,minHeight: height *0.5),
+                child: Container(
+                    width: width * 0.9,
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                    ],
-                  ),
-                  child: child
-                  // _buildCardContent(),
-                  ),
+                      shadows: [
+                        BoxShadow(
+                          color: AppColors.grayBorder,
+                          blurRadius: 1,
+                          offset: Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                    child: child
+                    // _buildCardContent(),
+                    ),
+              ),
             ),
 
             //? Back button
@@ -84,23 +87,26 @@ class AuthScreen extends StatelessWidget {
               Positioned(
                   top: 73,
                   left: 24,
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        begin: Alignment(0.0, 0.5),
-                        end: Alignment(1.0, 0.5),
-                        colors: [
-                          AppColors.primary,
-                          AppColors.secondPrimary,
-                        ],
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          begin: Alignment(0.0, 0.5),
+                          end: Alignment(1.0, 0.5),
+                          colors: [
+                            AppColors.primary,
+                            AppColors.secondPrimary,
+                          ],
+                        ),
                       ),
-                    ),
-                    child: Icon(
-                      Icons.arrow_back_outlined,
-                      color: AppColors.background,
+                      child: Icon(
+                        Icons.arrow_back_outlined,
+                        color: AppColors.background,
+                      ),
                     ),
                   ))
           ],

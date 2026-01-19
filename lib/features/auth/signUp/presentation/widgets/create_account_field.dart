@@ -5,7 +5,7 @@ import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:sizer/sizer.dart';
 
-class AppTextFormField extends StatelessWidget {
+class AppTextFormField extends StatefulWidget {
   const AppTextFormField({
     super.key,
     this.controller,
@@ -31,6 +31,11 @@ class AppTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
 
+  @override
+  State<AppTextFormField> createState() => _AppTextFormFieldState();
+}
+
+class _AppTextFormFieldState extends State<AppTextFormField> {
   String? requiredVal(String? val, BuildContext context) {
     if ((val?.isEmpty ?? true) || val == null) {
       return context.tr('required');
@@ -49,38 +54,38 @@ class AppTextFormField extends StatelessWidget {
     return null;
   }
 
+  bool _obscurePassword = true;
+  // 👈 control password visibility
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    TextTheme textTheme = theme.textTheme;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 12,
       children: [
-        Text(label, style: Theme.of(context).textTheme.labelLarge),
-        12.verticalSpace,
+        Text(widget.label, style: textTheme.labelLarge),
+        // 12.verticalSpace,
         Container(
           // width: double.infinity,
+          clipBehavior: Clip.antiAlias,
+
           decoration: BoxDecoration(
-            // color: AppColors.background,
-            borderRadius: BorderRadius.circular(10),
-            // boxShadow: [
-            //   BoxShadow(
-            //     offset: Offset(0, 1),
-            //     blurRadius: 2,
-            //     spreadRadius: 3,
-            //     color: AppColors.grayHint.withValues(alpha: .24),
-            //   ),
-            // ],
-          ),
+              color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+
+            ),
           child: TextFormField(
-            obscureText: isPassword,
-            // key: ValueKey(value),
+            obscureText: widget.isPassword?_obscurePassword:false,
+            obscuringCharacter: '*', // key: ValueKey(value),
             // initialValue: value,
-            onTap: onTap,
-            keyboardType: inputType,
-            readOnly: isReadOnly,
-            controller: controller,
-            validator: validator ??
-                (val) => isRequired
+            onTap: widget.onTap,
+            keyboardType: widget.inputType,
+            readOnly: widget.isReadOnly,
+            controller: widget.controller,
+            validator: widget.validator ??
+                (val) => widget.isRequired
                     ? requiredVal(val, context)
                     : emailVal(val, context),
             cursorColor: AppColors.primary,
@@ -90,13 +95,27 @@ class AppTextFormField extends StatelessWidget {
             // ),
             decoration: InputDecoration(
               filled: true,
-              suffixIcon: isReadOnly
+              suffixIcon: widget.isReadOnly
                   ? Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       child: Assets.icons.dateIc.svg(),
                     )
-                  : null,
-              hintText: hint,
+                  : widget.isPassword
+                      ? IconButton(
+                          icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            size: 20,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                        )
+                      : null,
+              hintText: widget.hint,
               hintStyle: Theme.of(context)
                   .textTheme
                   .bodyMedium!
@@ -108,10 +127,10 @@ class AppTextFormField extends StatelessWidget {
               // contentPadding: withIcon
               //     ? EdgeInsets.zero
               //     : EdgeInsets.symmetric(horizontal: 16.w),
-              prefixIcon: withIcon
+              prefixIcon: widget.withIcon
                   ? Padding(
                       padding: EdgeInsets.symmetric(horizontal: 17),
-                      child: icon!.svg(),
+                      child: widget.icon!.svg(),
                     )
                   : null,
 
@@ -123,6 +142,14 @@ class AppTextFormField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.w),
               ),
               enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: AppColors.grayBorder),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: AppColors.darkRed),
+              ),
+focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: AppColors.grayBorder),
               ),

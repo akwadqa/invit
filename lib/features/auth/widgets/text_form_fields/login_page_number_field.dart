@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:invit/src/core/utils/validator/app_validation.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
@@ -14,9 +15,12 @@ class LoginPageNumberField extends ConsumerStatefulWidget {
   const LoginPageNumberField(
     this.fullPhoneController, {
     super.key,
+    required this.onChange,
   });
 
   final TextEditingController fullPhoneController;
+  final void Function(PhoneNumber?)? onChange;
+
   // final GlobalKey<FormState> formKey;
 
   @override
@@ -42,7 +46,7 @@ class _LoginPageNumberFieldState extends ConsumerState<LoginPageNumberField> {
     final number = _nationalController.text;
     final full = '$countryCode$number';
     widget.fullPhoneController.value = TextEditingValue(
-      text: full,
+      text: full.replaceAll('+', ''),
       selection: TextSelection.collapsed(offset: full.length),
     );
   }
@@ -52,21 +56,28 @@ class _LoginPageNumberFieldState extends ConsumerState<LoginPageNumberField> {
     return Directionality(
       textDirection: ui.TextDirection.ltr,
       child: IntlPhoneField(
+        
         autovalidateMode: AutovalidateMode.onUnfocus,
         invalidNumberMessage: context.tr('invalidNumber'),
         controller: _nationalController,
         initialCountryCode: 'QA',
-        onChanged: (phone) {
-          _updateFullPhone(phone.countryCode);
-
-          // ref
-          //     .read(authUiControllerProvider.notifier)
-          //     .checkPhoneFilled(phone.number.isNotEmpty);
+        onSaved: (newValue) {
+          _updateFullPhone(newValue?.countryCode??"");
+          
         },
+        onChanged: widget.onChange,
+        // (phone) {
+    
+          // ref
+          //     .read(signInControllerProvider.notifier)
+          //     .changePhoneNumber(phone.number);
+            
+        //   //     .checkPhoneFilled(phone.number.isNotEmpty);
+        // },
         onCountryChanged: (country) {
           _updateFullPhone('+${country.dialCode}');
         },
-        validator: mobileNumberValidationIntl(context),
+        validator:mobileNumberValidationIntl(context),
         // disableLengthCheck: true,
         dropdownIcon: Icon(
           Icons.arrow_drop_down_rounded,
@@ -85,6 +96,7 @@ class _LoginPageNumberFieldState extends ConsumerState<LoginPageNumberField> {
         keyboardType: TextInputType.phone,
         style: AppTextStyle.rubikRegular14.copyWith(color: AppColors.black),
         decoration: InputDecoration(
+          
           filled: true,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.primary),

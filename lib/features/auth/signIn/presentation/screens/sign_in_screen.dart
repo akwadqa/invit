@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invit/features/auth/widgets/auth_build_content.dart';
+import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 import '../widgets/sign_in_footer.dart';
 import '../widgets/sign_in_form.dart';
 import '../widgets/sign_in_header.dart';
 class SignInScreen extends ConsumerWidget {
    SignInScreen({super.key});
   final _formKey = GlobalKey<FormState>();
-
+ 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
@@ -34,6 +35,6 @@ class _SignInContent extends StatelessWidget {
         SignInForm(),
         SignInFooter(),
       ],
-    );
+      ).symmetricPadding(vertical: 20);
   }
 }

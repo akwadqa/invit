@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/signIn/presentation/widgets/divider_with_text.dart';
 import 'package:invit/features/auth/signIn/presentation/widgets/social_login_button.dart';
 import 'package:invit/features/auth/widgets/text_form_fields/phone_number_field.dart';
+import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 
@@ -21,24 +23,27 @@ class SignUpFooter extends StatelessWidget {
           spacing: 10,
           children: [
             Text(
-              'dont_have_account'.tr(),
+              'alreadyHaveAnAccount'.tr(),
               style: textTheme.bodyLarge!.copyWith(
                 color: AppColors.gray02,
                 fontWeight: FontWeight.w800,
               ),
             ),
-            Text(
-              'sign_up'.tr(),
-              style: textTheme.bodyLarge!.copyWith(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w800,
+            GestureDetector(
+              onTap: () => context.go(AppRoutes.signInScreen),
+              child: Text(
+                'login'.tr(),
+                style: textTheme.bodyLarge!.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ],
         ),
-        const DividerWithText(),
-         SocialLoginButton.email(),
-         SocialLoginButton.google(),
+        // const DividerWithText(),
+        //  SocialLoginButton.email(),
+        //  SocialLoginButton.google(),
       ],
     );
   }

@@ -103,7 +103,9 @@ class AppRouter {
           name: AppRoutes.verificationScreen,
           parentNavigatorKey: rootKey,
           builder: (BuildContext context, GoRouterState state) {
-            return VerificationAccountScreen();
+            return VerificationAccountScreen(
+              phone: state.extra as String,
+            );
           },
         ),
         GoRoute(
