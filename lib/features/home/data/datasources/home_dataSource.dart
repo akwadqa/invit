@@ -12,7 +12,7 @@ Future<ApiResponse<HomeModel>> getHomeData({required int page}) async {
   try {
     final response = await _networkService.get(
       ApiEndPoints.homeServices,
-      data: {"page_no":page},
+      data: {"page_no":page,'limit' : 10},
     );
 
     if (response.data == null || response.statusCode != 200) {

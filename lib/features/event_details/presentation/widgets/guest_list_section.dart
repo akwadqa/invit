@@ -33,8 +33,8 @@ class GuestListSection extends StatelessWidget {
         ...guests.map(
           (guest) => Card(
             child: ListTile(
-              title: Text(guest.fullName),
-              subtitle: Text(guest.rsvpStatus),
+              title: Text(guest.fullName ?? 'name'),
+              subtitle: Text(guest.rsvpStatus ?? 'status'),
               trailing: Text('x${guest.partySize}'),
             ),
           ),

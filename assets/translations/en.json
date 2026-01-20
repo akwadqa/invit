@@ -114,5 +114,6 @@
     "event_create_successful" :"Event Sent Successfully!",
     "invitation_sent" : " Your invitation has been\n sent successfully! 🎉",
     "view_invitation_status" : "View Invitation Status",
-    "back_to_home" : "Back to Home"
+    "back_to_home" : "Back to Home",
+    "location_required" : "Location is required"
 }

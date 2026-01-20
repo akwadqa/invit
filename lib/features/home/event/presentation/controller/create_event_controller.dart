@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/home/event/data/repository/event_repository.dart';
 import 'package:invit/features/home/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/home/event/domain/model/event_model/event_model.dart';
@@ -219,7 +222,7 @@ class CreateEventController extends _$CreateEventController {
           image: newData.image ?? current.image,
           mapLatitude: newData.mapLatitude ?? current.mapLatitude,
           mapLongitude: newData.mapLongitude ?? current.mapLongitude,
-          mapLink: 'g',
+          mapLink: newData.mapLink ?? current.mapLink,
           // operators: newData.operators ?? state.value!.operators,
           // handlers: newData.handlers ?? state.value!.handlers,
 
@@ -287,4 +290,103 @@ class CreateEventController extends _$CreateEventController {
 
     updateEvent(EventModel(date: updated.toString()));
   }
+
+  void changeLatlng(double lat, double lng) {
+    state = AsyncData(
+      state.value!.copyWith(
+        latLng: LatLng(lat, lng),
+      ),
+    );
+  }
+
+  Future<void> getPlaceInfoFromLatLng() async {
+    final lat = state.value!.latLng.latitude;
+    final lng = state.value!.latLng.longitude;
+    try {
+      state = AsyncData(state.value!.copyWith(selectedPlace: AsyncLoading()));
+      final apiKey = dotenv.env['MAPS_API_KEY'];
+      if (apiKey == null) return;
+
+      final url =
+          "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$apiKey";
+
+      final response = await Dio().get(url);
+
+      if (response.statusCode != 200) return;
+
+      final data = response.data;
+
+      if (data["status"] != "OK") return;
+
+      final result = data["results"][0];
+
+      final locationName = cleanName(result["formatted_address"] ?? "");
+      final placeId = result["place_id"] ?? "";
+
+      final mapLink =
+          "https://www.google.com/maps/search/?api=1&query=$lat,$lng";
+
+      updateEvent(
+        EventModel(
+          locationName: locationName,
+          mapLatitude: lat.toString(),
+          mapLongitude: lng.toString(),
+          mapLink: mapLink,
+        ),
+      );
+
+      state = AsyncData(
+        state.value!.copyWith(
+          selectedPlace: AsyncData(
+            SelectedPlace(
+              placeId: placeId,
+              mapLink: mapLink,
+              locationName: locationName,
+            ),
+          ),
+        ),
+      );
+    } catch (e, st) {
+      state = AsyncData(
+        state.value!.copyWith(selectedPlace: AsyncError(e, st)),
+      );
+    }
+  }
+
+  String cleanName(String address) {
+    if (address.isEmpty) return "Location";
+
+    final trimmed = address.trim();
+
+    List<String> commaParts = trimmed.split(',').map((e) => e.trim()).toList();
+
+    String first = commaParts[0];
+
+    final fullPlusCode = RegExp(r"^[A-Z0-9]{4,}\+[A-Z0-9]+");
+    first = first.replaceFirst(fullPlusCode, '').trim();
+
+    final shortPlusCode = RegExp(r"^\+[A-Z0-9]{2,4}");
+    first = first.replaceFirst(shortPlusCode, '').trim();
+
+    List<String> parts = [];
+    if (first.isNotEmpty) {
+      parts.add(first);
+    }
+
+    if (commaParts.length > 1) {
+      parts.addAll(commaParts.sublist(1));
+    }
+
+    final result = parts.join(', ').trim();
+
+    if (RegExp(r"^[0-9+\- ]+$").hasMatch(result)) {
+      return "Location";
+    }
+
+    return result.isEmpty ? "Location" : result;
+  }
+
+  //   void clearSearchSuggestions() {
+  //   state = AsyncData(state.value!.copyWith(predictions: AsyncData([])));
+  // }
 }

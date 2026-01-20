@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/auth/signUp/presentation/widgets/create_account_field.dart';
 import 'package:invit/features/home/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/home/event/presentation/controller/create_event_controller.dart';
 import 'package:invit/gen/assets.gen.dart';
+import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
@@ -33,6 +36,9 @@ class CreateEventScreenForm extends ConsumerWidget {
     final formattedTime = date != null
         ? DateFormat.jm(deviceLocale).format(DateTime.parse(date))
         : '';
+
+    final locationName = ref.watch(createEventControllerProvider
+        .select((val) => val.value!.selectedPlace?.value?.locationName));
 
     return SingleChildScrollView(
       child: Container(
@@ -134,11 +140,31 @@ class CreateEventScreenForm extends ConsumerWidget {
                   label: 'time'.tr(),
                   isRequired: true),
               Text('location'.tr(), style: AppTextStyle.rubikMedium16),
-              Container(
-                width: double.infinity,
-                height: 203,
-                color: AppColors.gray,
-              )
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 203,
+                  child: GoogleMap(
+                    onTap: (_) =>
+                        context.pushNamed(AppRoutes.selectLocationScreen),
+                    scrollGesturesEnabled: false,
+                    initialCameraPosition: CameraPosition(
+                        target: LatLng(25.285, 51.531), zoom: 14),
+                  ),
+                ),
+              ),
+              if (locationName != null)
+                Row(
+                  spacing: 8,
+                  children: [
+                    Assets.icons.locationIc.svg(),
+                    Text(
+                      locationName,
+                      style: AppTextStyle.rubikRegular16,
+                    ),
+                  ],
+                )
             ],
           ),
         ),

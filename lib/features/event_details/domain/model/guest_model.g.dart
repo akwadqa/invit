@@ -7,11 +7,11 @@ part of 'guest_model.dart';
 // **************************************************************************
 
 _GuestModel _$GuestModelFromJson(Map<String, dynamic> json) => _GuestModel(
-      inviteeId: json['invitee_id'] as String,
-      fullName: json['full_name'] as String,
-      whatsappNumber: json['whatsapp_number'] as String,
+      inviteeId: json['invitee_id'] as String?,
+      fullName: json['full_name'] as String?,
+      whatsappNumber: json['whatsapp_number'] as String?,
       partySize: (json['party_size'] as num?)?.toInt() ?? 1,
-      rsvpStatus: json['rsvp_status'] as String,
+      rsvpStatus: json['rsvp_status'] as String?,
       replied: (json['replied'] as num?)?.toInt() ?? 0,
       checkinCount: (json['checkin_count'] as num?)?.toInt() ?? 0,
     );
