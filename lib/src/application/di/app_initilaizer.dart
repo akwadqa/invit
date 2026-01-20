@@ -1,14 +1,18 @@
 // import 'package:ahtizam/firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:invit/features/auth/application/auth_service.dart';
+import 'package:invit/firebase_options.dart';
 import 'package:invit/src/application/di/riverpod_observer.dart';
+import 'package:invit/src/core/notifications/services/notification_service.dart';
 import 'package:invit/src/core/shared_widgets/main_error_widget.dart';
 import 'package:invit/src/infrastructure/storage/local_storage_service.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 import '../../infrastructure/api/endpoint/services_urls.dart';
 import '../../infrastructure/storage/hive/hive_initializer.dart';
@@ -19,9 +23,9 @@ abstract class AppInitializer {
     WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
     
     // -- FIREBASE INIT -- //
-    // await Firebase.initializeApp(
-    //   options: DefaultFirebaseOptions.currentPlatform,
-    // );
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
     // -- Initialize Notifications -- //
     // final container = ProviderContainer();
@@ -51,9 +55,9 @@ Future<ProviderContainer> initializeProviders() async {
   await container.read(localStorageServiceProvider).init();
   // ? INIT FIREBASE NOTIFICATION SERVICE
 
-  // await container.read(notificationsServiceProvider).init();
-  //   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  // analytics.setAnalyticsCollectionEnabled(true);
+  await container.read(notificationsServiceProvider).init();
+    FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  analytics.setAnalyticsCollectionEnabled(true);
   return container;
 }
 

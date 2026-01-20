@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "102899618849",
+    "project_id": "invite-app-641aa",
+    "storage_bucket": "invite-app-641aa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102899618849:android:5f21b18e5ce0625e197f60",
+        "android_client_info": {
+          "package_name": "qa.app.invit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVBqIUgcEZTUmEjf-dHptuDhs5gMchF3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

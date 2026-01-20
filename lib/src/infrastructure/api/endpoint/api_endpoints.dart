@@ -28,6 +28,7 @@ class ApiEndPoints {
   static String getScaned = 'invite.api.api.get_scan_events';
   static const String getActiveGates = 'invite.api.api.get_active_gates';
 
+  static const String sendFcmToken = 'fcm_frappe.api.device_token';
 
 
 }

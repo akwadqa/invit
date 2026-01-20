@@ -3,6 +3,7 @@ import 'package:invit/features/auth/signIn/data/repositories/sign_in_repository.
 import 'package:invit/features/auth/verification/data/repositories/verify_otp_repository.dart';
 import 'package:invit/features/auth/verification/presentation/controller/verify_otp_state.dart';
 import 'package:invit/src/application/data/user_information/user_information.dart';
+import 'package:invit/src/core/notifications/services/notification_service.dart';
 import 'package:invit/src/core/shared_widgets/app_cached_network_image.dart';
 import 'package:invit/src/infrastructure/storage/local_storage_service.dart';
 import 'package:invit/src/logger/log_services/dev_logger.dart';
@@ -32,7 +33,9 @@ class VerifyOtpController extends _$VerifyOtpController {
     await  ref.read(localStorageServiceProvider).saveUserInfo(info);
       final token = await ref.read(localStorageServiceProvider).getToken();
       Dev.logLine(token);
-
+      await ref
+          .read(notificationsServiceProvider)
+          .sendDeviceToken(info.email ?? "");
       return state.value!.copyWith(verifyOtpResponseModel: response.data);
     });
   }

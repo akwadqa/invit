@@ -52,6 +52,9 @@ dependencies:
   custom_clippers: ^2.0.4
   firebase_core: ^4.3.0
   firebase_messaging: ^16.1.0
+  fcm_config: ^3.6.5
+  firebase_analytics: ^12.1.1
+  flutter_local_notifications: ^19.1.0
   fl_chart: ^1.1.1
   mobile_scanner: ^7.1.4
   image_picker: 1.2.0
@@ -59,6 +62,7 @@ dependencies:
   equatable: ^2.0.8
   uuid: ^4.5.2
   dotted_border: ^3.1.0
+
 
 
 
