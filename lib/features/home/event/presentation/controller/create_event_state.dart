@@ -2,6 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:invit/features/home/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/home/event/domain/model/event_model/event_model.dart';
@@ -11,16 +12,23 @@ class CreateEventState {
   final List<Contact> contacts;
   final EventModel eventModel;
   final AsyncValue<CreateEventResponse>? createEventResponse;
+  final LatLng latLng;
+  final AsyncValue<SelectedPlace>? selectedPlace;
+
+
 
   CreateEventState({
     required this.selectedContacts,
     required this.contacts,
     required this.eventModel,
     required this.createEventResponse,
+    required this.latLng,
+    this.selectedPlace,
   });
 
   factory CreateEventState.init() => CreateEventState(
       eventModel: EventModel(),
+      latLng: LatLng(25.2854473, 51.53103979999999),
       selectedContacts: [],
       contacts: [],
       createEventResponse: null);
@@ -30,12 +38,16 @@ class CreateEventState {
     List<Contact>? contacts,
     EventModel? eventModel,
     AsyncValue<CreateEventResponse>? createEventResponse,
+    LatLng? latLng,
+    AsyncValue<SelectedPlace>? selectedPlace,
   }) {
     return CreateEventState(
       selectedContacts: selectedContacts ?? this.selectedContacts,
       contacts: contacts ?? this.contacts,
       eventModel: eventModel ?? this.eventModel,
       createEventResponse: createEventResponse ?? this.createEventResponse,
+      latLng: latLng ?? this.latLng,
+      selectedPlace: selectedPlace ?? this.selectedPlace,
     );
   }
 }
@@ -69,4 +81,16 @@ class SelectedContact extends Equatable {
 
   @override
   List<Object?> get props => [id, contact, code, count];
+}
+
+class SelectedPlace {
+  final String placeId;
+  final String mapLink;
+  final String locationName;
+
+  SelectedPlace({
+    required this.placeId,
+    required this.mapLink,
+    required this.locationName,
+  });
 }

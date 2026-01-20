@@ -11,6 +11,7 @@ abstract class AppRoutes {
   static const String guestListScreen = '/guest_list';
   static const String contactListScreen = '/contact_list';
   static const String uploadImageScreen = '/upload_image';
+  static const String selectLocationScreen = '/select_location';
   static const String successEventScreen = '/success_event';
   static const String mainScreen = '/main';
   static const String notificationScreen = '/notification';

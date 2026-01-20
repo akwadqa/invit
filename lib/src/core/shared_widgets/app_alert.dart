@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
@@ -36,10 +37,8 @@ class AppAlert {
                 ),
               ),
               20.verticalSpace,
-
               text,
               20.verticalSpace,
-
               CustomButtonWidget(
                 text: title,
                 // content: Text(
@@ -55,7 +54,6 @@ class AppAlert {
                 width: double.infinity,
               ),
               20.verticalSpace,
-
               CustomButtonWidget(
                 text: 'cancel',
                 // content: Text(
@@ -98,75 +96,74 @@ class AppAlert {
               // width: 50,
               // height: 50,
               // color: AppColors.white,
-              // child: AppLoader()),
-          child: Center(child: MailPulseAnimation())),
+              child: AppLoader()),
         );
       },
     );
   }
 }
 
-class MailPulseAnimation extends StatefulWidget {
-  const MailPulseAnimation({super.key});
+// class MailPulseAnimation extends StatefulWidget {
+//   const MailPulseAnimation({super.key});
 
-  @override
-  State<MailPulseAnimation> createState() => _MailPulseAnimationState();
-}
+//   @override
+//   State<MailPulseAnimation> createState() => _MailPulseAnimationState();
+// }
 
-class _MailPulseAnimationState extends State<MailPulseAnimation>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _scale;
-  late Animation<double> _rotation;
+// class _MailPulseAnimationState extends State<MailPulseAnimation>
+//     with SingleTickerProviderStateMixin {
+//   late AnimationController _controller;
+//   late Animation<double> _scale;
+//   late Animation<double> _rotation;
 
-  @override
-  void initState() {
-    super.initState();
+//   @override
+//   void initState() {
+//     super.initState();
 
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    )..repeat(reverse: true);
+//     _controller = AnimationController(
+//       vsync: this,
+//       duration: const Duration(seconds: 1),
+//     )..repeat(reverse: true);
 
-    _scale = Tween<double>(
-      begin: 0.85,
-      end: 1.15,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+//     _scale = Tween<double>(
+//       begin: 0.85,
+//       end: 1.15,
+//     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
-    _rotation = Tween<double>(
-      begin: -0.05,
-      end: 0.05,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
-  }
+//     _rotation = Tween<double>(
+//       begin: -0.05,
+//       end: 0.05,
+//     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+//   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, _) {
-        return Transform.rotate(
-          angle: _rotation.value,
-          child: Transform.scale(
-            scale: _scale.value,
-            child: Container(
-              width: 70,
-              height: 70,
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              alignment: Alignment.center,
-              child: const Icon(Icons.mail, color: Colors.white, size: 40),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return AnimatedBuilder(
+//       animation: _controller,
+//       builder: (context, _) {
+//         return Transform.rotate(
+//           angle: _rotation.value,
+//           child: Transform.scale(
+//             scale: _scale.value,
+//             child: Container(
+//               width: 70,
+//               height: 70,
+//               decoration: BoxDecoration(
+//                 color: AppColors.primary,
+//                 borderRadius: BorderRadius.circular(12),
+//               ),
+//               alignment: Alignment.center,
+//               child: const Icon(Icons.mail, color: Colors.white, size: 40),
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }

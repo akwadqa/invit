@@ -5,6 +5,7 @@ import 'package:invit/features/scan_qr_code/domain/model/gates_info_model.dart';
 import 'package:invit/features/scan_qr_code/presentation/controller/scan_qr_code_controller.dart';
 import 'package:invit/src/core/shared_widgets/app_alert.dart';
 import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
+import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_appbar.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 
@@ -21,7 +22,7 @@ class GatesScreen extends ConsumerWidget {
         child: CustomAppbar(title: tr('select_gate')),
       ),
       body: asyncState.when(
-        loading: () => Center(child: MailPulseAnimation()),
+        loading: () => Center(child: AppLoader()),
         error: (e, _) => Center(
           child: Text(
             tr('something_went_wrong', args: [e.toString()]),
@@ -56,18 +57,18 @@ class GatesScreen extends ConsumerWidget {
 }
 
 Widget _kv(String k, String v) => Padding(
-  padding: const EdgeInsets.only(top: 6),
-  child: Row(
-    children: [
-      Expanded(
-        flex: 5,
-        child: Text(k, style: const TextStyle(fontWeight: FontWeight.w600)),
+      padding: const EdgeInsets.only(top: 6),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 5,
+            child: Text(k, style: const TextStyle(fontWeight: FontWeight.w600)),
+          ),
+          const SizedBox(width: 8),
+          Expanded(flex: 7, child: Text(v, textAlign: TextAlign.end)),
+        ],
       ),
-      const SizedBox(width: 8),
-      Expanded(flex: 7, child: Text(v, textAlign: TextAlign.end)),
-    ],
-  ),
-);
+    );
 
 class _GateCard extends ConsumerWidget {
   final GatesInfoModel gate;
@@ -130,7 +131,6 @@ class _GateCard extends ConsumerWidget {
           );
         }
       },
-
       child: Ink(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -153,9 +153,9 @@ class _GateCard extends ConsumerWidget {
               gate.gateName ?? tr('gate'),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: Colors.black87,
-              ),
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
             ),
           ],
         ),

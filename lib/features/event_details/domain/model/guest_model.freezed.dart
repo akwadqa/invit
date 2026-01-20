@@ -15,18 +15,18 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GuestModel {
   @JsonKey(name: 'invitee_id')
-  String get inviteeId;
+  String? get inviteeId;
   @JsonKey(name: 'full_name')
-  String get fullName;
+  String? get fullName;
   @JsonKey(name: 'whatsapp_number')
-  String get whatsappNumber;
+  String? get whatsappNumber;
   @JsonKey(name: 'party_size')
-  int get partySize;
+  int? get partySize;
   @JsonKey(name: 'rsvp_status')
-  String get rsvpStatus;
+  String? get rsvpStatus;
   int get replied;
   @JsonKey(name: 'checkin_count')
-  int get checkinCount;
+  int? get checkinCount;
 
   /// Create a copy of GuestModel
   /// with the given fields replaced by the non-null parameter values.
@@ -76,13 +76,13 @@ abstract mixin class $GuestModelCopyWith<$Res> {
       _$GuestModelCopyWithImpl;
   @useResult
   $Res call(
-      {@JsonKey(name: 'invitee_id') String inviteeId,
-      @JsonKey(name: 'full_name') String fullName,
-      @JsonKey(name: 'whatsapp_number') String whatsappNumber,
-      @JsonKey(name: 'party_size') int partySize,
-      @JsonKey(name: 'rsvp_status') String rsvpStatus,
+      {@JsonKey(name: 'invitee_id') String? inviteeId,
+      @JsonKey(name: 'full_name') String? fullName,
+      @JsonKey(name: 'whatsapp_number') String? whatsappNumber,
+      @JsonKey(name: 'party_size') int? partySize,
+      @JsonKey(name: 'rsvp_status') String? rsvpStatus,
       int replied,
-      @JsonKey(name: 'checkin_count') int checkinCount});
+      @JsonKey(name: 'checkin_count') int? checkinCount});
 }
 
 /// @nodoc
@@ -97,43 +97,43 @@ class _$GuestModelCopyWithImpl<$Res> implements $GuestModelCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? inviteeId = null,
-    Object? fullName = null,
-    Object? whatsappNumber = null,
-    Object? partySize = null,
-    Object? rsvpStatus = null,
+    Object? inviteeId = freezed,
+    Object? fullName = freezed,
+    Object? whatsappNumber = freezed,
+    Object? partySize = freezed,
+    Object? rsvpStatus = freezed,
     Object? replied = null,
-    Object? checkinCount = null,
+    Object? checkinCount = freezed,
   }) {
     return _then(_self.copyWith(
-      inviteeId: null == inviteeId
+      inviteeId: freezed == inviteeId
           ? _self.inviteeId
           : inviteeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      fullName: null == fullName
+              as String?,
+      fullName: freezed == fullName
           ? _self.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as String,
-      whatsappNumber: null == whatsappNumber
+              as String?,
+      whatsappNumber: freezed == whatsappNumber
           ? _self.whatsappNumber
           : whatsappNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      partySize: null == partySize
+              as String?,
+      partySize: freezed == partySize
           ? _self.partySize
           : partySize // ignore: cast_nullable_to_non_nullable
-              as int,
-      rsvpStatus: null == rsvpStatus
+              as int?,
+      rsvpStatus: freezed == rsvpStatus
           ? _self.rsvpStatus
           : rsvpStatus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       replied: null == replied
           ? _self.replied
           : replied // ignore: cast_nullable_to_non_nullable
               as int,
-      checkinCount: null == checkinCount
+      checkinCount: freezed == checkinCount
           ? _self.checkinCount
           : checkinCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -232,13 +232,13 @@ extension GuestModelPatterns on GuestModel {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            @JsonKey(name: 'invitee_id') String inviteeId,
-            @JsonKey(name: 'full_name') String fullName,
-            @JsonKey(name: 'whatsapp_number') String whatsappNumber,
-            @JsonKey(name: 'party_size') int partySize,
-            @JsonKey(name: 'rsvp_status') String rsvpStatus,
+            @JsonKey(name: 'invitee_id') String? inviteeId,
+            @JsonKey(name: 'full_name') String? fullName,
+            @JsonKey(name: 'whatsapp_number') String? whatsappNumber,
+            @JsonKey(name: 'party_size') int? partySize,
+            @JsonKey(name: 'rsvp_status') String? rsvpStatus,
             int replied,
-            @JsonKey(name: 'checkin_count') int checkinCount)?
+            @JsonKey(name: 'checkin_count') int? checkinCount)?
         $default, {
     required TResult orElse(),
   }) {
@@ -274,13 +274,13 @@ extension GuestModelPatterns on GuestModel {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            @JsonKey(name: 'invitee_id') String inviteeId,
-            @JsonKey(name: 'full_name') String fullName,
-            @JsonKey(name: 'whatsapp_number') String whatsappNumber,
-            @JsonKey(name: 'party_size') int partySize,
-            @JsonKey(name: 'rsvp_status') String rsvpStatus,
+            @JsonKey(name: 'invitee_id') String? inviteeId,
+            @JsonKey(name: 'full_name') String? fullName,
+            @JsonKey(name: 'whatsapp_number') String? whatsappNumber,
+            @JsonKey(name: 'party_size') int? partySize,
+            @JsonKey(name: 'rsvp_status') String? rsvpStatus,
             int replied,
-            @JsonKey(name: 'checkin_count') int checkinCount)
+            @JsonKey(name: 'checkin_count') int? checkinCount)
         $default,
   ) {
     final _that = this;
@@ -314,13 +314,13 @@ extension GuestModelPatterns on GuestModel {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            @JsonKey(name: 'invitee_id') String inviteeId,
-            @JsonKey(name: 'full_name') String fullName,
-            @JsonKey(name: 'whatsapp_number') String whatsappNumber,
-            @JsonKey(name: 'party_size') int partySize,
-            @JsonKey(name: 'rsvp_status') String rsvpStatus,
+            @JsonKey(name: 'invitee_id') String? inviteeId,
+            @JsonKey(name: 'full_name') String? fullName,
+            @JsonKey(name: 'whatsapp_number') String? whatsappNumber,
+            @JsonKey(name: 'party_size') int? partySize,
+            @JsonKey(name: 'rsvp_status') String? rsvpStatus,
             int replied,
-            @JsonKey(name: 'checkin_count') int checkinCount)?
+            @JsonKey(name: 'checkin_count') int? checkinCount)?
         $default,
   ) {
     final _that = this;
@@ -356,25 +356,25 @@ class _GuestModel implements GuestModel {
 
   @override
   @JsonKey(name: 'invitee_id')
-  final String inviteeId;
+  final String? inviteeId;
   @override
   @JsonKey(name: 'full_name')
-  final String fullName;
+  final String? fullName;
   @override
   @JsonKey(name: 'whatsapp_number')
-  final String whatsappNumber;
+  final String? whatsappNumber;
   @override
   @JsonKey(name: 'party_size')
-  final int partySize;
+  final int? partySize;
   @override
   @JsonKey(name: 'rsvp_status')
-  final String rsvpStatus;
+  final String? rsvpStatus;
   @override
   @JsonKey()
   final int replied;
   @override
   @JsonKey(name: 'checkin_count')
-  final int checkinCount;
+  final int? checkinCount;
 
   /// Create a copy of GuestModel
   /// with the given fields replaced by the non-null parameter values.
@@ -431,13 +431,13 @@ abstract mixin class _$GuestModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'invitee_id') String inviteeId,
-      @JsonKey(name: 'full_name') String fullName,
-      @JsonKey(name: 'whatsapp_number') String whatsappNumber,
-      @JsonKey(name: 'party_size') int partySize,
-      @JsonKey(name: 'rsvp_status') String rsvpStatus,
+      {@JsonKey(name: 'invitee_id') String? inviteeId,
+      @JsonKey(name: 'full_name') String? fullName,
+      @JsonKey(name: 'whatsapp_number') String? whatsappNumber,
+      @JsonKey(name: 'party_size') int? partySize,
+      @JsonKey(name: 'rsvp_status') String? rsvpStatus,
       int replied,
-      @JsonKey(name: 'checkin_count') int checkinCount});
+      @JsonKey(name: 'checkin_count') int? checkinCount});
 }
 
 /// @nodoc
@@ -452,43 +452,43 @@ class __$GuestModelCopyWithImpl<$Res> implements _$GuestModelCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? inviteeId = null,
-    Object? fullName = null,
-    Object? whatsappNumber = null,
-    Object? partySize = null,
-    Object? rsvpStatus = null,
+    Object? inviteeId = freezed,
+    Object? fullName = freezed,
+    Object? whatsappNumber = freezed,
+    Object? partySize = freezed,
+    Object? rsvpStatus = freezed,
     Object? replied = null,
-    Object? checkinCount = null,
+    Object? checkinCount = freezed,
   }) {
     return _then(_GuestModel(
-      inviteeId: null == inviteeId
+      inviteeId: freezed == inviteeId
           ? _self.inviteeId
           : inviteeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      fullName: null == fullName
+              as String?,
+      fullName: freezed == fullName
           ? _self.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as String,
-      whatsappNumber: null == whatsappNumber
+              as String?,
+      whatsappNumber: freezed == whatsappNumber
           ? _self.whatsappNumber
           : whatsappNumber // ignore: cast_nullable_to_non_nullable
-              as String,
-      partySize: null == partySize
+              as String?,
+      partySize: freezed == partySize
           ? _self.partySize
           : partySize // ignore: cast_nullable_to_non_nullable
-              as int,
-      rsvpStatus: null == rsvpStatus
+              as int?,
+      rsvpStatus: freezed == rsvpStatus
           ? _self.rsvpStatus
           : rsvpStatus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       replied: null == replied
           ? _self.replied
           : replied // ignore: cast_nullable_to_non_nullable
               as int,
-      checkinCount: null == checkinCount
+      checkinCount: freezed == checkinCount
           ? _self.checkinCount
           : checkinCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }

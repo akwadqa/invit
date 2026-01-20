@@ -10,6 +10,7 @@ import 'package:invit/features/home/event/presentation/widgets/create_event_scre
 import 'package:invit/features/home/event/presentation/widgets/create_event_screen/create_event_steps_section.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
+import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/custom_app_bar.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
@@ -55,6 +56,9 @@ class _CreateEventScreenContentState
 
   @override
   Widget build(BuildContext context) {
+    final locationName = ref.watch(createEventControllerProvider
+        .select((val) => val.value!.selectedPlace?.value?.locationName));
+
     final _formKey = GlobalKey<FormState>();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
@@ -74,10 +78,14 @@ class _CreateEventScreenContentState
             // onContinue: () => context.pushNamed(AppRoutes.guestListScreen),
             onContinue: () {
               if (_formKey.currentState!.validate()) {
-                ref
-                    .read(createEventControllerProvider.notifier)
-                    .updateEvent(EventModel(title: title.text));
-                context.pushNamed(AppRoutes.guestListScreen);
+                if (locationName != null) {
+                  ref
+                      .read(createEventControllerProvider.notifier)
+                      .updateEvent(EventModel(title: title.text));
+                  context.pushNamed(AppRoutes.guestListScreen);
+                } else {
+                  showErrorDialog(context, 'location_required'.tr());
+                }
               }
             },
           ),
