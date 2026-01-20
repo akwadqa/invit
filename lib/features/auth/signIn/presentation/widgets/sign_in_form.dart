@@ -4,15 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/signIn/presentation/controller/sign_in_controller.dart';
 import 'package:invit/features/auth/widgets/text_form_fields/login_page_number_field.dart';
-import 'package:invit/features/auth/widgets/text_form_fields/phone_number_field.dart';
 import 'package:invit/src/application/router/app_routes.dart';
+import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
-import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
-import 'package:lottie/lottie.dart';
-
-import '../../../../../gen/assets.gen.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({super.key});
@@ -35,7 +31,8 @@ class _SignInFormState extends ConsumerState<SignInForm> {
         context.push(AppRoutes.verificationScreen, extra: phoneController.text);
         // _showDialog();
         // });
-      } else if (next is AsyncError) {
+      }
+       else if (next is AsyncError) {
         showErrorDialog(context, next.error.toString());
       }
     });
@@ -111,45 +108,5 @@ class _SignInFormState extends ConsumerState<SignInForm> {
   }
 }
 
-Future<bool?> showCustomDialog({
-  required BuildContext context,
-  required Widget title,
-  Widget? icon,
-}) {
-  return showDialog<bool>(
-    context: context,
-    barrierDismissible: true,
-    builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 300, // Replace with appropriate fixed or dynamic size
-            maxHeight: 400,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 50),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [icon ?? SizedBox(), 28.verticalSpace, title],
-            ),
-          ),
-        ),
-      );
-    },
-  );
-}
 
-Future<bool?> showErrorDialog(BuildContext context, String message) {
-  return showCustomDialog(
-    context: context,
-    title: Text(message),
-    icon: Icon(
-      Icons.error,
-      color: AppColors.darkRed,
-      size: 50,
-    ),
-  );
-}
+

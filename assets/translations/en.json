@@ -66,9 +66,12 @@
     "delete_user_description": "All your account and invitations will be deleted, are you sure?",
     "delete_user_confirm": "Yes, Delete",
     "firstName": "First Name",
+    "selectDate": "Select date",
+    "birth_data": "Birth date",
     "password": "Password",
-    "setPassword": "Set Password",
+    "setPassword": "Set password",
     "alreadyHaveAnAccount": "Already have an account?",
+ 
     "enterVerificationCode": "Enter Verification Code",
     "we_sent_a_code_to": "We sent a code to ",
     "seconds": "Seconds",

@@ -6,6 +6,7 @@ import 'package:invit/features/auth/signIn/presentation/controller/sign_in_contr
 import 'package:invit/features/auth/signUp/presentation/widgets/signUp_form.dart';
 import 'package:invit/features/auth/verification/presentation/controller/verify_otp_controller.dart';
 import 'package:invit/src/application/router/app_routes.dart';
+import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';

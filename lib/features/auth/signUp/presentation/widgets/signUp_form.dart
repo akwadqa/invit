@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/signUp/presentation/controller/signUp_controller.dart';
 import 'package:invit/features/auth/widgets/text_form_fields/login_page_number_field.dart';
 import 'package:invit/src/application/router/app_routes.dart';
+import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
@@ -182,47 +183,4 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
         ); // }
   }
-}
-
-Future<bool?> showCustomDialog({
-  required BuildContext context,
-  required Widget title,
-  Widget? icon,
-}) {
-  return showDialog<bool>(
-    context: context,
-    barrierDismissible: true,
-    builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 300, // Replace with appropriate fixed or dynamic size
-            maxHeight: 400,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 50),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [icon ?? SizedBox(), 28.verticalSpace, title],
-            ),
-          ),
-        ),
-      );
-    },
-  );
-}
-
-Future<bool?> showErrorDialog(BuildContext context, String message) {
-  return showCustomDialog(
-    context: context,
-    title: Text(message),
-    icon: Icon(
-      Icons.error,
-      color: AppColors.darkRed,
-      size: 50,
-    ),
-  );
 }
