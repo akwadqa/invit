@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'app_text_styles.dart';
@@ -16,7 +17,7 @@ class SettingsSectionTitle extends StatelessWidget {
       width: double.infinity,
       color: AppColors.lightGray,
       padding: EdgeInsets.symmetric(horizontal: 20,vertical:  12),
-      child: Text(title, style: textTheme.displayLarge!.copyWith(
+      child: Text(title.tr(), style: textTheme.displayLarge!.copyWith(
                 color: AppColors.primary,
                 fontWeight: FontWeight.bold,
                 fontSize: 18),));

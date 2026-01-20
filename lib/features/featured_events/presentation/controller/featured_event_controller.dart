@@ -1,29 +1,29 @@
-
 import 'package:invit/features/featured_events/data/repositories/featured_events_repository.dart';
 import 'package:invit/features/featured_events/domain/model/all_events_model.dart';
+import 'package:invit/features/home/domain/model/events/event_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'featured_event_controller.g.dart';
 
-
 @riverpod
 class FeaturedEventController extends _$FeaturedEventController {
-  List<AllEventsModel> _events = [];
+  List<EventModel> _events = [];
   int _currentPage = 1;
   int _totalPages = 1;
 
   @override
-  FutureOr<List<AllEventsModel>> build() async {
-    return await fetchAllEvents(page: 1);
+  FutureOr<AllEventsModel> build({String? eventType}) async {
+    return await fetchAllEvents(page: 1, eventType: eventType);
   }
 
-  Future<List<AllEventsModel>> fetchAllEvents(
-      {required int page, bool showLoading = true}) async {
+  Future<AllEventsModel> fetchAllEvents(
+      {required int page, bool showLoading = true, String? eventType}) async {
     try {
       if (showLoading) state = const AsyncLoading();
 
       final repo = ref.read(featuredEventsRepositoryProvider);
-      final response = await repo.getAllEvents(page: page);
+      final response =
+          await repo.getAllEvents(page: page, eventType: eventType);
 
       // افترض أن الدالة ترجع كائن يحتوي على:
       // data: List<AllEventsModel>
@@ -32,24 +32,26 @@ class FeaturedEventController extends _$FeaturedEventController {
       _totalPages = response.pagination!.totalPages;
 
       if (page == 1) {
-        _events =  List.from(response.data!);
+        _events = List.from(response.data!.events);
       } else {
-        _events.addAll(response.data!);
+        _events.addAll(response.data!.events);
       }
+      final responseModel = AllEventsModel(
+          events: _events, guestReport: response.data!.guestReport);
 
-      state = AsyncData(_events);
-      return _events;
+      state = AsyncData(responseModel);
+      return responseModel;
     } catch (e, st) {
       state = AsyncError(e, st);
-      return [];
+      throw Null;
     }
   }
 
   Future<bool> loadNextPage() async {
     if (_currentPage >= _totalPages) return false;
     final nextPage = _currentPage + 1;
-    final result = await fetchAllEvents(page: nextPage,showLoading: false);
-    return result.isNotEmpty;
+    final result = await fetchAllEvents(page: nextPage, showLoading: false);
+    return result.events.isNotEmpty;
   }
 
   Future<bool> refreshOrders() async {
@@ -59,7 +61,4 @@ class FeaturedEventController extends _$FeaturedEventController {
     await fetchAllEvents(page: 1);
     return true;
   }
-
-
-  
 }

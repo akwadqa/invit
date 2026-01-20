@@ -16,7 +16,7 @@ class CustomBackArrowWidget extends StatelessWidget {
       },
       child: Container(
           margin: EdgeInsetsDirectional.all(10),
-          padding: EdgeInsetsDirectional.all( 0),
+          padding: EdgeInsetsDirectional.all( 4),
           decoration: ShapeDecoration(
             color: AppColors.cardWhite,
             shape: CircleBorder(),

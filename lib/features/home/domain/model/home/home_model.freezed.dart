@@ -17,7 +17,7 @@ mixin _$HomeModel {
   List<BannerModel> get banners;
   List<EventModel> get events;
   @JsonKey(name: 'featured_events')
-  List<FeaturedEventModel> get featuredEvents;
+  List<EventModel> get featuredEvents;
   @JsonKey(name: 'occasion_types')
   List<OcationTypeModel> get occasionTypes;
 
@@ -67,7 +67,7 @@ abstract mixin class $HomeModelCopyWith<$Res> {
   $Res call(
       {List<BannerModel> banners,
       List<EventModel> events,
-      @JsonKey(name: 'featured_events') List<FeaturedEventModel> featuredEvents,
+      @JsonKey(name: 'featured_events') List<EventModel> featuredEvents,
       @JsonKey(name: 'occasion_types') List<OcationTypeModel> occasionTypes});
 }
 
@@ -100,7 +100,7 @@ class _$HomeModelCopyWithImpl<$Res> implements $HomeModelCopyWith<$Res> {
       featuredEvents: null == featuredEvents
           ? _self.featuredEvents
           : featuredEvents // ignore: cast_nullable_to_non_nullable
-              as List<FeaturedEventModel>,
+              as List<EventModel>,
       occasionTypes: null == occasionTypes
           ? _self.occasionTypes
           : occasionTypes // ignore: cast_nullable_to_non_nullable
@@ -205,8 +205,7 @@ extension HomeModelPatterns on HomeModel {
     TResult Function(
             List<BannerModel> banners,
             List<EventModel> events,
-            @JsonKey(name: 'featured_events')
-            List<FeaturedEventModel> featuredEvents,
+            @JsonKey(name: 'featured_events') List<EventModel> featuredEvents,
             @JsonKey(name: 'occasion_types')
             List<OcationTypeModel> occasionTypes)?
         $default, {
@@ -240,8 +239,7 @@ extension HomeModelPatterns on HomeModel {
     TResult Function(
             List<BannerModel> banners,
             List<EventModel> events,
-            @JsonKey(name: 'featured_events')
-            List<FeaturedEventModel> featuredEvents,
+            @JsonKey(name: 'featured_events') List<EventModel> featuredEvents,
             @JsonKey(name: 'occasion_types')
             List<OcationTypeModel> occasionTypes)
         $default,
@@ -273,8 +271,7 @@ extension HomeModelPatterns on HomeModel {
     TResult? Function(
             List<BannerModel> banners,
             List<EventModel> events,
-            @JsonKey(name: 'featured_events')
-            List<FeaturedEventModel> featuredEvents,
+            @JsonKey(name: 'featured_events') List<EventModel> featuredEvents,
             @JsonKey(name: 'occasion_types')
             List<OcationTypeModel> occasionTypes)?
         $default,
@@ -297,7 +294,7 @@ class _HomeModel implements HomeModel {
       {required final List<BannerModel> banners,
       required final List<EventModel> events,
       @JsonKey(name: 'featured_events')
-      required final List<FeaturedEventModel> featuredEvents,
+      required final List<EventModel> featuredEvents,
       @JsonKey(name: 'occasion_types')
       required final List<OcationTypeModel> occasionTypes})
       : _banners = banners,
@@ -323,10 +320,10 @@ class _HomeModel implements HomeModel {
     return EqualUnmodifiableListView(_events);
   }
 
-  final List<FeaturedEventModel> _featuredEvents;
+  final List<EventModel> _featuredEvents;
   @override
   @JsonKey(name: 'featured_events')
-  List<FeaturedEventModel> get featuredEvents {
+  List<EventModel> get featuredEvents {
     if (_featuredEvents is EqualUnmodifiableListView) return _featuredEvents;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_featuredEvents);
@@ -395,7 +392,7 @@ abstract mixin class _$HomeModelCopyWith<$Res>
   $Res call(
       {List<BannerModel> banners,
       List<EventModel> events,
-      @JsonKey(name: 'featured_events') List<FeaturedEventModel> featuredEvents,
+      @JsonKey(name: 'featured_events') List<EventModel> featuredEvents,
       @JsonKey(name: 'occasion_types') List<OcationTypeModel> occasionTypes});
 }
 
@@ -428,7 +425,7 @@ class __$HomeModelCopyWithImpl<$Res> implements _$HomeModelCopyWith<$Res> {
       featuredEvents: null == featuredEvents
           ? _self._featuredEvents
           : featuredEvents // ignore: cast_nullable_to_non_nullable
-              as List<FeaturedEventModel>,
+              as List<EventModel>,
       occasionTypes: null == occasionTypes
           ? _self._occasionTypes
           : occasionTypes // ignore: cast_nullable_to_non_nullable

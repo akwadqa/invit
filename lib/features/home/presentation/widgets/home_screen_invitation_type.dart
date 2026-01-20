@@ -31,8 +31,9 @@ class HomeScreenInvitationType extends StatelessWidget {
                 style: AppTextStyle.rubikSemiBold18
                     .copyWith(color: AppColors.primary)),
             GestureDetector(
-              onTap: () => context.push(AppRoutes.invitationsSecreen,extra: false),
-              
+              onTap: () =>
+                  context.push(AppRoutes.invitationsSecreen, extra: false),
+
               //  Navigator.of(context).push(MaterialPageRoute(
               //   builder: (context) => InvitationTypesScreen(),
               // )),
@@ -49,35 +50,41 @@ class HomeScreenInvitationType extends StatelessWidget {
               padding: EdgeInsetsDirectional.only(start: 8),
               itemBuilder: (context, index) {
                 final ocation = ocationTypeModel?[index];
-                return Column(
-                  spacing: 12,
-                  children: [
-                    ClipOval(
-                      child: Container(
-                          width: 92,
-                          height: 92,
-                          color: AppColors
-                              .grayBorder, // decoration: BoxDecoration(boxShadow: [
-                          //   BoxShadow(
-                          //     color: AppColors.black.withValues(alpha: .25),
-                          //     blurRadius: 4,
-                          //   )
-                          // ]),
-                          child: ocation?.image != null
-                              ? AppCachedNetworkImage(
-                                  imageUrl: ServicesUrls.imageUrl +
-                                      (ocation?.image ?? ""))
-                              : Container()),
-                    ),
-                    Text(
-                      ocation?.title ?? 'Wedding',
-                      style: AppTextStyle.rubikMedium14,
-                    )
-                  ],
-                );
+                return GestureDetector(
+                    onTap: () => context.push(AppRoutes.allEventsSecreen,
+                        extra: ocation?.title),
+                    child: _circleCategory(ocation));
               },
               separatorBuilder: (context, index) => 18.horizontalSpace,
               itemCount: ocationTypeModel?.length ?? 5),
+        )
+      ],
+    );
+  }
+
+  Widget _circleCategory(OcationTypeModel? ocation) {
+    return Column(
+      spacing: 12,
+      children: [
+        ClipOval(
+          child: Container(
+              width: 92,
+              height: 92,
+              color: AppColors
+                  .grayBorder, // decoration: BoxDecoration(boxShadow: [
+              //   BoxShadow(
+              //     color: AppColors.black.withValues(alpha: .25),
+              //     blurRadius: 4,
+              //   )
+              // ]),
+              child: ocation?.image != null
+                  ? AppCachedNetworkImage(
+                      imageUrl: ServicesUrls.imageUrl + (ocation?.image ?? ""))
+                  : Container()),
+        ),
+        Text(
+          ocation?.title ?? 'Wedding',
+          style: AppTextStyle.rubikMedium14,
         )
       ],
     );

@@ -32,8 +32,8 @@ mixin _$EventModel {
   String? get declinedTemplate;
   @JsonKey(name: 'workflow_state')
   String get workflowState;
-  @JsonKey(name: 'is_featured')
-  int get isFeatured;
+  @JsonKey(name: 'is_featured', includeFromJson: false, defaultValue: 0)
+  int? get isFeatured;
   String get status;
   String get role;
 
@@ -118,7 +118,8 @@ abstract mixin class $EventModelCopyWith<$Res> {
       @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
       @JsonKey(name: 'declined_template') String? declinedTemplate,
       @JsonKey(name: 'workflow_state') String workflowState,
-      @JsonKey(name: 'is_featured') int isFeatured,
+      @JsonKey(name: 'is_featured', includeFromJson: false, defaultValue: 0)
+      int? isFeatured,
       String status,
       String role});
 }
@@ -146,7 +147,7 @@ class _$EventModelCopyWithImpl<$Res> implements $EventModelCopyWith<$Res> {
     Object? confirmedTemplate = freezed,
     Object? declinedTemplate = freezed,
     Object? workflowState = null,
-    Object? isFeatured = null,
+    Object? isFeatured = freezed,
     Object? status = null,
     Object? role = null,
   }) {
@@ -195,10 +196,10 @@ class _$EventModelCopyWithImpl<$Res> implements $EventModelCopyWith<$Res> {
           ? _self.workflowState
           : workflowState // ignore: cast_nullable_to_non_nullable
               as String,
-      isFeatured: null == isFeatured
+      isFeatured: freezed == isFeatured
           ? _self.isFeatured
           : isFeatured // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       status: null == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -316,7 +317,9 @@ extension EventModelPatterns on EventModel {
             @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
             @JsonKey(name: 'declined_template') String? declinedTemplate,
             @JsonKey(name: 'workflow_state') String workflowState,
-            @JsonKey(name: 'is_featured') int isFeatured,
+            @JsonKey(
+                name: 'is_featured', includeFromJson: false, defaultValue: 0)
+            int? isFeatured,
             String status,
             String role)?
         $default, {
@@ -372,7 +375,9 @@ extension EventModelPatterns on EventModel {
             @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
             @JsonKey(name: 'declined_template') String? declinedTemplate,
             @JsonKey(name: 'workflow_state') String workflowState,
-            @JsonKey(name: 'is_featured') int isFeatured,
+            @JsonKey(
+                name: 'is_featured', includeFromJson: false, defaultValue: 0)
+            int? isFeatured,
             String status,
             String role)
         $default,
@@ -426,7 +431,9 @@ extension EventModelPatterns on EventModel {
             @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
             @JsonKey(name: 'declined_template') String? declinedTemplate,
             @JsonKey(name: 'workflow_state') String workflowState,
-            @JsonKey(name: 'is_featured') int isFeatured,
+            @JsonKey(
+                name: 'is_featured', includeFromJson: false, defaultValue: 0)
+            int? isFeatured,
             String status,
             String role)?
         $default,
@@ -470,7 +477,8 @@ class _EventModel implements EventModel {
       @JsonKey(name: 'confirmed_template') this.confirmedTemplate,
       @JsonKey(name: 'declined_template') this.declinedTemplate,
       @JsonKey(name: 'workflow_state') required this.workflowState,
-      @JsonKey(name: 'is_featured') required this.isFeatured,
+      @JsonKey(name: 'is_featured', includeFromJson: false, defaultValue: 0)
+      this.isFeatured,
       required this.status,
       required this.role});
   factory _EventModel.fromJson(Map<String, dynamic> json) =>
@@ -506,8 +514,8 @@ class _EventModel implements EventModel {
   @JsonKey(name: 'workflow_state')
   final String workflowState;
   @override
-  @JsonKey(name: 'is_featured')
-  final int isFeatured;
+  @JsonKey(name: 'is_featured', includeFromJson: false, defaultValue: 0)
+  final int? isFeatured;
   @override
   final String status;
   @override
@@ -601,7 +609,8 @@ abstract mixin class _$EventModelCopyWith<$Res>
       @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
       @JsonKey(name: 'declined_template') String? declinedTemplate,
       @JsonKey(name: 'workflow_state') String workflowState,
-      @JsonKey(name: 'is_featured') int isFeatured,
+      @JsonKey(name: 'is_featured', includeFromJson: false, defaultValue: 0)
+      int? isFeatured,
       String status,
       String role});
 }
@@ -629,7 +638,7 @@ class __$EventModelCopyWithImpl<$Res> implements _$EventModelCopyWith<$Res> {
     Object? confirmedTemplate = freezed,
     Object? declinedTemplate = freezed,
     Object? workflowState = null,
-    Object? isFeatured = null,
+    Object? isFeatured = freezed,
     Object? status = null,
     Object? role = null,
   }) {
@@ -678,10 +687,10 @@ class __$EventModelCopyWithImpl<$Res> implements _$EventModelCopyWith<$Res> {
           ? _self.workflowState
           : workflowState // ignore: cast_nullable_to_non_nullable
               as String,
-      isFeatured: null == isFeatured
+      isFeatured: freezed == isFeatured
           ? _self.isFeatured
           : isFeatured // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       status: null == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable

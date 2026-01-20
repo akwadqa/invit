@@ -33,6 +33,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/delete_ic.svg
   SvgGenImage get deleteIc => const SvgGenImage('assets/icons/delete_ic.svg');
 
+  /// File path: assets/icons/delete_with_corner_ic.svg
+  SvgGenImage get deleteWithCornerIc =>
+      const SvgGenImage('assets/icons/delete_with_corner_ic.svg');
+
   /// File path: assets/icons/edit_profile_ic.svg
   SvgGenImage get editProfileIc =>
       const SvgGenImage('assets/icons/edit_profile_ic.svg');
@@ -56,6 +60,10 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/logout_ic.svg
   SvgGenImage get logoutIc => const SvgGenImage('assets/icons/logout_ic.svg');
+
+  /// File path: assets/icons/logout_with_corner_ic.svg
+  SvgGenImage get logoutWithCornerIc =>
+      const SvgGenImage('assets/icons/logout_with_corner_ic.svg');
 
   /// File path: assets/icons/messages_ic.svg
   SvgGenImage get messagesIc =>
@@ -98,6 +106,7 @@ class $AssetsIconsGen {
         chatIc,
         dateIc,
         deleteIc,
+        deleteWithCornerIc,
         editProfileIc,
         googleIc,
         homeIc,
@@ -105,6 +114,7 @@ class $AssetsIconsGen {
         langIc,
         locationIc,
         logoutIc,
+        logoutWithCornerIc,
         messagesIc,
         notificationIc,
         passwordIc,
@@ -119,6 +129,10 @@ class $AssetsIconsGen {
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/Rectangle.png
+  AssetGenImage get rectangle =>
+      const AssetGenImage('assets/images/Rectangle.png');
 
   /// File path: assets/images/all_event_image.jpg
   AssetGenImage get allEventImage =>
@@ -158,6 +172,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        rectangle,
         allEventImage,
         backgroundEventIm,
         bookImage,

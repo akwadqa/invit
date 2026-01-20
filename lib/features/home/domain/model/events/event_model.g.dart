@@ -18,7 +18,6 @@ _EventModel _$EventModelFromJson(Map<String, dynamic> json) => _EventModel(
       confirmedTemplate: json['confirmed_template'] as String?,
       declinedTemplate: json['declined_template'] as String?,
       workflowState: json['workflow_state'] as String,
-      isFeatured: (json['is_featured'] as num).toInt(),
       status: json['status'] as String,
       role: json['role'] as String,
     );
@@ -36,7 +35,6 @@ Map<String, dynamic> _$EventModelToJson(_EventModel instance) =>
       'confirmed_template': instance.confirmedTemplate,
       'declined_template': instance.declinedTemplate,
       'workflow_state': instance.workflowState,
-      'is_featured': instance.isFeatured,
       'status': instance.status,
       'role': instance.role,
     };

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/signUp/presentation/screens/signup_screen.dart';
 import 'package:invit/features/auth/verification/presentation/screens/verification_account_screen.dart';
+import 'package:invit/features/event_details/presentation/screens/event_details_screen.dart';
 import 'package:invit/features/featured_events/presentation/screens/all_events_screen.dart';
 import 'package:invit/features/home/presentation/screens/home_screen.dart';
 import 'package:invit/features/home/presentation/screens/main_screen.dart';
@@ -11,6 +12,8 @@ import 'package:invit/features/notifications/presentation/screens/notifications_
 import 'package:invit/features/onBoarding/on_boarding.dart';
 import 'package:invit/features/auth/signIn/presentation/screens/sign_in_screen.dart';
 import 'package:invit/features/onBoarding/splash_screen.dart';
+import 'package:invit/features/scan/presentation/pages/scan_qr_event_page.dart';
+import 'package:invit/features/scan_qr_code/presentation/screens/scan_qr_code_screen.dart';
 // import 'package:invit/features/onBoarding/splash.dart';
 import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/infrastructure/storage/local_storage_service.dart';
@@ -166,14 +169,66 @@ class AppRouter {
             pageBuilder: (BuildContext context, GoRouterState state) {
               return CustomTransitionPage(
                 key: state.pageKey,
-                child: AllEventsScreen(),
+                child: AllEventsScreen(
+                  eventType: state.extra as String?,
+                ),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                   return FadeTransition(opacity: animation, child: child);
                 },
               );
             }),
-     
+        GoRoute(
+            path: AppRoutes.eventDetails,
+            name: AppRoutes.eventDetails,
+            parentNavigatorKey: rootKey,
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: EventDetailsScreen(
+                 ocassionId : state.extra as String,
+                ),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+              );
+            }),
+      //      GoRoute(
+      //   path: AppRoutes.qrScreen,
+      //   name: AppRoutes.qrScreen,
+      //   pageBuilder: (context, state) => CustomTransitionPage(
+      //     key: state.pageKey,
+      //     child: QrScreen(id: state.extra as String?),
+      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      //       return FadeTransition(opacity: animation, child: child);
+      //     },
+      //   ),
+      // ),
+     GoRoute(
+              path: AppRoutes.scanQr,
+        name: AppRoutes.scanQr,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: ScanQrEventPage(state.extra as String),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.scanCameraQR,
+        name: AppRoutes.scanCameraQR,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
+
+          child: ScanQrCodeScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        ),
+      ),
+
       ],
     );
   }

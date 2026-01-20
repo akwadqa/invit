@@ -14,7 +14,7 @@ abstract class HomeModel with _$HomeModel {
     required List<BannerModel> banners,
     required List<EventModel> events,
     @JsonKey(name: 'featured_events')
-    required List<FeaturedEventModel> featuredEvents,
+    required List<EventModel> featuredEvents,
     @JsonKey(name: 'occasion_types') required List<OcationTypeModel> occasionTypes,
   }) = _HomeModel;
 

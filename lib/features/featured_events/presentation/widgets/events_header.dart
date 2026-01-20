@@ -1,8 +1,6 @@
-import 'dart:math';
-
-import 'package:custom_clippers/custom_clippers.dart';
 import 'package:flutter/material.dart';
 import 'package:invit/gen/assets.gen.dart';
+import 'package:invit/src/core/shared_widgets/custom_back_arrow_widget%20copy.dart';
 import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 
 class EventsHeader extends StatelessWidget {
@@ -10,54 +8,38 @@ class EventsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Column(
+    return Column(
       children: [
         Stack(
           alignment: AlignmentGeometry.bottomCenter,
           children: [
-            Assets.images.backgroundEventIm.image().onlyPadding(bottom: 70),
-         Positioned(
-                top: 40,
-                left: 16,
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                    ),
-                    onPressed: () => Navigator.pop(context),
+            Assets.images.backgroundEventIm.image(width: double.infinity,fit: BoxFit.fitWidth).onlyPadding(bottom: 70),
+            PositionedDirectional(
+                top: 40, start: 16, child: CustomBackArrowWidget()),
+            Positioned(
+              bottom: 0,
+              child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 8,
+                      ),
+                    ],
                   ),
-                ),
-              ),
-               Positioned(
-            bottom: 0,
-            child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 8,
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  Icons.flutter_dash_outlined,
-                  size: 100,
-                )),
-          ),
-        
+                  child: Icon(
+                    Icons.flutter_dash_outlined,
+                    size: 100,
+                  )),
+            ),
           ],
         ),
-        
       ],
     );
-    
-    
+
     // Container(
     //   height: 250,
     //   width: double.infinity,
@@ -85,44 +67,43 @@ class EventsHeader extends StatelessWidget {
     //       // ),
 
     //       // Back Button
-          // Positioned(
-          //   top: 40,
-          //   left: 16,
-          //   child: CircleAvatar(
-          //     backgroundColor: Colors.white,
-          //     child: IconButton(
-          //       icon: const Icon(
-          //         Icons.arrow_back,
-          //         color: Colors.black,
-          //       ),
-          //       onPressed: () => Navigator.pop(context),
-          //     ),
-          //   ),
-          // ),
-      //     Positioned(
-      //       bottom: -20,
-      //       child: Container(
-      //           padding: const EdgeInsets.all(12),
-      //           decoration: const BoxDecoration(
-      //             color: Colors.white,
-      //             shape: BoxShape.circle,
-      //             boxShadow: [
-      //               BoxShadow(
-      //                 color: Colors.black12,
-      //                 blurRadius: 8,
-      //               ),
-      //             ],
-      //           ),
-      //           child: Icon(
-      //             Icons.flutter_dash_outlined,
-      //             size: 100,
-      //           )),
-      //     ),
-      //   ],
-      // ),
-    
+    // Positioned(
+    //   top: 40,
+    //   left: 16,
+    //   child: CircleAvatar(
+    //     backgroundColor: Colors.white,
+    //     child: IconButton(
+    //       icon: const Icon(
+    //         Icons.arrow_back,
+    //         color: Colors.black,
+    //       ),
+    //       onPressed: () => Navigator.pop(context),
+    //     ),
+    //   ),
+    // ),
+    //     Positioned(
+    //       bottom: -20,
+    //       child: Container(
+    //           padding: const EdgeInsets.all(12),
+    //           decoration: const BoxDecoration(
+    //             color: Colors.white,
+    //             shape: BoxShape.circle,
+    //             boxShadow: [
+    //               BoxShadow(
+    //                 color: Colors.black12,
+    //                 blurRadius: 8,
+    //               ),
+    //             ],
+    //           ),
+    //           child: Icon(
+    //             Icons.flutter_dash_outlined,
+    //             size: 100,
+    //           )),
+    //     ),
+    //   ],
+    // ),
+
     // );
-  
   }
 }
 

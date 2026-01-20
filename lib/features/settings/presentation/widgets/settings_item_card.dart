@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
@@ -44,7 +45,7 @@ class SettingsItemCard extends StatelessWidget {
             backgroundColor:  AppColors.primaryOpacity.withAlpha(100),
             child: icon.svg(color: AppColors.primary)),
           title: Text(
-            title,
+            title.tr(),
             style: Theme.of(
               context,
             ).textTheme.labelMedium!.copyWith(color: AppColors.dark,fontSize: 16,fontWeight: FontWeight.w400),

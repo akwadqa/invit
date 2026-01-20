@@ -20,10 +20,10 @@ class FeaturedEventsRepository {
 
   FeaturedEventsRepository(this._remoteDataSource);
 
-  Future<ApiResponse<List<AllEventsModel>>> getAllEvents(
-      {required int page,String? search,}) async {
+  Future<ApiResponse<AllEventsModel>> getAllEvents(
+      {required int page,String? eventType,}) async {
     try {
-      final result = await _remoteDataSource.getAllEvents(page,search);
+      final result = await _remoteDataSource.getAllEvents(page,eventType);
       if (result.hasFailed) {
         throw AppException(
           result.message ?? 'Failed to fetch getAllEvents',

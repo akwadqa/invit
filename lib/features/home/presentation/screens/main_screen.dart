@@ -7,6 +7,7 @@ import 'package:invit/features/home/presentation/screens/home_screen.dart';
 import 'package:invit/features/home/presentation/widgets/bottom_navigation_bar_view.dart';
 import 'package:invit/features/messages/presentation/screens/messages_screen.dart';
 import 'package:invit/features/notifications/presentation/screens/notifications_screen.dart';
+import 'package:invit/features/scan/presentation/pages/scan_page.dart';
 import 'package:invit/features/settings/presentation/screens/settings_screen.dart';
 import 'package:invit/gen/assets.gen.dart';
 
@@ -30,9 +31,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   // }
   static final List<Widget> _pages = [
     HomeScreen(),
-    Container(),
-    // NotificationsScreen(),
-    MessagesScreen(),
+    ScanPage(),
+    NotificationsScreen(),
+    // MessagesScreen(),
     SettingsScreen(),
   ];
   

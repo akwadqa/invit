@@ -9,12 +9,8 @@ import 'package:invit/features/home/presentation/widgets/home_screen/home_screen
 import 'package:invit/features/home/presentation/widgets/home_screen_app_bar.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen_booking_list.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen_invitation_type.dart';
-import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
-import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
-import 'package:invit/src/resourses/color_manager/app_colors.dart';
-import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 @RoutePage()
@@ -46,6 +42,8 @@ class _HomeScreenContent extends ConsumerWidget {
             HomeScreenInvitationType(ocationTypeModel: data.occasionTypes),
             20.verticalSpace,
             HomeScreenAllEvents(),
+            20.verticalSpace,
+            HomeScreenAllEvents(featuredEvent: true,),
             140.verticalSpace
           ],
         );

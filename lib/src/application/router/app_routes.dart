@@ -11,5 +11,10 @@ abstract class AppRoutes {
   static const String notificationScreen = '/notification';
   static const String invitationsSecreen = '/invitationsSecreen';
   static const String allEventsSecreen = '/allEventsSecreen';
-  static const String serviceDetails = '/service_details';
+  static const String eventDetails = '/event_details';
+
+  // static String qrScreen = '/qr-page';
+
+  static String scanQr = '/scan-qr-page';
+  static String scanCameraQR = '/scan-camera-qr-page';
 }

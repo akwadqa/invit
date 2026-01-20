@@ -15,6 +15,222 @@ import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 import 'package:invit/src/logger/log_services/dev_logger.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 
+class AppDialogs {
+  AppDialogs._();
+
+  static Future<void> loading(
+    BuildContext context, {
+    bool dismissible = false,
+  }) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: dismissible,
+      useRootNavigator: true,
+      builder: (_) => const Center(child: _LoadingIndicator()),
+    );
+  }
+
+  static void close(BuildContext context) {
+    if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+  }
+
+  static Future<void> success(
+    BuildContext context, {
+    required String title,
+    String? message,
+    Widget? child,
+    String okText = 'OK',
+    bool dismissible = true,
+  }) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: dismissible,
+      builder: (_) => _ResultDialog(
+        icon: const Icon(Icons.check_circle, color: Colors.green, size: 24),
+        title: title,
+        message: message,
+        okText: okText,
+        child: child,
+      ),
+    );
+  }
+
+  static Future<void> error(
+    BuildContext context, {
+    required String title,
+    String? message,
+    Widget? child,
+    String okText = 'OK',
+    bool dismissible = true,
+  }) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: dismissible,
+      builder: (_) => _ResultDialog(
+        icon: const Icon(Icons.cancel, color: Colors.red, size: 24),
+        title: title,
+        message: message,
+        okText: okText,
+        child: child,
+      ),
+    );
+  }
+
+  static Future<bool> confirm(
+    BuildContext context, {
+    required String title,
+    String? message,
+    Widget? child,
+    String cancelText = 'Cancel',
+    String confirmText = 'Confirm',
+    bool destructive = false,
+    bool dismissible = true,
+  }) async {
+    final result = await showDialog<bool>(
+      context: context,
+      barrierDismissible: dismissible,
+      builder: (_) => _ConfirmDialog(
+        title: title,
+        message: message,
+        cancelText: cancelText,
+        confirmText: confirmText,
+        destructive: destructive,
+        child: child,
+      ),
+    );
+    return result ?? false;
+  }
+}
+
+class _LoadingIndicator extends StatelessWidget {
+  const _LoadingIndicator();
+
+  @override
+  Widget build(BuildContext context) {
+    final bg = Theme.of(context).dialogTheme.backgroundColor;
+    return Material(
+      color: Colors.black38,
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: bg,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: SizedBox(width: 48, height: 48, child: AppLoader()),
+        ),
+      ),
+    );
+  }
+}
+
+class _ResultDialog extends StatelessWidget {
+  final Widget icon;
+  final String title;
+  final String? message;
+  final Widget? child;
+  final String okText;
+
+  const _ResultDialog({
+    required this.icon,
+    required this.title,
+    this.message,
+    this.child,
+    required this.okText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final titleStyle = Theme.of(context).textTheme.titleMedium;
+    final bodyStyle = Theme.of(context).textTheme.bodyMedium;
+
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      titlePadding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      contentPadding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+      actionsPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+      title: Row(
+        children: [
+          icon,
+          const SizedBox(width: 8),
+          Expanded(child: Text(title, style: titleStyle)),
+        ],
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (message != null) Text(message!, style: bodyStyle),
+          if (message != null && child != null) const SizedBox(height: 12),
+          if (child != null) child!,
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(okText),
+        ),
+      ],
+    );
+  }
+}
+
+class _ConfirmDialog extends StatelessWidget {
+  final String title;
+  final String? message;
+  final Widget? child;
+  final String cancelText;
+  final String confirmText;
+  final bool destructive;
+
+  const _ConfirmDialog({
+    required this.title,
+    this.message,
+    this.child,
+    required this.cancelText,
+    required this.confirmText,
+    required this.destructive,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final titleStyle = Theme.of(context).textTheme.titleMedium;
+    final bodyStyle = Theme.of(context).textTheme.bodyMedium;
+
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      titlePadding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      contentPadding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+      actionsPadding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+      title: Text(title, style: titleStyle),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (message != null) Text(message!, style: bodyStyle),
+          if (message != null && child != null) const SizedBox(height: 12),
+          if (child != null) child!,
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false),
+          child: Text(cancelText),
+        ),
+        FilledButton(
+          style: destructive
+              ? FilledButton.styleFrom(backgroundColor: Colors.red)
+              : null,
+          onPressed: () => Navigator.pop(context, true),
+          child: Text(confirmText),
+        ),
+      ],
+    );
+  }
+}
+
 Future<void> showCustomDialog({
   required BuildContext context,
   required Widget title,
@@ -205,7 +421,7 @@ Future<void> showConfirmationDialog({
 
                   // Title
                   Text(
-                    title,
+                    title.tr(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -217,7 +433,7 @@ Future<void> showConfirmationDialog({
 
                   // Description
                   Text(
-                    description,
+                    description.tr(),
                     textAlign: TextAlign.center,
                     style: Theme.of(context)
                         .textTheme
@@ -235,6 +451,7 @@ Future<void> showConfirmationDialog({
                         child: CustomButtonWidget(
                           text: cancelText,
                           isFiled: false,
+                          backgroundColor: AppColors.background,
                           color: AppColors.grayBorder,
                           radius: 10,
                           height: 45,
@@ -248,8 +465,8 @@ Future<void> showConfirmationDialog({
                       Consumer(builder: (context, ref, child) {
                         ref.listen(settingsControllerProvider, (prev, next) {
                           final current = deleteAcc
-                              ? next.value?.logoutState
-                              : next.value?.deleteAccountState;
+                              ? next.value?.deleteAccountState
+                              : next.value?.logoutState;
                           if (current is AsyncData) {
                             // context.maybePop().then((_) {
                             Dev.logSuccess("Success check");
@@ -258,7 +475,7 @@ Future<void> showConfirmationDialog({
                             context.pushReplacement(AppRoutes.signInScreen);
                             // _showDialog();
                             BotToast.showText(
-                              text: 'Successful Check',
+                              text: 'successful_check'.tr(),
                               contentColor: AppColors.green,
                             );
 
@@ -266,13 +483,13 @@ Future<void> showConfirmationDialog({
                           } else if (current is AsyncError) {
                             showErrorDialog(context, current.error.toString());
                           }
+                      
                         });
 
-                        final provider = ref
-                            .watch(settingsControllerProvider);
- final current = deleteAcc
-                              ? provider.value?.logoutState
-                              : provider.value?.deleteAccountState;
+                        final provider = ref.watch(settingsControllerProvider);
+                        final current = deleteAcc
+                            ? provider.value?.deleteAccountState
+                            : provider.value?.logoutState;
                         if (current is AsyncLoading) {
                           return Flexible(flex: 2, child: AppLoader());
                           // const FadeCircleLoadingIndicator();

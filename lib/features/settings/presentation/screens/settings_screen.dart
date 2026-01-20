@@ -9,6 +9,7 @@ import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import '../widgets/app_text_styles.dart';
+import '../widgets/change_language_bottom_sheet.dart';
 import '../widgets/settings_item_card.dart';
 import '../widgets/settings_profile_header.dart';
 import '../widgets/settings_section_title.dart';
@@ -34,26 +35,32 @@ class SettingsScreen extends ConsumerWidget {
           spacing: 20,
           children: [
             SettingsProfileHeader(
-              name: 'Hadeel Be',
+              name: 'Mouaz',
             ),
 
-            const SettingsSectionTitle(title: 'Account Details'),
+            const SettingsSectionTitle(title: 'account_details'),
 
             SettingsItemCard(
-              title: 'Edit My Profile',
+              title: 'edit_my_profile',
               icon: Assets.icons.editProfileIc,
             ),
 
             // const Divider(),
-            const SettingsSectionTitle(title: 'Help Center'),
+            const SettingsSectionTitle(title: 'help_center'),
 
-            SettingsItemCard(
-              title: 'Change Language',
-              icon: Assets.icons.langIc,
+            GestureDetector(
+              onTap: () => showModalBottomSheet(
+                context: context,
+                builder: (context) => ChangeLanguageBottomSheet(),
+              ),
+              child: SettingsItemCard(
+                title: 'change_language'.tr(),
+                icon: Assets.icons.langIc,
+              ),
             ),
 
             SettingsItemCard(
-              title: 'Pricing & Services',
+              title: 'pricing_services'.tr(),
               icon: Assets.icons.privacyIc,
             ),
 
@@ -61,76 +68,65 @@ class SettingsScreen extends ConsumerWidget {
             //   title: 'Dark Mode',
             //   trailing: Switch(value: false, onChanged: (_) {}),
             // ),
-            SettingsItemCard(
-              title: 'Notification',
-              trailing: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: SizedBox(
-                  height: 10,
-                  child: Switch(
-                    value: settingsState.value?.notificationState ?? false,
-                    onChanged: (val) {
-                      ref
-                          .read(settingsControllerProvider.notifier)
-                          .onNotificationChange(val);
-                    },
-                    activeThumbColor: AppColors.white,
-                    activeTrackColor: AppColors.primary,
-                    inactiveThumbColor: AppColors.white,
-                    inactiveTrackColor: AppColors.gray,
-                  ),
-                ),
-              ),
-              icon: Assets.icons.notificationIc,
-            ),
+            // SettingsItemCard(
+            //   title: 'notification'.tr(),
+            //   trailing: Padding(
+            //     padding: const EdgeInsets.symmetric(vertical: 10.0),
+            //     child: SizedBox(
+            //       height: 10,
+            //       child: Switch(
+            //         value: settingsState.value?.notificationState ?? false,
+            //         onChanged: (val) {
+            //           ref
+            //               .read(settingsControllerProvider.notifier)
+            //               .onNotificationChange(val);
+            //         },
+            //         activeThumbColor: AppColors.white,
+            //         activeTrackColor: AppColors.primary,
+            //         inactiveThumbColor: AppColors.white,
+            //         inactiveTrackColor: AppColors.gray,
+            //       ),
+            //     ),
+            //   ),
+            //   icon: Assets.icons.notificationIc,
+            // ),
 
             SettingsItemCard(
-              title: 'Log out',
+              title: 'logout'.tr(),
               icon: Assets.icons.logoutIc,
               onTap: () {
                 showConfirmationDialog(
                   context: context,
-                  title: "log out",
-                  description:
-                      "Are you sure you want  to log out?",
-                  confirmText: "Yes, Logout",
+                  title: "logout_title",
+                  description: "logout_description",
+                  confirmText: "logout_confirm",
                   confirmColor: AppColors.primary,
-                  icon: Stack(
-                    alignment: AlignmentGeometry.center,
-                    children: [
-                      Assets.icons.iconCorner.svg(height: 60),
-                      Assets.icons.logoutIc.svg(height: 40).onlyPadding(top: 5,start: 10),
-                    ],
-                  ),
+                  icon: Assets.icons.logoutWithCornerIc.svg(),
                   onConfirm: () {
-                        ref.read(settingsControllerProvider.notifier).logout();
+                    ref.read(settingsControllerProvider.notifier).logout();
 
                     // delete user logic
-                  }, deleteAcc: false,
+                  },
+                  deleteAcc: false,
                 );
               },
             ),
             SettingsItemCard(
-              title: 'Delete User',
+              title: 'delete_user',
               icon: Assets.icons.deleteIc,
               onTap: () {
                 showConfirmationDialog(
                   context: context,
                   deleteAcc: true,
-                  title: "Delete User",
-                  description:
-                      "All your account and invitations will be deleted, are you sure?",
-                  confirmText: "Yes, Delete",
+                  title: "delete_user_title",
+                  description: "delete_user_description",
+                  confirmText: "delete_user_confirm",
                   confirmColor: AppColors.primary,
-                  icon: Stack(
-                    alignment: AlignmentGeometry.center,
-                    children: [
-                      Assets.icons.iconCorner.svg(height: 60),
-                      Assets.icons.deleteIc.svg(height: 40),
-                    ],
-                  ),
+                  icon: Assets.icons.deleteWithCornerIc.svg(),
                   onConfirm: () {
                     // delete user logic
+                    ref.read(settingsControllerProvider.notifier).deleteAccount();
+
                   },
                 );
               },

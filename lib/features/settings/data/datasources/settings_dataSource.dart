@@ -28,10 +28,14 @@ Future<ApiResponse<HomeModel>> getSettingsData({required int page}) async {
     rethrow;
   }
 }
-  Future<ApiResponse<bool>> deleteAccount() async {
+  Future<ApiResponse<bool>> deleteAccount(String email) async {
     try {
       final response = await _networkService
-          .put(ApiEndPoints.deleteAccountApi,);
+          .put(ApiEndPoints.deleteAccountApi,
+          data: {
+            "user_id":email
+          }
+          );
 
       if (response.data == null || response.statusCode != 200) {
         throw Exception('Failed to l delete account');
@@ -43,6 +47,24 @@ Future<ApiResponse<HomeModel>> getSettingsData({required int page}) async {
       );
     } catch (e) {
       Dev.logLine('Error in deleteAccount: $e');
+      rethrow;
+    }
+  }
+  Future<ApiResponse<bool>> logout() async {
+    try {
+      final response = await _networkService
+          .put(ApiEndPoints.logoutApi,);
+
+      if (response.data == null || response.statusCode != 200) {
+        throw Exception('Failed to l logout account');
+      }
+
+      return ApiResponse.fromJson(
+        response.data as Map<String, dynamic>,
+        (json) => true,
+      );
+    } catch (e) {
+      Dev.logLine('Error in logoutAccount: $e');
       rethrow;
     }
   }

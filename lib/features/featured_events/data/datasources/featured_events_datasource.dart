@@ -1,4 +1,3 @@
-
 import 'package:invit/features/featured_events/domain/model/all_events_model.dart';
 import 'package:invit/features/messages/domain/model/app_messages_model.dart';
 import 'package:invit/features/notifications/domain/model/app_notifications_model.dart';
@@ -11,27 +10,18 @@ class FeaturedEventsDatasource {
 
   FeaturedEventsDatasource(this._networkService);
 
-  Future<ApiResponse<List<AllEventsModel>>> getAllEvents(
-    int page,
-    String? eventType
-  ) async {
+  Future<ApiResponse<AllEventsModel>> getAllEvents(
+      int page, String? eventType) async {
     try {
       final response = await _networkService.get(
-        ApiEndPoints.appNotification,
+        ApiEndPoints.getUserEvents,
         queryParameters: {
-          'page': page,
-
-       if(eventType!=null) "event": eventType
-
+          'page_no': page,
+          if (eventType != null) "event_type": eventType
         },
       );
-      return ApiResponse.fromJson(
-        response.data,
-        (json) => (json as List)
-            .map((item) =>
-                AllEventsModel.fromJson(item as Map<String, dynamic>))
-            .toList(),
-      );
+      return ApiResponse.fromJson(response.data,
+          (json) => AllEventsModel.fromJson(json as Map<String, dynamic>));
     } catch (e) {
       return ApiResponse.error(message: e.toString());
     }

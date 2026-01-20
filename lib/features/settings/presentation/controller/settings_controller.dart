@@ -40,18 +40,21 @@ class SettingsController extends _$SettingsController {
   Future<void> deleteAccount() async {
     final current = state.value;
     if (current == null) return;
+    final storage = ref.read(localStorageServiceProvider);
 
     state = AsyncData(
       current.copyWith(deleteAccountState: const AsyncLoading()),
     );
+    final email=storage.userInfo.email;
 
     final result = await AsyncValue.guard(() async {
       final repo = ref.read(settingsRepositoryProvider);
-      await repo.deleteAccount();
+      await repo.deleteAccount(email);
     });
+    await storage.logout();
 
     state = AsyncData(
-      current.copyWith(deleteAccountState: result),
+      current.copyWith(deleteAccountState: AsyncData(result)),
     );
   }
 
@@ -60,19 +63,22 @@ class SettingsController extends _$SettingsController {
     final current = state.value;
     if (current == null) return;
     final storage = ref.read(localStorageServiceProvider);
-    await storage.logout();
     state = AsyncData(
       current.copyWith(logoutState: const AsyncLoading()),
     );
 
+    final result = await AsyncValue.guard(() async {
+      final repo = ref.read(settingsRepositoryProvider);
+
+      //  final result =
+      await repo.logout();
+    });
     await Future.delayed(Duration(seconds: 2));
-    // final result = await AsyncValue.guard(() async {
-    //   final repo = ref.read(settingsRepositoryProvider);
-    //   await repo.logout();
-    // });
+
+    await storage.logout();
 
     state = AsyncData(
-      current.copyWith(logoutState: AsyncData(Null)),
+      current.copyWith(logoutState: AsyncData(result)),
     );
   }
 }

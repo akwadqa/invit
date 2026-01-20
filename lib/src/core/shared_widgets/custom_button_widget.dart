@@ -35,6 +35,7 @@ class CustomButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        elevation: 2,
           padding: EdgeInsets.zero,
           backgroundColor: backgroundColor ?? Colors.transparent,
           foregroundColor: AppColors.black900,
@@ -50,10 +51,11 @@ class CustomButtonWidget extends StatelessWidget {
         onTap();
       },
       child: Text(context.tr(text),
+      textAlign: TextAlign.center,
               style: style ??
                   Theme.of(context).textTheme.displaySmall!.copyWith(
                       fontSize: fontSize ?? 16,
-                      color: isFiled ? Colors.white : Colors.black,
+                      color: isFiled ? Colors.white :color?? Colors.black,
                       fontWeight: FontWeight.w500))
           .centered(),
     ).onlyPadding(top: topPading ?? 0);

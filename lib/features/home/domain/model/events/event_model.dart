@@ -17,11 +17,23 @@ abstract class EventModel with _$EventModel {
     @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
     @JsonKey(name: 'declined_template') String? declinedTemplate,
     @JsonKey(name: 'workflow_state') required String workflowState,
-    @JsonKey(name: 'is_featured') required int isFeatured,
+    @JsonKey(name: 'is_featured',includeFromJson: false,defaultValue: 0)  int? isFeatured,
     required String status,
     required String role,
   }) = _EventModel;
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);
+  factory EventModel.placeholder() => const EventModel(
+        occasionId: "occasionId",
+        title: "title",
+        type: "type",
+        date: "date",
+        time: "time",
+        mapLink: "mapLink",
+        imageUrl: "/files/event_image_20251221172218_test.jpg",
+        workflowState: "workflowState",
+        isFeatured: 0,
+        status: "status",
+        role: "role");
 }

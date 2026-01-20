@@ -53,11 +53,11 @@ class EventImage extends StatelessWidget {
             ),
 
             //? Save icon :
-            Positioned(
-              top: 10,
-              right: 10,
-              child: Assets.icons.saveEventIc.svg(),
-            ),
+            // Positioned(
+            //   top: 10,
+            //   right: 10,
+            //   child: Assets.icons.saveEventIc.svg(),
+            // ),
           ],
         ),
       ),

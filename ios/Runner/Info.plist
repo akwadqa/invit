@@ -26,6 +26,12 @@
 		<true/>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
+		<key>NSContactsUsageDescription</key>
+		<string>This app needs access to your contacts to invite friends.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>This app needs the camera to scan QR codes.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Needed to pick images with QR codes.</string>
 		<key>UIMainStoryboardFile</key>
 		<string>Main</string>
 		<key>UISupportedInterfaceOrientations</key>
