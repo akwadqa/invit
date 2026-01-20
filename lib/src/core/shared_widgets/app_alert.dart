@@ -70,7 +70,7 @@ class AppAlert {
                 },
                 isFiled: true,
                 height: 44,
-               
+
                 width: double.infinity,
               ),
             ],
@@ -93,7 +93,13 @@ class AppAlert {
       pageBuilder: (ctx, animation, secondaryAnimation) {
         return PopScope(
           canPop: false,
-          child: Center(child: MailPulseAnimation()),
+          child: Container(
+              // padding: EdgeInsets.all(30),
+              // width: 50,
+              // height: 50,
+              // color: AppColors.white,
+              // child: AppLoader()),
+          child: Center(child: MailPulseAnimation())),
         );
       },
     );

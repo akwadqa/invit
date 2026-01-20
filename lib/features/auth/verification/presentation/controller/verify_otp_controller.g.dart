@@ -13,7 +13,7 @@ part of 'verify_otp_controller.dart';
 const verifyOtpControllerProvider = VerifyOtpControllerProvider._();
 
 final class VerifyOtpControllerProvider
-    extends $AsyncNotifierProvider<VerifyOtpController, void> {
+    extends $AsyncNotifierProvider<VerifyOtpController, VerifyOtpState> {
   const VerifyOtpControllerProvider._()
       : super(
           from: null,
@@ -34,20 +34,20 @@ final class VerifyOtpControllerProvider
 }
 
 String _$verifyOtpControllerHash() =>
-    r'9db2a5d3de045366f61fd558c7d6019e621dcb14';
+    r'd21732f5052330d57a90b4185200e93538ae1456';
 
-abstract class _$VerifyOtpController extends $AsyncNotifier<void> {
-  FutureOr<void> build();
+abstract class _$VerifyOtpController extends $AsyncNotifier<VerifyOtpState> {
+  FutureOr<VerifyOtpState> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    build();
-    final ref = this.ref as $Ref<AsyncValue<void>, void>;
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<VerifyOtpState>, VerifyOtpState>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<void>, void>,
-        AsyncValue<void>,
+        AnyNotifier<AsyncValue<VerifyOtpState>, VerifyOtpState>,
+        AsyncValue<VerifyOtpState>,
         Object?,
         Object?>;
-    element.handleValue(ref, null);
+    element.handleValue(ref, created);
   }
 }

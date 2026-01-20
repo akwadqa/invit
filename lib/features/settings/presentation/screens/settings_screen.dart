@@ -7,6 +7,7 @@ import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/custom_appbar.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
+import 'package:invit/src/infrastructure/storage/local_storage_service.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import '../widgets/app_text_styles.dart';
 import '../widgets/change_language_bottom_sheet.dart';
@@ -20,6 +21,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsState = ref.watch(settingsControllerProvider);
+    final localStorage=ref.watch(localStorageServiceProvider);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -35,7 +37,7 @@ class SettingsScreen extends ConsumerWidget {
           spacing: 20,
           children: [
             SettingsProfileHeader(
-              name: 'Mouaz',
+              name: localStorage.userInfo.fullName,
             ),
 
             const SettingsSectionTitle(title: 'account_details'),

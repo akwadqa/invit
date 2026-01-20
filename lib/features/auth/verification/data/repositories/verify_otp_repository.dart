@@ -1,3 +1,4 @@
+import 'package:invit/features/auth/verification/domain/model/verify_otp_response_model.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/dio_client.dart';
 import 'package:invit/src/logger/failure/exceptions/app_exception.dart';
@@ -15,7 +16,7 @@ class VerifyOtpRepository {
   final VerifyOtpRemoteDataSource _remoteDataSource;
 
   VerifyOtpRepository(this._remoteDataSource);
-  Future<ApiResponse>  verifyOtp(String phone,String otp) async {
+  Future<ApiResponse<VerifyOtpResponseModel>>  verifyOtp(String phone,String otp) async {
     final response = await _remoteDataSource.verifyOtp(otp,phone);
   
     if (response.status == 200) {

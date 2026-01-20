@@ -32,7 +32,7 @@ class HomeScreenAllEvents extends ConsumerWidget {
         (state) => state.isLoading,
       ),
     );
-    final emptyData = featuredEvent ? featuredEvents.isEmpty : events.isEmpty;
+    final emptyData = (featuredEvent ? featuredEvents.isEmpty : events.isEmpty && !isLoading);
     return emptyData
         ? SizedBox()
         : Column(

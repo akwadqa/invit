@@ -84,22 +84,24 @@ class AuthScreen extends StatelessWidget {
 
             //? Back button
             if (withBackButton)
-              Positioned(
+              PositionedDirectional(
                   top: 73,
-                  left: 24,
+                  start: 24,
                   child: GestureDetector(
                     onTap: () => Navigator.of(context).pop(),
                     child: Container(
-                      width: 30,
-                      height: 30,
+                      width: 35,
+                      height: 35,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: LinearGradient(
                           begin: Alignment(0.0, 0.5),
                           end: Alignment(1.0, 0.5),
                           colors: [
-                            AppColors.primary,
                             AppColors.secondPrimary,
+                            AppColors.primary,
+                            
+
                           ],
                         ),
                       ),

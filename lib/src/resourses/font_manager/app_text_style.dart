@@ -22,6 +22,10 @@ class AppTextStyle {
     fontSize: 20,
   );
 
+  static TextStyle rubikMedium18 = GoogleFonts.rubik(
+    fontWeight: FontWeight.w500,
+    fontSize: 18,
+  );
   static TextStyle rubikMedium16 = GoogleFonts.rubik(
     fontWeight: FontWeight.w500,
     fontSize: 16,
@@ -82,6 +86,13 @@ class AppTextStyle {
     fontSize: 10,
   );
 
+
+  //? Bold :
+  static TextStyle rubikBold20 = GoogleFonts.rubik(
+    fontWeight: FontWeight.w700,
+    fontSize: 20,
+  );
+
   //************************* Poppins ////////////// */
   static TextStyle poppinsMedium16 = GoogleFonts.poppins(
     fontWeight: FontWeight.w500,
@@ -90,7 +101,7 @@ class AppTextStyle {
 
   //************************ Nunito ///////////////// */
 
-  //? Semi bold :
+  //? Semi bold : 
   static TextStyle nunitoSemibold16 = GoogleFonts.nunitoSans(
     fontWeight: FontWeight.w600,
     fontSize: 16,
@@ -117,5 +128,35 @@ class AppTextStyle {
   static TextStyle bodysmallSemibold = GoogleFonts.inter(
     fontWeight: FontWeight.w600,
     fontSize: 14,
+  );
+
+  //***************** Cairo ******* */
+
+  //? Regular
+  static TextStyle cairoRegular20 = GoogleFonts.cairo(
+    fontWeight: FontWeight.w400,
+    fontSize: 20,
+  );
+  static TextStyle cairoRegular12 = GoogleFonts.cairo(
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
+  );
+
+  //? Bold
+  static TextStyle cairoBold12 = GoogleFonts.cairo(
+    fontWeight: FontWeight.w700,
+    fontSize: 12,
+  );
+
+  //**************** Outfit ******* */
+  static TextStyle outfitRegular16 = GoogleFonts.outfit(
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
+  );
+
+  //*************** Plus jakarta */
+  static TextStyle plusBold18 = GoogleFonts.plusJakartaSans(
+    fontWeight: FontWeight.w700,
+    fontSize: 18,
   );
 }

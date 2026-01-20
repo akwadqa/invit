@@ -17,6 +17,10 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/add_contact_ic.svg
+  SvgGenImage get addContactIc =>
+      const SvgGenImage('assets/icons/add_contact_ic.svg');
+
   /// File path: assets/icons/add_event_ic.svg
   SvgGenImage get addEventIc =>
       const SvgGenImage('assets/icons/add_event_ic.svg');
@@ -27,8 +31,20 @@ class $AssetsIconsGen {
   /// File path: assets/icons/chat_ic.svg
   SvgGenImage get chatIc => const SvgGenImage('assets/icons/chat_ic.svg');
 
+  /// File path: assets/icons/contacts_ic.svg
+  SvgGenImage get contactsIc =>
+      const SvgGenImage('assets/icons/contacts_ic.svg');
+
   /// File path: assets/icons/date_ic.svg
   SvgGenImage get dateIc => const SvgGenImage('assets/icons/date_ic.svg');
+
+  /// File path: assets/icons/delete_contact_alert_ic.svg
+  SvgGenImage get deleteContactAlertIc =>
+      const SvgGenImage('assets/icons/delete_contact_alert_ic.svg');
+
+  /// File path: assets/icons/delete_contact_ic.svg
+  SvgGenImage get deleteContactIc =>
+      const SvgGenImage('assets/icons/delete_contact_ic.svg');
 
   /// File path: assets/icons/delete_ic.svg
   SvgGenImage get deleteIc => const SvgGenImage('assets/icons/delete_ic.svg');
@@ -40,6 +56,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/edit_profile_ic.svg
   SvgGenImage get editProfileIc =>
       const SvgGenImage('assets/icons/edit_profile_ic.svg');
+
+  /// File path: assets/icons/event_date_ic.svg
+  SvgGenImage get eventDateIc =>
+      const SvgGenImage('assets/icons/event_date_ic.svg');
+
+  /// File path: assets/icons/event_time_ic.svg
+  SvgGenImage get eventTimeIc =>
+      const SvgGenImage('assets/icons/event_time_ic.svg');
+
+  /// File path: assets/icons/full_name_ic.svg
+  SvgGenImage get fullNameIc =>
+      const SvgGenImage('assets/icons/full_name_ic.svg');
 
   /// File path: assets/icons/google_ic.svg
   SvgGenImage get googleIc => const SvgGenImage('assets/icons/google_ic.svg');
@@ -77,6 +105,10 @@ class $AssetsIconsGen {
   SvgGenImage get passwordIc =>
       const SvgGenImage('assets/icons/password_ic.svg');
 
+  /// File path: assets/icons/phone_number_ic.svg
+  SvgGenImage get phoneNumberIc =>
+      const SvgGenImage('assets/icons/phone_number_ic.svg');
+
   /// File path: assets/icons/privacy_ic.svg
   SvgGenImage get privacyIc => const SvgGenImage('assets/icons/privacy_ic.svg');
 
@@ -99,15 +131,29 @@ class $AssetsIconsGen {
   SvgGenImage get settingsIc =>
       const SvgGenImage('assets/icons/settings_ic.svg');
 
+  /// File path: assets/icons/title_ic.svg
+  SvgGenImage get titleIc => const SvgGenImage('assets/icons/title_ic.svg');
+
+  /// File path: assets/icons/upload_image_ic.svg
+  SvgGenImage get uploadImageIc =>
+      const SvgGenImage('assets/icons/upload_image_ic.svg');
+
   /// List of all assets
   List<dynamic> get values => [
+        addContactIc,
         addEventIc,
         appIcon,
         chatIc,
+        contactsIc,
         dateIc,
+        deleteContactAlertIc,
+        deleteContactIc,
         deleteIc,
         deleteWithCornerIc,
         editProfileIc,
+        eventDateIc,
+        eventTimeIc,
+        fullNameIc,
         googleIc,
         homeIc,
         iconCorner,
@@ -118,12 +164,15 @@ class $AssetsIconsGen {
         messagesIc,
         notificationIc,
         passwordIc,
+        phoneNumberIc,
         privacyIc,
         qatarCountry,
         qatarFlag,
         saveEventIc,
         scanIc,
-        settingsIc
+        settingsIc,
+        titleIc,
+        uploadImageIc
       ];
 }
 
@@ -154,6 +203,10 @@ class $AssetsImagesGen {
   AssetGenImage get emptyMessages =>
       const AssetGenImage('assets/images/empty_messages.png');
 
+  /// File path: assets/images/event_success_image.png
+  AssetGenImage get eventSuccessImage =>
+      const AssetGenImage('assets/images/event_success_image.png');
+
   /// File path: assets/images/im_error_screen.png
   AssetGenImage get imErrorScreen =>
       const AssetGenImage('assets/images/im_error_screen.png');
@@ -178,6 +231,7 @@ class $AssetsImagesGen {
         bookImage,
         emptyData,
         emptyMessages,
+        eventSuccessImage,
         imErrorScreen,
         inviteTypeImage,
         qatarCountry,

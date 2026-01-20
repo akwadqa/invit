@@ -3,6 +3,9 @@ class ApiEndPoints {
 
   //? --- Home ---
   static const String homeServices = 'invite.api.api.get_home_page_data';
+  //? --- Event ---
+  static const String createEvent = 'invite.api.api.create_event';
+
 
   //? --- AUTH ---
   static const String signIn = 'invite.api.auth.send_otp';

@@ -61,7 +61,12 @@
     "successful_check" : "تم التحقق بنجاح",
     "notifications": "الإشعارات",
     "no_notifications": " لاتوجدإشعارات",
-
+    "please_enter_code": "يرجى إدخال الرمز",
+    "code_must_be_6_numbers": "يجب أن يتكون الرمز من 6 أرقام",
+    "verificationExpired": "تنتهي صلاحية التحقق خلال ",
+    "seconds": "ثانية",
+    "enterVerificationCode": "أدخل رمز التحقق",
+    "we_sent_a_code_to": "لقد أرسلنا رمزًا إلى",
     "delete_user": "حذف المستخدم",
     "logout_title": "تسجيل الخروج",
     "logout_description": "هل أنت متأكد أنك تريد تسجيل الخروج؟",

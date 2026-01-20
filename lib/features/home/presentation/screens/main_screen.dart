@@ -10,6 +10,7 @@ import 'package:invit/features/notifications/presentation/screens/notifications_
 import 'package:invit/features/scan/presentation/pages/scan_page.dart';
 import 'package:invit/features/settings/presentation/screens/settings_screen.dart';
 import 'package:invit/gen/assets.gen.dart';
+import 'package:invit/src/application/router/app_routes.dart';
 
 import '../controller/home_controller.dart';
 
@@ -46,7 +47,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          context.pushNamed(AppRoutes.createEventScreen);
+        },
         child: SizedBox(
           width: 70,
           height: 70,
