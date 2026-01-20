@@ -23,7 +23,7 @@ class EventImage extends StatelessWidget {
           children: [
             //? Image :
       // Image
-            event?.imageUrl != null
+            event?.imageUrl != null&&(event?.imageUrl.isNotEmpty??false)
                 ? Image.network(
                     ServicesUrls.imageUrl + event!.imageUrl,
                     width: double.infinity,

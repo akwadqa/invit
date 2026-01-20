@@ -48,11 +48,11 @@ class EventCard extends StatelessWidget {
                 child: EventDateBadge(date: date),
               ),
 
-              Positioned(
-                top: 12,
-                right: 12,
-                child: Icon(Icons.bookmark, color: Colors.orange),
-              ),
+              // Positioned(
+              //   top: 12,
+              //   right: 12,
+              //   child: Icon(Icons.bookmark, color: Colors.orange),
+              // ),
             ],
           ),
 
