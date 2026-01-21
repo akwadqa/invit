@@ -17,7 +17,7 @@ class ContactListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(
+      appBar: CustomDeafultAppbar(
         title: 'guest_list'.tr(),
       ),
       body: _ContactListScreenContent(),

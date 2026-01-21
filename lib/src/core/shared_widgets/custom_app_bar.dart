@@ -7,11 +7,12 @@ import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
-class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
+class CustomDeafultAppbar extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final bool? withBackButton;
   final Widget? actionButton;
-  const CustomAppbar({
+  const CustomDeafultAppbar({
     super.key,
     required this.title,
     this.withBackButton = true,

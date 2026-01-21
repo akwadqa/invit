@@ -34,7 +34,7 @@ final class CreateEventControllerProvider
 }
 
 String _$createEventControllerHash() =>
-    r'2190265d606734b8f7934433e1a30bf1cf481599';
+    r'4e2df0554401990c0660c8a31b261e1121f58dab';
 
 abstract class _$CreateEventController
     extends $AsyncNotifier<CreateEventState> {

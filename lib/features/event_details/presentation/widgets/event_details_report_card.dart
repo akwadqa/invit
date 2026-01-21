@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
@@ -8,10 +10,12 @@ import 'event_details_report_chart.dart';
 
 class EventDetailsReportCard extends StatelessWidget {
   final GuestReportModel report;
+  final String id;
 
   const EventDetailsReportCard({
     super.key,
     required this.report,
+    required this.id,
   });
 
   @override
@@ -50,7 +54,7 @@ class EventDetailsReportCard extends StatelessWidget {
             Expanded(
                 child: CustomButtonWidget(
               text: "view_status".tr(),
-              onTap: () {},
+              onTap: () => context.pushNamed(AppRoutes.guestsScreen, extra: id),
               color: AppColors.primary,
               backgroundColor: Colors.white,
               radius: 8,

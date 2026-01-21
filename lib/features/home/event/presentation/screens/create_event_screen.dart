@@ -24,7 +24,7 @@ class CreateEventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: CustomAppbar(title: 'create_event'.tr()),
+      appBar: CustomDeafultAppbar(title: 'create_event'.tr()),
       body: _CreateEventScreenContent(),
     );
   }

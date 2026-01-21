@@ -28,7 +28,7 @@ class UploadImageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: CustomAppbar(title: 'upload_preview'.tr()),
+      appBar: CustomDeafultAppbar(title: 'upload_preview'.tr()),
       body: _UploadImageScreenContent(),
     );
   }
