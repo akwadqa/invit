@@ -5,6 +5,7 @@ import 'package:invit/features/auth/signUp/presentation/screens/signup_screen.da
 import 'package:invit/features/auth/verification/presentation/screens/verification_account_screen.dart';
 import 'package:invit/features/event_details/presentation/screens/event_details_screen.dart';
 import 'package:invit/features/featured_events/presentation/screens/all_events_screen.dart';
+import 'package:invit/features/guest/presentation/screens/guests_screen.dart';
 import 'package:invit/features/home/event/presentation/screens/contact_list_screen.dart';
 import 'package:invit/features/home/event/presentation/screens/create_event_screen.dart';
 import 'package:invit/features/home/event/presentation/screens/guest_list_screen.dart';
@@ -256,6 +257,20 @@ class AppRouter {
               return CustomTransitionPage(
                 key: state.pageKey,
                 child: SelectLocationPage(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+              );
+            }),
+        GoRoute(
+            path: AppRoutes.guestsScreen,
+            name: AppRoutes.guestsScreen,
+            parentNavigatorKey: rootKey,
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: GuestsScreen(id: state.extra as String,),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                   return FadeTransition(opacity: animation, child: child);

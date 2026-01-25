@@ -116,6 +116,12 @@
     "view_invitation_status" : "View Invitation Status",
     "back_to_home" : "Back to Home",
     "chooseEventType": "Choose Event Type",
-
-    "location_required" : "Location is required"
+    "status_all": "All",
+    "status_confirmed": "Confirmed",
+    "status_declined": "Declined",
+    "status_pending": "Pending",
+    "location_required" : "Location is required",
+    "all_guests": "All Guests",
+    "waiting": "Waiting",
+    "rejected": "Rejected"
 }

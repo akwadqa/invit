@@ -115,5 +115,12 @@
     "view_invitation_status": "عرض حالة الدعوة",
     "back_to_home": "العودة إلى الرئيسية",
     "chooseEventType": "اختر انوع المناسبة",
-    "location_required": "الموقع مطلوب"
+    "location_required": "الموقع مطلوب",
+    "status_all": "الكل",
+    "status_confirmed": "مؤكده",
+    "status_declined": "الاعتذار",
+    "status_pending": "الانتظار",
+    "all_guests": "كل الضيوف",
+    "waiting": "قيد الانتظار",
+    "rejected": "مرفوضه"
 }

@@ -90,6 +90,11 @@ abstract class AppColors {
   static const Color lightPeach = Color(0xFFFFF5F1);
   static const Color dimGray = Color(0xFF555555);
   static const Color grayishCharcoal = Color(0xFF595959);
+  static const Color confirmGuest = Color(0xFF289C6D);
+  static const Color waitingGuest = Color(0xFFBC8C1C);
+  static const Color noticeRed = Color(0xFF9F2102);
+  static const Color guestName = Color(0xFF937373);
+
 }
 
 class AvatarColors {

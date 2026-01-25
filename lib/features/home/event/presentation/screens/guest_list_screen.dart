@@ -22,7 +22,7 @@ class GuestListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: CustomAppbar(
+      appBar: CustomDeafultAppbar(
         title: 'guest_list'.tr(),
         actionButton: GestureDetector(
             onTap: () => context.pushNamed(AppRoutes.contactListScreen),

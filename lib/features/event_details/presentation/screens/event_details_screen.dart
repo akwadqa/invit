@@ -40,7 +40,7 @@ class EventDetailsScreen extends ConsumerWidget {
                 EventDetailsHeaderCard(event: data),
                 16.verticalSpace,
                 if (data.guestReport != null)
-                  EventDetailsReportCard(report: data.guestReport!),
+                  EventDetailsReportCard(report: data.guestReport!,id : ocassionId),
                20.verticalSpace,
                 GuestListSection(guests: data.guests),
               ],

@@ -31,6 +31,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/chat_ic.svg
   SvgGenImage get chatIc => const SvgGenImage('assets/icons/chat_ic.svg');
 
+  /// File path: assets/icons/confirm_guest_ic.svg
+  SvgGenImage get confirmGuestIc =>
+      const SvgGenImage('assets/icons/confirm_guest_ic.svg');
+
   /// File path: assets/icons/contacts_ic.svg
   SvgGenImage get contactsIc =>
       const SvgGenImage('assets/icons/contacts_ic.svg');
@@ -64,6 +68,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/event_time_ic.svg
   SvgGenImage get eventTimeIc =>
       const SvgGenImage('assets/icons/event_time_ic.svg');
+
+  /// File path: assets/icons/failed_guest_ic.svg
+  SvgGenImage get failedGuestIc =>
+      const SvgGenImage('assets/icons/failed_guest_ic.svg');
 
   /// File path: assets/icons/full_name_ic.svg
   SvgGenImage get fullNameIc =>
@@ -138,12 +146,17 @@ class $AssetsIconsGen {
   SvgGenImage get uploadImageIc =>
       const SvgGenImage('assets/icons/upload_image_ic.svg');
 
+  /// File path: assets/icons/waiting_guest_ic.svg
+  SvgGenImage get waitingGuestIc =>
+      const SvgGenImage('assets/icons/waiting_guest_ic.svg');
+
   /// List of all assets
   List<dynamic> get values => [
         addContactIc,
         addEventIc,
         appIcon,
         chatIc,
+        confirmGuestIc,
         contactsIc,
         dateIc,
         deleteContactAlertIc,
@@ -153,6 +166,7 @@ class $AssetsIconsGen {
         editProfileIc,
         eventDateIc,
         eventTimeIc,
+        failedGuestIc,
         fullNameIc,
         googleIc,
         homeIc,
@@ -172,7 +186,8 @@ class $AssetsIconsGen {
         scanIc,
         settingsIc,
         titleIc,
-        uploadImageIc
+        uploadImageIc,
+        waitingGuestIc
       ];
 }
 
