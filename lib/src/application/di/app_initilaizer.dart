@@ -12,7 +12,7 @@ import 'package:invit/src/application/di/riverpod_observer.dart';
 import 'package:invit/src/core/notifications/services/notification_service.dart';
 import 'package:invit/src/core/shared_widgets/main_error_widget.dart';
 import 'package:invit/src/infrastructure/storage/local_storage_service.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 
 import '../../infrastructure/api/endpoint/services_urls.dart';
 import '../../infrastructure/storage/hive/hive_initializer.dart';
@@ -56,8 +56,8 @@ Future<ProviderContainer> initializeProviders() async {
   // ? INIT FIREBASE NOTIFICATION SERVICE
 
   await container.read(notificationsServiceProvider).init();
-    FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  analytics.setAnalyticsCollectionEnabled(true);
+  //   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  // analytics.setAnalyticsCollectionEnabled(true);
   return container;
 }
 
