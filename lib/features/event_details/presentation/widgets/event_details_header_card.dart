@@ -16,18 +16,18 @@ class EventDetailsHeaderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: event.imageUrl.isNotEmpty
-          ? CachedNetworkImage(
-              imageUrl: ServicesUrls.imageUrl + event.imageUrl,
-              height: 400,
-              width: double.infinity,
-              fit: BoxFit.fitWidth)
-          :
-          // child:
-          Assets.images.rectangle
-              .image(height: 400, width: double.infinity, fit: BoxFit.fitWidth),
-    );
+        elevation: 1,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: event.imageUrl.isNotEmpty
+            ? CachedNetworkImage(
+                imageUrl: ServicesUrls.imageUrl + event.imageUrl,
+                height: 400,
+                width: double.infinity,
+                fit: BoxFit.fitWidth)
+            : SizedBox.shrink()
+        // child:
+        // Assets.images.rectangle
+        //     .image(height: 400, width: double.infinity, fit: BoxFit.fitWidth),
+        );
   }
 }

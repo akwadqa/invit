@@ -37,18 +37,18 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     // MessagesScreen(),
     SettingsScreen(),
   ];
-  
 
   @override
   Widget build(BuildContext context) {
-        final selectedIndex = ref.watch(bottomNavIndexProvider);
+    final selectedIndex = ref.watch(bottomNavIndexProvider);
 
     return Scaffold(
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: GestureDetector(
         onTap: () {
-          context.pushNamed(AppRoutes.createEventScreen);
+          // context.pushNamed(AppRoutes.createEventScreen);
+          context.push(AppRoutes.invitationsSecreen, extra: true);
         },
         child: SizedBox(
           width: 70,

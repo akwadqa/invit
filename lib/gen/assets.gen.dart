@@ -238,6 +238,22 @@ class $AssetsImagesGen {
   AssetGenImage get qatarFlag =>
       const AssetGenImage('assets/images/qatar_flag.png');
 
+  /// File path: assets/images/qr_template_image.png
+  AssetGenImage get qrTemplateImage =>
+      const AssetGenImage('assets/images/qr_template_image.png');
+
+  /// File path: assets/images/template1_image.png
+  AssetGenImage get template1Image =>
+      const AssetGenImage('assets/images/template1_image.png');
+
+  /// File path: assets/images/template2_image.png
+  AssetGenImage get template2Image =>
+      const AssetGenImage('assets/images/template2_image.png');
+
+  /// File path: assets/images/template_reply_image.png
+  AssetGenImage get templateReplyImage =>
+      const AssetGenImage('assets/images/template_reply_image.png');
+
   /// List of all assets
   List<dynamic> get values => [
         rectangle,
@@ -250,7 +266,11 @@ class $AssetsImagesGen {
         imErrorScreen,
         inviteTypeImage,
         qatarCountry,
-        qatarFlag
+        qatarFlag,
+        qrTemplateImage,
+        template1Image,
+        template2Image,
+        templateReplyImage
       ];
 }
 

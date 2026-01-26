@@ -483,7 +483,6 @@ Future<void> showConfirmationDialog({
                           } else if (current is AsyncError) {
                             showErrorDialog(context, current.error.toString());
                           }
-                      
                         });
 
                         final provider = ref.watch(settingsControllerProvider);
@@ -531,6 +530,7 @@ Future<void> showConfirmationDialog({
     },
   );
 }
+
 Future<void> showErrorDialog(BuildContext context, String message) {
   return showCustomDialog(
     context: context,

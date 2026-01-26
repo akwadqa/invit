@@ -123,5 +123,10 @@
     "location_required" : "Location is required",
     "all_guests": "All Guests",
     "waiting": "Waiting",
-    "rejected": "Rejected"
+    "rejected": "Rejected",
+    "templates" : "Templates",
+    "chose_template" : "Choose the template that best",
+    "costumize_message" : " You can customize the message later",
+    "invitation_choice" : "These templates will be used based on your main invitation choice",
+    "empty_guests" : "There is no guests here"
 }

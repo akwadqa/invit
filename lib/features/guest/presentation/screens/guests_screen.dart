@@ -174,7 +174,9 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
               itemCount: filteredGuests?.length ?? 0,
             ),
           )
-        : SizedBox();
+        : Center(
+            child: Text('empty_guests'.tr()),
+          );
     // : Center(child: Assets.icons.emptyIc.svg());
   }
 }
