@@ -43,9 +43,9 @@ class SignInFooter extends StatelessWidget {
             ),
           ],
         ),
-        const DividerWithText(),
-        SocialLoginButton.email(),
-        SocialLoginButton.google(),
+        // const DividerWithText(),
+        // SocialLoginButton.email(),
+        // SocialLoginButton.google(),
       ],
     );
   }

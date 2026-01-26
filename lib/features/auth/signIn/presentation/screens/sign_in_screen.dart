@@ -35,6 +35,6 @@ class _SignInContent extends StatelessWidget {
         SignInForm(),
         SignInFooter(),
       ],
-      ).symmetricPadding(vertical: 20);
+      ).symmetricPadding(vertical: 40);
   }
 }

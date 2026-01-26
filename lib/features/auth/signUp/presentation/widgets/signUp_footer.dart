@@ -15,36 +15,30 @@ class SignUpFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      spacing: 26,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 10,
-          children: [
-            Text(
-              'alreadyHaveAnAccount'.tr(),
+    return FittedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: 10,
+        children: [
+          Text(
+            'alreadyHaveAnAccount'.tr(),
+            style: textTheme.bodyLarge!.copyWith(
+              color: AppColors.gray02,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          GestureDetector(
+            onTap: () => context.go(AppRoutes.signInScreen),
+            child: Text(
+              'login'.tr(),
               style: textTheme.bodyLarge!.copyWith(
-                color: AppColors.gray02,
+                color: AppColors.primary,
                 fontWeight: FontWeight.w800,
               ),
             ),
-            GestureDetector(
-              onTap: () => context.go(AppRoutes.signInScreen),
-              child: Text(
-                'login'.tr(),
-                style: textTheme.bodyLarge!.copyWith(
-                  color: AppColors.primary,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ),
-          ],
-        ),
-        // const DividerWithText(),
-        //  SocialLoginButton.email(),
-        //  SocialLoginButton.google(),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

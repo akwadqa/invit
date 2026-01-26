@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/home/domain/model/events/event_model.dart';
 import 'package:invit/features/home/presentation/controller/home_controller.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen/event_item_widget.dart';
 import 'package:invit/src/application/router/app_routes.dart';
@@ -19,7 +20,10 @@ class HomeScreenAllEvents extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final events = ref.watch(
       homeControllerProvider.select(
-        (state) => state.value?.events ?? const [],
+        (state) => state.value?.events ??  List.generate(
+  2,
+  (_) => EventModel.placeholder(),
+),
       ),
     );
     final featuredEvents = ref.watch(
@@ -56,13 +60,13 @@ class HomeScreenAllEvents extends ConsumerWidget {
                             .copyWith(color: AppColors.secondPrimary)),
                   ),
                 ],
-              ).symmetricPadding(horizontal: 20),
+              ),
               SizedBox(
                   height: 220,
                   child: isLoading
                       ? _buildSkeleton()
                       : ListView.separated(
-                          scrollDirection: Axis.horizontal,
+                          scrollDirection: Axis.vertical,
                           separatorBuilder: (context, index) =>
                               10.horizontalSpace,
                           itemCount: featuredEvent
@@ -84,7 +88,7 @@ class HomeScreenAllEvents extends ConsumerWidget {
                           },
                         )),
             ],
-          );
+          ).symmetricPadding(horizontal: 12);
   }
 
   Widget _buildSkeleton() {
