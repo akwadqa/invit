@@ -17,6 +17,8 @@ class EventDetailsReportChart extends StatelessWidget {
       confirmed: 9,
       declined: 3,
       scannedCount: 1,
+
+      
       failed: 10,
       notSent: 2,
       pending: 2,
@@ -31,7 +33,6 @@ class EventDetailsReportChart extends StatelessWidget {
         children: [
           PieChart(
             curve: Curves.linear,
-            
             PieChartData(
               startDegreeOffset: -90,
               sectionsSpace: 0,

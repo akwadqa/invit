@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:invit/features/home/domain/model/events/event_model.dart';
 import 'package:invit/gen/assets.gen.dart';
@@ -11,7 +10,6 @@ class EventImage extends StatelessWidget {
 
   const EventImage({super.key, this.event});
 
-
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -22,17 +20,23 @@ class EventImage extends StatelessWidget {
         child: Stack(
           children: [
             //? Image :
-      // Image
-            event?.imageUrl != null&&(event?.imageUrl.isNotEmpty??false)
+            // Image
+            event?.imageUrl != null && (event?.imageUrl.isNotEmpty ?? false)
                 ? Image.network(
                     ServicesUrls.imageUrl + event!.imageUrl,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   )
-                : Assets.images.allEventImage.image(
+                : Container(
                     width: double.infinity,
-                    fit: BoxFit.cover,
+                    height: double.infinity,
+                    color: AppColors.white,
+                    child: Icon(Icons.card_giftcard),
                   ),
+            // : Assets.images.allEventImage.image(
+            //     width: double.infinity,
+            //     fit: BoxFit.cover,
+            //   ),
 
             //? Date :
             Positioned(
@@ -63,7 +67,8 @@ class EventImage extends StatelessWidget {
       ),
     );
   }
-   String _formatDate(String? date) {
+
+  String _formatDate(String? date) {
     if (date == null || date.isEmpty) return '';
 
     final parsed = DateTime.tryParse(date);
@@ -74,10 +79,19 @@ class EventImage extends StatelessWidget {
 
   String _month(int m) {
     const months = [
-      'JAN','FEB','MAR','APR','MAY','JUN',
-      'JUL','AUG','SEP','OCT','NOV','DEC'
+      'JAN',
+      'FEB',
+      'MAR',
+      'APR',
+      'MAY',
+      'JUN',
+      'JUL',
+      'AUG',
+      'SEP',
+      'OCT',
+      'NOV',
+      'DEC'
     ];
     return months[m - 1];
   }
-
 }

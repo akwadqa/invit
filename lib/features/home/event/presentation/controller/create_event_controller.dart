@@ -7,6 +7,7 @@ import 'package:invit/features/home/event/data/repository/event_repository.dart'
 import 'package:invit/features/home/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/home/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/home/event/presentation/controller/create_event_state.dart';
+import 'package:invit/src/logger/log_services/dev_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -155,6 +156,7 @@ class CreateEventController extends _$CreateEventController {
         ),
       ];
     }
+    updateEvent(EventModel());
 
     state = AsyncData(currentState.copyWith(selectedContacts: selectedList));
   }
@@ -212,8 +214,8 @@ class CreateEventController extends _$CreateEventController {
     state = AsyncData(
       state.value!.copyWith(
         eventModel: current.copyWith(
-          // type: newData.type ?? firstType,
-          type: 'Birthday',
+          type: newData.type ?? current.type ?? 'Birthday',
+          // type: 'Birthday',
           title: newData.title ?? current.title,
           date: newData.date ?? current.date,
           language: newData.language ?? current.language ?? 'Arabic',
@@ -253,6 +255,7 @@ class CreateEventController extends _$CreateEventController {
       return GuestModel(
         firstName: firstName,
         lastName: lastName,
+        fullName: s.contact.displayName,
         whatsappNumber: number,
         partySize: s.count,
       );

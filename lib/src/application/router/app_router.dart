@@ -11,6 +11,7 @@ import 'package:invit/features/home/event/presentation/screens/create_event_scre
 import 'package:invit/features/home/event/presentation/screens/guest_list_screen.dart';
 import 'package:invit/features/home/event/presentation/screens/select_location_screen.dart';
 import 'package:invit/features/home/event/presentation/screens/successfull_event_creation_screen.dart';
+import 'package:invit/features/home/event/presentation/screens/templates_screen.dart';
 import 'package:invit/features/home/event/presentation/screens/upload_image_screen.dart';
 import 'package:invit/features/home/presentation/screens/home_screen.dart';
 import 'package:invit/features/home/presentation/screens/main_screen.dart';
@@ -264,13 +265,29 @@ class AppRouter {
               );
             }),
         GoRoute(
+            path: AppRoutes.templatesScreen,
+            name: AppRoutes.templatesScreen,
+            parentNavigatorKey: rootKey,
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: TemplatesScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+              );
+            }),
+        GoRoute(
             path: AppRoutes.guestsScreen,
             name: AppRoutes.guestsScreen,
             parentNavigatorKey: rootKey,
             pageBuilder: (BuildContext context, GoRouterState state) {
               return CustomTransitionPage(
                 key: state.pageKey,
-                child: GuestsScreen(id: state.extra as String,),
+                child: GuestsScreen(
+                  id: state.extra as String,
+                ),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                   return FadeTransition(opacity: animation, child: child);

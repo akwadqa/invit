@@ -125,5 +125,6 @@
     "status_pending": "الانتظار",
     "all_guests": "كل الضيوف",
     "waiting": "قيد الانتظار",
-    "rejected": "مرفوضه"
+    "rejected": "مرفوضه",
+    "empty_guests" : "لا يوجد ضيوف هنا"
 }

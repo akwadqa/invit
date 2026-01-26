@@ -50,7 +50,10 @@ class _UploadImageScreenContent extends ConsumerWidget {
       }
       if (next is AsyncError) {
         context.pop();
-        showErrorDialog(context, next!.error.toString());
+        Future.delayed(Duration(milliseconds: 100), () {
+          context.pop();
+          showErrorDialog(context, next!.error.toString());
+        });
       }
       if (next is AsyncData) {
         context.pop();
@@ -81,6 +84,7 @@ class _UploadImageScreenContent extends ConsumerWidget {
           CustomButtonWidget(
             text: 'send'.tr(),
             onTap: () {
+              // context.pushNamed(AppRoutes.templatesScreen);
               ref.read(createEventControllerProvider.notifier).createEvent();
             },
             isFiled: false,

@@ -48,32 +48,6 @@ class EventDetailsReportCard extends StatelessWidget {
             ),
           ),
         ),
-        Row(
-          spacing: 12,
-          children: [
-            Expanded(
-                child: CustomButtonWidget(
-              text: "view_status".tr(),
-              onTap: () => context.pushNamed(AppRoutes.guestsScreen, extra: id),
-              color: AppColors.primary,
-              backgroundColor: Colors.white,
-              radius: 8,
-              isFiled: false,
-              height: 45,
-              width: double.infinity,
-            )),
-            Expanded(
-                child: CustomButtonWidget(
-              text: "retry_failed".tr(),
-              onTap: () {},
-              isFiled: true,
-              backgroundColor: AppColors.primary,
-              radius: 8,
-              height: 45,
-              width: double.infinity,
-            )),
-          ],
-        ),
       ],
     );
   }
