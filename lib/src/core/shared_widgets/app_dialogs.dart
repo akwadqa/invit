@@ -397,7 +397,7 @@ Future<void> showConfirmationDialog({
   required String confirmText,
   required VoidCallback onConfirm,
   required bool deleteAcc,
-  String cancelText = "Cancel",
+  String cancelText = "cancel",
   Widget? icon,
   bool barrierDismissible = true,
   bool showCloseIcon = true,

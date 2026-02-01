@@ -168,4 +168,5 @@ final defaultEvents = List.generate(
           ),
         ));
   }
+
 }

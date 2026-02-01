@@ -23,60 +23,57 @@ class CustomDeafultAppbar extends StatelessWidget
   Widget build(BuildContext context) {
     final double topPadding = MediaQuery.of(context).padding.top;
 
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Container(
-        height: preferredSize.height + topPadding,
-        padding: EdgeInsets.symmetric(horizontal: 22),
-        child: SafeArea(
-          bottom: false,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              (withBackButton ?? false)
-                  ? GestureDetector(
-                      onTap: () {
-                        context.pop();
-                        // if (context.canPop()) {
-                        //   context.pop();
-                        // } else {
-                        //   context.go(AppRoutes.main);
-                        // }
-                      },
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.cardWhite,
-                        ),
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //       color: AppColors.black.withValues(alpha: .25),
-                        //       blurRadius: 4)
-                        // ]),
-                        child: Icon(
-                          Icons.arrow_back_rounded,
-                          color: AppColors.primary,
-                        ),
+    return Container(
+      height: preferredSize.height + topPadding,
+      padding: EdgeInsets.symmetric(horizontal: 22),
+      child: SafeArea(
+        bottom: false,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            (withBackButton ?? false)
+                ? GestureDetector(
+                    onTap: () {
+                      context.pop();
+                      // if (context.canPop()) {
+                      //   context.pop();
+                      // } else {
+                      //   context.go(AppRoutes.main);
+                      // }
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.cardWhite,
                       ),
-                      // child: Assets.icons.verificationArrowBackIc.svg(
-                      //   width: 30,
-                      // ),
-                    )
-                  : 22.horizontalSpace,
-              Center(
-                child: Text(
-                  title,
-                  style: AppTextStyle.rubikSemiBold20.copyWith(
-                    color: AppColors.primary,
-                  ),
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //       color: AppColors.black.withValues(alpha: .25),
+                      //       blurRadius: 4)
+                      // ]),
+                      child: Icon(
+                        Icons.arrow_back_rounded,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                    // child: Assets.icons.verificationArrowBackIc.svg(
+                    //   width: 30,
+                    // ),
+                  )
+                : 22.horizontalSpace,
+            Center(
+              child: Text(
+                title,
+                style: AppTextStyle.rubikSemiBold20.copyWith(
+                  color: AppColors.primary,
                 ),
               ),
-              (actionButton != null) ? actionButton! : 22.horizontalSpace,
-            ],
-          ),
+            ),
+            (actionButton != null) ? actionButton! : 22.horizontalSpace,
+          ],
         ),
       ),
     );

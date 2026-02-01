@@ -45,7 +45,7 @@ class HomeScreenAllEvents extends ConsumerWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: [ 
                   Text(
                       featuredEvent ? 'featured_event'.tr() : 'all_events'.tr(),
                       style: AppTextStyle.rubikSemiBold18

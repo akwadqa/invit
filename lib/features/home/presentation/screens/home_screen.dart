@@ -85,7 +85,9 @@ class _HomeScreenContent extends ConsumerWidget {
                                 35.verticalSpace,
                             itemCount: data.events.length,
                             itemBuilder: (context, index) {
-                              return EventItemWidget(event: data.events[index]);
+                              return GestureDetector(
+                              onTap: () => context.push(AppRoutes.eventDetails,
+                                  extra: data.events[index].occasionId),child: EventItemWidget(event: data.events[index]));
                               // HomeScreenAllEvents(featuredEvent: true,),
                             },
                           ),
@@ -97,29 +99,36 @@ class _HomeScreenContent extends ConsumerWidget {
         },
         error: (Object error, StackTrace stackTrace) =>
             AppErrorWidget(errorMsg: error.toString()),
-        loading: () {
-          final defaultEvents = List.generate(
-            2,
-            (_) => EventModel.placeholder(),
-          );
-          return Skeletonizer(
-            enabled: true,
-            child: ListView(
-              padding: EdgeInsetsGeometry.zero,
-              children: [
-                HomeScreenAppBar(),
+        loading: () =>_buildSkelton());}
+    Skeletonizer _buildSkelton() {
+final defaultEvents = List.generate(
+  2,
+  (_) => EventModel.placeholder(),
+);
+    return Skeletonizer(
+        enabled: true,
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: Column(
+            children: [
+                              HomeScreenAppBar(),
                 20.verticalSpace,
                 SectionTitleWidget(),
-
-                // HomeScreenBookingList(),
-                // 20.verticalSpace,
-                // HomeScreenInvitationType(),
-                20.verticalSpace,
-                EventItemWidget(event: defaultEvents[0]),
-                140.verticalSpace
-              ],
-            ),
-          );
-        });
+           
+              Expanded(
+                child: ListView.separated(
+                  // scrollDirection: Axis.horizontal,
+                  separatorBuilder: (context, index) => 35.verticalSpace,
+                  itemCount: defaultEvents.length,
+                  itemBuilder: (context, index) {
+                    return EventItemWidget(event: defaultEvents[index])
+                        .symmetricPadding(horizontal: 12);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ));
   }
+
 }

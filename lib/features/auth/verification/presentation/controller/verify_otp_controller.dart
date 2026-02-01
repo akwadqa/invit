@@ -25,9 +25,9 @@ class VerifyOtpController extends _$VerifyOtpController {
       final response = await repo.verifyOtp(phone, otp);
       final info = UserInformation(
           token: '',
-          fullName: response.data!.firstName + response.data!.lastName,
+          fullName: response.data!.fullName,
           mobileNumber: response.data!.mobileNo,
-          email: response.data!.email);
+        );
 
      await ref.read(localStorageServiceProvider).saveToken(response.data!.token);
     await  ref.read(localStorageServiceProvider).saveUserInfo(info);
@@ -35,7 +35,7 @@ class VerifyOtpController extends _$VerifyOtpController {
       Dev.logLine(token);
       await ref
           .read(notificationsServiceProvider)
-          .sendDeviceToken(info.email ?? "");
+          .sendDeviceToken(info.mobileNumber ?? "");
       return state.value!.copyWith(verifyOtpResponseModel: response.data);
     });
   }
