@@ -9,14 +9,8 @@ import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
-import 'package:invit/src/logger/log_services/dev_logger.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
-import 'package:pinput/pinput.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../../../../gen/assets.gen.dart';
 import '../../domain/model/signUp_params.dart';
-import 'create_account_date_widget.dart';
 import 'create_account_field.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -32,11 +26,8 @@ class _SignUpFormState extends State<SignUpForm> {
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController eventDateController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController fullNameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -47,57 +38,32 @@ class _SignUpFormState extends State<SignUpForm> {
         spacing: 24,
         children: [
           1.verticalSpace,
-          Row(
-            spacing: Adaptive.px(16),
-            // spacing: 16,
-            children: [
-              Expanded(
-                child: AppTextFormField(
-                  // hint: 'firstName'.tr(),
-                  hint: 'mohamad',
-                  label: 'firstName'.tr(),
-                  controller: firstNameController,
-                  isRequired: true,
-                  withIcon: false,
-                ),
-              ),
-              Expanded(
-                child: AppTextFormField(
-                  // hint: 'firstName'.tr(),
-                  hint: 'jamel',
-                  label: 'lastName'.tr(),
-                  controller: lastNameController,
-                  isRequired: true,
-                  withIcon: false,
-                ),
-              ),
-            ],
-          ),
           AppTextFormField(
             // hint: 'firstName'.tr(),
-            hint: 'invite@email.com',
-            label: 'email'.tr(),
-            controller: emailController,
+            hint: 'mohamad',
+            label: 'fullName'.tr(),
+            controller: fullNameController,
             isRequired: true,
             withIcon: false,
           ),
-          Consumer(
-            builder: (context, ref, _) {
-              final controller = ref.read(signUpControllerProvider.notifier);
-              final date = controller.selectedDate;
-              Dev.logLine(date);
-              return CreateAccountDate(
-                controller: eventDateController,
-                date: date,
-                onSelectDate: (picked) {
-                  ref
-                      .read(signUpControllerProvider.notifier)
-                      .setBirthDate(picked);
-                  setState(() {});
-                },
-              );
-            },
-          ),
+         
+          // Consumer(
+          //   builder: (context, ref, _) {
+          //     final controller = ref.read(signUpControllerProvider.notifier);
+          //     final date = controller.selectedDate;
+          //     Dev.logLine(date);
+          //     return CreateAccountDate(
+          //       controller: eventDateController,
+          //       date: date,
+          //       onSelectDate: (picked) {
+          //         ref
+          //             .read(signUpControllerProvider.notifier)
+          //             .setBirthDate(picked);
+          //         setState(() {});
+          //       },
+          //     );
+          //   },
+          // ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 10,
@@ -114,16 +80,7 @@ class _SignUpFormState extends State<SignUpForm> {
               ),
             ],
           ),
-          AppTextFormField(
-            // hint: 'firstName'.tr(),
-            hint: 'password',
-            label: 'setPassword'.tr(),
-            controller: passwordController,
-            isRequired: true,
-            withIcon: true,
-            icon: Assets.icons.passwordIc,
-            isPassword: true,
-          ),
+         
           Consumer(builder: (context, ref, child) {
             ref.listen(signUpControllerProvider, (prev, next) {
               if (next is AsyncData) {
@@ -174,11 +131,8 @@ class _SignUpFormState extends State<SignUpForm> {
     _formKey.currentState?.save();
     await ref.read(signUpControllerProvider.notifier).signUp(
           SignupParams(
-            email: emailController.text,
-            firstName: firstNameController.text,
-            lastName: lastNameController.text,
-            birthDate: eventDateController.text,
-            password: passwordController.text,
+            fullNamae: fullNameController.text,
+
             mobileNumber: phoneController.text,
           ),
         ); // }

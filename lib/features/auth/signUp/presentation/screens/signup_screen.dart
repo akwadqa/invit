@@ -24,7 +24,7 @@ class _SignupContent extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        spacing: 12,
+        spacing: 20,
         children: [
 
           SignupHeader(),

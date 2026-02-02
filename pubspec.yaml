@@ -50,11 +50,11 @@ dependencies:
   animated_bottom_navigation_bar: ^1.4.0
   skeletonizer: ^2.1.2
   custom_clippers: ^2.0.4
-  firebase_core: ^4.3.0
-  firebase_messaging: ^16.1.0
+  firebase_core: ^3.13.0
+  firebase_messaging: ^15.2.10
+  flutter_local_notifications: ^19.5.0
   fcm_config: ^3.6.5
-  firebase_analytics: ^12.1.1
-  flutter_local_notifications: ^19.1.0
+  # firebase_analytics: ^12.1.1
   fl_chart: ^1.1.1
   mobile_scanner: ^7.1.4
   image_picker: 1.2.0
@@ -100,6 +100,8 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/icons/app_icon.jpg"  
+  remove_alpha_ios: true 
+
   # fonts:
   #   - family: Schyler
   #     fonts:

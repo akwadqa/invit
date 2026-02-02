@@ -70,7 +70,7 @@ class LocalStorageService {
 
     final updated = current.copyWith(
       fullName: fullName ?? current.fullName,
-      email: email??current.email,
+      // email: email??current.email,
       mobileNumber: phone??current.mobileNumber,
     );
 

@@ -1,31 +1,24 @@
 import 'package:dio/dio.dart';
 
 class SignupParams {
-  final String email;
-  final String firstName;
-  final String lastName;
-  final String birthDate;
-  final String password;
+
+  final String fullNamae;
+
   final String mobileNumber;
 
   SignupParams(
-      {required this.email,
-      required this.firstName,
-      required this.lastName,
-      required this.birthDate,
-      required this.password,
+      {
+      required this.fullNamae,
+
       required this.mobileNumber});
 
   Map<String, dynamic> toMap() {
     // final totalCostWithSuplies=(discountCost?? totalNetAmount?? totalAmount)+(cleaningSuppliesFees??0);
 
     return {
-      'email': email,
-      'password': password,
-      'first_name': firstName,
-      'last_name': lastName,
+
+      'full_name': fullNamae,
       'mobile_no': mobileNumber,
-      'birth_date': birthDate,
     };
   }
 

@@ -45,7 +45,7 @@ class NotificationsService {
     await _initializeLocalNotifications();
     debugPrint("FCMConfig.instance.init3");
 
-    final userId =   _ref.read(localStorageServiceProvider).userInfo.email;
+    final userId =   _ref.read(localStorageServiceProvider).userInfo.mobileNumber;
 
     _messaging.onTokenRefresh.listen((token) {
       _ref

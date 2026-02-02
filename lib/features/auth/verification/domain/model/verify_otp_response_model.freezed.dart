@@ -16,11 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$VerifyOtpResponseModel {
   @JsonKey(name: 'user_id')
   String get userId;
-  @JsonKey(name: 'first_name')
-  String get firstName;
-  @JsonKey(name: 'last_name')
-  String get lastName;
-  String get email;
+  @JsonKey(name: 'full_name')
+  String get fullName;
   @JsonKey(name: 'mobile_no')
   String get mobileNo;
   String get token;
@@ -42,11 +39,8 @@ mixin _$VerifyOtpResponseModel {
         (other.runtimeType == runtimeType &&
             other is VerifyOtpResponseModel &&
             (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
-            (identical(other.email, email) || other.email == email) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
             (identical(other.mobileNo, mobileNo) ||
                 other.mobileNo == mobileNo) &&
             (identical(other.token, token) || other.token == token));
@@ -54,12 +48,12 @@ mixin _$VerifyOtpResponseModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, userId, firstName, lastName, email, mobileNo, token);
+  int get hashCode =>
+      Object.hash(runtimeType, userId, fullName, mobileNo, token);
 
   @override
   String toString() {
-    return 'VerifyOtpResponseModel(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, mobileNo: $mobileNo, token: $token)';
+    return 'VerifyOtpResponseModel(userId: $userId, fullName: $fullName, mobileNo: $mobileNo, token: $token)';
   }
 }
 
@@ -71,9 +65,7 @@ abstract mixin class $VerifyOtpResponseModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'user_id') String userId,
-      @JsonKey(name: 'first_name') String firstName,
-      @JsonKey(name: 'last_name') String lastName,
-      String email,
+      @JsonKey(name: 'full_name') String fullName,
       @JsonKey(name: 'mobile_no') String mobileNo,
       String token});
 }
@@ -92,9 +84,7 @@ class _$VerifyOtpResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userId = null,
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? email = null,
+    Object? fullName = null,
     Object? mobileNo = null,
     Object? token = null,
   }) {
@@ -103,17 +93,9 @@ class _$VerifyOtpResponseModelCopyWithImpl<$Res>
           ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      firstName: null == firstName
-          ? _self.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
-          ? _self.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _self.email
-          : email // ignore: cast_nullable_to_non_nullable
+      fullName: null == fullName
+          ? _self.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       mobileNo: null == mobileNo
           ? _self.mobileNo
@@ -222,9 +204,7 @@ extension VerifyOtpResponseModelPatterns on VerifyOtpResponseModel {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             @JsonKey(name: 'user_id') String userId,
-            @JsonKey(name: 'first_name') String firstName,
-            @JsonKey(name: 'last_name') String lastName,
-            String email,
+            @JsonKey(name: 'full_name') String fullName,
             @JsonKey(name: 'mobile_no') String mobileNo,
             String token)?
         $default, {
@@ -233,8 +213,8 @@ extension VerifyOtpResponseModelPatterns on VerifyOtpResponseModel {
     final _that = this;
     switch (_that) {
       case _VerifyOtpResponseModel() when $default != null:
-        return $default(_that.userId, _that.firstName, _that.lastName,
-            _that.email, _that.mobileNo, _that.token);
+        return $default(
+            _that.userId, _that.fullName, _that.mobileNo, _that.token);
       case _:
         return orElse();
     }
@@ -257,9 +237,7 @@ extension VerifyOtpResponseModelPatterns on VerifyOtpResponseModel {
   TResult when<TResult extends Object?>(
     TResult Function(
             @JsonKey(name: 'user_id') String userId,
-            @JsonKey(name: 'first_name') String firstName,
-            @JsonKey(name: 'last_name') String lastName,
-            String email,
+            @JsonKey(name: 'full_name') String fullName,
             @JsonKey(name: 'mobile_no') String mobileNo,
             String token)
         $default,
@@ -267,8 +245,8 @@ extension VerifyOtpResponseModelPatterns on VerifyOtpResponseModel {
     final _that = this;
     switch (_that) {
       case _VerifyOtpResponseModel():
-        return $default(_that.userId, _that.firstName, _that.lastName,
-            _that.email, _that.mobileNo, _that.token);
+        return $default(
+            _that.userId, _that.fullName, _that.mobileNo, _that.token);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -290,9 +268,7 @@ extension VerifyOtpResponseModelPatterns on VerifyOtpResponseModel {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             @JsonKey(name: 'user_id') String userId,
-            @JsonKey(name: 'first_name') String firstName,
-            @JsonKey(name: 'last_name') String lastName,
-            String email,
+            @JsonKey(name: 'full_name') String fullName,
             @JsonKey(name: 'mobile_no') String mobileNo,
             String token)?
         $default,
@@ -300,8 +276,8 @@ extension VerifyOtpResponseModelPatterns on VerifyOtpResponseModel {
     final _that = this;
     switch (_that) {
       case _VerifyOtpResponseModel() when $default != null:
-        return $default(_that.userId, _that.firstName, _that.lastName,
-            _that.email, _that.mobileNo, _that.token);
+        return $default(
+            _that.userId, _that.fullName, _that.mobileNo, _that.token);
       case _:
         return null;
     }
@@ -313,9 +289,7 @@ extension VerifyOtpResponseModelPatterns on VerifyOtpResponseModel {
 class _VerifyOtpResponseModel implements VerifyOtpResponseModel {
   const _VerifyOtpResponseModel(
       {@JsonKey(name: 'user_id') required this.userId,
-      @JsonKey(name: 'first_name') required this.firstName,
-      @JsonKey(name: 'last_name') required this.lastName,
-      required this.email,
+      @JsonKey(name: 'full_name') required this.fullName,
       @JsonKey(name: 'mobile_no') required this.mobileNo,
       required this.token});
   factory _VerifyOtpResponseModel.fromJson(Map<String, dynamic> json) =>
@@ -325,13 +299,8 @@ class _VerifyOtpResponseModel implements VerifyOtpResponseModel {
   @JsonKey(name: 'user_id')
   final String userId;
   @override
-  @JsonKey(name: 'first_name')
-  final String firstName;
-  @override
-  @JsonKey(name: 'last_name')
-  final String lastName;
-  @override
-  final String email;
+  @JsonKey(name: 'full_name')
+  final String fullName;
   @override
   @JsonKey(name: 'mobile_no')
   final String mobileNo;
@@ -360,11 +329,8 @@ class _VerifyOtpResponseModel implements VerifyOtpResponseModel {
         (other.runtimeType == runtimeType &&
             other is _VerifyOtpResponseModel &&
             (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
-            (identical(other.email, email) || other.email == email) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
             (identical(other.mobileNo, mobileNo) ||
                 other.mobileNo == mobileNo) &&
             (identical(other.token, token) || other.token == token));
@@ -372,12 +338,12 @@ class _VerifyOtpResponseModel implements VerifyOtpResponseModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, userId, firstName, lastName, email, mobileNo, token);
+  int get hashCode =>
+      Object.hash(runtimeType, userId, fullName, mobileNo, token);
 
   @override
   String toString() {
-    return 'VerifyOtpResponseModel(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, mobileNo: $mobileNo, token: $token)';
+    return 'VerifyOtpResponseModel(userId: $userId, fullName: $fullName, mobileNo: $mobileNo, token: $token)';
   }
 }
 
@@ -391,9 +357,7 @@ abstract mixin class _$VerifyOtpResponseModelCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'user_id') String userId,
-      @JsonKey(name: 'first_name') String firstName,
-      @JsonKey(name: 'last_name') String lastName,
-      String email,
+      @JsonKey(name: 'full_name') String fullName,
       @JsonKey(name: 'mobile_no') String mobileNo,
       String token});
 }
@@ -412,9 +376,7 @@ class __$VerifyOtpResponseModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? userId = null,
-    Object? firstName = null,
-    Object? lastName = null,
-    Object? email = null,
+    Object? fullName = null,
     Object? mobileNo = null,
     Object? token = null,
   }) {
@@ -423,17 +385,9 @@ class __$VerifyOtpResponseModelCopyWithImpl<$Res>
           ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      firstName: null == firstName
-          ? _self.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
-          ? _self.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _self.email
-          : email // ignore: cast_nullable_to_non_nullable
+      fullName: null == fullName
+          ? _self.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       mobileNo: null == mobileNo
           ? _self.mobileNo

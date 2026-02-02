@@ -7,9 +7,7 @@ part 'verify_otp_response_model.g.dart';
 abstract class VerifyOtpResponseModel with _$VerifyOtpResponseModel {
   const factory VerifyOtpResponseModel({
     @JsonKey(name: 'user_id') required String userId,
-    @JsonKey(name: 'first_name') required String firstName,
-    @JsonKey(name: 'last_name') required String lastName,
-    required String email,
+    @JsonKey(name: 'full_name') required String fullName,
     @JsonKey(name: 'mobile_no') required String mobileNo,
     required String token,
   }) = _VerifyOtpResponseModel;

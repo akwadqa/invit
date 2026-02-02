@@ -52,7 +52,7 @@ class _VerificationScreenContentState
       key: key,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        spacing: 24,
+        spacing: 28,
         children: [
           VerificationScreenHeading(phone: widget.phone),
           VerificationScreenPin(

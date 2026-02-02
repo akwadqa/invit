@@ -23,7 +23,7 @@ class EventDetailsHeaderCard extends StatelessWidget {
                 imageUrl: ServicesUrls.imageUrl + event.imageUrl,
                 height: 400,
                 width: double.infinity,
-                fit: BoxFit.fitWidth)
+                fit: BoxFit.cover)
             : SizedBox.shrink()
         // child:
         // Assets.images.rectangle

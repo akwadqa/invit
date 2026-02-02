@@ -3,15 +3,26 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:invit/features/home/presentation/controller/home_controller.dart';
+import 'package:invit/features/home/presentation/widgets/empty_home_data.dart';
+import 'package:invit/features/home/presentation/widgets/home_screen/event_item_widget.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen/event_location.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen/home_screen_all_events.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen_app_bar.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen_booking_list.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen_invitation_type.dart';
+import 'package:invit/gen/assets.gen.dart';
+import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
+import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
+import 'package:invit/src/resourses/color_manager/app_colors.dart';
+import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
+import '../../domain/model/events/event_model.dart';
+import '../widgets/section_title_widget.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -30,41 +41,94 @@ class _HomeScreenContent extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final homeProvider = ref.watch(homeControllerProvider);
     return homeProvider.when(
-      data: (data) {
-        return ListView(
-          padding: EdgeInsetsGeometry.zero,
-          
-          children: [
-            HomeScreenAppBar(),
-            20.verticalSpace,
-            HomeScreenBookingList(),
-            20.verticalSpace,
-            HomeScreenInvitationType(ocationTypeModel: data.occasionTypes),
-            20.verticalSpace,
-            HomeScreenAllEvents(),
-            20.verticalSpace,
-            HomeScreenAllEvents(featuredEvent: true,),
-            140.verticalSpace
-          ],
-        );
-      },
-      error: (Object error, StackTrace stackTrace) => AppErrorWidget(errorMsg: error.toString()),
-      loading: () => Skeletonizer(
+        data: (data) {
+          return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'welcome'.tr(),
+                  style: AppTextStyle.rubikSemiBold16
+                      .copyWith(color: AppColors.primary),
+                ),
+                actions: [
+                  GestureDetector(
+                    onTap: () {
+                      context.goNamed(AppRoutes.notificationScreen);
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      padding: EdgeInsets.all(6),
+                      margin: EdgeInsetsDirectional.only(end: 20),
+                      decoration: BoxDecoration(
+                          color: AppColors.background,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                                color: AppColors.black.withValues(alpha: .25),
+                                blurRadius: 4)
+                          ]),
+                      child: Assets.icons.notificationIc.svg(),
+                    ),
+                  )
+                ],
+              ),
+              body: data.events.isEmpty
+                  ? EmptyHomeData()
+                  : Column(
+                      spacing: 20,
+                      children: [
+                        SectionTitleWidget(),
+                        Expanded(
+                          child: ListView.separated(
+                            // scrollDirection: Axis.horizontal,
+                            separatorBuilder: (context, index) =>
+                                35.verticalSpace,
+                            itemCount: data.events.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                              onTap: () => context.push(AppRoutes.eventDetails,
+                                  extra: data.events[index].occasionId),child: EventItemWidget(event: data.events[index]));
+                              // HomeScreenAllEvents(featuredEvent: true,),
+                            },
+                          ),
+                        ),
+                140.verticalSpace
+
+                      ],
+                    ).symmetricPadding(horizontal: 14));
+        },
+        error: (Object error, StackTrace stackTrace) =>
+            AppErrorWidget(errorMsg: error.toString()),
+        loading: () =>_buildSkelton());}
+    Skeletonizer _buildSkelton() {
+final defaultEvents = List.generate(
+  2,
+  (_) => EventModel.placeholder(),
+);
+    return Skeletonizer(
         enabled: true,
-        child: ListView(
-          padding: EdgeInsetsGeometry.zero,
-          children: [
-            HomeScreenAppBar(),
-            20.verticalSpace,
-            HomeScreenBookingList(),
-            20.verticalSpace,
-            HomeScreenInvitationType(),
-            20.verticalSpace,
-            HomeScreenAllEvents(),
-            140.verticalSpace
-          ],
-        ),
-      ),
-    );
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: Column(
+            children: [
+                              HomeScreenAppBar(),
+                20.verticalSpace,
+                SectionTitleWidget(),
+           
+              Expanded(
+                child: ListView.separated(
+                  // scrollDirection: Axis.horizontal,
+                  separatorBuilder: (context, index) => 35.verticalSpace,
+                  itemCount: defaultEvents.length,
+                  itemBuilder: (context, index) {
+                    return EventItemWidget(event: defaultEvents[index])
+                        .symmetricPadding(horizontal: 12);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ));
   }
+
 }

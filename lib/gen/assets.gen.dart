@@ -226,6 +226,10 @@ class $AssetsImagesGen {
   AssetGenImage get imErrorScreen =>
       const AssetGenImage('assets/images/im_error_screen.png');
 
+  /// File path: assets/images/invitation_create_im.png
+  AssetGenImage get invitationCreateIm =>
+      const AssetGenImage('assets/images/invitation_create_im.png');
+
   /// File path: assets/images/invite_type_image.jpg
   AssetGenImage get inviteTypeImage =>
       const AssetGenImage('assets/images/invite_type_image.jpg');
@@ -264,6 +268,7 @@ class $AssetsImagesGen {
         emptyMessages,
         eventSuccessImage,
         imErrorScreen,
+        invitationCreateIm,
         inviteTypeImage,
         qatarCountry,
         qatarFlag,

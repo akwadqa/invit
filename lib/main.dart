@@ -17,7 +17,7 @@ Future<void> main() async {
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   final container = await initializeProviders();
-  await handleSplashScreen(container);
+  await handleSplashScreen(container); 
 
   runApp(
     DevicePreview(

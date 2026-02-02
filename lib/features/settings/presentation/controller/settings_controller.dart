@@ -45,11 +45,11 @@ class SettingsController extends _$SettingsController {
     state = AsyncData(
       current.copyWith(deleteAccountState: const AsyncLoading()),
     );
-    final email=storage.userInfo.email;
+    final mobileNumber=storage.userInfo.mobileNumber;
 
     final result = await AsyncValue.guard(() async {
       final repo = ref.read(settingsRepositoryProvider);
-      await repo.deleteAccount(email);
+      await repo.deleteAccount(mobileNumber);
     });
     await storage.logout();
 
