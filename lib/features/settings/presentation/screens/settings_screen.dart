@@ -21,7 +21,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsState = ref.watch(settingsControllerProvider);
-    final localStorage=ref.watch(localStorageServiceProvider);
+    final localStorage = ref.watch(localStorageServiceProvider);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -40,12 +40,12 @@ class SettingsScreen extends ConsumerWidget {
               name: localStorage.userInfo.fullName,
             ),
 
-            const SettingsSectionTitle(title: 'account_details'),
+            // const SettingsSectionTitle(title: 'account_details'),
 
-            SettingsItemCard(
-              title: 'edit_my_profile',
-              icon: Assets.icons.editProfileIc,
-            ),
+            // SettingsItemCard(
+            //   title: 'edit_my_profile',
+            //   icon: Assets.icons.editProfileIc,
+            // ),
 
             // const Divider(),
             const SettingsSectionTitle(title: 'help_center'),
@@ -127,8 +127,9 @@ class SettingsScreen extends ConsumerWidget {
                   icon: Assets.icons.deleteWithCornerIc.svg(),
                   onConfirm: () {
                     // delete user logic
-                    ref.read(settingsControllerProvider.notifier).deleteAccount();
-
+                    ref
+                        .read(settingsControllerProvider.notifier)
+                        .deleteAccount();
                   },
                 );
               },

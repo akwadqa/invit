@@ -80,41 +80,45 @@ class _HomeScreenContent extends ConsumerWidget {
                         SectionTitleWidget(),
                         Expanded(
                           child: ListView.separated(
+                            padding: EdgeInsets.only(bottom: 140),
                             // scrollDirection: Axis.horizontal,
                             separatorBuilder: (context, index) =>
                                 35.verticalSpace,
                             itemCount: data.events.length,
                             itemBuilder: (context, index) {
                               return GestureDetector(
-                              onTap: () => context.push(AppRoutes.eventDetails,
-                                  extra: data.events[index].occasionId),child: EventItemWidget(event: data.events[index]));
+                                  onTap: () => context.push(
+                                      AppRoutes.eventDetails,
+                                      extra: data.events[index].occasionId),
+                                  child: EventItemWidget(
+                                      event: data.events[index]));
                               // HomeScreenAllEvents(featuredEvent: true,),
                             },
                           ),
                         ),
-                140.verticalSpace
-
+                        // 140.verticalSpace
                       ],
                     ).symmetricPadding(horizontal: 14));
         },
         error: (Object error, StackTrace stackTrace) =>
             AppErrorWidget(errorMsg: error.toString()),
-        loading: () =>_buildSkelton());}
-    Skeletonizer _buildSkelton() {
-final defaultEvents = List.generate(
-  2,
-  (_) => EventModel.placeholder(),
-);
+        loading: () => _buildSkelton());
+  }
+
+  Skeletonizer _buildSkelton() {
+    final defaultEvents = List.generate(
+      2,
+      (_) => EventModel.placeholder(),
+    );
     return Skeletonizer(
         enabled: true,
         child: Scaffold(
           backgroundColor: Colors.white,
           body: Column(
             children: [
-                              HomeScreenAppBar(),
-                20.verticalSpace,
-                SectionTitleWidget(),
-           
+              HomeScreenAppBar(),
+              20.verticalSpace,
+              SectionTitleWidget(),
               Expanded(
                 child: ListView.separated(
                   // scrollDirection: Axis.horizontal,
@@ -130,5 +134,4 @@ final defaultEvents = List.generate(
           ),
         ));
   }
-
 }

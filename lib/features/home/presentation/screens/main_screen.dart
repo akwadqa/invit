@@ -8,10 +8,12 @@ import 'package:invit/features/home/presentation/widgets/bottom_navigation_bar_v
 import 'package:invit/features/messages/presentation/screens/messages_screen.dart';
 import 'package:invit/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:invit/features/scan/presentation/pages/scan_page.dart';
+import 'package:invit/features/settings/presentation/screens/recharge_credits_screen.dart';
 import 'package:invit/features/settings/presentation/screens/settings_screen.dart';
-import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
+import 'package:invit/src/resourses/color_manager/app_colors.dart';
 
+import '../../../../gen/assets.gen.dart';
 import '../controller/home_controller.dart';
 
 //
@@ -32,7 +34,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   // }
   static final List<Widget> _pages = [
     HomeScreen(),
-    ScanPage(),
+    // ScanPage(),
+    RechargeCreditsScreen(),
     NotificationsScreen(),
     // MessagesScreen(),
     SettingsScreen(),

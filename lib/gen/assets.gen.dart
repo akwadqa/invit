@@ -17,6 +17,9 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/active_ic.svg
+  SvgGenImage get activeIc => const SvgGenImage('assets/icons/active_ic.svg');
+
   /// File path: assets/icons/add_contact_ic.svg
   SvgGenImage get addContactIc =>
       const SvgGenImage('assets/icons/add_contact_ic.svg');
@@ -34,6 +37,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/confirm_guest_ic.svg
   SvgGenImage get confirmGuestIc =>
       const SvgGenImage('assets/icons/confirm_guest_ic.svg');
+
+  /// File path: assets/icons/consumed_is.svg
+  SvgGenImage get consumedIs =>
+      const SvgGenImage('assets/icons/consumed_is.svg');
 
   /// File path: assets/icons/contacts_ic.svg
   SvgGenImage get contactsIc =>
@@ -68,6 +75,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/event_time_ic.svg
   SvgGenImage get eventTimeIc =>
       const SvgGenImage('assets/icons/event_time_ic.svg');
+
+  /// File path: assets/icons/expiring_ic.svg
+  SvgGenImage get expiringIc =>
+      const SvgGenImage('assets/icons/expiring_ic.svg');
 
   /// File path: assets/icons/failed_guest_ic.svg
   SvgGenImage get failedGuestIc =>
@@ -152,11 +163,13 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        activeIc,
         addContactIc,
         addEventIc,
         appIcon,
         chatIc,
         confirmGuestIc,
+        consumedIs,
         contactsIc,
         dateIc,
         deleteContactAlertIc,
@@ -166,6 +179,7 @@ class $AssetsIconsGen {
         editProfileIc,
         eventDateIc,
         eventTimeIc,
+        expiringIc,
         failedGuestIc,
         fullNameIc,
         googleIc,

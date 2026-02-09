@@ -12,7 +12,6 @@ import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import '../controller/home_controller.dart';
 
 class BottomNavigationBarView extends ConsumerWidget {
-
   const BottomNavigationBarView({
     super.key,
   });
@@ -41,7 +40,7 @@ class BottomNavigationBarView extends ConsumerWidget {
         itemCount: iconList.length,
         tabBuilder: (int i, bool isActive) {
           final color = isActive ? AppColors.primary : AppColors.black;
-    
+
           return Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -53,7 +52,9 @@ class BottomNavigationBarView extends ConsumerWidget {
                 // width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: selectedIndex == i ? AppColors.primary : Colors.transparent,
+                  color: selectedIndex == i
+                      ? AppColors.primary
+                      : Colors.transparent,
                 ),
                 width: 27,
                 height: 4,
@@ -65,9 +66,11 @@ class BottomNavigationBarView extends ConsumerWidget {
               ),
               // SizedBox(height: 4),
               Spacer(),
-              Text(
-                labelList[i],
-                style: TextStyle(fontSize: 12, color: color),
+              FittedBox(
+                child: Text(
+                  labelList[i],
+                  style: TextStyle(fontSize: 12, color: color),
+                ),
               ),
               // 10.verticalSpace,
             ],
@@ -77,8 +80,7 @@ class BottomNavigationBarView extends ConsumerWidget {
         splashSpeedInMilliseconds: 1,
         notchSmoothness: NotchSmoothness.smoothEdge,
         activeIndex: selectedIndex,
-            onTap: (i) =>
-            ref.read(bottomNavIndexProvider.notifier).state = i,
+        onTap: (i) => ref.read(bottomNavIndexProvider.notifier).state = i,
         backgroundColor: Colors.white,
         shadow: Shadow(
           blurRadius: 24,

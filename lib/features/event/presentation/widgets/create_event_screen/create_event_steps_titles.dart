@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
@@ -18,7 +17,7 @@ class CreateEventsStepsTitles extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 70,
+          width: 73,
           child: Text(
             'event_information'.tr(),
             textAlign: TextAlign.center,
@@ -49,4 +48,3 @@ class CreateEventsStepsTitles extends StatelessWidget {
     );
   }
 }
-

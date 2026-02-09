@@ -130,5 +130,11 @@
     "chose_template" : "Choose the template that best",
     "costumize_message" : " You can customize the message later",
     "invitation_choice" : "These templates will be used based on your main invitation choice",
-    "empty_guests" : "There is no guests here"
+    "empty_guests" : "There is no guests here",
+    "active" : "Active",
+    "best_value" : "Best Value",
+    "available_cards" : "AVAILABLE CARDS",
+    "recharge_credits" : "Recharge Credits",
+    "payment" : "Payment",
+    "chose_package": "Choose the package that fits your needs"
 }

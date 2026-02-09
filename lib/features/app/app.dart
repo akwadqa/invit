@@ -17,9 +17,9 @@ class App extends ConsumerStatefulWidget {
 class _AppState extends ConsumerState<App> {
   @override
   void initState() {
-    Future(() => ref
-        .read(currentLanguageProvider.notifier)
-        .changeLanguage(context, context.locale.languageCode));
+    Future(() {
+      ref.read(currentLanguageProvider.notifier).getLanguage(context);
+    });
     super.initState();
   }
 
@@ -35,13 +35,13 @@ class _AppState extends ConsumerState<App> {
         //     deepLinkBuilder: (deepLink) => DeepLink.defaultPath),
         routerConfig: appRouter.goRouter,
         builder: BotToastInit(),
-        
+
         theme: ref.watch(appThemeProvider),
         onGenerateTitle: (context) => context.tr('appTitle'),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         // supportedLocales: [Locale('en')],
-        locale: Locale(currentLanguage),
+          locale: context.locale,
         // locale: Locale('en'),
       ),
     );

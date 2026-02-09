@@ -109,7 +109,7 @@ class TemplateQrBottomSheet extends ConsumerWidget {
     });
 
     return Container(
-      height: 800,
+      height: 600,
       padding: EdgeInsets.symmetric(horizontal: 33, vertical: 21),
       child: SingleChildScrollView(
         child: Column(

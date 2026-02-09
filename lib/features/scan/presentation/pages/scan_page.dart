@@ -29,9 +29,9 @@ class _ScanPageState extends ConsumerState<ScanPage> {
   void initState() {
     super.initState();
 
-    // Future(() {
-    //   ref.read(scanControllerProvider.notifier).getUserScanEvent(page: 1);
-    // });
+    Future(() {
+      ref.read(scanControllerProvider.notifier).getUserScanEvent(page: 1);
+    });
   }
 
   @override
@@ -124,8 +124,7 @@ class ScanScreenItem extends StatelessWidget {
                 (event.imageUrl != null && resolveImageUrl() != null)
                     ? CachedNetworkImage(
                         fadeInCurve: Curves.linear,
-                        placeholder: (context, url) =>
-                            AppLoader(),
+                        placeholder: (context, url) => AppLoader(),
                         imageUrl: resolveImageUrl()!,
                         height: 129,
                         width: double.infinity,
