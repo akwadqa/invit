@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:invit/features/settings/presentation/widgets/recharge_credit_screen/info_cards_row.dart';
-import 'package:invit/features/settings/presentation/widgets/recharge_credit_screen/main_balance_card.dart';
-import 'package:invit/features/settings/presentation/widgets/recharge_credit_screen/package_list.dart';
+import 'package:invit/features/payment/presentation/widgets/info_cards_row.dart';
+import 'package:invit/features/payment/presentation/widgets/main_balance_card.dart';
+import 'package:invit/features/payment/presentation/widgets/package_list.dart';
 import 'package:invit/src/core/shared_widgets/custom_app_bar.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';

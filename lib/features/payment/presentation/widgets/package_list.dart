@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:invit/features/settings/presentation/widgets/recharge_credit_screen/package_card.dart';
+import 'package:invit/features/payment/presentation/widgets/package_card.dart';
 
 class PackageList extends StatelessWidget {
   const PackageList({super.key});

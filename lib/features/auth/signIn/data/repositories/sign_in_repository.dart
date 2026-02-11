@@ -23,7 +23,7 @@ class SignInRepository {
       return response;
     }
   
-    throw AppException(message: response.message);
+    throw AppException( message:response.message);
   }
 
 }

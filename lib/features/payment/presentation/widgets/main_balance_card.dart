@@ -1,7 +1,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:invit/features/settings/presentation/widgets/recharge_credit_screen/active_status_budge.dart';
+import 'package:invit/features/payment/presentation/widgets/active_status_budge.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 

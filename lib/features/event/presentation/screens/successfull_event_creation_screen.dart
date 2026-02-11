@@ -8,18 +8,20 @@ import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class SuccessfullEventCreationScreen extends StatelessWidget {
-  const SuccessfullEventCreationScreen({super.key});
+  const SuccessfullEventCreationScreen({super.key, required this.occasionId});
+  final String occasionId;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _SuccessfullEventCreationScreenContent(),
+      body: _SuccessfullEventCreationScreenContent(occasionId),
     );
   }
 }
 
 class _SuccessfullEventCreationScreenContent extends StatelessWidget {
-  const _SuccessfullEventCreationScreenContent();
+  final String occasionId;
+  const _SuccessfullEventCreationScreenContent(this.occasionId);
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +59,15 @@ class _SuccessfullEventCreationScreenContent extends StatelessWidget {
                   style: AppTextStyle.rubikSemiBold18,
                   textAlign: TextAlign.center,
                 ),
-                Text(
-                  'view_invitation_status'.tr(),
-                  style: AppTextStyle.rubikMedium14.copyWith(
-                      color: AppColors.primary,
-                      decoration: TextDecoration.underline),
+                GestureDetector(
+                  onTap: () => context.goNamed(AppRoutes.eventDetails,
+                      extra: occasionId),
+                  child: Text(
+                    'view_invitation_status'.tr(),
+                    style: AppTextStyle.rubikMedium14.copyWith(
+                        color: AppColors.primary,
+                        decoration: TextDecoration.underline),
+                  ),
                 ),
                 GestureDetector(
                   onTap: () => context.goNamed(AppRoutes.mainScreen),

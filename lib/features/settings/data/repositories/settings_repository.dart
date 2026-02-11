@@ -21,7 +21,7 @@ class SettingsRepository {
       final result = await _remoteDataSource.getSettingsData(page: page);
   
       if (result.hasFailed) {
-        throw AppException(message:  result.message ?? 'Failed to fetch data');
+        throw AppException( message: result.message ?? 'Failed to fetch data');
       }
   
       return result.data!;

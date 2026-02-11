@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
+import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
 
 class CreateEventState {
   final List<SelectedContact> selectedContacts;
@@ -14,8 +15,9 @@ class CreateEventState {
   final AsyncValue<CreateEventResponse>? createEventResponse;
   final LatLng latLng;
   final AsyncValue<SelectedPlace>? selectedPlace;
-
-
+  final AsyncValue<List<InviteTemplateModel>>? templates;
+  final AsyncValue<EventModel>? confirmEvent;
+  final bool isConfirm;
 
   CreateEventState({
     required this.selectedContacts,
@@ -24,13 +26,19 @@ class CreateEventState {
     required this.createEventResponse,
     required this.latLng,
     this.selectedPlace,
+    required this.templates,
+    required this.confirmEvent,
+    required this.isConfirm,
   });
 
   factory CreateEventState.init() => CreateEventState(
       eventModel: EventModel(),
       latLng: LatLng(25.2854473, 51.53103979999999),
       selectedContacts: [],
+      confirmEvent: null,
       contacts: [],
+      templates: AsyncLoading(),
+      isConfirm: false,
       createEventResponse: null);
 
   CreateEventState copyWith({
@@ -40,6 +48,9 @@ class CreateEventState {
     AsyncValue<CreateEventResponse>? createEventResponse,
     LatLng? latLng,
     AsyncValue<SelectedPlace>? selectedPlace,
+    AsyncValue<List<InviteTemplateModel>>? templates,
+    AsyncValue<EventModel>? confirmEvent,
+    bool? isConfirm,
   }) {
     return CreateEventState(
       selectedContacts: selectedContacts ?? this.selectedContacts,
@@ -48,6 +59,9 @@ class CreateEventState {
       createEventResponse: createEventResponse ?? this.createEventResponse,
       latLng: latLng ?? this.latLng,
       selectedPlace: selectedPlace ?? this.selectedPlace,
+      templates: templates ?? this.templates,
+      confirmEvent: confirmEvent ?? this.confirmEvent,
+      isConfirm: isConfirm ?? this.isConfirm,
     );
   }
 }

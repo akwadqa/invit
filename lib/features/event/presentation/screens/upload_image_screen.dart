@@ -43,6 +43,24 @@ class _UploadImageScreenContent extends ConsumerWidget {
         .select((val) => val.value?.eventModel.image));
 
     ref.listen(
+      createEventControllerProvider.select((val) => val.value!.confirmEvent),
+      (previous, next) {
+        if (next is AsyncData) {
+          context.pop();
+          context.goNamed(AppRoutes.successEventScreen,
+              extra: next!.value!.occasionId);
+        }
+        if (next is AsyncError) {
+          // context.pop();
+          Future.delayed(Duration(milliseconds: 100), () {
+            context.pop();
+            showErrorDialog(context, next!.error.toString());
+          });
+        }
+      },
+    );
+
+    ref.listen(
         createEventControllerProvider
             .select((val) => val.value!.createEventResponse), (prev, next) {
       if (next is AsyncLoading) {
@@ -56,8 +74,18 @@ class _UploadImageScreenContent extends ConsumerWidget {
         });
       }
       if (next is AsyncData) {
-        context.pop();
-        context.goNamed(AppRoutes.successEventScreen);
+        final isConfirm =
+            ref.watch(createEventControllerProvider).value!.isConfirm;
+
+        if (isConfirm) {
+          ref
+              .read(createEventControllerProvider.notifier)
+              .confirmEvent(next!.value!.eventId!);
+        } else {
+          context.pop();
+          context.goNamed(AppRoutes.successEventScreen,
+              extra: next!.value!.eventId!);
+        }
       }
     });
     return Padding(
@@ -85,7 +113,9 @@ class _UploadImageScreenContent extends ConsumerWidget {
             text: 'send'.tr(),
             onTap: () {
               // context.pushNamed(AppRoutes.templatesScreen);
-              ref.read(createEventControllerProvider.notifier).createEvent();
+              ref
+                  .read(createEventControllerProvider.notifier)
+                  .createEvent(true);
             },
             isFiled: false,
             style: AppTextStyle.rubikMedium18.copyWith(color: AppColors.white),
@@ -94,9 +124,21 @@ class _UploadImageScreenContent extends ConsumerWidget {
             backgroundColor: AppColors.primary,
             width: double.infinity,
           ),
-          // CreateEventFooter(onContinue: () {
-          //   ref.read(createEventControllerProvider.notifier).createEvent();
-          // }),
+          CustomButtonWidget(
+            text: 'save'.tr(),
+            onTap: () {
+              ref
+                  .read(createEventControllerProvider.notifier)
+                  .createEvent(false);
+            },
+            isFiled: false,
+            style:
+                AppTextStyle.rubikMedium18.copyWith(color: AppColors.primary),
+            radius: 10,
+            height: 48,
+            backgroundColor: AppColors.white,
+            width: double.infinity,
+          ),
           SizedBox()
         ],
       ),

@@ -5,6 +5,14 @@ class ApiEndPoints {
   static const String homeServices = 'invite.api.api.get_home_page_data';
   //? --- Event ---
   static const String createEvent = 'invite.api.api.create_event';
+  static const String getTemplates = 'invite.api.api.templates';
+  static const String confirmEvent = 'invite.api.api.confirm_event';
+
+  //? --- Guest ---
+  static const String addGuest = 'invite.api.api.add_guest';
+  static const String deleteGuest = 'invite.api.api.delete_guest';
+  static const String updateGuestList = 'invite.api.api.update_guest_list';
+
 
 
   //? --- AUTH ---

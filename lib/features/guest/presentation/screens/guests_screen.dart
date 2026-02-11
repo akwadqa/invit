@@ -59,7 +59,7 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final index = ref.watch(guestUiControllerProvider).index;
+    final index = ref.watch(guestUiControllerProvider).value!.index;
 
     // final controller = ref.watch(
     //   homeControllerProvider.select(
@@ -195,7 +195,7 @@ class GuestsScreenGuestItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tabIndex = ref.watch(guestUiControllerProvider).index;
+    final tabIndex = ref.watch(guestUiControllerProvider).value!.index;
 
     return ListTile(
       // onTap: !isConfirmed

@@ -13,7 +13,7 @@ part of 'guest_ui_controller.dart';
 const guestUiControllerProvider = GuestUiControllerProvider._();
 
 final class GuestUiControllerProvider
-    extends $NotifierProvider<GuestUiController, GuestUiState> {
+    extends $AsyncNotifierProvider<GuestUiController, GuestUiState> {
   const GuestUiControllerProvider._()
       : super(
           from: null,
@@ -31,28 +31,20 @@ final class GuestUiControllerProvider
   @$internal
   @override
   GuestUiController create() => GuestUiController();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(GuestUiState value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<GuestUiState>(value),
-    );
-  }
 }
 
-String _$guestUiControllerHash() => r'507204ea2e32212710dd59be38b0bb32db6ead65';
+String _$guestUiControllerHash() => r'189f67e6ad637b0d9af74e53d8b9429615507df6';
 
-abstract class _$GuestUiController extends $Notifier<GuestUiState> {
-  GuestUiState build();
+abstract class _$GuestUiController extends $AsyncNotifier<GuestUiState> {
+  FutureOr<GuestUiState> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<GuestUiState, GuestUiState>;
+    final ref = this.ref as $Ref<AsyncValue<GuestUiState>, GuestUiState>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<GuestUiState, GuestUiState>,
-        GuestUiState,
+        AnyNotifier<AsyncValue<GuestUiState>, GuestUiState>,
+        AsyncValue<GuestUiState>,
         Object?,
         Object?>;
     element.handleValue(ref, created);

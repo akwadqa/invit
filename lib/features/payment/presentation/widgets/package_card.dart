@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:invit/features/settings/presentation/widgets/recharge_credit_screen/best_value_budge.dart';
-import 'package:invit/features/settings/presentation/widgets/recharge_credit_screen/feature_item.dart';
-import 'package:invit/features/settings/presentation/widgets/recharge_credit_screen/select_package_button.dart';
+import 'package:invit/features/payment/presentation/widgets/best_value_budge.dart';
+import 'package:invit/features/payment/presentation/widgets/feature_item.dart';
+import 'package:invit/features/payment/presentation/widgets/select_package_button.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';

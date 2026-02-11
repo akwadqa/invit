@@ -22,6 +22,7 @@ import 'package:invit/features/auth/signIn/presentation/screens/sign_in_screen.d
 import 'package:invit/features/onBoarding/splash_screen.dart';
 import 'package:invit/features/scan/presentation/pages/scan_qr_event_page.dart';
 import 'package:invit/features/scan_qr_code/presentation/screens/scan_qr_code_screen.dart';
+import 'package:invit/features/payment/presentation/screens/recharge_credits_screen.dart';
 // import 'package:invit/features/onBoarding/splash.dart';
 import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/infrastructure/storage/local_storage_service.dart';
@@ -395,7 +396,22 @@ class AppRouter {
           parentNavigatorKey: rootKey,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return CustomTransitionPage(
-              child: SuccessfullEventCreationScreen(),
+              child: SuccessfullEventCreationScreen(occasionId: state.extra as String,),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.paymentScreen,
+          name: AppRoutes.paymentScreen,
+          parentNavigatorKey: rootKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: RechargeCreditsScreen(),
               key: state.pageKey,
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {

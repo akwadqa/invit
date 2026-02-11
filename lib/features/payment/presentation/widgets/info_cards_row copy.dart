@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:invit/features/settings/presentation/widgets/recharge_credit_screen/small_info_card.dart';
+import 'package:invit/features/payment/presentation/widgets/small_info_card.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 
