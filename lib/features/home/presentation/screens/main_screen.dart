@@ -34,8 +34,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   // }
   static final List<Widget> _pages = [
     HomeScreen(),
-    // ScanPage(),
-    RechargeCreditsScreen(),
+    ScanPage(),
+    // RechargeCreditsScreen(),
     NotificationsScreen(),
     // MessagesScreen(),
     SettingsScreen(),

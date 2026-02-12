@@ -8,6 +8,7 @@ import 'package:invit/features/home/domain/model/events/event_model.dart';
 import 'package:invit/features/scan/presentation/controller/scan_controller.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
+import 'package:invit/src/core/shared_widgets/app_empty_data_widget.dart';
 import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/app_pagination_widget.dart';
@@ -47,7 +48,8 @@ class _ScanPageState extends ConsumerState<ScanPage> {
       body: controller?.when(
         data: (data) {
           if (data.events.isEmpty) {
-            return Center(child: Assets.images.emptyData.svg());
+            return AppEmptyDataWidget(text: "no_events_to_scan_yet".tr());
+            // Center(child: Assets.images.emptyData.svg());
           }
           return _buildBody(data.events);
         },

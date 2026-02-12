@@ -44,6 +44,7 @@ class _HomeScreenContent extends ConsumerWidget {
         data: (data) {
           return Scaffold(
               appBar: AppBar(
+                leading: SizedBox(),
                 title: Text(
                   'welcome'.tr(),
                   style: AppTextStyle.rubikSemiBold16
