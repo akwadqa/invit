@@ -14,8 +14,23 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$UserScanEventResponse {
-  @JsonKey(name: 'events')
-  List<EventModel> get events;
+// @JsonKey(name: 'events') required List<EventModel> events,
+  @JsonKey(name: 'occasion_id')
+  String get occasionId;
+  String get title;
+  String get date;
+  @JsonKey(name: 'map_link')
+  String get mapLink;
+  @JsonKey(name: 'image_url')
+  String get imageUrl;
+  @JsonKey(name: 'invite_template')
+  String? get inviteTemplate;
+  @JsonKey(name: 'confirmed_template')
+  String? get confirmedTemplate;
+  @JsonKey(name: 'declined_template')
+  String? get declinedTemplate;
+  @JsonKey(name: 'workflow_state')
+  String get workflowState;
 
   /// Create a copy of UserScanEventResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -33,17 +48,40 @@ mixin _$UserScanEventResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is UserScanEventResponse &&
-            const DeepCollectionEquality().equals(other.events, events));
+            (identical(other.occasionId, occasionId) ||
+                other.occasionId == occasionId) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.mapLink, mapLink) || other.mapLink == mapLink) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.inviteTemplate, inviteTemplate) ||
+                other.inviteTemplate == inviteTemplate) &&
+            (identical(other.confirmedTemplate, confirmedTemplate) ||
+                other.confirmedTemplate == confirmedTemplate) &&
+            (identical(other.declinedTemplate, declinedTemplate) ||
+                other.declinedTemplate == declinedTemplate) &&
+            (identical(other.workflowState, workflowState) ||
+                other.workflowState == workflowState));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(events));
+  int get hashCode => Object.hash(
+      runtimeType,
+      occasionId,
+      title,
+      date,
+      mapLink,
+      imageUrl,
+      inviteTemplate,
+      confirmedTemplate,
+      declinedTemplate,
+      workflowState);
 
   @override
   String toString() {
-    return 'UserScanEventResponse(events: $events)';
+    return 'UserScanEventResponse(occasionId: $occasionId, title: $title, date: $date, mapLink: $mapLink, imageUrl: $imageUrl, inviteTemplate: $inviteTemplate, confirmedTemplate: $confirmedTemplate, declinedTemplate: $declinedTemplate, workflowState: $workflowState)';
   }
 }
 
@@ -53,7 +91,16 @@ abstract mixin class $UserScanEventResponseCopyWith<$Res> {
           $Res Function(UserScanEventResponse) _then) =
       _$UserScanEventResponseCopyWithImpl;
   @useResult
-  $Res call({@JsonKey(name: 'events') List<EventModel> events});
+  $Res call(
+      {@JsonKey(name: 'occasion_id') String occasionId,
+      String title,
+      String date,
+      @JsonKey(name: 'map_link') String mapLink,
+      @JsonKey(name: 'image_url') String imageUrl,
+      @JsonKey(name: 'invite_template') String? inviteTemplate,
+      @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
+      @JsonKey(name: 'declined_template') String? declinedTemplate,
+      @JsonKey(name: 'workflow_state') String workflowState});
 }
 
 /// @nodoc
@@ -69,13 +116,53 @@ class _$UserScanEventResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? events = null,
+    Object? occasionId = null,
+    Object? title = null,
+    Object? date = null,
+    Object? mapLink = null,
+    Object? imageUrl = null,
+    Object? inviteTemplate = freezed,
+    Object? confirmedTemplate = freezed,
+    Object? declinedTemplate = freezed,
+    Object? workflowState = null,
   }) {
     return _then(_self.copyWith(
-      events: null == events
-          ? _self.events
-          : events // ignore: cast_nullable_to_non_nullable
-              as List<EventModel>,
+      occasionId: null == occasionId
+          ? _self.occasionId
+          : occasionId // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _self.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      date: null == date
+          ? _self.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
+      mapLink: null == mapLink
+          ? _self.mapLink
+          : mapLink // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      inviteTemplate: freezed == inviteTemplate
+          ? _self.inviteTemplate
+          : inviteTemplate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      confirmedTemplate: freezed == confirmedTemplate
+          ? _self.confirmedTemplate
+          : confirmedTemplate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      declinedTemplate: freezed == declinedTemplate
+          ? _self.declinedTemplate
+          : declinedTemplate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      workflowState: null == workflowState
+          ? _self.workflowState
+          : workflowState // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -173,14 +260,32 @@ extension UserScanEventResponsePatterns on UserScanEventResponse {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(@JsonKey(name: 'events') List<EventModel> events)?
+    TResult Function(
+            @JsonKey(name: 'occasion_id') String occasionId,
+            String title,
+            String date,
+            @JsonKey(name: 'map_link') String mapLink,
+            @JsonKey(name: 'image_url') String imageUrl,
+            @JsonKey(name: 'invite_template') String? inviteTemplate,
+            @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
+            @JsonKey(name: 'declined_template') String? declinedTemplate,
+            @JsonKey(name: 'workflow_state') String workflowState)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _UserScanEventResponse() when $default != null:
-        return $default(_that.events);
+        return $default(
+            _that.occasionId,
+            _that.title,
+            _that.date,
+            _that.mapLink,
+            _that.imageUrl,
+            _that.inviteTemplate,
+            _that.confirmedTemplate,
+            _that.declinedTemplate,
+            _that.workflowState);
       case _:
         return orElse();
     }
@@ -201,12 +306,31 @@ extension UserScanEventResponsePatterns on UserScanEventResponse {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(@JsonKey(name: 'events') List<EventModel> events) $default,
+    TResult Function(
+            @JsonKey(name: 'occasion_id') String occasionId,
+            String title,
+            String date,
+            @JsonKey(name: 'map_link') String mapLink,
+            @JsonKey(name: 'image_url') String imageUrl,
+            @JsonKey(name: 'invite_template') String? inviteTemplate,
+            @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
+            @JsonKey(name: 'declined_template') String? declinedTemplate,
+            @JsonKey(name: 'workflow_state') String workflowState)
+        $default,
   ) {
     final _that = this;
     switch (_that) {
       case _UserScanEventResponse():
-        return $default(_that.events);
+        return $default(
+            _that.occasionId,
+            _that.title,
+            _that.date,
+            _that.mapLink,
+            _that.imageUrl,
+            _that.inviteTemplate,
+            _that.confirmedTemplate,
+            _that.declinedTemplate,
+            _that.workflowState);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -226,13 +350,31 @@ extension UserScanEventResponsePatterns on UserScanEventResponse {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(@JsonKey(name: 'events') List<EventModel> events)?
+    TResult? Function(
+            @JsonKey(name: 'occasion_id') String occasionId,
+            String title,
+            String date,
+            @JsonKey(name: 'map_link') String mapLink,
+            @JsonKey(name: 'image_url') String imageUrl,
+            @JsonKey(name: 'invite_template') String? inviteTemplate,
+            @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
+            @JsonKey(name: 'declined_template') String? declinedTemplate,
+            @JsonKey(name: 'workflow_state') String workflowState)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _UserScanEventResponse() when $default != null:
-        return $default(_that.events);
+        return $default(
+            _that.occasionId,
+            _that.title,
+            _that.date,
+            _that.mapLink,
+            _that.imageUrl,
+            _that.inviteTemplate,
+            _that.confirmedTemplate,
+            _that.declinedTemplate,
+            _that.workflowState);
       case _:
         return null;
     }
@@ -243,19 +385,44 @@ extension UserScanEventResponsePatterns on UserScanEventResponse {
 @JsonSerializable()
 class _UserScanEventResponse implements UserScanEventResponse {
   const _UserScanEventResponse(
-      {@JsonKey(name: 'events') required final List<EventModel> events})
-      : _events = events;
+      {@JsonKey(name: 'occasion_id') required this.occasionId,
+      required this.title,
+      required this.date,
+      @JsonKey(name: 'map_link') required this.mapLink,
+      @JsonKey(name: 'image_url') required this.imageUrl,
+      @JsonKey(name: 'invite_template') this.inviteTemplate,
+      @JsonKey(name: 'confirmed_template') this.confirmedTemplate,
+      @JsonKey(name: 'declined_template') this.declinedTemplate,
+      @JsonKey(name: 'workflow_state') required this.workflowState});
   factory _UserScanEventResponse.fromJson(Map<String, dynamic> json) =>
       _$UserScanEventResponseFromJson(json);
 
-  final List<EventModel> _events;
+// @JsonKey(name: 'events') required List<EventModel> events,
   @override
-  @JsonKey(name: 'events')
-  List<EventModel> get events {
-    if (_events is EqualUnmodifiableListView) return _events;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_events);
-  }
+  @JsonKey(name: 'occasion_id')
+  final String occasionId;
+  @override
+  final String title;
+  @override
+  final String date;
+  @override
+  @JsonKey(name: 'map_link')
+  final String mapLink;
+  @override
+  @JsonKey(name: 'image_url')
+  final String imageUrl;
+  @override
+  @JsonKey(name: 'invite_template')
+  final String? inviteTemplate;
+  @override
+  @JsonKey(name: 'confirmed_template')
+  final String? confirmedTemplate;
+  @override
+  @JsonKey(name: 'declined_template')
+  final String? declinedTemplate;
+  @override
+  @JsonKey(name: 'workflow_state')
+  final String workflowState;
 
   /// Create a copy of UserScanEventResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -278,17 +445,40 @@ class _UserScanEventResponse implements UserScanEventResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _UserScanEventResponse &&
-            const DeepCollectionEquality().equals(other._events, _events));
+            (identical(other.occasionId, occasionId) ||
+                other.occasionId == occasionId) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.mapLink, mapLink) || other.mapLink == mapLink) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.inviteTemplate, inviteTemplate) ||
+                other.inviteTemplate == inviteTemplate) &&
+            (identical(other.confirmedTemplate, confirmedTemplate) ||
+                other.confirmedTemplate == confirmedTemplate) &&
+            (identical(other.declinedTemplate, declinedTemplate) ||
+                other.declinedTemplate == declinedTemplate) &&
+            (identical(other.workflowState, workflowState) ||
+                other.workflowState == workflowState));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_events));
+  int get hashCode => Object.hash(
+      runtimeType,
+      occasionId,
+      title,
+      date,
+      mapLink,
+      imageUrl,
+      inviteTemplate,
+      confirmedTemplate,
+      declinedTemplate,
+      workflowState);
 
   @override
   String toString() {
-    return 'UserScanEventResponse(events: $events)';
+    return 'UserScanEventResponse(occasionId: $occasionId, title: $title, date: $date, mapLink: $mapLink, imageUrl: $imageUrl, inviteTemplate: $inviteTemplate, confirmedTemplate: $confirmedTemplate, declinedTemplate: $declinedTemplate, workflowState: $workflowState)';
   }
 }
 
@@ -300,7 +490,16 @@ abstract mixin class _$UserScanEventResponseCopyWith<$Res>
       __$UserScanEventResponseCopyWithImpl;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'events') List<EventModel> events});
+  $Res call(
+      {@JsonKey(name: 'occasion_id') String occasionId,
+      String title,
+      String date,
+      @JsonKey(name: 'map_link') String mapLink,
+      @JsonKey(name: 'image_url') String imageUrl,
+      @JsonKey(name: 'invite_template') String? inviteTemplate,
+      @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
+      @JsonKey(name: 'declined_template') String? declinedTemplate,
+      @JsonKey(name: 'workflow_state') String workflowState});
 }
 
 /// @nodoc
@@ -316,13 +515,53 @@ class __$UserScanEventResponseCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? events = null,
+    Object? occasionId = null,
+    Object? title = null,
+    Object? date = null,
+    Object? mapLink = null,
+    Object? imageUrl = null,
+    Object? inviteTemplate = freezed,
+    Object? confirmedTemplate = freezed,
+    Object? declinedTemplate = freezed,
+    Object? workflowState = null,
   }) {
     return _then(_UserScanEventResponse(
-      events: null == events
-          ? _self._events
-          : events // ignore: cast_nullable_to_non_nullable
-              as List<EventModel>,
+      occasionId: null == occasionId
+          ? _self.occasionId
+          : occasionId // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _self.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      date: null == date
+          ? _self.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
+      mapLink: null == mapLink
+          ? _self.mapLink
+          : mapLink // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      inviteTemplate: freezed == inviteTemplate
+          ? _self.inviteTemplate
+          : inviteTemplate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      confirmedTemplate: freezed == confirmedTemplate
+          ? _self.confirmedTemplate
+          : confirmedTemplate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      declinedTemplate: freezed == declinedTemplate
+          ? _self.declinedTemplate
+          : declinedTemplate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      workflowState: null == workflowState
+          ? _self.workflowState
+          : workflowState // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }

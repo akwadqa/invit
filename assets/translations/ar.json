@@ -135,6 +135,7 @@
     "available_cards" : "البطاقات المتوفرة",
     "recharge_credits" : "إعادة الشحن",
     "payment" : "الدفع",
+    "no_events_to_scan_yet": "لا توجد فعاليات للمسح حتى الآن",
     "chose_package" : "اختر الباقة التي تناسب احتياجاتك",
     "save" : "حفظ"
 }

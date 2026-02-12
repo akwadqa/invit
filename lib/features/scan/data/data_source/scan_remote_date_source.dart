@@ -32,7 +32,7 @@ class ScanRemoteDateSource {
     }
   }
 
-  Future<ApiResponse<UserScanEventResponse>> getUserScanEvent({
+  Future<ApiResponse<List<UserScanEventResponse>>> getUserScanEvent({
     required int page,
   }) async {
     try {
@@ -41,10 +41,12 @@ class ScanRemoteDateSource {
         ApiEndPoints.getScaned,
         data: data,
       );
-      return ApiResponse.fromJson(
-        response.data,
-        (json) => UserScanEventResponse.fromJson(json as Map<String, dynamic>),
-      );
+     return ApiResponse.fromJson(
+      response.data,
+      (json) => (json as List)
+          .map((item) => UserScanEventResponse.fromJson(item as Map<String, dynamic>))
+          .toList(),
+    );
     } catch (e) {
       return ApiResponse.error(message: e.toString());
     }

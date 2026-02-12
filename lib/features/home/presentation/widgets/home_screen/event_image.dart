@@ -5,6 +5,8 @@ import 'package:invit/src/infrastructure/api/endpoint/services_urls.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
+import '../../../../../src/core/utils/functions/helper_methods.dart';
+
 class EventImage extends StatelessWidget {
   final EventModel? event;
 
@@ -49,7 +51,7 @@ class EventImage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
-                  _formatDate(event?.date),
+                  formatDate(event?.date),
                   textAlign: TextAlign.center,
                   style: AppTextStyle.rubikMedium10,
                 ),
@@ -68,30 +70,4 @@ class EventImage extends StatelessWidget {
     );
   }
 
-  String _formatDate(String? date) {
-    if (date == null || date.isEmpty) return '';
-
-    final parsed = DateTime.tryParse(date);
-    if (parsed == null) return '';
-
-    return '${parsed.day}\n${_month(parsed.month)}';
-  }
-
-  String _month(int m) {
-    const months = [
-      'JAN',
-      'FEB',
-      'MAR',
-      'APR',
-      'MAY',
-      'JUN',
-      'JUL',
-      'AUG',
-      'SEP',
-      'OCT',
-      'NOV',
-      'DEC'
-    ];
-    return months[m - 1];
-  }
 }
