@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/event/data/repository/event_repository.dart';
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
+import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
 import 'package:invit/features/event/presentation/controller/create_event_state.dart';
 import 'package:invit/src/logger/log_services/dev_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -161,10 +162,10 @@ class CreateEventController extends _$CreateEventController {
     state = AsyncData(currentState.copyWith(selectedContacts: selectedList));
   }
 
-  Future<CreateEventResponse?> createEvent() async {
+  Future<CreateEventResponse?> createEvent(bool isConfirm) async {
     try {
-      state =
-          AsyncData(state.value!.copyWith(createEventResponse: AsyncLoading()));
+      state = AsyncData(state.value!
+          .copyWith(createEventResponse: AsyncLoading(), isConfirm: isConfirm));
       final repo = ref.read(eventRepositoryProvider);
       final response = await repo.createEvent(state.value!.eventModel);
 
@@ -186,6 +187,60 @@ class CreateEventController extends _$CreateEventController {
     } catch (e, st) {
       state = AsyncData(
           state.value!.copyWith(createEventResponse: AsyncError(e, st)));
+      return null;
+    }
+  }
+
+  Future<List<InviteTemplateModel>?> getTemplates() async {
+    try {
+      state = AsyncData(state.value!.copyWith(templates: AsyncLoading()));
+      final repo = ref.read(eventRepositoryProvider);
+      final response = await repo.getTemplate();
+
+      if (response.hasFailed) {
+        state = AsyncData(state.value!.copyWith(
+            templates: AsyncError(
+          response.message ?? '',
+          StackTrace.fromString(response.message ?? ''),
+        )));
+        return null;
+      }
+
+      state = AsyncData(
+        state.value!.copyWith(
+          templates: AsyncData(response.data!),
+        ),
+      );
+      return response.data;
+    } catch (e, st) {
+      state = AsyncData(state.value!.copyWith(templates: AsyncError(e, st)));
+      return null;
+    }
+  }
+
+  Future<EventModel?> confirmEvent(String occasionId) async {
+    try {
+      state = AsyncData(state.value!.copyWith(confirmEvent: AsyncLoading()));
+      final repo = ref.read(eventRepositoryProvider);
+      final response = await repo.confirmEvent(occasionId);
+
+      if (response.hasFailed) {
+        state = AsyncData(state.value!.copyWith(
+            confirmEvent: AsyncError(
+          response.message ?? '',
+          StackTrace.fromString(response.message ?? ''),
+        )));
+        return null;
+      }
+
+      state = AsyncData(
+        state.value!.copyWith(
+          confirmEvent: AsyncData(response.data!),
+        ),
+      );
+      return response.data;
+    } catch (e, st) {
+      state = AsyncData(state.value!.copyWith(confirmEvent: AsyncError(e, st)));
       return null;
     }
   }
@@ -227,10 +282,8 @@ class CreateEventController extends _$CreateEventController {
           mapLink: newData.mapLink ?? current.mapLink,
           // operators: newData.operators ?? state.value!.operators,
           // handlers: newData.handlers ?? state.value!.handlers,
-
-          // inviteTemplate:
-          //     newData.inviteTemplate ??
-          //     current.inviteTemplate ??
+          // inviteTemplate: 'Test 2-',
+          inviteTemplate: newData.inviteTemplate ?? current.inviteTemplate,
           //     firsTemplate?.name,
           guestList: setGuestListFromContacts() ?? current.guestList,
         ),

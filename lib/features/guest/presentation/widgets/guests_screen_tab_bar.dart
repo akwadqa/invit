@@ -27,7 +27,7 @@ class GuestsScreenTabBar extends StatelessWidget {
       ),
       child: Consumer(
         builder: (context, ref, child) {
-          final index = ref.watch(guestUiControllerProvider).index;
+          final index = ref.watch(guestUiControllerProvider).value!.index;
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(

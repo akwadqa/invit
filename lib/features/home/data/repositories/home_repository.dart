@@ -20,7 +20,7 @@ class HomeRepository {
       final result = await _remoteDataSource.getHomeData(page: page);
   
       if (result.hasFailed) {
-        throw AppException(message:  result.message ?? 'Failed to fetch data');
+        throw AppException( message :result.message ?? 'Failed to fetch data');
       }
   
       return result.data!;

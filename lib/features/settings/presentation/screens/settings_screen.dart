@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:invit/features/settings/presentation/controller/settings_controller.dart';
 import 'package:invit/gen/assets.gen.dart';
+import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/custom_appbar.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
@@ -62,6 +64,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
 
             SettingsItemCard(
+              onTap: () => context.push(AppRoutes.paymentScreen),
               title: 'pricing_services'.tr(),
               icon: Assets.icons.privacyIc,
             ),

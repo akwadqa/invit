@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
+import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
 import 'package:invit/src/infrastructure/api/endpoint/api_endpoints.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/network_service.dart';
@@ -56,6 +57,49 @@ class EventRemoteDataSource {
       return ApiResponse.fromJson(
         response.data as Map<String, dynamic>,
         (json) => CreateEventResponse.fromJson(json as Map<String, dynamic>),
+      );
+    } catch (e) {
+      Dev.logLine('Error in submitData: e');
+      rethrow;
+    }
+  }
+
+  Future<ApiResponse<List<InviteTemplateModel>>> getTemplates() async {
+    try {
+      final response = await _networkService.get(
+        ApiEndPoints.getTemplates,
+        // queryParameters: {
+        // 'page': page,
+        // },
+      );
+
+      return ApiResponse.fromJson(
+        response.data,
+        (json) => (json as List)
+            .map((item) =>
+                InviteTemplateModel.fromJson(item as Map<String, dynamic>))
+            .toList(),
+      );
+    } catch (e) {
+      return ApiResponse.error(message: e.toString());
+    }
+  }
+
+  Future<ApiResponse<EventModel>> confirmEvent(String occasionId) async {
+    try {
+      final data = FormData.fromMap({'occasion_id': occasionId});
+      final response = await _networkService.post(
+        ApiEndPoints.confirmEvent,
+        data: data,
+      );
+
+      if (response.data == null || response.statusCode != 200) {
+        throw Exception('Request failed');
+      }
+
+      return ApiResponse.fromJson(
+        response.data as Map<String, dynamic>,
+        (json) => EventModel.fromJson(json as Map<String, dynamic>),
       );
     } catch (e) {
       Dev.logLine('Error in submitData: e');

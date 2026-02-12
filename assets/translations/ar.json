@@ -135,5 +135,6 @@
     "available_cards" : "البطاقات المتوفرة",
     "recharge_credits" : "إعادة الشحن",
     "payment" : "الدفع",
-    "chose_package" : "اختر الباقة التي تناسب احتياجاتك"
+    "chose_package" : "اختر الباقة التي تناسب احتياجاتك",
+    "save" : "حفظ"
 }

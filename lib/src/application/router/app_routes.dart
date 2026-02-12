@@ -20,6 +20,7 @@ abstract class AppRoutes {
   static const String invitationsSecreen = '/invitationsSecreen';
   static const String allEventsSecreen = '/allEventsSecreen';
   static const String eventDetails = '/event_details';
+  static const String paymentScreen = '/payment_screen';
 
   // static String qrScreen = '/qr-page';
 
