@@ -12,6 +12,8 @@ abstract class HiveInitializer {
     Dev.logLine('HiveInitializer');
     try {
       // await Hive.deleteFromDisk();
+      // await Hive.deleteBoxFromDisk(HiveBoxesName.userInfoBox);
+
       var documentsDirectory = await getApplicationDocumentsDirectory();
       Hive.init(documentsDirectory.path);
 

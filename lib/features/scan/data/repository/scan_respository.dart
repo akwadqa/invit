@@ -40,7 +40,7 @@ class ScanRespository {
     }
   }
 
-  Future<ApiResponse<UserScanEventResponse>> getUserScanEvent({
+  Future<ApiResponse<List<UserScanEventResponse>>> getUserScanEvent({
     required int page,
   }) async {
     try {

@@ -18,8 +18,11 @@ abstract class UserInformation with _$UserInformation {
   }) = _UserInformation;
 
   /// **Default Empty Object (If Needed)**
-  factory UserInformation.empty() =>
-      UserInformation(token: "", fullName: "", mobileNumber: "", );
+  factory UserInformation.empty() => UserInformation(
+        token: "",
+        fullName: "",
+        mobileNumber: "",
+      );
   static UserInformation defaultValue = UserInformation(
     fullName: '',
     // email: "",
@@ -27,6 +30,7 @@ abstract class UserInformation with _$UserInformation {
     // image: null,
     token: '',
   );
+
   /// **Factory Constructor for JSON**
   factory UserInformation.fromJson(Map<String, dynamic> json) =>
       _$UserInformationFromJson(json);
@@ -54,14 +58,12 @@ class UserInformationAdapter extends TypeAdapter<UserInformation> {
   @override
   void write(BinaryWriter writer, UserInformation obj) {
     writer
-      ..writeByte(4) // number of fields
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.token)
       ..writeByte(1)
       ..write(obj.fullName)
       ..writeByte(2)
-      ..write(obj.mobileNumber)
- 
-      ;
+      ..write(obj.mobileNumber);
   }
 }

@@ -54,6 +54,7 @@
     "successful_check" : "Successfully Checked",
     "notifications": "Notifications",
     "no_notifications": "Notifications is Empty",
+    "no_events_to_scan_yet": "No events to scan yet",
 
     "pricing_services": "Pricing & Services",
     "notification": "Notification",

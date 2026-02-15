@@ -32,3 +32,31 @@ Future<void> safelyPop(BuildContext context) async {
   await Future.delayed(const Duration(milliseconds: 100));
   if (context.mounted) context.maybePop();
 }
+
+
+String formatDate(String? date) {
+    if (date == null || date.isEmpty) return '';
+
+    final parsed = DateTime.tryParse(date);
+    if (parsed == null) return '';
+
+    return '${parsed.day}\n${_month(parsed.month)}';
+  }
+
+  String _month(int m) {
+    const months = [
+      'JAN',
+      'FEB',
+      'MAR',
+      'APR',
+      'MAY',
+      'JUN',
+      'JUL',
+      'AUG',
+      'SEP',
+      'OCT',
+      'NOV',
+      'DEC'
+    ];
+    return months[m - 1];
+  }
