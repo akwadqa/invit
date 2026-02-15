@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invit/features/event/presentation/controller/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_footer.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_screen/create_event_steps_section.dart';
 import 'package:invit/features/event/presentation/widgets/guest_list_screen/add_contact_manually_form.dart';

@@ -4,8 +4,9 @@ import 'package:invit/features/event/presentation/widgets/guest_list_screen/add_
 
 class AddContactManuallyForm extends StatefulWidget {
   const AddContactManuallyForm({
-    super.key,
+    super.key, this.occasionId,
   });
+  final String? occasionId;
 
   @override
   State<AddContactManuallyForm> createState() => _AddContactManuallyFormState();
@@ -43,6 +44,7 @@ class _AddContactManuallyFormState extends State<AddContactManuallyForm> {
         AddGuestManuallyButton(
           name: _name,
           phone: _phone,
+          occasionId: widget.occasionId,
           formKey: formKey,
         )
       ],

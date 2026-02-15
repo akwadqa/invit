@@ -64,29 +64,27 @@ class GuestRemoteDataSource {
     }
   }
 
-  
   Future<ApiResponse<UpdateGuestListResponse>> updateGuestList({
     required String occasionId,
     required List<GuestModel> guests,
   }) async {
     try {
-      final response = await _networkService.post(
-        ApiEndPoints.updateGuestList,
-        queryParameters: {
+      final data = FormData.fromMap(
+        {
           'occasion_id': occasionId,
-          'guest_list': jsonEncode(guests.map((e) => e.toJson()).toList()),
+          // 'guest_list': jsonEncode(guests.map((e) => e.toJson()).toList()),
+          'guest_list': jsonEncode(guests),
         },
       );
+      final response =
+          await _networkService.post(ApiEndPoints.updateGuestList, data: data);
       return ApiResponse.fromJson(
         response.data,
-
-        (json) => UpdateGuestListResponse.fromJson(json as Map<String, dynamic>),
+        (json) =>
+            UpdateGuestListResponse.fromJson(json as Map<String, dynamic>),
       );
     } catch (e) {
       return ApiResponse.error(message: e.toString());
     }
   }
-
-
-
 }

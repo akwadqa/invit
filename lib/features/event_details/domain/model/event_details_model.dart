@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'guest_model.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'guest_report_model.dart';
 
 part 'event_details_model.freezed.dart';

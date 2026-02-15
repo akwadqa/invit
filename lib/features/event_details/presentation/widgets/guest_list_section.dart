@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
-import '../../domain/model/guest_model.dart';
 
 class GuestListSection extends StatelessWidget {
   final List<GuestModel> guests;

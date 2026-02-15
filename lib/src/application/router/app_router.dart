@@ -3,16 +3,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/signUp/presentation/screens/signup_screen.dart';
 import 'package:invit/features/auth/verification/presentation/screens/verification_account_screen.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
+import 'package:invit/features/event/presentation/screens/update_event/update_event_details_screen.dart';
+import 'package:invit/features/event/presentation/screens/update_event/update_guest_list_screen.dart';
 import 'package:invit/features/event_details/presentation/screens/event_details_screen.dart';
 import 'package:invit/features/featured_events/presentation/screens/all_events_screen.dart';
 import 'package:invit/features/guest/presentation/screens/guests_screen.dart';
-import 'package:invit/features/event/presentation/screens/contact_list_screen.dart';
-import 'package:invit/features/event/presentation/screens/create_event_screen.dart';
-import 'package:invit/features/event/presentation/screens/guest_list_screen.dart';
-import 'package:invit/features/event/presentation/screens/select_location_screen.dart';
-import 'package:invit/features/event/presentation/screens/successfull_event_creation_screen.dart';
-import 'package:invit/features/event/presentation/screens/templates_screen.dart';
-import 'package:invit/features/event/presentation/screens/upload_image_screen.dart';
+import 'package:invit/features/event/presentation/screens/create_event/contact_list_screen.dart';
+import 'package:invit/features/event/presentation/screens/create_event/create_event_screen.dart';
+import 'package:invit/features/event/presentation/screens/create_event/guest_list_screen.dart';
+import 'package:invit/features/event/presentation/screens/create_event/select_location_screen.dart';
+import 'package:invit/features/event/presentation/screens/create_event/successfull_event_creation_screen.dart';
+import 'package:invit/features/event/presentation/screens/create_event/templates_screen.dart';
+import 'package:invit/features/event/presentation/screens/create_event/upload_image_screen.dart';
 import 'package:invit/features/home/presentation/screens/home_screen.dart';
 import 'package:invit/features/home/presentation/screens/main_screen.dart';
 import 'package:invit/features/invitation_type/presentation/screens/invitation_types_screen.dart';
@@ -258,7 +261,9 @@ class AppRouter {
             pageBuilder: (BuildContext context, GoRouterState state) {
               return CustomTransitionPage(
                 key: state.pageKey,
-                child: SelectLocationPage(),
+                child: SelectLocationPage(
+                  id: state.extra as String?,
+                ),
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                   return FadeTransition(opacity: animation, child: child);
@@ -396,7 +401,9 @@ class AppRouter {
           parentNavigatorKey: rootKey,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return CustomTransitionPage(
-              child: SuccessfullEventCreationScreen(occasionId: state.extra as String,),
+              child: SuccessfullEventCreationScreen(
+                occasionId: state.extra as String,
+              ),
               key: state.pageKey,
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
@@ -412,6 +419,40 @@ class AppRouter {
           pageBuilder: (BuildContext context, GoRouterState state) {
             return CustomTransitionPage(
               child: RechargeCreditsScreen(),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.updateEventScreen,
+          name: AppRoutes.updateEventScreen,
+          parentNavigatorKey: rootKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: UpdateEventDetailsScreen(
+                eventModel: state.extra as EventModel,
+              ),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.updateGuestListScreen,
+          name: AppRoutes.updateGuestListScreen,
+          parentNavigatorKey: rootKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: UpdateGuestListScreen(
+                occasionId: state.extra as String,
+              ),
               key: state.pageKey,
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {

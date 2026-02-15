@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/signIn/presentation/widgets/sign_in_form.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
-import 'package:invit/features/event/presentation/controller/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_footer.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_screen/create_event_steps_section.dart';
 import 'package:invit/gen/assets.gen.dart';
