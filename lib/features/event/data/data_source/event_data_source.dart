@@ -106,4 +106,33 @@ class EventRemoteDataSource {
       rethrow;
     }
   }
+
+  Future<ApiResponse<CreateEventResponse>> updateEvent(
+    EventModel event,
+  ) async {
+    try {
+      final data = FormData.fromMap({
+        'occasion_id': event.occasionId,
+        'time' : '10:10',
+        'image': event.image != null
+            ? await MultipartFile.fromFile(event.image!.path)
+            : null,
+        ...(event.toJson()..remove('image_url')),
+      });
+      final response = await _networkService.post(
+        ApiEndPoints.updateEvent,
+        data: data,
+      );
+      if (response.data == null || response.statusCode != 200) {
+        throw Exception('Request failed');
+      }
+      return ApiResponse.fromJson(
+        response.data,
+        (json) => CreateEventResponse.fromJson(json as Map<String, dynamic>),
+      );
+    } catch (e) {
+      Dev.logLine('Error in submitData: $e');
+      rethrow;
+    }
+  }
 }

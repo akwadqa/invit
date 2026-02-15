@@ -2,12 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event_details/domain/model/event_details_model.dart';
-import 'package:invit/features/event_details/domain/model/guest_model.dart';
 import 'package:invit/features/event_details/presentation/controller/event_details_controller.dart';
 import 'package:invit/features/guest/presentation/controller/guest_ui_controller.dart';
 import 'package:invit/features/guest/presentation/widgets/guests_screen_tab_bar.dart';
 import 'package:invit/gen/assets.gen.dart';
+import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_app_bar.dart';
@@ -91,16 +92,35 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
     // final event = ref.watch(homeControllerProvider).value!.occasionModel?.value;
     return Scaffold(
       appBar: CustomDeafultAppbar(
-        title: context.tr('all_guests'),
-        // actionButton: event?.status == 'Draft'
-        //     ? GestureDetector(
-        //         onTap: () {
-        //           context.push(Routes.guestList, extra: event?.occasionId);
-        //         },
-        //         child: Assets.icons.addContactIc.svg(width: 30.w),
-        //       )
-        //     : null,
-      ),
+          title: context.tr('all_guests'),
+          actionButton: controller.whenOrNull(
+            data: (data) {
+              // final event = EventModel(
+              //   occasionId: data.occasionId,
+              //   title: data.title,
+              //   date: data.date,
+              //   imageUrl: data.imageUrl,
+              //   guestList: data.guests,
+              // );
+              return GestureDetector(
+                onTap: () => context.push(AppRoutes.updateGuestListScreen,
+                    extra: data.occasionId),
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.cardWhite,
+                  ),
+                  child: Icon(
+                    Icons.edit,
+                    color: AppColors.primary,
+                    size: 20,
+                  ),
+                ),
+              );
+            },
+          )),
       body: Column(
         spacing: 16,
         children: [
@@ -139,6 +159,7 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
             ),
             loading: () => AppLoader(),
           ),
+          SizedBox()
         ],
       ),
     );

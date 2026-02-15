@@ -21,6 +21,8 @@ abstract class AppRoutes {
   static const String allEventsSecreen = '/allEventsSecreen';
   static const String eventDetails = '/event_details';
   static const String paymentScreen = '/payment_screen';
+  static const String updateEventScreen = '/update_event';
+  static const String updateGuestListScreen = '/update_guest_list';
 
   // static String qrScreen = '/qr-page';
 

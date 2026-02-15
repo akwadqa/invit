@@ -35,12 +35,12 @@ class CustomDeafultAppbar extends StatelessWidget
             (withBackButton ?? false)
                 ? GestureDetector(
                     onTap: () {
-                      context.pop();
-                      // if (context.canPop()) {
-                      //   context.pop();
-                      // } else {
-                      //   context.go(AppRoutes.main);
-                      // }
+                      // context.pop();
+                      if (context.canPop()) {
+                        context.pop();
+                      } else {
+                        context.go(AppRoutes.mainScreen);
+                      }
                     },
                     child: Container(
                       width: 30,

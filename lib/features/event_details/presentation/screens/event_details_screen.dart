@@ -2,11 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event_details/domain/model/guest_report_model.dart';
 import 'package:invit/features/event_details/presentation/controller/event_details_controller.dart';
 import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
+import 'package:invit/src/core/shared_widgets/custom_app_bar.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
@@ -16,7 +18,7 @@ import '../widgets/event_details_header_card.dart';
 import '../widgets/event_details_report_card.dart';
 import '../widgets/guest_list_section.dart';
 
-class EventDetailsScreen extends ConsumerWidget {
+class EventDetailsScreen extends ConsumerStatefulWidget {
   final String ocassionId;
 
   const EventDetailsScreen({
@@ -25,41 +27,101 @@ class EventDetailsScreen extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final eventDetailsAsync =
-        ref.watch(eventDetailsControllerProvider(ocassionId: ocassionId));
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, 65),
-          child: CustomAppbar(
-            title: context.tr('event_details'),
-            // withBackButton: false,
-          ),
-        ),
-        body: eventDetailsAsync.when(
-          data: (EventDetailsModel data) {
-            return ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                if (data.guestReport != null)
-                  EventDetailsReportCard(
-                      report: data.guestReport!, id: ocassionId),
-                16.verticalSpace,
-                EventDetailsHeaderCard(event: data),
-                20.verticalSpace,
-                GuestListSection(guests: data.guests),
-                20.verticalSpace,
-                EventDetailsFooter(
-                  id: ocassionId,
-                  report: data.guestReport!,
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _EventDetailsScreenState();
+}
+
+class _EventDetailsScreenState extends ConsumerState<EventDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future(() {
+      ref
+          .read(eventDetailsControllerProvider(ocassionId: widget.ocassionId)
+              .notifier)
+          .getEventDetails(ocassionId: widget.ocassionId);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final eventDetailsAsync = ref
+        .watch(eventDetailsControllerProvider(ocassionId: widget.ocassionId));
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if (didPop) return;
+        if (context.canPop()) {
+          context.pop();
+        } else {
+          context.go(AppRoutes.mainScreen);
+        }
+      },
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: PreferredSize(
+            preferredSize: const Size(double.infinity, 65),
+            child: CustomDeafultAppbar(
+                title: context.tr('event_details'),
+                actionButton: eventDetailsAsync.whenOrNull(
+                  data: (data) {
+                    if (data.status == 'Draft') {
+                      final event = EventModel(
+                        occasionId: data.occasionId,
+                        title: data.title,
+                        date: data.date,
+                        type: 'Birthday',
+                        imageUrl: data.imageUrl,
+                        mapLink: data.mapLink,
+                        guestList: data.guests,
+                      );
+                      return GestureDetector(
+                        onTap: () => context.push(AppRoutes.updateEventScreen,
+                            extra: event),
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.cardWhite,
+                          ),
+                          child: Icon(
+                            Icons.edit,
+                            color: AppColors.primary,
+                            size: 20,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                )
+                // withBackButton: false,
                 ),
-              ],
-            );
-          },
-          error: (Object error, StackTrace stackTrace) => AppErrorWidget(),
-          loading: () => AppLoader(),
-        ));
+          ),
+          body: eventDetailsAsync.when(
+            data: (EventDetailsModel data) {
+              return ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
+                  if (data.guestReport != null)
+                    EventDetailsReportCard(
+                        report: data.guestReport!, id: widget.ocassionId),
+                  16.verticalSpace,
+                  EventDetailsHeaderCard(event: data),
+                  20.verticalSpace,
+                  GuestListSection(guests: data.guests),
+                  20.verticalSpace,
+                  EventDetailsFooter(
+                    id: widget.ocassionId,
+                    report: data.guestReport!,
+                  ),
+                ],
+              );
+            },
+            error: (Object error, StackTrace stackTrace) => AppErrorWidget(),
+            loading: () => AppLoader(),
+          )),
+    );
   }
 }
 

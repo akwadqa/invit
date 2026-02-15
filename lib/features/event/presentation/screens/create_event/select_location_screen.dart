@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:invit/features/event/presentation/controller/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
 import 'package:invit/features/event/presentation/widgets/select_location_screen/select_location_google_map.dart';
 import 'package:invit/src/core/shared_widgets/app_alert.dart';
 import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
@@ -16,7 +17,7 @@ import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class SelectLocationPage extends ConsumerStatefulWidget {
   final String? id;
-  const SelectLocationPage({super.key,  this.id});
+  const SelectLocationPage({super.key, this.id});
 
   @override
   ConsumerState<SelectLocationPage> createState() => _SelectLocationPageState();
@@ -50,24 +51,27 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
         }
       },
     );
+    if (widget.id != null) {
+      ref.listen(
+        updateEventControllerProvider(ocassionId: widget.id!)
+            .select((val) => val.value!.selectedPlace),
+        (prev, next) {
+          if (next is AsyncLoading) {
+            AppAlert.showLoadingDialog(context);
+          }
 
-    // ref.listen(
-    //   updateEventControllerProvider.select((val) => val.value!.selectedPlace),
-    //   (prev, next) {
-    //     if (next is AsyncLoading) {
-    //       AppAlert.showLoadingDialog(context);
-    //     }
+          if (next is AsyncData) {
+            context.pop();
+            context.pop();
+          }
+          if (next is AsyncError) {
+            context.pop();
+            showErrorDialog(context, next!.error.toString());
+          }
+        },
+      );
+    }
 
-    //     if (next is AsyncData) {
-    //       context.pop();
-    //       context.pop();
-    //     }
-    //     if (next is AsyncError) {
-    //       context.pop();
-    //       AppToast.errorToast(next!.error.toString());
-    //     }
-    //   },
-    // );
     return Scaffold(body: _buildMap(context));
   }
 
@@ -80,15 +84,16 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
           CustomButtonWidget(
             text: context.tr('confirm'),
             onTap: () async {
-              // if (widget.id == null) {
+              if (widget.id == null) {
                 await ref
                     .read(createEventControllerProvider.notifier)
                     .getPlaceInfoFromLatLng();
-              // } else {
-              //   await ref
-              //       .read(updateEventControllerProvider.notifier)
-              //       .getPlaceInfoFromLatLng(widget.id!);
-              // }
+              } else {
+                await ref
+                    .read(updateEventControllerProvider(ocassionId: widget.id!)
+                        .notifier)
+                    .getPlaceInfoFromLatLng(widget.id!);
+              }
             },
             isFiled: true,
             style: AppTextStyle.nunitoBold16.copyWith(color: AppColors.white),

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invit/features/event/presentation/controller/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
@@ -11,10 +12,13 @@ import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class DeleteContactAlert extends ConsumerWidget {
-  const DeleteContactAlert(this.contact, {
+  const DeleteContactAlert(
+    this.contact,
+    this.occasionId, {
     super.key,
   });
   final Contact contact;
+  final String? occasionId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,32 +58,42 @@ class DeleteContactAlert extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomButtonWidget(
-                  text: 'cancel'.tr(),
-                  onTap: () => context.pop(),
-                  isFiled: false,
-                  height: 48,
-                  radius: 10,
-                  style: AppTextStyle.rubikMedium18
-                      .copyWith(color: AppColors.black),
-                  width: 140,
-                  backgroundColor: AppColors.white,
+                Expanded(
+                  child: CustomButtonWidget(
+                    text: 'cancel'.tr(),
+                    onTap: () => context.pop(),
+                    isFiled: false,
+                    height: 48,
+                    radius: 10,
+                    style: AppTextStyle.rubikMedium18
+                        .copyWith(color: AppColors.black),
+                    width: 140,
+                    backgroundColor: AppColors.white,
+                  ),
                 ),
-                CustomButtonWidget(
-                  text: 'delete'.tr(),
-                  onTap: () {
-                    ref
-                        .read(createEventControllerProvider.notifier)
-                        .deleteSelectedContact(contact);
-                    context.pop();
-                  },
-                  isFiled: false,
-                  height: 48,
-                  radius: 10,
-                  style: AppTextStyle.rubikMedium18
-                      .copyWith(color: AppColors.white),
-                  width: 140,
-                  backgroundColor: AppColors.red,
+                Expanded(
+                  child: CustomButtonWidget(
+                    text: 'delete'.tr(),
+                    onTap: () {
+                      occasionId == null
+                          ? ref
+                              .read(createEventControllerProvider.notifier)
+                              .deleteSelectedContact(contact)
+                          : ref
+                              .read(updateEventControllerProvider(
+                                      ocassionId: occasionId!)
+                                  .notifier)
+                              .deleteSelectedContact(contact);
+                      context.pop();
+                    },
+                    isFiled: false,
+                    height: 48,
+                    radius: 10,
+                    style: AppTextStyle.rubikMedium18
+                        .copyWith(color: AppColors.white),
+                    width: 140,
+                    backgroundColor: AppColors.red,
+                  ),
                 ),
               ],
             )

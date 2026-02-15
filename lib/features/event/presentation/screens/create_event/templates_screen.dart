@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
-import 'package:invit/features/event/presentation/controller/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_alert.dart';

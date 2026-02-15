@@ -7,7 +7,7 @@ import 'package:invit/features/event/data/repository/event_repository.dart';
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
-import 'package:invit/features/event/presentation/controller/create_event_state.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_state.dart';
 import 'package:invit/src/logger/log_services/dev_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';

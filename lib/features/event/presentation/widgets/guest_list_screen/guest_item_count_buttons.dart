@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:invit/features/event/presentation/controller/create_event_controller.dart';
-import 'package:invit/features/event/presentation/controller/create_event_state.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_state.dart';
+import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
@@ -10,7 +10,9 @@ class GuestItemCountButtons extends ConsumerWidget {
   const GuestItemCountButtons({
     super.key,
     required this.contact,
+    required this.occasionId,
   });
+  final String? occasionId;
 
   final SelectedContact contact;
 
@@ -27,9 +29,17 @@ class GuestItemCountButtons extends ConsumerWidget {
       child: Row(
         children: [
           GestureDetector(
-            onTap: () => ref
-                .read(createEventControllerProvider.notifier)
-                .decrementCount(contact),
+            onTap: () {
+              occasionId == null
+                  ? ref
+                      .read(createEventControllerProvider.notifier)
+                      .decrementCount(contact)
+                  : ref
+                      .read(
+                          updateEventControllerProvider(ocassionId: occasionId!)
+                              .notifier)
+                      .decrementCount(contact);
+            },
             child: Icon(
               Icons.keyboard_arrow_down_rounded,
               size: 30,
@@ -42,9 +52,17 @@ class GuestItemCountButtons extends ConsumerWidget {
                 AppTextStyle.rubikRegular16.copyWith(color: AppColors.primary),
           ),
           GestureDetector(
-            onTap: () => ref
-                .read(createEventControllerProvider.notifier)
-                .incrementCount(contact),
+            onTap: () {
+                occasionId == null
+                  ? ref
+                      .read(createEventControllerProvider.notifier)
+                      .incrementCount(contact)
+                  : ref
+                      .read(
+                          updateEventControllerProvider(ocassionId: occasionId!)
+                              .notifier)
+                      .incrementCount(contact);
+            },
             child: Icon(
               Icons.keyboard_arrow_up_rounded,
               color: AppColors.primary,

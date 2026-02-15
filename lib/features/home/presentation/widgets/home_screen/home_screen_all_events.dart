@@ -20,10 +20,12 @@ class HomeScreenAllEvents extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final events = ref.watch(
       homeControllerProvider.select(
-        (state) => state.value?.events ??  List.generate(
-  2,
-  (_) => EventModel.placeholder(),
-),
+        (state) =>
+            state.value?.events ??
+            List.generate(
+              2,
+              (_) => EventModel.placeholder(),
+            ),
       ),
     );
     final featuredEvents = ref.watch(
@@ -36,7 +38,8 @@ class HomeScreenAllEvents extends ConsumerWidget {
         (state) => state.isLoading,
       ),
     );
-    final emptyData = (featuredEvent ? featuredEvents.isEmpty : events.isEmpty && !isLoading);
+    final emptyData =
+        (featuredEvent ? featuredEvents.isEmpty : events.isEmpty && !isLoading);
     return emptyData
         ? SizedBox()
         : Column(
@@ -45,7 +48,7 @@ class HomeScreenAllEvents extends ConsumerWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [ 
+                children: [
                   Text(
                       featuredEvent ? 'featured_event'.tr() : 'all_events'.tr(),
                       style: AppTextStyle.rubikSemiBold18

@@ -51,4 +51,16 @@ class EventRepository {
 
     throw AppException(message: response.error);
   }
+
+ Future<ApiResponse<CreateEventResponse>> updateEvent(
+    EventModel event,
+  ) async {
+    final response = await _remoteDataSource.updateEvent(event);
+
+    if (response.status == 200) {
+      return response;
+    }
+
+    throw AppException(message: response.error);
+  }
 }
