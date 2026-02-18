@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/auth/signUp/presentation/widgets/create_account_field.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/map_controller/map_controller.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
@@ -43,11 +44,16 @@ class CreateEventScreenForm extends ConsumerWidget {
         ? DateFormat.jm(deviceLocale).format(DateTime.parse(date))
         : '';
 
-    final locationName = occasionId == null
-        ? ref.watch(createEventControllerProvider
-            .select((val) => val.value!.selectedPlace?.value?.locationName))
-        : ref.watch(updateEventControllerProvider(ocassionId: occasionId!)
-            .select((val) => val.value!.selectedPlace?.value?.locationName));
+    final locationName = ref.watch(mapControllerProvider
+        .select((val) => val.value!.selectedPlace?.value?.locationName));
+
+        //TODO : Delete this:
+
+    // final locationName = occasionId == null
+    //     ? ref.watch(createEventControllerProvider
+    //         .select((val) => val.value!.selectedPlace?.value?.locationName))
+    //     : ref.watch(updateEventControllerProvider(ocassionId: occasionId!)
+    //         .select((val) => val.value!.selectedPlace?.value?.locationName));
 
     return SingleChildScrollView(
       child: Container(
@@ -183,11 +189,15 @@ class CreateEventScreenForm extends ConsumerWidget {
               if (locationName != null)
                 Row(
                   spacing: 8,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Assets.icons.locationIc.svg(),
-                    Text(
-                      locationName,
-                      style: AppTextStyle.rubikRegular16,
+                    SizedBox(
+                      width: 250,
+                      child: Text(
+                        locationName,
+                        style: AppTextStyle.rubikRegular16,
+                      ),
                     ),
                   ],
                 )

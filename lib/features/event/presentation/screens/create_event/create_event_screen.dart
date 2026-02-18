@@ -5,11 +5,13 @@ import 'package:go_router/go_router.dart';
 import 'package:invit/features/auth/signUp/presentation/widgets/create_account_field.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/map_controller/map_controller.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_footer.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_screen/create_event_screen_form.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_screen/create_event_steps_section.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
+import 'package:invit/src/core/shared_widgets/app_alert.dart';
 import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/custom_app_bar.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
@@ -46,6 +48,9 @@ class _CreateEventScreenContentState
   void initState() {
     super.initState();
     title = TextEditingController();
+    Future(() {
+      ref.read(mapControllerProvider.notifier).initLocation(null);
+    });
   }
 
   @override
@@ -56,7 +61,17 @@ class _CreateEventScreenContentState
 
   @override
   Widget build(BuildContext context) {
-    final locationName = ref.watch(createEventControllerProvider
+    ref.listen(
+        mapControllerProvider.select((val) => val.value!.selectedPlace),
+        (previous, next) {
+      if (next is AsyncLoading) {
+        AppAlert.showLoadingDialog(context);
+      } else {
+        context.pop();
+      }
+    });
+
+    final locationName = ref.watch(mapControllerProvider
         .select((val) => val.value!.selectedPlace?.value?.locationName));
 
     final _formKey = GlobalKey<FormState>();

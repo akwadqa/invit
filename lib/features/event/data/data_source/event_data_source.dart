@@ -1,11 +1,16 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
 import 'package:invit/src/infrastructure/api/endpoint/api_endpoints.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
+import 'package:invit/src/infrastructure/network/services/dio_client.dart';
 import 'package:invit/src/infrastructure/network/services/network_service.dart';
 import 'package:invit/src/logger/log_services/dev_logger.dart';
 
@@ -113,7 +118,7 @@ class EventRemoteDataSource {
     try {
       final data = FormData.fromMap({
         'occasion_id': event.occasionId,
-        'time' : '10:10',
+        'time': '10:10',
         'image': event.image != null
             ? await MultipartFile.fromFile(event.image!.path)
             : null,
@@ -132,6 +137,25 @@ class EventRemoteDataSource {
       );
     } catch (e) {
       Dev.logLine('Error in submitData: $e');
+      rethrow;
+    }
+  }
+
+  Future<dynamic> getLocationData(Ref ref, LatLng latlng) async {
+    try {
+      final apiKey = dotenv.env['MAPS_API_KEY'];
+      if (apiKey == null) throw Exception('Request failed');
+      final url =
+          "https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng.latitude},${latlng.longitude}&key=$apiKey";
+
+      final response = await ref.read(dioProvider).get(url);
+      if (response.statusCode != 200) throw Exception('Request failed');
+
+      final data = response.data;
+      if (data["status"] != "OK") throw Exception('Request failed');
+      return data["results"][0];
+    } catch (e) {
+      debugPrint('Error in getData: e');
       rethrow;
     }
   }

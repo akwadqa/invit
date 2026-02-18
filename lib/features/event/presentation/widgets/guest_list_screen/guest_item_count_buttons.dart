@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invit/features/event/presentation/controller/contacts_controller/contacts_controller.dart';
+import 'package:invit/features/event/presentation/controller/contacts_controller/contacts_state.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_state.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
@@ -30,15 +32,9 @@ class GuestItemCountButtons extends ConsumerWidget {
         children: [
           GestureDetector(
             onTap: () {
-              occasionId == null
-                  ? ref
-                      .read(createEventControllerProvider.notifier)
-                      .decrementCount(contact)
-                  : ref
-                      .read(
-                          updateEventControllerProvider(ocassionId: occasionId!)
-                              .notifier)
-                      .decrementCount(contact);
+              ref
+                  .read(contactsControllerProvider(occasionId).notifier)
+                  .decrementCount(contact, occasionId);
             },
             child: Icon(
               Icons.keyboard_arrow_down_rounded,
@@ -53,15 +49,9 @@ class GuestItemCountButtons extends ConsumerWidget {
           ),
           GestureDetector(
             onTap: () {
-                occasionId == null
-                  ? ref
-                      .read(createEventControllerProvider.notifier)
-                      .incrementCount(contact)
-                  : ref
-                      .read(
-                          updateEventControllerProvider(ocassionId: occasionId!)
-                              .notifier)
-                      .incrementCount(contact);
+              ref
+                  .read(contactsControllerProvider(occasionId).notifier)
+                  .incrementCount(contact, occasionId);
             },
             child: Icon(
               Icons.keyboard_arrow_up_rounded,

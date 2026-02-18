@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/map_controller/map_controller.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
 
 class SelectLocationGoogleMap extends ConsumerWidget {
@@ -14,10 +15,10 @@ class SelectLocationGoogleMap extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(createEventControllerProvider, (previous, next) async {
-      if (next?.value == null) return;
+    ref.listen(mapControllerProvider, (previous, next) async {
+      if (next.value == null) return;
 
-      final latLng = next!.value!.latLng;
+      final latLng = next.value!.latLng;
       final controller = await mapController.future;
 
       controller.animateCamera(
@@ -41,20 +42,24 @@ class SelectLocationGoogleMap extends ConsumerWidget {
       });
     }
 
-    final lat = id == null
-        ? ref.watch(createEventControllerProvider).value!.latLng.latitude
-        : ref
-            .watch(updateEventControllerProvider(ocassionId: id!))
-            .value!
-            .updatedEvent!
-            .mapLatitude!;
-    final lng = id == null
-        ? ref.watch(createEventControllerProvider).value!.latLng.longitude
-        : ref
-            .watch(updateEventControllerProvider(ocassionId: id!))
-            .value!
-            .updatedEvent!
-            .mapLongitude!;
+    // final lat = id == null
+    //     ? ref.watch(mapControllerProvider).value!.latLng.latitude
+    //     : ref
+    //             .watch(updateEventControllerProvider(ocassionId: id!))
+    //             .value!
+    //             .updatedEvent!
+    //             .mapLatitude ??
+    //         '25.2854473';
+    final lng = ref.watch(mapControllerProvider).value!.latLng.longitude;
+    final lat = ref.watch(mapControllerProvider).value!.latLng.latitude;
+    // final lng = id == null
+    //     ? ref.watch(mapControllerProvider).value!.latLng.longitude
+    //     : ref
+    //             .watch(updateEventControllerProvider(ocassionId: id!))
+    //             .value!
+    //             .updatedEvent!
+    //             .mapLongitude ??
+    //         '51.53103979999999';
     LatLng lanlng = LatLng(
       double.parse(lat.toString()),
       double.parse(lng.toString()),
@@ -77,13 +82,16 @@ class SelectLocationGoogleMap extends ConsumerWidget {
       zoomControlsEnabled: false,
       myLocationButtonEnabled: false,
       onTap: (position) {
-        id == null
-            ? ref
-                .read(createEventControllerProvider.notifier)
-                .changeLatlng(position.latitude, position.longitude)
-            : ref
-                .read(updateEventControllerProvider(ocassionId: id!).notifier)
-                .changeLatlng(position.latitude, position.longitude);
+        ref
+            .read(mapControllerProvider.notifier)
+            .changeLatlng(position.latitude, position.longitude);
+        // id == null
+        //     ? ref
+        //         .read(mapControllerProvider.notifier)
+        //         .changeLatlng(position.latitude, position.longitude)
+        //     : ref
+        //         .read(updateEventControllerProvider(ocassionId: id!).notifier)
+        //         .changeLatlng(position.latitude, position.longitude);
       },
       markers: {
         Marker(

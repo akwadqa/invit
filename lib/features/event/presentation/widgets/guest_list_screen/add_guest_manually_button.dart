@@ -2,6 +2,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invit/features/event/presentation/controller/contacts_controller/contacts_controller.dart';
 
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
@@ -26,16 +27,13 @@ class AddGuestManuallyButton extends ConsumerWidget {
     return GestureDetector(
       onTap: () {
         if (formKey.currentState!.validate()) {
-          occasionId == null
-              ? ref.read(createEventControllerProvider.notifier).addNewContact(
-                  firstName: name.text, lastName: '', phoneNumber: phone.text)
-              : ref
-                  .read(updateEventControllerProvider(ocassionId: occasionId!)
-                      .notifier)
-                  .addNewContact(
-                      firstName: name.text,
-                      lastName: '',
-                      phoneNumber: phone.text);
+          ref
+              .read(contactsControllerProvider(occasionId).notifier)
+              .addNewContact(
+                  firstName: name.text,
+                  lastName: '',
+                  phoneNumber: phone.text,
+                  occasionId: occasionId);
         }
       },
       child: Row(

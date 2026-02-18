@@ -4,6 +4,7 @@ import 'package:invit/features/scan/data/model/user_scan_event_response/user_sca
 import 'package:invit/src/infrastructure/api/endpoint/api_endpoints.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/network_service.dart';
+import 'package:invit/src/logger/log_services/dev_logger.dart';
 
 class ScanRemoteDateSource {
   final NetworkService _networkService;
@@ -16,19 +17,22 @@ class ScanRemoteDateSource {
     required String inviteeId,
   }) async {
     try {
-     
       final params = {'qr_code': qrCode, 'occasion_id': inviteeId};
       final response = await _networkService.post(
         ApiEndPoints.scanQr,
-
         queryParameters: params,
       );
+      if (response.data == null || response.statusCode != 200) {
+        throw Exception('Request failed');
+      }
+
       return ApiResponse.fromJson(
         response.data,
         (json) => ScanQrResponse.fromJson(json as Map<String, dynamic>),
       );
     } catch (e) {
-      return ApiResponse.error(message: e.toString());
+      Dev.logLine('Error in submitData: e');
+      rethrow;
     }
   }
 
@@ -41,12 +45,13 @@ class ScanRemoteDateSource {
         ApiEndPoints.getScaned,
         data: data,
       );
-     return ApiResponse.fromJson(
-      response.data,
-      (json) => (json as List)
-          .map((item) => UserScanEventResponse.fromJson(item as Map<String, dynamic>))
-          .toList(),
-    );
+      return ApiResponse.fromJson(
+        response.data,
+        (json) => (json as List)
+            .map((item) =>
+                UserScanEventResponse.fromJson(item as Map<String, dynamic>))
+            .toList(),
+      );
     } catch (e) {
       return ApiResponse.error(message: e.toString());
     }

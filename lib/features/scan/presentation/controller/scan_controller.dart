@@ -18,13 +18,18 @@ class ScanController extends _$ScanController {
   int _totalPages = 1;
   List<UserScanEventResponse> _eventsList = [];
 
+  Future<bool> setScannedCode(String qr) async {
+    state = AsyncData(state.value!.copyWith(scannedCode: qr));
+
+    return true;
+  }
+
   Future<ScanQrResponse?> scanQr({
     required String qrCode,
-
     required String inviteeId,
   }) async {
     try {
-      state = AsyncLoading();
+      state = AsyncData(state.value!.copyWith(scanQrResponse: AsyncLoading()));
       final repo = ref.read(scanRepositoryProvider);
       final response = await repo.scanQr(
         qrCode: qrCode,
@@ -33,18 +38,21 @@ class ScanController extends _$ScanController {
       );
 
       if (response.hasFailed) {
-        state = AsyncError(
+        state = AsyncData(state.value!.copyWith(
+            scanQrResponse: AsyncError(
           response.message ?? '',
           StackTrace.fromString(response.message ?? ''),
-        );
+        )));
 
         return null;
       }
 
-      state = AsyncData(state.value!.copyWith(scanQrResponse: response.data));
+      state = AsyncData(
+          state.value!.copyWith(scanQrResponse: AsyncData(response.data!)));
       return response.data;
     } catch (e, st) {
-      state = AsyncError(e, st);
+      state =
+          AsyncData(state.value!.copyWith(scanQrResponse: AsyncError(e, st)));
       return null;
     }
   }
@@ -65,7 +73,7 @@ class ScanController extends _$ScanController {
       _totalPages = response.pagination?.totalPages ?? _totalPages;
 
       if (page == 1) {
-        _eventsList = List.from(response.data??[]);
+        _eventsList = List.from(response.data ?? []);
       } else {
         _eventsList.addAll(
           (response.data ?? []) as Iterable<UserScanEventResponse>,

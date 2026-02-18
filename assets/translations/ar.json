@@ -130,12 +130,15 @@
     "costumize_message": "يمكنك تخصيص الرسالة لاحقاً",
     "invitation_choice": "سيتم استخدام هذه القوالب بناءً على اختيارك الأساسي للدعوة",
     "empty_guests": "لا يوجد ضيوف هنا",
-    "active" : "نشط",
-    "best_value" : "أفضل قيمة",
-    "available_cards" : "البطاقات المتوفرة",
-    "recharge_credits" : "إعادة الشحن",
-    "payment" : "الدفع",
+    "active": "نشط",
+    "best_value": "أفضل قيمة",
+    "available_cards": "البطاقات المتوفرة",
+    "recharge_credits": "إعادة الشحن",
+    "payment": "الدفع",
     "no_events_to_scan_yet": "لا توجد فعاليات للمسح حتى الآن",
-    "chose_package" : "اختر الباقة التي تناسب احتياجاتك",
-    "save" : "حفظ"
+    "chose_package": "اختر الباقة التي تناسب احتياجاتك",
+    "save": "حفظ",
+    "scanTheQrCode": "امسح رمز الاستجابة ",
+    "scanQrWithYourCamera": "امسح الرمز بواسطة الكاميرا",
+    "placeTheQRCodeInsideTheFrameToScanIt": "ضع رمز الاستجابة السريعة داخل الإطار لمسحه ضوئيًا, يرجى تجنب الاهتزاز للحصول على النتيجة بسرعة"
 }

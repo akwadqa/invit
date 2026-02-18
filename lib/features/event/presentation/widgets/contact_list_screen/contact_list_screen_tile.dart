@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
-import 'package:invit/features/event/presentation/controller/create_event/create_event_state.dart';
+import 'package:invit/features/event/presentation/controller/contacts_controller/contacts_state.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 

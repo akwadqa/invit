@@ -14,12 +14,18 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ScanQrResponse {
-  String get invitee;
-  String get occasion;
+  @JsonKey(name: 'invitee_id')
+  String get inviteeId;
+  @JsonKey(name: 'full_name')
+  String get fullName;
+  @JsonKey(name: 'occasion_id')
+  String get occasionId;
   @JsonKey(name: 'checked_in')
   int get checkedIn;
-  @JsonKey(name: 'party_size')
-  int get partySize;
+  @JsonKey(name: 'max_allowed')
+  int get maxAllowed;
+  @JsonKey(name: 'remaining_checkins')
+  int get remainingCheckins;
 
   /// Create a copy of ScanQrResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -37,23 +43,28 @@ mixin _$ScanQrResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ScanQrResponse &&
-            (identical(other.invitee, invitee) || other.invitee == invitee) &&
-            (identical(other.occasion, occasion) ||
-                other.occasion == occasion) &&
+            (identical(other.inviteeId, inviteeId) ||
+                other.inviteeId == inviteeId) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.occasionId, occasionId) ||
+                other.occasionId == occasionId) &&
             (identical(other.checkedIn, checkedIn) ||
                 other.checkedIn == checkedIn) &&
-            (identical(other.partySize, partySize) ||
-                other.partySize == partySize));
+            (identical(other.maxAllowed, maxAllowed) ||
+                other.maxAllowed == maxAllowed) &&
+            (identical(other.remainingCheckins, remainingCheckins) ||
+                other.remainingCheckins == remainingCheckins));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, invitee, occasion, checkedIn, partySize);
+  int get hashCode => Object.hash(runtimeType, inviteeId, fullName, occasionId,
+      checkedIn, maxAllowed, remainingCheckins);
 
   @override
   String toString() {
-    return 'ScanQrResponse(invitee: $invitee, occasion: $occasion, checkedIn: $checkedIn, partySize: $partySize)';
+    return 'ScanQrResponse(inviteeId: $inviteeId, fullName: $fullName, occasionId: $occasionId, checkedIn: $checkedIn, maxAllowed: $maxAllowed, remainingCheckins: $remainingCheckins)';
   }
 }
 
@@ -64,10 +75,12 @@ abstract mixin class $ScanQrResponseCopyWith<$Res> {
       _$ScanQrResponseCopyWithImpl;
   @useResult
   $Res call(
-      {String invitee,
-      String occasion,
+      {@JsonKey(name: 'invitee_id') String inviteeId,
+      @JsonKey(name: 'full_name') String fullName,
+      @JsonKey(name: 'occasion_id') String occasionId,
       @JsonKey(name: 'checked_in') int checkedIn,
-      @JsonKey(name: 'party_size') int partySize});
+      @JsonKey(name: 'max_allowed') int maxAllowed,
+      @JsonKey(name: 'remaining_checkins') int remainingCheckins});
 }
 
 /// @nodoc
@@ -83,27 +96,37 @@ class _$ScanQrResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? invitee = null,
-    Object? occasion = null,
+    Object? inviteeId = null,
+    Object? fullName = null,
+    Object? occasionId = null,
     Object? checkedIn = null,
-    Object? partySize = null,
+    Object? maxAllowed = null,
+    Object? remainingCheckins = null,
   }) {
     return _then(_self.copyWith(
-      invitee: null == invitee
-          ? _self.invitee
-          : invitee // ignore: cast_nullable_to_non_nullable
+      inviteeId: null == inviteeId
+          ? _self.inviteeId
+          : inviteeId // ignore: cast_nullable_to_non_nullable
               as String,
-      occasion: null == occasion
-          ? _self.occasion
-          : occasion // ignore: cast_nullable_to_non_nullable
+      fullName: null == fullName
+          ? _self.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String,
+      occasionId: null == occasionId
+          ? _self.occasionId
+          : occasionId // ignore: cast_nullable_to_non_nullable
               as String,
       checkedIn: null == checkedIn
           ? _self.checkedIn
           : checkedIn // ignore: cast_nullable_to_non_nullable
               as int,
-      partySize: null == partySize
-          ? _self.partySize
-          : partySize // ignore: cast_nullable_to_non_nullable
+      maxAllowed: null == maxAllowed
+          ? _self.maxAllowed
+          : maxAllowed // ignore: cast_nullable_to_non_nullable
+              as int,
+      remainingCheckins: null == remainingCheckins
+          ? _self.remainingCheckins
+          : remainingCheckins // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -203,18 +226,20 @@ extension ScanQrResponsePatterns on ScanQrResponse {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            String invitee,
-            String occasion,
+            @JsonKey(name: 'invitee_id') String inviteeId,
+            @JsonKey(name: 'full_name') String fullName,
+            @JsonKey(name: 'occasion_id') String occasionId,
             @JsonKey(name: 'checked_in') int checkedIn,
-            @JsonKey(name: 'party_size') int partySize)?
+            @JsonKey(name: 'max_allowed') int maxAllowed,
+            @JsonKey(name: 'remaining_checkins') int remainingCheckins)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _ScanQrResponse() when $default != null:
-        return $default(
-            _that.invitee, _that.occasion, _that.checkedIn, _that.partySize);
+        return $default(_that.inviteeId, _that.fullName, _that.occasionId,
+            _that.checkedIn, _that.maxAllowed, _that.remainingCheckins);
       case _:
         return orElse();
     }
@@ -236,17 +261,19 @@ extension ScanQrResponsePatterns on ScanQrResponse {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            String invitee,
-            String occasion,
+            @JsonKey(name: 'invitee_id') String inviteeId,
+            @JsonKey(name: 'full_name') String fullName,
+            @JsonKey(name: 'occasion_id') String occasionId,
             @JsonKey(name: 'checked_in') int checkedIn,
-            @JsonKey(name: 'party_size') int partySize)
+            @JsonKey(name: 'max_allowed') int maxAllowed,
+            @JsonKey(name: 'remaining_checkins') int remainingCheckins)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ScanQrResponse():
-        return $default(
-            _that.invitee, _that.occasion, _that.checkedIn, _that.partySize);
+        return $default(_that.inviteeId, _that.fullName, _that.occasionId,
+            _that.checkedIn, _that.maxAllowed, _that.remainingCheckins);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -267,17 +294,19 @@ extension ScanQrResponsePatterns on ScanQrResponse {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            String invitee,
-            String occasion,
+            @JsonKey(name: 'invitee_id') String inviteeId,
+            @JsonKey(name: 'full_name') String fullName,
+            @JsonKey(name: 'occasion_id') String occasionId,
             @JsonKey(name: 'checked_in') int checkedIn,
-            @JsonKey(name: 'party_size') int partySize)?
+            @JsonKey(name: 'max_allowed') int maxAllowed,
+            @JsonKey(name: 'remaining_checkins') int remainingCheckins)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ScanQrResponse() when $default != null:
-        return $default(
-            _that.invitee, _that.occasion, _that.checkedIn, _that.partySize);
+        return $default(_that.inviteeId, _that.fullName, _that.occasionId,
+            _that.checkedIn, _that.maxAllowed, _that.remainingCheckins);
       case _:
         return null;
     }
@@ -288,23 +317,33 @@ extension ScanQrResponsePatterns on ScanQrResponse {
 @JsonSerializable()
 class _ScanQrResponse implements ScanQrResponse {
   const _ScanQrResponse(
-      {required this.invitee,
-      required this.occasion,
+      {@JsonKey(name: 'invitee_id') required this.inviteeId,
+      @JsonKey(name: 'full_name') required this.fullName,
+      @JsonKey(name: 'occasion_id') required this.occasionId,
       @JsonKey(name: 'checked_in') required this.checkedIn,
-      @JsonKey(name: 'party_size') required this.partySize});
+      @JsonKey(name: 'max_allowed') required this.maxAllowed,
+      @JsonKey(name: 'remaining_checkins') required this.remainingCheckins});
   factory _ScanQrResponse.fromJson(Map<String, dynamic> json) =>
       _$ScanQrResponseFromJson(json);
 
   @override
-  final String invitee;
+  @JsonKey(name: 'invitee_id')
+  final String inviteeId;
   @override
-  final String occasion;
+  @JsonKey(name: 'full_name')
+  final String fullName;
+  @override
+  @JsonKey(name: 'occasion_id')
+  final String occasionId;
   @override
   @JsonKey(name: 'checked_in')
   final int checkedIn;
   @override
-  @JsonKey(name: 'party_size')
-  final int partySize;
+  @JsonKey(name: 'max_allowed')
+  final int maxAllowed;
+  @override
+  @JsonKey(name: 'remaining_checkins')
+  final int remainingCheckins;
 
   /// Create a copy of ScanQrResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -326,23 +365,28 @@ class _ScanQrResponse implements ScanQrResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ScanQrResponse &&
-            (identical(other.invitee, invitee) || other.invitee == invitee) &&
-            (identical(other.occasion, occasion) ||
-                other.occasion == occasion) &&
+            (identical(other.inviteeId, inviteeId) ||
+                other.inviteeId == inviteeId) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.occasionId, occasionId) ||
+                other.occasionId == occasionId) &&
             (identical(other.checkedIn, checkedIn) ||
                 other.checkedIn == checkedIn) &&
-            (identical(other.partySize, partySize) ||
-                other.partySize == partySize));
+            (identical(other.maxAllowed, maxAllowed) ||
+                other.maxAllowed == maxAllowed) &&
+            (identical(other.remainingCheckins, remainingCheckins) ||
+                other.remainingCheckins == remainingCheckins));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, invitee, occasion, checkedIn, partySize);
+  int get hashCode => Object.hash(runtimeType, inviteeId, fullName, occasionId,
+      checkedIn, maxAllowed, remainingCheckins);
 
   @override
   String toString() {
-    return 'ScanQrResponse(invitee: $invitee, occasion: $occasion, checkedIn: $checkedIn, partySize: $partySize)';
+    return 'ScanQrResponse(inviteeId: $inviteeId, fullName: $fullName, occasionId: $occasionId, checkedIn: $checkedIn, maxAllowed: $maxAllowed, remainingCheckins: $remainingCheckins)';
   }
 }
 
@@ -355,10 +399,12 @@ abstract mixin class _$ScanQrResponseCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String invitee,
-      String occasion,
+      {@JsonKey(name: 'invitee_id') String inviteeId,
+      @JsonKey(name: 'full_name') String fullName,
+      @JsonKey(name: 'occasion_id') String occasionId,
       @JsonKey(name: 'checked_in') int checkedIn,
-      @JsonKey(name: 'party_size') int partySize});
+      @JsonKey(name: 'max_allowed') int maxAllowed,
+      @JsonKey(name: 'remaining_checkins') int remainingCheckins});
 }
 
 /// @nodoc
@@ -374,27 +420,37 @@ class __$ScanQrResponseCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? invitee = null,
-    Object? occasion = null,
+    Object? inviteeId = null,
+    Object? fullName = null,
+    Object? occasionId = null,
     Object? checkedIn = null,
-    Object? partySize = null,
+    Object? maxAllowed = null,
+    Object? remainingCheckins = null,
   }) {
     return _then(_ScanQrResponse(
-      invitee: null == invitee
-          ? _self.invitee
-          : invitee // ignore: cast_nullable_to_non_nullable
+      inviteeId: null == inviteeId
+          ? _self.inviteeId
+          : inviteeId // ignore: cast_nullable_to_non_nullable
               as String,
-      occasion: null == occasion
-          ? _self.occasion
-          : occasion // ignore: cast_nullable_to_non_nullable
+      fullName: null == fullName
+          ? _self.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String,
+      occasionId: null == occasionId
+          ? _self.occasionId
+          : occasionId // ignore: cast_nullable_to_non_nullable
               as String,
       checkedIn: null == checkedIn
           ? _self.checkedIn
           : checkedIn // ignore: cast_nullable_to_non_nullable
               as int,
-      partySize: null == partySize
-          ? _self.partySize
-          : partySize // ignore: cast_nullable_to_non_nullable
+      maxAllowed: null == maxAllowed
+          ? _self.maxAllowed
+          : maxAllowed // ignore: cast_nullable_to_non_nullable
+              as int,
+      remainingCheckins: null == remainingCheckins
+          ? _self.remainingCheckins
+          : remainingCheckins // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
