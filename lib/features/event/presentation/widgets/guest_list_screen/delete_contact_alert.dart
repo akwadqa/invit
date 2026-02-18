@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/event/presentation/controller/contacts_controller/contacts_controller.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
 import 'package:invit/gen/assets.gen.dart';
@@ -75,15 +76,9 @@ class DeleteContactAlert extends ConsumerWidget {
                   child: CustomButtonWidget(
                     text: 'delete'.tr(),
                     onTap: () {
-                      occasionId == null
-                          ? ref
-                              .read(createEventControllerProvider.notifier)
-                              .deleteSelectedContact(contact)
-                          : ref
-                              .read(updateEventControllerProvider(
-                                      ocassionId: occasionId!)
-                                  .notifier)
-                              .deleteSelectedContact(contact);
+                      ref
+                          .read(contactsControllerProvider(occasionId).notifier)
+                          .deleteSelectedContact(contact);
                       context.pop();
                     },
                     isFiled: false,

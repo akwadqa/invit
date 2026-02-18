@@ -85,15 +85,16 @@ class _ScanPageState extends ConsumerState<ScanPage> {
           ref.read(scanControllerProvider.notifier).onLoadMoreEvents(),
       child: Column(
         children: [
-            SectionTitle(
-                  title: "all_events".tr(),
-                  count: events.length.toString(),
-                ),
+          SectionTitle(
+            title: "all_events".tr(),
+            count: events.length.toString(),
+          ),
           Expanded(
             child: ListView.separated(
               separatorBuilder: (context, index) => 20.verticalSpace,
-              padding: EdgeInsets.fromLTRB(22, 25, 22, 75),
-              itemBuilder: (context, index) => ScanScreenItem(event: events[index]),
+              padding: EdgeInsets.fromLTRB(22, 25, 22, 130),
+              itemBuilder: (context, index) =>
+                  ScanScreenItem(event: events[index]),
               itemCount: events.length,
             ),
           ),
@@ -137,43 +138,42 @@ class ScanScreenItem extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: [
-            
             Stack(
               children: [
-                Container(child:
-                (event.imageUrl != null && resolveImageUrl() != null)
-                    ? CachedNetworkImage(
-                        fadeInCurve: Curves.linear,
-                        placeholder: (context, url) => AppLoader(),
-                        imageUrl: resolveImageUrl()!,
-                        height: 129,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      )
-                    : SizedBox(
-                        width: double.infinity,
-                        height: 129,
-                        child: Icon(
-                          Icons.card_giftcard_sharp,
-                          color: AppColors.primary,
-                        ),
-                      )),
-              Positioned(
-              top: 10,
-              left: 10,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                decoration: BoxDecoration(
-                  color: AppColors.background.withValues(alpha: .8),
-                  borderRadius: BorderRadius.circular(5),
+                Container(
+                    child: (event.imageUrl != null && resolveImageUrl() != null)
+                        ? CachedNetworkImage(
+                            fadeInCurve: Curves.linear,
+                            placeholder: (context, url) => AppLoader(),
+                            imageUrl: resolveImageUrl()!,
+                            height: 129,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                        : SizedBox(
+                            width: double.infinity,
+                            height: 129,
+                            child: Icon(
+                              Icons.card_giftcard_sharp,
+                              color: AppColors.primary,
+                            ),
+                          )),
+                Positioned(
+                  top: 10,
+                  left: 10,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                    decoration: BoxDecoration(
+                      color: AppColors.background.withValues(alpha: .8),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Text(
+                      formatDate(event.date),
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.rubikMedium10,
+                    ),
+                  ),
                 ),
-                child: Text(
-                  formatDate(event.date),
-                  textAlign: TextAlign.center,
-                  style: AppTextStyle.rubikMedium10,
-                ),
-              ),
-            ),
               ],
             ),
             10.verticalSpace,
@@ -228,7 +228,7 @@ class ScanScreenItem extends StatelessWidget {
                 //     topPading: 0,
                 //   ),
                 // Spacer(),
-             
+
                 19.horizontalSpace,
               ],
             ),

@@ -138,5 +138,8 @@
     "recharge_credits" : "Recharge Credits",
     "payment" : "Payment",
     "chose_package": "Choose the package that fits your needs",
-    "save" : "Save"
+    "save" : "Save",
+    "scanTheQrCode": "Scan the QR code",
+    "scanQrWithYourCamera": "Scan the code with your camera",
+    "placeTheQRCodeInsideTheFrameToScanIt": "Place the QR code inside the frame to scan it, please avoid shaking to get the result quickly"
 }

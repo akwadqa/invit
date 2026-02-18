@@ -2,10 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/event/presentation/controller/contacts_controller/contacts_controller.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
 import 'package:invit/features/event/presentation/widgets/guest_list_screen/add_contact_manually_form.dart';
 import 'package:invit/features/event/presentation/widgets/guest_list_screen/guest_list_item.dart';
 import 'package:invit/features/event_details/presentation/controller/event_details_controller.dart';
+import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_alert.dart';
 import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
@@ -22,7 +24,14 @@ class UpdateGuestListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomDeafultAppbar(title: 'guest_list'.tr()),
+      backgroundColor: AppColors.cardWhite,
+      appBar: CustomDeafultAppbar(
+        title: 'guest_list'.tr(),
+        actionButton: GestureDetector(
+            onTap: () => context.pushNamed(AppRoutes.contactListScreen,
+                extra: occasionId),
+            child: Assets.icons.contactsIc.svg()),
+      ),
       body: _UpdateGuestListScreenContent(occasionId),
     );
   }
@@ -42,7 +51,7 @@ class __UpdateGuestListScreenContentState
   @override
   Widget build(BuildContext context) {
     ref.listen(
-        updateEventControllerProvider(ocassionId: widget.occasionId!)
+        contactsControllerProvider(widget.occasionId)
             .select((val) => val.value!.updateGuestListRespone),
         (previous, next) {
       if (next is AsyncLoading) {
@@ -60,9 +69,8 @@ class __UpdateGuestListScreenContentState
         showErrorDialog(context, next!.error.toString());
       }
     });
-    final contacts = ref.watch(
-        updateEventControllerProvider(ocassionId: widget.occasionId)
-            .select((val) => val.value!.selectedContacts));
+    final contacts = ref.watch(contactsControllerProvider(widget.occasionId)
+        .select((val) => val.value!.selectedContacts));
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22),
       child: Column(
@@ -103,27 +111,26 @@ class __UpdateGuestListScreenContentState
                       itemCount: contacts.length + 1,
                     ),
                   ),
-                  CustomButtonWidget(
-                    text: 'save'.tr(),
-                    onTap: () {
-                      ref
-                          .read(updateEventControllerProvider(
-                                  ocassionId: widget.occasionId)
-                              .notifier)
-                          .updateGuestList(occasionId: widget.occasionId);
-                    },
-                    isFiled: false,
-                    style: AppTextStyle.rubikMedium18
-                        .copyWith(color: AppColors.primary),
-                    radius: 10,
-                    height: 48,
-                    backgroundColor: AppColors.white,
-                    width: double.infinity,
-                  ),
                 ],
               ),
             ),
           ),
+          10.verticalSpace,
+          CustomButtonWidget(
+            text: 'save'.tr(),
+            onTap: () {
+              ref
+                  .read(contactsControllerProvider(widget.occasionId).notifier)
+                  .updateGuestList(occasionId: widget.occasionId);
+            },
+            isFiled: false,
+            style: AppTextStyle.rubikMedium18.copyWith(color: AppColors.white),
+            radius: 10,
+            height: 48,
+            backgroundColor: AppColors.primary,
+            width: double.infinity,
+          ),
+          10.verticalSpace
         ],
       ),
     );

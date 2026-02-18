@@ -13,16 +13,15 @@ class EventDetailsReportChart extends StatelessWidget {
     required this.report,
   });
 
-  final reporrto = GuestReportModel(
-      confirmed: 9,
-      declined: 3,
-      scannedCount: 1,
+  // final reporrto = GuestReportModel(
+  //     confirmed: 9,
+  //     declined: 3,
+  //     scannedCount: 1,
 
-      
-      failed: 10,
-      notSent: 2,
-      pending: 2,
-      totalInvitees: 27);
+  //     failed: 10,
+  //     notSent: 2,
+  //     pending: 2,
+  //     totalInvitees: 27);
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -44,7 +43,7 @@ class EventDetailsReportChart extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '${reporrto.totalInvitees}',
+                '${report.totalInvitees}',
                 style: AppTextStyle.nunitoBold16,
               ),
               Text(
@@ -60,12 +59,12 @@ class EventDetailsReportChart extends StatelessWidget {
 
   List<PieChartSectionData> _sections() {
     return [
-      _section(reporrto.confirmed, AppColors.green),
-      _section(reporrto.pending, AppColors.dinnerTop),
-      _section(reporrto.failed, AppColors.darkRed),
-      _section(reporrto.declined, AppColors.secondPrimary),
-      _section(reporrto.scannedCount, AppColors.primary),
-      _section(reporrto.notSent, AppColors.graduationIcon),
+      _section(report.confirmed, AppColors.green),
+      _section(report.pending, AppColors.dinnerTop),
+      _section(report.failed, AppColors.darkRed),
+      _section(report.declined, AppColors.secondPrimary),
+      _section(report.scannedCount, AppColors.primary),
+      _section(report.notSent, AppColors.graduationIcon),
     ];
   }
 

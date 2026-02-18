@@ -51,7 +51,7 @@ final class UpdateEventControllerProvider
 }
 
 String _$updateEventControllerHash() =>
-    r'44f280317d6d17a25696827f3291325345252a6c';
+    r'd361884e869acd870516f9345100e5998edb41a9';
 
 final class UpdateEventControllerFamily extends $Family
     with

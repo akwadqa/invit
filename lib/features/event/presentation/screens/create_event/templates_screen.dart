@@ -15,6 +15,7 @@ import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_app_bar.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
+import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
@@ -42,6 +43,7 @@ class _TemplatesScreenContent extends ConsumerStatefulWidget {
 class _TemplatesScreenContentState
     extends ConsumerState<_TemplatesScreenContent> {
   late PageController controller;
+  int _currentPage = 0;
 
   @override
   void initState() {
@@ -89,29 +91,62 @@ class _TemplatesScreenContentState
           style: AppTextStyle.rubikRegular12,
         ).onlyPadding(start: 22),
         Expanded(
-            child: PageView.builder(
-          controller: controller,
-          itemCount: templates.length,
-          itemBuilder: (context, index) => ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: GestureDetector(
-                onTap: () {
-                  ref.read(createEventControllerProvider.notifier).updateEvent(
-                      EventModel(inviteTemplate: templates[index].name));
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (context) => TemplateQrBottomSheet(),
-                  );
-                },
-                child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl:
-                        image + (templates[index].appTemplateImage ?? ''))),
+          child: PageView.builder(
+            controller: controller,
+            itemCount: templates.length,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPage = index;
+              });
+            },
+            itemBuilder: (context, index) => ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: GestureDetector(
+                  onTap: () {
+                    ref
+                        .read(createEventControllerProvider.notifier)
+                        .updateEvent(
+                            EventModel(inviteTemplate: templates[index].name));
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) => TemplateQrBottomSheet(),
+                    );
+                  },
+                  child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl:
+                          image + (templates[index].appTemplateImage ?? ''))),
+            ),
           ),
-        )),
-        SizedBox()
+        ),
+        5.verticalSpace,
+        _buildDots(templates.length),
+        5.verticalSpace,
       ],
+    );
+  }
+
+  Widget _buildDots(int count) {
+    if (count <= 1) {
+      return SizedBox(height: 6);
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(count, (index) {
+        final isActive = index == _currentPage;
+        return AnimatedContainer(
+          duration: Duration(milliseconds: 250),
+          margin: EdgeInsets.symmetric(horizontal: 4),
+          width: isActive ? 16 : 8,
+          height: 8,
+          decoration: BoxDecoration(
+            color: isActive ? AppColors.primary : AppColors.textDart,
+            borderRadius: BorderRadius.circular(100),
+          ),
+        );
+      }),
     );
   }
 }
@@ -121,22 +156,6 @@ class TemplateQrBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ref.listen(
-    //     createEventControllerProvider
-    //         .select((val) => val.value!.createEventResponse), (prev, next) {
-    //   if (next is AsyncLoading) {
-    //     AppAlert.showLoadingDialog(context);
-    //   }
-    //   if (next is AsyncError) {
-    //     context.pop();
-    //     showErrorDialog(context, next!.error.toString());
-    //   }
-    //   if (next is AsyncData) {
-    //     context.pop();
-    //     context.goNamed(AppRoutes.successEventScreen);
-    //   }
-    // });
-
     return Container(
       height: 600,
       padding: EdgeInsets.symmetric(horizontal: 33, vertical: 21),

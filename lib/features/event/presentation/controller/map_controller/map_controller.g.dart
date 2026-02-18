@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'scan_controller.dart';
+part of 'map_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,42 +9,42 @@ part of 'scan_controller.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(ScanController)
-const scanControllerProvider = ScanControllerProvider._();
+@ProviderFor(MapController)
+const mapControllerProvider = MapControllerProvider._();
 
-final class ScanControllerProvider
-    extends $AsyncNotifierProvider<ScanController, ScanState> {
-  const ScanControllerProvider._()
+final class MapControllerProvider
+    extends $AsyncNotifierProvider<MapController, MapState> {
+  const MapControllerProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'scanControllerProvider',
+          name: r'mapControllerProvider',
           isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$scanControllerHash();
+  String debugGetCreateSourceHash() => _$mapControllerHash();
 
   @$internal
   @override
-  ScanController create() => ScanController();
+  MapController create() => MapController();
 }
 
-String _$scanControllerHash() => r'd5c6068adaceca6965396a52c5024713d184355c';
+String _$mapControllerHash() => r'0063822d4666d30a8bdae7f8c017594a1927ccf8';
 
-abstract class _$ScanController extends $AsyncNotifier<ScanState> {
-  FutureOr<ScanState> build();
+abstract class _$MapController extends $AsyncNotifier<MapState> {
+  FutureOr<MapState> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<AsyncValue<ScanState>, ScanState>;
+    final ref = this.ref as $Ref<AsyncValue<MapState>, MapState>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<ScanState>, ScanState>,
-        AsyncValue<ScanState>,
+        AnyNotifier<AsyncValue<MapState>, MapState>,
+        AsyncValue<MapState>,
         Object?,
         Object?>;
     element.handleValue(ref, created);

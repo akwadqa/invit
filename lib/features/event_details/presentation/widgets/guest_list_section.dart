@@ -15,21 +15,18 @@ class GuestListSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (guests.isEmpty) {
-      return  Text('no_guests_added_yet'.tr(),
-         style: AppTextStyle.rubikSemiBold20
-                    .copyWith(color: AppColors.primary)
-      );
+      return Text('no_guests_added_yet'.tr(),
+          style:
+              AppTextStyle.rubikSemiBold20.copyWith(color: AppColors.primary));
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 12,
       children: [
-                Text( 'guests'.tr(),
-                style: AppTextStyle.rubikMedium16
-                    .copyWith(color: AppColors.primary)),
-    
-
+        Text('guests'.tr(),
+            style:
+                AppTextStyle.rubikMedium16.copyWith(color: AppColors.primary)),
         ...guests.map(
           (guest) => Card(
             child: ListTile(

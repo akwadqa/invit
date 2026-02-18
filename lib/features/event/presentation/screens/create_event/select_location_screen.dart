@@ -7,13 +7,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/map_controller/map_controller.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
+import 'package:invit/features/event/presentation/widgets/select_location_screen/location_search_box.dart';
 import 'package:invit/features/event/presentation/widgets/select_location_screen/select_location_google_map.dart';
 import 'package:invit/src/core/shared_widgets/app_alert.dart';
 import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
+import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
+
+import '../../../../../gen/assets.gen.dart';
 
 class SelectLocationPage extends ConsumerStatefulWidget {
   final String? id;
@@ -35,7 +40,7 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
   @override
   Widget build(BuildContext context) {
     ref.listen(
-      createEventControllerProvider.select((val) => val.value!.selectedPlace),
+      mapControllerProvider.select((val) => val.value!.selectedPlace),
       (prev, next) {
         if (next is AsyncLoading) {
           AppAlert.showLoadingDialog(context);
@@ -51,26 +56,6 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
         }
       },
     );
-    if (widget.id != null) {
-      ref.listen(
-        updateEventControllerProvider(ocassionId: widget.id!)
-            .select((val) => val.value!.selectedPlace),
-        (prev, next) {
-          if (next is AsyncLoading) {
-            AppAlert.showLoadingDialog(context);
-          }
-
-          if (next is AsyncData) {
-            context.pop();
-            context.pop();
-          }
-          if (next is AsyncError) {
-            context.pop();
-            showErrorDialog(context, next!.error.toString());
-          }
-        },
-      );
-    }
 
     return Scaffold(body: _buildMap(context));
   }
@@ -84,16 +69,9 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
           CustomButtonWidget(
             text: context.tr('confirm'),
             onTap: () async {
-              if (widget.id == null) {
-                await ref
-                    .read(createEventControllerProvider.notifier)
-                    .getPlaceInfoFromLatLng();
-              } else {
-                await ref
-                    .read(updateEventControllerProvider(ocassionId: widget.id!)
-                        .notifier)
-                    .getPlaceInfoFromLatLng(widget.id!);
-              }
+              await ref
+                  .read(mapControllerProvider.notifier)
+                  .getPlaceInfoFromLatLng(widget.id);
             },
             isFiled: true,
             style: AppTextStyle.nunitoBold16.copyWith(color: AppColors.white),
@@ -108,12 +86,13 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
               backgroundColor: WidgetStatePropertyAll(AppColors.white),
             ),
             onPressed: () {
-              // final location =
-              //     ref.watch(addEventControllerProvider).value!.initialLatLng;
+              final location =
+                  ref.watch(mapControllerProvider).value!.initialLatLng;
 
-              // ref
-              //     .read(addEventControllerProvider.notifier)
-              //     .changeLatlng(location!.lat, location.lng);
+              ref
+                  .read(mapControllerProvider.notifier)
+                  .changeLatlng(location!.latitude, location.longitude);
+
               setState(() {});
             },
             icon: Icon(Icons.my_location_outlined),
@@ -133,61 +112,52 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
           child: Column(
             children: [
               Directionality(
-                textDirection: ui.TextDirection.rtl,
+                textDirection: ui.TextDirection.ltr,
                 child: Row(
+                  spacing: 12,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Expanded(
-                    //   child: LocationSearchBox(
-                    //     onSelect: (id, des) async {
-                    //       if (widget.id == null) {
-                    //         final notifier = ref.read(
-                    //           addEventControllerProvider.notifier,
-                    //         );
+                    Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            context.pop();
+                          },
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.cardWhite,
+                            ),
+                            child: Icon(
+                              Icons.arrow_back_rounded,
+                              color: AppColors.black,
+                            ),
+                          ),
+                        )),
+                    Expanded(
+                      child: LocationSearchBox(
+                        onSelect: (id, des) async {
+                          final notifier = ref.read(
+                            mapControllerProvider.notifier,
+                          );
 
-                    //         final latLng = await notifier.getPlaceLocation(id);
+                          final latLng = await notifier.getPlaceLocation(id);
 
-                    //         if (latLng != null) {
-                    //           final GoogleMapController mapController =
-                    //               await _controller.future;
+                          if (latLng != null) {
+                            final GoogleMapController mapController =
+                                await _controller.future;
 
-                    //           mapController.animateCamera(
-                    //             CameraUpdate.newLatLng(
-                    //               LatLng(latLng.lat, latLng.lng),
-                    //             ),
-                    //           );
-                    //         }
-                    //       } else {
-                    //         final notifier = ref.read(
-                    //           updateEventControllerProvider.notifier,
-                    //         );
-
-                    //         final latLng = await notifier.getPlaceLocation(id);
-
-                    //         if (latLng != null) {
-                    //           final GoogleMapController mapController =
-                    //               await _controller.future;
-
-                    //           mapController.animateCamera(
-                    //             CameraUpdate.newLatLng(
-                    //               LatLng(latLng.lat, latLng.lng),
-                    //             ),
-                    //           );
-                    //         }
-                    //       }
-                    //     },
-                    //   ),
-                    // ),
-                    // 12.horizontalSpace,
-                    // Padding(
-                    //   padding: EdgeInsets.only(top: 10.h),
-                    //   child: GestureDetector(
-                    //     onTap: () => context.pop(),
-                    //     child: Assets.icons.verificationArrowBackIc.svg(
-                    //       width: 30.w,
-                    //     ),
-                    //   ),
-                    // ),
+                            mapController.animateCamera(
+                              CameraUpdate.newLatLng(
+                                LatLng(latLng.latitude, latLng.longitude),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),

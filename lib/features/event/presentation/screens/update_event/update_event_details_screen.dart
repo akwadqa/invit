@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/map_controller/map_controller.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_screen/create_event_screen_form.dart';
 import 'package:invit/features/event_details/presentation/controller/event_details_controller.dart';
@@ -50,12 +52,24 @@ class _UpdateEventDetailsScreenContentState
                   ocassionId: widget.eventModel.occasionId!)
               .notifier)
           .updateDataForEvent(widget.eventModel);
+
+      ref
+          .read(mapControllerProvider.notifier)
+          .initLocation(widget.eventModel.occasionId);
     });
     _title = TextEditingController()..setText(widget.eventModel.title!);
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(mapControllerProvider.select((val) => val.value!.selectedPlace),
+        (previous, next) {
+      if (next is AsyncLoading) {
+        AppAlert.showLoadingDialog(context);
+      } else {
+        context.pop();
+      }
+    });
     ref.listen(
         updateEventControllerProvider(ocassionId: widget.eventModel.occasionId!)
             .select((val) => val.value!.createEventResponse), (previous, next) {

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/scan/presentation/controller/scan_controller.dart';
-import 'package:invit/features/scan_qr_code/presentation/controller/scan_qr_code_controller.dart';
-import 'package:invit/features/scan_qr_code/presentation/screens/gates_screen.dart';
 import 'package:invit/src/core/shared_widgets/app_alert.dart';
 import 'package:invit/src/core/shared_widgets/custom_appbar.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
@@ -60,9 +58,7 @@ class _ScanQrEventPageState extends ConsumerState<ScanQrEventPage> {
         driverIdController.text = code;
       });
 
-      await ref
-          .read(scanQrCodeControllerProvider.notifier)
-          .setScannedCode(code);
+      await ref.read(scanControllerProvider.notifier).setScannedCode(code);
 
       ref
           .read(scanControllerProvider.notifier)
@@ -86,44 +82,35 @@ class _ScanQrEventPageState extends ConsumerState<ScanQrEventPage> {
     _initializeCamera();
   }
 
-  Future<void> _submitQrCode(String gate) async {
-    debugPrint("Submitted Driver ID from QR: $gate");
-    FocusScope.of(context).unfocus();
-    await ref
-        .read(scanQrCodeControllerProvider.notifier)
-        .setScannedCode(_scannedCode!);
-
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (_) => const GatesScreen()));
-  }
-
   @override
   Widget build(BuildContext context) {
-    ref.listen(scanControllerProvider, (prev, next) {
+    ref.listen(
+        scanControllerProvider.select((val) => val.value!.scanQrResponse),
+        (prev, next) {
       if (next is AsyncLoading) {
         AppAlert.showLoadingDialog(context);
       }
 
       if (next is AsyncData) {
         context.pop();
-        
-          BotToast.showText(
-                              text:'successfullyCompleted'.tr(),
-                              contentColor: AppColors.green,
-                            );
+
+        BotToast.showText(
+          text: 'successfullyCompleted'.tr(),
+          contentColor: AppColors.green,
+        );
       }
       if (next is AsyncError) {
         context.pop();
-           BotToast.showText(
-                              text:next.error!.toString(),
-                              contentColor: AppColors.darkRed,
-                            );
+        BotToast.showText(
+          text: next!.error!.toString(),
+          contentColor: AppColors.darkRed,
+        );
       }
     });
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, 65),child: CustomAppbar(title: context.tr('scanTheQrCode'))),
+          preferredSize: const Size(double.infinity, 65),
+          child: CustomAppbar(title: context.tr('scanTheQrCode'))),
       body: Column(
         children: [
           50.verticalSpace,
@@ -134,7 +121,6 @@ class _ScanQrEventPageState extends ConsumerState<ScanQrEventPage> {
             ),
           ).symmetricPadding(horizontal: 32),
           45.verticalSpace,
-
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Container(
@@ -167,9 +153,7 @@ class _ScanQrEventPageState extends ConsumerState<ScanQrEventPage> {
                     ),
             ),
           ).symmetricPadding(horizontal: 32),
-
           60.verticalSpace,
-
           58.verticalSpace,
           CustomButtonWidget(
             text: 'scanQrWithYourCamera',
@@ -180,11 +164,11 @@ class _ScanQrEventPageState extends ConsumerState<ScanQrEventPage> {
             //     color: AppColors.white,
             //   ),
             // ),
-             isFiled: true,
-              height: 44,
-              width: 294,
-              radius: 12,
-              backgroundColor: AppColors.primary,
+            isFiled: true,
+            height: 44,
+            width: 294,
+            radius: 12,
+            backgroundColor: AppColors.primary,
           ).symmetricPadding(horizontal: 22),
         ],
       ),

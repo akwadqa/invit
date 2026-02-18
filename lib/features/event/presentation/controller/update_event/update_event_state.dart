@@ -9,45 +9,27 @@ import 'package:invit/features/guest/domain/model/update_guest_list_response/upd
 
 class UpdateEventState {
   final EventModel? updatedEvent;
-  final List<SelectedContact>? selectedContacts;
 
-  final List<Contact>? contacts;
-  final AsyncValue<SelectedPlace>? selectedPlace;
   final AsyncValue<CreateEventResponse>? createEventResponse;
-  final AsyncValue<UpdateGuestListResponse>? updateGuestListRespone;
 
   UpdateEventState({
     this.updatedEvent,
-    this.updateGuestListRespone,
-    this.selectedContacts,
-    this.contacts,
-    this.selectedPlace,
     this.createEventResponse,
   });
 
   factory UpdateEventState.init() => UpdateEventState(
-      contacts: [],
       createEventResponse: null,
-      selectedContacts: [],
-      selectedPlace: null,
       updatedEvent: EventModel());
 
   UpdateEventState copyWith({
     EventModel? updatedEvent,
-    List<SelectedContact>? selectedContacts,
     List<Contact>? contacts,
-    AsyncValue<SelectedPlace>? selectedPlace,
     AsyncValue<CreateEventResponse>? createEventResponse,
     AsyncValue<UpdateGuestListResponse>? updateGuestListRespone,
   }) {
     return UpdateEventState(
       updatedEvent: updatedEvent ?? this.updatedEvent,
-      selectedContacts: selectedContacts ?? this.selectedContacts,
-      contacts: contacts ?? this.contacts,
-      selectedPlace: selectedPlace ?? this.selectedPlace,
       createEventResponse: createEventResponse ?? this.createEventResponse,
-      updateGuestListRespone:
-          updateGuestListRespone ?? this.updateGuestListRespone,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invit/features/event/presentation/controller/contacts_controller/contacts_state.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_state.dart';
 import 'package:invit/features/event/presentation/widgets/guest_list_screen/guest_item_count_buttons.dart';
 import 'package:invit/features/event/presentation/widgets/guest_list_screen/guest_item_delete_button.dart';
@@ -41,7 +42,7 @@ class GuestListItem extends StatelessWidget {
                     .copyWith(color: AppColors.textDart),
               ),
               Text(
-                contact.contact.phones.first.number,
+                '${contact.code}${contact.contact.phones.first.number}',
                 style: AppTextStyle.outfitRegular16,
               ),
             ],

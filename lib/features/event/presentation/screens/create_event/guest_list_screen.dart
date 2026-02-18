@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/event/presentation/controller/contacts_controller/contacts_controller.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_footer.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_screen/create_event_steps_section.dart';
@@ -38,7 +39,7 @@ class _GuestListScreenContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final contacts = ref.watch(createEventControllerProvider
+    final contacts = ref.watch(contactsControllerProvider(null)
         .select((val) => val.value!.selectedContacts));
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 10),

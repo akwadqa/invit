@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/event/presentation/controller/contacts_controller/contacts_controller.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
+import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
 import 'package:invit/features/event/presentation/widgets/contact_list_screen/contact_list_screen_tile.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_screen/create_event_steps_section.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
@@ -12,7 +14,8 @@ import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class ContactListScreen extends StatelessWidget {
-  const ContactListScreen({super.key});
+  const ContactListScreen({super.key, required this.occasionId});
+  final String? occasionId;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +23,14 @@ class ContactListScreen extends StatelessWidget {
       appBar: CustomDeafultAppbar(
         title: 'guest_list'.tr(),
       ),
-      body: _ContactListScreenContent(),
+      body: _ContactListScreenContent(occasionId),
     );
   }
 }
 
 class _ContactListScreenContent extends ConsumerStatefulWidget {
-  const _ContactListScreenContent();
+  const _ContactListScreenContent(this.occasionId);
+  final String? occasionId;
 
   @override
   ConsumerState<_ContactListScreenContent> createState() =>
@@ -39,19 +43,22 @@ class _ContactListScreenContentState
   void initState() {
     super.initState();
     Future(() {
-      ref.read(createEventControllerProvider.notifier).getContacts(null);
+      ref
+          .read(contactsControllerProvider(widget.occasionId).notifier)
+          .getContacts(null);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final controller = ref.watch(createEventControllerProvider);
+    final controller = ref.watch(contactsControllerProvider(widget.occasionId));
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
       child: Column(
         spacing: 20,
         children: [
-          CreateEventStepsSection(current: 2),
+          if (widget.occasionId == null) CreateEventStepsSection(current: 2),
           Expanded(
               child: Container(
             width: double.infinity,
@@ -60,9 +67,9 @@ class _ContactListScreenContentState
                 color: AppColors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.black,
+                    color: AppColors.black.withValues(alpha: .25),
                     blurRadius: 4,
-                  ),
+                  )
                 ],
                 borderRadius: BorderRadius.circular(10)),
             child: Column(
@@ -85,8 +92,11 @@ class _ContactListScreenContentState
                                 controller.value!.selectedContacts,
                             onChange: (val) {
                               ref
-                                  .read(createEventControllerProvider.notifier)
-                                  .selectContact(data.contacts[index]);
+                                  .read(contactsControllerProvider(
+                                          widget.occasionId)
+                                      .notifier)
+                                  .selectContact(
+                                      data.contacts[index], widget.occasionId);
                             }),
                         separatorBuilder: (context, index) => Divider(
                               height: 0,
@@ -106,7 +116,12 @@ class _ContactListScreenContentState
             isFiled: false,
             radius: 10,
             style: AppTextStyle.rubikMedium18.copyWith(color: AppColors.white),
-            backgroundColor: AppColors.primary,
+            backgroundColor: ref
+                    .watch(
+                        contactsControllerProvider(widget.occasionId).notifier)
+                    .hasDeviceContactsSelected
+                ? AppColors.primary
+                : AppColors.grey600,
             height: 48,
             width: double.infinity,
           ),
