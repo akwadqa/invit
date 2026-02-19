@@ -13,10 +13,10 @@ platform :android do
 
     firebase_app_distribution(
       app: "1:102899618849:android:5f21b18e5ce0625e197f60",
-      firebase_cli_token: ENV["FIREBASE_TOKEN"],
+      # firebase_cli_token: ENV["FIREBASE_TOKEN"],
       android_artifact_type: "APK",
       android_artifact_path: "../build/app/outputs/flutter-apk/app-arm64-v8a-release.apk",
-      testers: "mouazhariry5@gmail.com",
+      testers: "mouazhariry5@gmail.com,moh.allaaadeen@gmail.com,abdullahka715@gmail.com",
       release_notes: "First release with fast lane firebase app distrubution"
       )
   end

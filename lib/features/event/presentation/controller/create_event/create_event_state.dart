@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:equatable/equatable.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
-   show AutocompletePrediction;
+// import 'package:equatable/equatable.dart';
+// import 'package:flutter_contacts/flutter_contacts.dart';
+// import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
+  //  show AutocompletePrediction;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';

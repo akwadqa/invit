@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
-    show AutocompletePrediction;
+// import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
+//     show AutocompletePrediction;
+import 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,7 +11,7 @@ class MapState {
   final LatLng? initialLatLng;
 
   final AsyncValue<SelectedPlace>? selectedPlace;
-  final AsyncValue<List<AutocompletePrediction>>? predictions;
+  final AsyncValue<List<Prediction>> predictions;
 
   MapState(
       {required this.latLng,
@@ -21,7 +22,7 @@ class MapState {
   factory MapState.init() => MapState(
         latLng: LatLng(25.2854473, 51.53103979999999),
         initialLatLng: null,
-        predictions: null,
+        predictions: AsyncData([]),
         selectedPlace: null,
       );
 
@@ -29,7 +30,7 @@ class MapState {
     LatLng? latLng,
     LatLng? initialLatLng,
     AsyncValue<SelectedPlace>? selectedPlace,
-    AsyncValue<List<AutocompletePrediction>>? predictions,
+    AsyncValue<List<Prediction>>? predictions,
   }) {
     return MapState(
       latLng: latLng ?? this.latLng,

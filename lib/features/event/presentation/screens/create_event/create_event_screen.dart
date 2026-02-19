@@ -62,7 +62,7 @@ class _CreateEventScreenContentState
   @override
   Widget build(BuildContext context) {
     ref.listen(
-        mapControllerProvider.select((val) => val.value!.selectedPlace),
+        mapControllerProvider.select((val) => val.value?.selectedPlace),
         (previous, next) {
       if (next is AsyncLoading) {
         AppAlert.showLoadingDialog(context);
@@ -72,7 +72,7 @@ class _CreateEventScreenContentState
     });
 
     final locationName = ref.watch(mapControllerProvider
-        .select((val) => val.value!.selectedPlace?.value?.locationName));
+        .select((val) => val.value?.selectedPlace?.value?.locationName));
 
     final _formKey = GlobalKey<FormState>();
     return Padding(

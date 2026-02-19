@@ -16,7 +16,7 @@ class LocationSearchBox extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(
-      mapControllerProvider.select((val) => val.value!.predictions),
+      mapControllerProvider.select((val) => val.value?.predictions),
     );
 
     return Column(
@@ -27,7 +27,7 @@ class LocationSearchBox extends ConsumerWidget {
           onChange: (value) {
             ref
                 .read(mapControllerProvider.notifier)
-                .searchForLocation(value);
+                .searchLocation(value);
           },
         ),
 
@@ -50,13 +50,13 @@ class LocationSearchBox extends ConsumerWidget {
                 return ListTile(
                   leading: Icon(Icons.location_on, color: AppColors.primary),
                   title: Text(
-                    p.fullText,
+                    p.description??"",
                     style: AppTextStyle.rubikRegular14.copyWith(
                       color: AppColors.primary,
                     ),
                   ),
                   onTap: () {
-                    onSelect(p.placeId, p.fullText);
+                    onSelect(p.placeId??"", p.description??"");
 
                     ref
                         .read(mapControllerProvider.notifier)

@@ -40,7 +40,7 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
   @override
   Widget build(BuildContext context) {
     ref.listen(
-      mapControllerProvider.select((val) => val.value!.selectedPlace),
+      mapControllerProvider.select((val) => val.value?.selectedPlace),
       (prev, next) {
         if (next is AsyncLoading) {
           AppAlert.showLoadingDialog(context);

@@ -11,7 +11,7 @@ import 'package:invit/features/event/presentation/controller/update_event/update
 class SelectLocationGoogleMap extends ConsumerWidget {
   const SelectLocationGoogleMap(this.mapController, this.id, {super.key});
   final String? id;
-  final Completer<google.GoogleMapController> mapController;
+  final Completer<GoogleMapController> mapController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,10 +29,10 @@ class SelectLocationGoogleMap extends ConsumerWidget {
     if (id != null) {
       ref.listen(updateEventControllerProvider(ocassionId: id!),
           (previous, next) async {
-        if (next?.value == null) return;
+         if (next.value == null) return;
 
-        final lat = next!.value!.updatedEvent!.mapLatitude;
-        final lng = next!.value!.updatedEvent!.mapLongitude;
+        final lat = next.value?.updatedEvent?.mapLatitude;
+        final lng = next.value?.updatedEvent?.mapLongitude;
         final controller = await mapController.future;
 
         controller.animateCamera(
@@ -50,8 +50,8 @@ class SelectLocationGoogleMap extends ConsumerWidget {
     //             .updatedEvent!
     //             .mapLatitude ??
     //         '25.2854473';
-    final lng = ref.watch(mapControllerProvider).value!.latLng.longitude;
-    final lat = ref.watch(mapControllerProvider).value!.latLng.latitude;
+    final lng = ref.watch(mapControllerProvider).value?.latLng.longitude??0;
+    final lat = ref.watch(mapControllerProvider).value?.latLng.latitude??0;
     // final lng = id == null
     //     ? ref.watch(mapControllerProvider).value!.latLng.longitude
     //     : ref
@@ -61,8 +61,9 @@ class SelectLocationGoogleMap extends ConsumerWidget {
     //             .mapLongitude ??
     //         '51.53103979999999';
     LatLng lanlng = LatLng(
-      double.parse(lat.toString()),
-      double.parse(lng.toString()),
+      lat,lng
+      // double.parse(lat.toString()),
+      // double.parse(lng.toString()),
     );
     // LatLng lanlng = id == null
     //     ? ref.watch(addEventControllerProvider).value!.latLng

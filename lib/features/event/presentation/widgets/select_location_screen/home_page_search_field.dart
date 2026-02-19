@@ -33,6 +33,7 @@ class HomePageSearchField extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextField(
+        
         onChanged: (val) => onChange != null ? onChange!(val) : null,
         onSubmitted: (val) {
           onSubmit != null ? onSubmit!(val) : null;

@@ -1,21 +1,11 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
-    show PlaceField;
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
+//     show PlaceField;
 import 'package:invit/features/event/data/repository/event_repository.dart';
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
-import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
-import 'package:invit/features/event/presentation/controller/create_event/create_event_state.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_state.dart';
-import 'package:invit/features/event_details/presentation/controller/event_details_controller.dart';
-import 'package:invit/features/guest/data/repository/guest_repository.dart';
-import 'package:invit/features/guest/domain/model/update_guest_list_response/update_guest_list_response.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:uuid/uuid.dart';
 
 part 'update_event_controller.g.dart';
 

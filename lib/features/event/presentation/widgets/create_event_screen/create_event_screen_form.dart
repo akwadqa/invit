@@ -45,7 +45,7 @@ class CreateEventScreenForm extends ConsumerWidget {
         : '';
 
     final locationName = ref.watch(mapControllerProvider
-        .select((val) => val.value!.selectedPlace?.value?.locationName));
+        .select((val) => val.value?.selectedPlace?.value?.locationName));
 
         //TODO : Delete this:
 
