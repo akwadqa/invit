@@ -15,6 +15,7 @@ import 'package:invit/src/core/shared_widgets/app_pagination_widget.dart';
 import 'package:invit/src/core/shared_widgets/custom_appbar.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
+import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 import 'package:invit/src/infrastructure/api/endpoint/services_urls.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
@@ -177,18 +178,13 @@ class ScanScreenItem extends StatelessWidget {
               ],
             ),
             10.verticalSpace,
-            Row(
-              children: [
-                19.horizontalSpace,
-                Text(
-                  event.title ?? '',
-                  style: AppTextStyle.rubikMedium14.copyWith(
-                    color: AppColors.primary,
-                  ),
-                ),
-                Spacer(),
-              ],
-            ),
+            Text(
+              event.title ?? '',
+              style: AppTextStyle.rubikMedium14.copyWith(
+                color: AppColors.primary,
+              ),
+            ).centered(),
+            Spacer(),
             15.verticalSpace,
             Row(
               children: [

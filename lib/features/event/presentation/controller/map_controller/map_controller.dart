@@ -1,25 +1,34 @@
-import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
-    hide LatLng;
+import 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/event/data/repository/event_repository.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
-import 'package:invit/features/event/presentation/controller/create_event/create_event_state.dart';
 import 'package:invit/features/event/presentation/controller/map_controller/map_state.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
-import 'package:invit/src/infrastructure/network/services/dio_client.dart';
+import 'package:invit/src/infrastructure/api/endpoint/services_urls.dart';
+import 'package:invit/src/logger/log_services/dev_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:google_api_headers/google_api_headers.dart';
 
 part 'map_controller.g.dart';
 
 @riverpod
 class MapController extends _$MapController {
+late final Future<GoogleMapsPlaces> _placesFuture;
+
   @override
-  FutureOr<MapState> build() {
+  FutureOr<MapState> build() async {
+     _placesFuture = GoogleApiHeaders()
+      .getHeaders()
+      .then(
+        (headers) => GoogleMapsPlaces(
+          apiKey: ServicesUrls.mapApiKey,
+          apiHeaders: headers,
+        ),
+      );
+
     return MapState.init();
   }
 
@@ -252,37 +261,82 @@ class MapController extends _$MapController {
     return result.isEmpty ? "Location" : result;
   }
 
-  Future<LatLng?> getPlaceLocation(String placeId) async {
-    final sdk = ref.read(placesSdkProvider);
-    final result = await sdk.fetchPlace(placeId, fields: [PlaceField.Location]);
+  // Future<LatLng?> getPlaceLocation(String placeId) async {
+  //   final sdk = ref.read(placesSdkProvider);
+  //   final result = await sdk.fetchPlace(placeId, fields: [PlaceField.Location]);
 
-    final loc = result.place?.latLng;
-    if (loc == null) return null;
+  //   final loc = result.place?.latLng;
+  //   if (loc == null) return null;
 
-    return LatLng(loc.lat, loc.lng);
+  //   return LatLng(loc.lat, loc.lng);
+  // }
+
+  // Future<void> searchForLocation(String query) async {
+  //   // final sdk = ref.read(placesSdkProvider);
+  //   if (query.isEmpty) {
+  //     state = AsyncData(state.value!.copyWith(predictions: AsyncData([])));
+  //     return;
+  //   }
+
+  //   state = AsyncData(state.value!.copyWith(predictions: AsyncLoading()));
+
+  //   // final result = await sdk.findAutocompletePredictions(query);
+
+  //   // state = AsyncData(
+  //   //   state.value!.copyWith(predictions: AsyncData(result.predictions)),
+  //   // );
+  // }
+
+Future<LatLng?> getPlaceLocation(String placeId) async {
+  try {
+    final places = await _placesFuture;
+
+    final detail = await places.getDetailsByPlaceId(placeId);
+
+    final location = detail.result.geometry?.location;
+
+    if (location == null) return null;
+
+    return LatLng(location.lat, location.lng);
+  } catch (e) {
+    Dev.logError("getPlaceLocation error: $e");
+    return null;
+  }
+}
+
+
+ Future<void> searchLocation(String value) async {
+  if (value.isEmpty) {
+    clearSearchSuggestions();
+    return;
   }
 
-  Future<void> searchForLocation(String query) async {
-    final sdk = ref.read(placesSdkProvider);
-    if (query.isEmpty) {
-      state = AsyncData(state.value!.copyWith(predictions: AsyncData([])));
-      return;
-    }
+  try {
+    final places = await _placesFuture;
 
-    state = AsyncData(state.value!.copyWith(predictions: AsyncLoading()));
-
-    final result = await sdk.findAutocompletePredictions(query);
+    final res = await places.autocomplete(
+      value,
+      language: 'ar',
+      region: "QA",
+      components: [Component(Component.country, "QA")],
+    );
 
     state = AsyncData(
-      state.value!.copyWith(predictions: AsyncData(result.predictions)),
+      state.value!.copyWith(
+        predictions: AsyncData(res.predictions),
+      ),
     );
+  } catch (e) {
+    Dev.logError('Places error: $e');
   }
+}
+
 
   void clearSearchSuggestions() {
     state = AsyncData(state.value!.copyWith(predictions: AsyncData([])));
   }
 }
 
-final placesSdkProvider = Provider<FlutterGooglePlacesSdk>((ref) {
-  return FlutterGooglePlacesSdk(dotenv.env['MAPS_API_KEY']!);
-});
+// final placesSdkProvider = Provider<FlutterGooglePlacesSdk>((ref) {
+//   return FlutterGooglePlacesSdk(dotenv.env['MAPS_API_KEY']!);
+// });

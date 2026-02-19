@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
-
 class HomePageSearchField extends StatelessWidget {
   const HomePageSearchField({
     super.key,
@@ -48,7 +47,6 @@ class HomePageSearchField extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Icon(Icons.search),
           ),
-
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.transparent),
           ),

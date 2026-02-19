@@ -33,7 +33,7 @@ final class MapControllerProvider
   MapController create() => MapController();
 }
 
-String _$mapControllerHash() => r'0063822d4666d30a8bdae7f8c017594a1927ccf8';
+String _$mapControllerHash() => r'35dcdf0160eaf41eeb48ac38eb1e8319d41e46e7';
 
 abstract class _$MapController extends $AsyncNotifier<MapState> {
   FutureOr<MapState> build();
