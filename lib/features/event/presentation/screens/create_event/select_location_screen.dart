@@ -154,6 +154,10 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
                                 LatLng(latLng.latitude, latLng.longitude),
                               ),
                             );
+                            ref
+                                .read(mapControllerProvider.notifier)
+                                .changeLatlng(
+                                    latLng.latitude, latLng.longitude);
                           }
                         },
                       ),

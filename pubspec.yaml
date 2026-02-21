@@ -68,7 +68,8 @@ dependencies:
   geolocator: ^14.0.2
   # flutter_google_places_sdk: ^0.4.3
   flutter_google_places_hoc081098: ^2.0.0
-  google_api_headers: ^4.6.2
+  google_api_headers: ^4.5.8
+  # google_api_headers: ^4.6.2
 
 
 

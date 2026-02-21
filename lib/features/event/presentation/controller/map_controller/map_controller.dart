@@ -16,18 +16,17 @@ part 'map_controller.g.dart';
 
 @riverpod
 class MapController extends _$MapController {
-late final Future<GoogleMapsPlaces> _placesFuture;
+  late final Future<GoogleMapsPlaces> _placesFuture;
 
   @override
   FutureOr<MapState> build() async {
-     _placesFuture = GoogleApiHeaders()
-      .getHeaders()
-      .then(
-        (headers) => GoogleMapsPlaces(
-          apiKey: ServicesUrls.mapApiKey,
-          apiHeaders: headers,
-        ),
-      );
+    state = AsyncData(MapState.init());
+    _placesFuture = GoogleApiHeaders().getHeaders().then(
+          (headers) => GoogleMapsPlaces(
+            apiKey: ServicesUrls.mapApiKey,
+            apiHeaders: headers,
+          ),
+        );
 
     return MapState.init();
   }
@@ -39,11 +38,11 @@ late final Future<GoogleMapsPlaces> _placesFuture;
       final permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied ||
           permission == LocationPermission.deniedForever) {
-        _setDefaultLocationWithAsync();
+        _setDefaultLocationWithAsync(error: 'Error');
         return;
       }
 
-      final pos = await Geolocator.getCurrentPosition(
+    final pos = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
 
@@ -287,50 +286,48 @@ late final Future<GoogleMapsPlaces> _placesFuture;
   //   // );
   // }
 
-Future<LatLng?> getPlaceLocation(String placeId) async {
-  try {
-    final places = await _placesFuture;
+  Future<LatLng?> getPlaceLocation(String placeId) async {
+    try {
+      final places = await _placesFuture;
 
-    final detail = await places.getDetailsByPlaceId(placeId);
+      final detail = await places.getDetailsByPlaceId(placeId);
 
-    final location = detail.result.geometry?.location;
+      final location = detail.result.geometry?.location;
 
-    if (location == null) return null;
+      if (location == null) return null;
 
-    return LatLng(location.lat, location.lng);
-  } catch (e) {
-    Dev.logError("getPlaceLocation error: $e");
-    return null;
-  }
-}
-
-
- Future<void> searchLocation(String value) async {
-  if (value.isEmpty) {
-    clearSearchSuggestions();
-    return;
+      return LatLng(location.lat, location.lng);
+    } catch (e) {
+      Dev.logError("getPlaceLocation error: $e");
+      return null;
+    }
   }
 
-  try {
-    final places = await _placesFuture;
+  Future<void> searchLocation(String value) async {
+    if (value.isEmpty) {
+      clearSearchSuggestions();
+      return;
+    }
 
-    final res = await places.autocomplete(
-      value,
-      language: 'ar',
-      region: "QA",
-      components: [Component(Component.country, "QA")],
-    );
+    try {
+      final places = await _placesFuture;
 
-    state = AsyncData(
-      state.value!.copyWith(
-        predictions: AsyncData(res.predictions),
-      ),
-    );
-  } catch (e) {
-    Dev.logError('Places error: $e');
+      final res = await places.autocomplete(
+        value,
+        language: 'ar',
+        region: "QA",
+        components: [Component(Component.country, "QA")],
+      );
+
+      state = AsyncData(
+        state.value!.copyWith(
+          predictions: AsyncData(res.predictions),
+        ),
+      );
+    } catch (e) {
+      Dev.logError('Places error: $e');
+    }
   }
-}
-
 
   void clearSearchSuggestions() {
     state = AsyncData(state.value!.copyWith(predictions: AsyncData([])));
