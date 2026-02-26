@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:invit/features/home/domain/model/events/event_model.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/infrastructure/api/endpoint/services_urls.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
@@ -23,9 +23,9 @@ class EventImage extends StatelessWidget {
           children: [
             //? Image :
             // Image
-            event?.imageUrl != null && (event?.imageUrl.isNotEmpty ?? false)
+            event?.imageUrl != null && (event?.imageUrl?.isNotEmpty ?? false)
                 ? Image.network(
-                    ServicesUrls.imageUrl + event!.imageUrl,
+                    ServicesUrls.imageUrl + (event!.imageUrl ?? ''),
                     width: double.infinity,
                     fit: BoxFit.cover,
                   )
@@ -51,7 +51,7 @@ class EventImage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
-                  formatDate(event?.date),
+                  formatDate(event?.dateTime),
                   textAlign: TextAlign.center,
                   style: AppTextStyle.rubikMedium10,
                 ),

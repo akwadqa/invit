@@ -49,21 +49,22 @@ class _UpdateEventDetailsScreenContentState
     Future(() {
       ref
           .read(updateEventControllerProvider(
-                  ocassionId: widget.eventModel.occasionId!)
+                  ocassionId: widget.eventModel.eventId!)
               .notifier)
           .updateDataForEvent(widget.eventModel);
 
       ref
-          .read(mapControllerProvider.notifier)
-          .initLocation(widget.eventModel.occasionId);
+          .read(mapControllerProvider(widget.eventModel.eventId).notifier)
+          .initLocation(widget.eventModel.eventId);
     });
     _title = TextEditingController()..setText(widget.eventModel.title!);
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(mapControllerProvider.select((val) => val.value!.selectedPlace),
-        (previous, next) {
+    ref.listen(
+        mapControllerProvider(widget.eventModel.eventId)
+            .select((val) => val.value!.initialLatLng), (previous, next) {
       if (next is AsyncLoading) {
         AppAlert.showLoadingDialog(context);
       } else {
@@ -71,7 +72,7 @@ class _UpdateEventDetailsScreenContentState
       }
     });
     ref.listen(
-        updateEventControllerProvider(ocassionId: widget.eventModel.occasionId!)
+        updateEventControllerProvider(ocassionId: widget.eventModel.eventId!)
             .select((val) => val.value!.createEventResponse), (previous, next) {
       if (next is AsyncLoading) {
         AppAlert.showLoadingDialog(context);
@@ -80,8 +81,9 @@ class _UpdateEventDetailsScreenContentState
       if (next is AsyncData) {
         context.pop();
         ref.invalidate(eventDetailsControllerProvider(
-            ocassionId: widget.eventModel.occasionId!));
-        context.goNamed(AppRoutes.eventDetails, extra: next!.value!.occasionId);
+            ocassionId: widget.eventModel.eventId!));
+        context.goNamed(AppRoutes.eventDetails,
+            extra: widget.eventModel.eventId);
       }
       if (next is AsyncError) {
         context.pop();
@@ -94,7 +96,7 @@ class _UpdateEventDetailsScreenContentState
         children: [
           Expanded(
             child: CreateEventScreenForm(
-                occasionId: widget.eventModel.occasionId,
+                occasionId: widget.eventModel.eventId,
                 formKey: _formKey,
                 title: _title),
           ),
@@ -102,7 +104,7 @@ class _UpdateEventDetailsScreenContentState
             text: 'save'.tr(),
             onTap: () {
               ref.read(updateEventControllerProvider(
-                      ocassionId: widget.eventModel.occasionId!)
+                      ocassionId: widget.eventModel.eventId!)
                   .notifier)
                 ..updateDataForEvent(EventModel(title: _title.text))
                 ..updateEvent();

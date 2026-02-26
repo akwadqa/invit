@@ -7,7 +7,6 @@ import 'package:invit/features/event/presentation/widgets/select_location_screen
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
-
 class LocationSearchBox extends ConsumerWidget {
   final Function(String placeId, String description) onSelect;
 
@@ -16,7 +15,7 @@ class LocationSearchBox extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(
-      mapControllerProvider.select((val) => val.value?.predictions),
+      mapControllerProvider(null).select((val) => val.value?.predictions),
     );
 
     return Column(
@@ -26,13 +25,11 @@ class LocationSearchBox extends ConsumerWidget {
           hint: context.tr('search'),
           onChange: (value) {
             ref
-                .read(mapControllerProvider.notifier)
+                .read(mapControllerProvider(null).notifier)
                 .searchLocation(value);
           },
         ),
-
         const SizedBox(height: 6),
-
         if (state?.value?.isNotEmpty ?? false)
           Container(
             width: double.infinity,
@@ -50,16 +47,16 @@ class LocationSearchBox extends ConsumerWidget {
                 return ListTile(
                   leading: Icon(Icons.location_on, color: AppColors.primary),
                   title: Text(
-                    p.description??"",
+                    p.description ?? "",
                     style: AppTextStyle.rubikRegular14.copyWith(
                       color: AppColors.primary,
                     ),
                   ),
                   onTap: () {
-                    onSelect(p.placeId??"", p.description??"");
+                    onSelect(p.placeId ?? "", p.description ?? "");
 
                     ref
-                        .read(mapControllerProvider.notifier)
+                        .read(mapControllerProvider(null).notifier)
                         .clearSearchSuggestions();
                   },
                 );

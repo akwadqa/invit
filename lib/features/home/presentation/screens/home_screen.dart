@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/home/presentation/controller/home_controller.dart';
 import 'package:invit/features/home/presentation/widgets/empty_home_data.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen/event_item_widget.dart';
@@ -21,7 +22,6 @@ import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../domain/model/events/event_model.dart';
 import '../widgets/section_title_widget.dart';
 
 @RoutePage()
@@ -90,7 +90,7 @@ class _HomeScreenContent extends ConsumerWidget {
                               return GestureDetector(
                                   onTap: () => context.push(
                                       AppRoutes.eventDetails,
-                                      extra: data.events[index].occasionId),
+                                      extra: data.events[index].eventId),
                                   child: EventItemWidget(
                                       event: data.events[index]));
                               // HomeScreenAllEvents(featuredEvent: true,),

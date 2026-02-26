@@ -40,7 +40,8 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
   @override
   Widget build(BuildContext context) {
     ref.listen(
-      mapControllerProvider.select((val) => val.value?.selectedPlace),
+      mapControllerProvider(widget.id)
+          .select((val) => val.value?.selectedPlace),
       (prev, next) {
         if (next is AsyncLoading) {
           AppAlert.showLoadingDialog(context);
@@ -70,7 +71,7 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
             text: context.tr('confirm'),
             onTap: () async {
               await ref
-                  .read(mapControllerProvider.notifier)
+                  .read(mapControllerProvider(widget.id).notifier)
                   .getPlaceInfoFromLatLng(widget.id);
             },
             isFiled: true,
@@ -86,14 +87,17 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
               backgroundColor: WidgetStatePropertyAll(AppColors.white),
             ),
             onPressed: () {
-              final location =
-                  ref.watch(mapControllerProvider).value!.initialLatLng;
+              final location = ref
+                  .watch(mapControllerProvider(widget.id))
+                  .value!
+                  .initialLatLng
+                  ?.value;
 
               ref
-                  .read(mapControllerProvider.notifier)
+                  .read(mapControllerProvider(widget.id).notifier)
                   .changeLatlng(location!.latitude, location.longitude);
 
-              setState(() {});
+              // setState(() {});
             },
             icon: Icon(Icons.my_location_outlined),
           ),
@@ -140,7 +144,7 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
                       child: LocationSearchBox(
                         onSelect: (id, des) async {
                           final notifier = ref.read(
-                            mapControllerProvider.notifier,
+                            mapControllerProvider(widget.id).notifier,
                           );
 
                           final latLng = await notifier.getPlaceLocation(id);
@@ -155,7 +159,7 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
                               ),
                             );
                             ref
-                                .read(mapControllerProvider.notifier)
+                                .read(mapControllerProvider(widget.id).notifier)
                                 .changeLatlng(
                                     latLng.latitude, latLng.longitude);
                           }

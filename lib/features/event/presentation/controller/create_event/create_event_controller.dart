@@ -107,7 +107,7 @@ class CreateEventController extends _$CreateEventController {
           type: newData.type ?? current.type ?? 'Birthday',
           // type: 'Birthday',
           title: newData.title ?? current.title,
-          date: newData.date ?? current.date,
+          dateTime: newData.dateTime ?? current.dateTime,
           language: newData.language ?? current.language ?? 'Arabic',
           locationName: newData.locationName ?? current.locationName,
           showQr: newData.showQr ?? current.showQr,
@@ -127,7 +127,7 @@ class CreateEventController extends _$CreateEventController {
 
   void updateEventDate(DateTime newDate) {
     final current = DateTime.parse(
-      state.value?.eventModel?.date ?? DateTime.now().toString(),
+      state.value?.eventModel?.dateTime ?? DateTime.now().toString(),
     );
 
     final updated = DateTime(
@@ -138,12 +138,12 @@ class CreateEventController extends _$CreateEventController {
       current.minute,
     );
 
-    updateEvent(EventModel(date: updated.toString()));
+    updateEvent(EventModel(dateTime: updated.toString()));
   }
 
   void updateEventTime(TimeOfDay newTime) {
     final current = DateTime.parse(
-      state.value?.eventModel?.date ?? DateTime.now().toString(),
+      state.value?.eventModel?.dateTime ?? DateTime.now().toString(),
     );
 
     final updated = DateTime(
@@ -154,6 +154,6 @@ class CreateEventController extends _$CreateEventController {
       newTime.minute,
     );
 
-    updateEvent(EventModel(date: updated.toString()));
+    updateEvent(EventModel(dateTime: updated.toString()));
   }
 }

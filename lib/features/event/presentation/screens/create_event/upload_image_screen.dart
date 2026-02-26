@@ -48,7 +48,7 @@ class _UploadImageScreenContent extends ConsumerWidget {
         if (next is AsyncData) {
           context.pop();
           context.goNamed(AppRoutes.successEventScreen,
-              extra: next!.value!.occasionId);
+              extra: next!.value!.eventId);
         }
         if (next is AsyncError) {
           // context.pop();

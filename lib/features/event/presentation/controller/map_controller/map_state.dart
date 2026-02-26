@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 class MapState {
   final LatLng latLng;
-  final LatLng? initialLatLng;
+  final AsyncValue<LatLng>? initialLatLng;
 
   final AsyncValue<SelectedPlace>? selectedPlace;
   final AsyncValue<List<Prediction>> predictions;
@@ -28,7 +28,7 @@ class MapState {
 
   MapState copyWith({
     LatLng? latLng,
-    LatLng? initialLatLng,
+    AsyncValue<LatLng>? initialLatLng,
     AsyncValue<SelectedPlace>? selectedPlace,
     AsyncValue<List<Prediction>>? predictions,
   }) {

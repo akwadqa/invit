@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/featured_events/presentation/controller/featured_event_controller.dart';
-import 'package:invit/features/home/domain/model/events/event_model.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen/event_item_widget.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
@@ -81,7 +81,7 @@ class AllEventsScreen extends ConsumerWidget {
                     itemCount: data. events.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () => context.push(AppRoutes.eventDetails,extra:data.events[index].occasionId),
+                        onTap: () => context.push(AppRoutes.eventDetails,extra:data.events[index].eventId),
 
                         child: EventItemWidget(event:data. events[index])
                             .symmetricPadding(horizontal: 12),

@@ -48,7 +48,7 @@ class UpdateEventController extends _$UpdateEventController {
 
   void updateEventDate(DateTime newDate) {
     final current = DateTime.parse(
-      state.value?.updatedEvent?.date ?? DateTime.now().toString(),
+      state.value?.updatedEvent?.dateTime ?? DateTime.now().toString(),
     );
 
     final updated = DateTime(
@@ -59,12 +59,12 @@ class UpdateEventController extends _$UpdateEventController {
       current.minute,
     );
 
-    updateDataForEvent(EventModel(date: updated.toString()));
+    updateDataForEvent(EventModel(dateTime: updated.toString()));
   }
 
   void updateEventTime(TimeOfDay newTime) {
     final current = DateTime.parse(
-      state.value?.updatedEvent?.date ?? DateTime.now().toString(),
+      state.value?.updatedEvent?.dateTime ?? DateTime.now().toString(),
     );
 
     final updated = DateTime(
@@ -75,7 +75,7 @@ class UpdateEventController extends _$UpdateEventController {
       newTime.minute,
     );
 
-    updateDataForEvent(EventModel(date: updated.toString()));
+    updateDataForEvent(EventModel(dateTime: updated.toString()));
   }
 
   void updateDataForEvent(EventModel newData) {
@@ -84,14 +84,14 @@ class UpdateEventController extends _$UpdateEventController {
     state = AsyncData(
       state.value!.copyWith(
         updatedEvent: EventModel(
-          occasionId: newData.occasionId ?? current!.occasionId,
+          eventId: newData.eventId ?? current!.eventId,
           type: newData.type ?? current?.type,
           title: newData.title ?? current?.title,
           mapLink: newData.mapLink ?? current?.mapLink,
           mapLatitude: newData.mapLatitude ?? current!.mapLatitude,
           mapLongitude: newData.mapLongitude ?? current!.mapLongitude,
           locationName: newData.locationName ?? current!.locationName,
-          date: newData.date ?? current?.date,
+          dateTime: newData.dateTime ?? current?.dateTime,
           language: newData.language ?? current?.language,
           image: newData.image ?? current?.image,
           imageUrl: newData.imageUrl ?? current?.imageUrl,

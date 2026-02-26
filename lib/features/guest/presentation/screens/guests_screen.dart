@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
-import 'package:invit/features/event_details/domain/model/event_details_model.dart';
 import 'package:invit/features/event_details/presentation/controller/event_details_controller.dart';
 import 'package:invit/features/guest/presentation/controller/guest_ui_controller.dart';
 import 'package:invit/features/guest/presentation/widgets/guests_screen_tab_bar.dart';
@@ -104,7 +103,7 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
               // );
               return GestureDetector(
                 onTap: () => context.push(AppRoutes.updateGuestListScreen,
-                    extra: data.occasionId),
+                    extra: data.eventId),
                 child: Container(
                   width: 30,
                   height: 30,
@@ -165,12 +164,12 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
     );
   }
 
-  Widget _buildBody(EventDetailsModel event, int index) {
+  Widget _buildBody(EventModel event, int index) {
     final statuses = rsvpStatusesFromIndex(index);
 
     final filteredGuests = statuses.isEmpty
-        ? event.guests
-        : event.guests?.where((g) => statuses.contains(g.rsvpStatus)).toList();
+        ? event.guestList
+        : event.guestList?.where((g) => statuses.contains(g.rsvpStatus)).toList();
 
     return filteredGuests?.isNotEmpty ?? false
         ? Container(

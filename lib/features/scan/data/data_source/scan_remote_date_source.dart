@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/scan/data/model/scan_qr_response/scan_qr_response.dart';
 import 'package:invit/features/scan/data/model/user_scan_event_response/user_scan_event_response.dart';
 import 'package:invit/src/infrastructure/api/endpoint/api_endpoints.dart';
@@ -36,7 +37,7 @@ class ScanRemoteDateSource {
     }
   }
 
-  Future<ApiResponse<List<UserScanEventResponse>>> getUserScanEvent({
+  Future<ApiResponse<List<EventModel>>> getUserScanEvent({
     required int page,
   }) async {
     try {
@@ -49,7 +50,7 @@ class ScanRemoteDateSource {
         response.data,
         (json) => (json as List)
             .map((item) =>
-                UserScanEventResponse.fromJson(item as Map<String, dynamic>))
+                EventModel.fromJson(item as Map<String, dynamic>))
             .toList(),
       );
     } catch (e) {

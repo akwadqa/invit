@@ -20,7 +20,7 @@ class ContactsController extends _$ContactsController {
       final list = ref
           .watch(eventDetailsControllerProvider(ocassionId: occasionId))
           .value
-          ?.guests
+          ?.guestList!
           .where((guest) => guest.rsvpStatus == 'Not Sent')
           .toList();
 

@@ -30,18 +30,6 @@ class EventRemoteDataSource {
             ),
         },
         ...{
-          //   if (event.operators != null && (event.operators?.isNotEmpty ?? false))
-          //     'operator_list': jsonEncode(
-          //       event.operators!.map((e) => e.whatsappNumber).toList(),
-          //     ),
-          // },
-          // ...{
-          //   if (event.handlers != null && (event.handlers?.isNotEmpty ?? false))
-          //     'handler_list': jsonEncode(
-          //       event.handlers!.map((e) => e.toJson()).toList(),
-          //     ),
-          // },
-          ...{'time': '10:19'},
           ...{
             if (event.image != null)
               'image': await MultipartFile.fromFile(event.image!.path),
@@ -55,7 +43,7 @@ class EventRemoteDataSource {
         // queryParameters: {},
       );
 
-      if (response.data == null || response.statusCode != 200) {
+      if (response.data == null || response.statusCode > 201) {
         throw Exception('Request failed');
       }
 
@@ -117,12 +105,14 @@ class EventRemoteDataSource {
   ) async {
     try {
       final data = FormData.fromMap({
-        'occasion_id': event.occasionId,
-        'time': '10:10',
+        'occasion_id': event.eventId,
+        'type': 'Birthday',
         'image': event.image != null
             ? await MultipartFile.fromFile(event.image!.path)
             : null,
-        ...(event.toJson()..remove('image_url')),
+        ...(event.toJson()
+          ..remove('image_url')
+          ..remove('type')),
       });
       final response = await _networkService.post(
         ApiEndPoints.updateEvent,

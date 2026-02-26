@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invit/features/home/domain/model/events/event_model.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/home/presentation/controller/home_controller.dart';
 import 'package:invit/features/home/presentation/widgets/home_screen/event_item_widget.dart';
 import 'package:invit/src/application/router/app_routes.dart';
@@ -77,8 +77,8 @@ class HomeScreenAllEvents extends ConsumerWidget {
                               : events.length,
                           itemBuilder: (context, index) {
                             final ocassionId = featuredEvent
-                                ? featuredEvents[index].occasionId
-                                : events[index].occasionId;
+                                ? featuredEvents[index].eventId
+                                : events[index].eventId;
                             return GestureDetector(
                               onTap: () => context.push(AppRoutes.eventDetails,
                                   extra: ocassionId),

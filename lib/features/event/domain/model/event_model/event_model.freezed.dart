@@ -14,16 +14,17 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$EventModel {
-  @JsonKey(name: 'occasion_id')
-  String? get occasionId;
+  @JsonKey(name: 'event_id')
+  String? get eventId;
+  @JsonKey(name: 'date_time')
+  String? get dateTime;
   String? get title;
   String? get type;
-  String? get date;
   String? get language;
   String? get role;
-  @JsonKey(name: 'map_longitude')
+  @JsonKey(name: 'longitude')
   String? get mapLongitude;
-  @JsonKey(name: 'map_latitude')
+  @JsonKey(name: 'latitude')
   String? get mapLatitude;
   @JsonKey(name: 'map_link')
   String? get mapLink;
@@ -43,10 +44,14 @@ mixin _$EventModel {
   String? get declinedTemplate;
   @JsonKey(name: 'workflow_state')
   String? get workflowState;
+  @JsonKey(name: 'is_featured')
+  int? get isFeatured;
   String?
       get status; // @JsonKey(name: 'guest_report') GuestReportModel? guestReport,
   @JsonKey(name: 'guest_list')
   List<GuestModel>? get guestList;
+  @JsonKey(name: 'guest_report')
+  GuestReportModel? get guestReport;
 
   /// Create a copy of EventModel
   /// with the given fields replaced by the non-null parameter values.
@@ -63,11 +68,11 @@ mixin _$EventModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is EventModel &&
-            (identical(other.occasionId, occasionId) ||
-                other.occasionId == occasionId) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.date, date) || other.date == date) &&
             (identical(other.language, language) ||
                 other.language == language) &&
             (identical(other.role, role) || other.role == role) &&
@@ -90,18 +95,22 @@ mixin _$EventModel {
                 other.declinedTemplate == declinedTemplate) &&
             (identical(other.workflowState, workflowState) ||
                 other.workflowState == workflowState) &&
+            (identical(other.isFeatured, isFeatured) ||
+                other.isFeatured == isFeatured) &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other.guestList, guestList));
+            const DeepCollectionEquality().equals(other.guestList, guestList) &&
+            (identical(other.guestReport, guestReport) ||
+                other.guestReport == guestReport));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        occasionId,
+        eventId,
+        dateTime,
         title,
         type,
-        date,
         language,
         role,
         mapLongitude,
@@ -115,13 +124,15 @@ mixin _$EventModel {
         confirmedTemplate,
         declinedTemplate,
         workflowState,
+        isFeatured,
         status,
-        const DeepCollectionEquality().hash(guestList)
+        const DeepCollectionEquality().hash(guestList),
+        guestReport
       ]);
 
   @override
   String toString() {
-    return 'EventModel(occasionId: $occasionId, title: $title, type: $type, date: $date, language: $language, role: $role, mapLongitude: $mapLongitude, mapLatitude: $mapLatitude, mapLink: $mapLink, locationName: $locationName, showQr: $showQr, imageUrl: $imageUrl, image: $image, inviteTemplate: $inviteTemplate, confirmedTemplate: $confirmedTemplate, declinedTemplate: $declinedTemplate, workflowState: $workflowState, status: $status, guestList: $guestList)';
+    return 'EventModel(eventId: $eventId, dateTime: $dateTime, title: $title, type: $type, language: $language, role: $role, mapLongitude: $mapLongitude, mapLatitude: $mapLatitude, mapLink: $mapLink, locationName: $locationName, showQr: $showQr, imageUrl: $imageUrl, image: $image, inviteTemplate: $inviteTemplate, confirmedTemplate: $confirmedTemplate, declinedTemplate: $declinedTemplate, workflowState: $workflowState, isFeatured: $isFeatured, status: $status, guestList: $guestList, guestReport: $guestReport)';
   }
 }
 
@@ -132,14 +143,14 @@ abstract mixin class $EventModelCopyWith<$Res> {
       _$EventModelCopyWithImpl;
   @useResult
   $Res call(
-      {@JsonKey(name: 'occasion_id') String? occasionId,
+      {@JsonKey(name: 'event_id') String? eventId,
+      @JsonKey(name: 'date_time') String? dateTime,
       String? title,
       String? type,
-      String? date,
       String? language,
       String? role,
-      @JsonKey(name: 'map_longitude') String? mapLongitude,
-      @JsonKey(name: 'map_latitude') String? mapLatitude,
+      @JsonKey(name: 'longitude') String? mapLongitude,
+      @JsonKey(name: 'latitude') String? mapLatitude,
       @JsonKey(name: 'map_link') String? mapLink,
       @JsonKey(name: 'location_name') String? locationName,
       @JsonKey(name: 'show_qr') int? showQr,
@@ -149,8 +160,12 @@ abstract mixin class $EventModelCopyWith<$Res> {
       @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
       @JsonKey(name: 'declined_template') String? declinedTemplate,
       @JsonKey(name: 'workflow_state') String? workflowState,
+      @JsonKey(name: 'is_featured') int? isFeatured,
       String? status,
-      @JsonKey(name: 'guest_list') List<GuestModel>? guestList});
+      @JsonKey(name: 'guest_list') List<GuestModel>? guestList,
+      @JsonKey(name: 'guest_report') GuestReportModel? guestReport});
+
+  $GuestReportModelCopyWith<$Res>? get guestReport;
 }
 
 /// @nodoc
@@ -165,10 +180,10 @@ class _$EventModelCopyWithImpl<$Res> implements $EventModelCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? occasionId = freezed,
+    Object? eventId = freezed,
+    Object? dateTime = freezed,
     Object? title = freezed,
     Object? type = freezed,
-    Object? date = freezed,
     Object? language = freezed,
     Object? role = freezed,
     Object? mapLongitude = freezed,
@@ -182,13 +197,19 @@ class _$EventModelCopyWithImpl<$Res> implements $EventModelCopyWith<$Res> {
     Object? confirmedTemplate = freezed,
     Object? declinedTemplate = freezed,
     Object? workflowState = freezed,
+    Object? isFeatured = freezed,
     Object? status = freezed,
     Object? guestList = freezed,
+    Object? guestReport = freezed,
   }) {
     return _then(_self.copyWith(
-      occasionId: freezed == occasionId
-          ? _self.occasionId
-          : occasionId // ignore: cast_nullable_to_non_nullable
+      eventId: freezed == eventId
+          ? _self.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateTime: freezed == dateTime
+          ? _self.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
               as String?,
       title: freezed == title
           ? _self.title
@@ -197,10 +218,6 @@ class _$EventModelCopyWithImpl<$Res> implements $EventModelCopyWith<$Res> {
       type: freezed == type
           ? _self.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      date: freezed == date
-          ? _self.date
-          : date // ignore: cast_nullable_to_non_nullable
               as String?,
       language: freezed == language
           ? _self.language
@@ -254,6 +271,10 @@ class _$EventModelCopyWithImpl<$Res> implements $EventModelCopyWith<$Res> {
           ? _self.workflowState
           : workflowState // ignore: cast_nullable_to_non_nullable
               as String?,
+      isFeatured: freezed == isFeatured
+          ? _self.isFeatured
+          : isFeatured // ignore: cast_nullable_to_non_nullable
+              as int?,
       status: freezed == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -262,7 +283,25 @@ class _$EventModelCopyWithImpl<$Res> implements $EventModelCopyWith<$Res> {
           ? _self.guestList
           : guestList // ignore: cast_nullable_to_non_nullable
               as List<GuestModel>?,
+      guestReport: freezed == guestReport
+          ? _self.guestReport
+          : guestReport // ignore: cast_nullable_to_non_nullable
+              as GuestReportModel?,
     ));
+  }
+
+  /// Create a copy of EventModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GuestReportModelCopyWith<$Res>? get guestReport {
+    if (_self.guestReport == null) {
+      return null;
+    }
+
+    return $GuestReportModelCopyWith<$Res>(_self.guestReport!, (value) {
+      return _then(_self.copyWith(guestReport: value));
+    });
   }
 }
 
@@ -360,14 +399,14 @@ extension EventModelPatterns on EventModel {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            @JsonKey(name: 'occasion_id') String? occasionId,
+            @JsonKey(name: 'event_id') String? eventId,
+            @JsonKey(name: 'date_time') String? dateTime,
             String? title,
             String? type,
-            String? date,
             String? language,
             String? role,
-            @JsonKey(name: 'map_longitude') String? mapLongitude,
-            @JsonKey(name: 'map_latitude') String? mapLatitude,
+            @JsonKey(name: 'longitude') String? mapLongitude,
+            @JsonKey(name: 'latitude') String? mapLatitude,
             @JsonKey(name: 'map_link') String? mapLink,
             @JsonKey(name: 'location_name') String? locationName,
             @JsonKey(name: 'show_qr') int? showQr,
@@ -377,8 +416,10 @@ extension EventModelPatterns on EventModel {
             @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
             @JsonKey(name: 'declined_template') String? declinedTemplate,
             @JsonKey(name: 'workflow_state') String? workflowState,
+            @JsonKey(name: 'is_featured') int? isFeatured,
             String? status,
-            @JsonKey(name: 'guest_list') List<GuestModel>? guestList)?
+            @JsonKey(name: 'guest_list') List<GuestModel>? guestList,
+            @JsonKey(name: 'guest_report') GuestReportModel? guestReport)?
         $default, {
     required TResult orElse(),
   }) {
@@ -386,10 +427,10 @@ extension EventModelPatterns on EventModel {
     switch (_that) {
       case _EventModel() when $default != null:
         return $default(
-            _that.occasionId,
+            _that.eventId,
+            _that.dateTime,
             _that.title,
             _that.type,
-            _that.date,
             _that.language,
             _that.role,
             _that.mapLongitude,
@@ -403,8 +444,10 @@ extension EventModelPatterns on EventModel {
             _that.confirmedTemplate,
             _that.declinedTemplate,
             _that.workflowState,
+            _that.isFeatured,
             _that.status,
-            _that.guestList);
+            _that.guestList,
+            _that.guestReport);
       case _:
         return orElse();
     }
@@ -426,14 +469,14 @@ extension EventModelPatterns on EventModel {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            @JsonKey(name: 'occasion_id') String? occasionId,
+            @JsonKey(name: 'event_id') String? eventId,
+            @JsonKey(name: 'date_time') String? dateTime,
             String? title,
             String? type,
-            String? date,
             String? language,
             String? role,
-            @JsonKey(name: 'map_longitude') String? mapLongitude,
-            @JsonKey(name: 'map_latitude') String? mapLatitude,
+            @JsonKey(name: 'longitude') String? mapLongitude,
+            @JsonKey(name: 'latitude') String? mapLatitude,
             @JsonKey(name: 'map_link') String? mapLink,
             @JsonKey(name: 'location_name') String? locationName,
             @JsonKey(name: 'show_qr') int? showQr,
@@ -443,18 +486,20 @@ extension EventModelPatterns on EventModel {
             @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
             @JsonKey(name: 'declined_template') String? declinedTemplate,
             @JsonKey(name: 'workflow_state') String? workflowState,
+            @JsonKey(name: 'is_featured') int? isFeatured,
             String? status,
-            @JsonKey(name: 'guest_list') List<GuestModel>? guestList)
+            @JsonKey(name: 'guest_list') List<GuestModel>? guestList,
+            @JsonKey(name: 'guest_report') GuestReportModel? guestReport)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _EventModel():
         return $default(
-            _that.occasionId,
+            _that.eventId,
+            _that.dateTime,
             _that.title,
             _that.type,
-            _that.date,
             _that.language,
             _that.role,
             _that.mapLongitude,
@@ -468,8 +513,10 @@ extension EventModelPatterns on EventModel {
             _that.confirmedTemplate,
             _that.declinedTemplate,
             _that.workflowState,
+            _that.isFeatured,
             _that.status,
-            _that.guestList);
+            _that.guestList,
+            _that.guestReport);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -490,14 +537,14 @@ extension EventModelPatterns on EventModel {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            @JsonKey(name: 'occasion_id') String? occasionId,
+            @JsonKey(name: 'event_id') String? eventId,
+            @JsonKey(name: 'date_time') String? dateTime,
             String? title,
             String? type,
-            String? date,
             String? language,
             String? role,
-            @JsonKey(name: 'map_longitude') String? mapLongitude,
-            @JsonKey(name: 'map_latitude') String? mapLatitude,
+            @JsonKey(name: 'longitude') String? mapLongitude,
+            @JsonKey(name: 'latitude') String? mapLatitude,
             @JsonKey(name: 'map_link') String? mapLink,
             @JsonKey(name: 'location_name') String? locationName,
             @JsonKey(name: 'show_qr') int? showQr,
@@ -507,18 +554,20 @@ extension EventModelPatterns on EventModel {
             @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
             @JsonKey(name: 'declined_template') String? declinedTemplate,
             @JsonKey(name: 'workflow_state') String? workflowState,
+            @JsonKey(name: 'is_featured') int? isFeatured,
             String? status,
-            @JsonKey(name: 'guest_list') List<GuestModel>? guestList)?
+            @JsonKey(name: 'guest_list') List<GuestModel>? guestList,
+            @JsonKey(name: 'guest_report') GuestReportModel? guestReport)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _EventModel() when $default != null:
         return $default(
-            _that.occasionId,
+            _that.eventId,
+            _that.dateTime,
             _that.title,
             _that.type,
-            _that.date,
             _that.language,
             _that.role,
             _that.mapLongitude,
@@ -532,8 +581,10 @@ extension EventModelPatterns on EventModel {
             _that.confirmedTemplate,
             _that.declinedTemplate,
             _that.workflowState,
+            _that.isFeatured,
             _that.status,
-            _that.guestList);
+            _that.guestList,
+            _that.guestReport);
       case _:
         return null;
     }
@@ -544,14 +595,14 @@ extension EventModelPatterns on EventModel {
 @JsonSerializable()
 class _EventModel implements EventModel {
   const _EventModel(
-      {@JsonKey(name: 'occasion_id') this.occasionId,
+      {@JsonKey(name: 'event_id') this.eventId,
+      @JsonKey(name: 'date_time') this.dateTime,
       this.title,
       this.type,
-      this.date,
       this.language,
       this.role,
-      @JsonKey(name: 'map_longitude') this.mapLongitude,
-      @JsonKey(name: 'map_latitude') this.mapLatitude,
+      @JsonKey(name: 'longitude') this.mapLongitude,
+      @JsonKey(name: 'latitude') this.mapLatitude,
       @JsonKey(name: 'map_link') this.mapLink,
       @JsonKey(name: 'location_name') this.locationName,
       @JsonKey(name: 'show_qr') this.showQr,
@@ -561,30 +612,33 @@ class _EventModel implements EventModel {
       @JsonKey(name: 'confirmed_template') this.confirmedTemplate,
       @JsonKey(name: 'declined_template') this.declinedTemplate,
       @JsonKey(name: 'workflow_state') this.workflowState,
+      @JsonKey(name: 'is_featured') this.isFeatured,
       this.status,
-      @JsonKey(name: 'guest_list') final List<GuestModel>? guestList})
+      @JsonKey(name: 'guest_list') final List<GuestModel>? guestList,
+      @JsonKey(name: 'guest_report') this.guestReport})
       : _guestList = guestList;
   factory _EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);
 
   @override
-  @JsonKey(name: 'occasion_id')
-  final String? occasionId;
+  @JsonKey(name: 'event_id')
+  final String? eventId;
+  @override
+  @JsonKey(name: 'date_time')
+  final String? dateTime;
   @override
   final String? title;
   @override
   final String? type;
   @override
-  final String? date;
-  @override
   final String? language;
   @override
   final String? role;
   @override
-  @JsonKey(name: 'map_longitude')
+  @JsonKey(name: 'longitude')
   final String? mapLongitude;
   @override
-  @JsonKey(name: 'map_latitude')
+  @JsonKey(name: 'latitude')
   final String? mapLatitude;
   @override
   @JsonKey(name: 'map_link')
@@ -614,6 +668,9 @@ class _EventModel implements EventModel {
   @JsonKey(name: 'workflow_state')
   final String? workflowState;
   @override
+  @JsonKey(name: 'is_featured')
+  final int? isFeatured;
+  @override
   final String? status;
 // @JsonKey(name: 'guest_report') GuestReportModel? guestReport,
   final List<GuestModel>? _guestList;
@@ -627,6 +684,10 @@ class _EventModel implements EventModel {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
+
+  @override
+  @JsonKey(name: 'guest_report')
+  final GuestReportModel? guestReport;
 
   /// Create a copy of EventModel
   /// with the given fields replaced by the non-null parameter values.
@@ -648,11 +709,11 @@ class _EventModel implements EventModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _EventModel &&
-            (identical(other.occasionId, occasionId) ||
-                other.occasionId == occasionId) &&
+            (identical(other.eventId, eventId) || other.eventId == eventId) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.date, date) || other.date == date) &&
             (identical(other.language, language) ||
                 other.language == language) &&
             (identical(other.role, role) || other.role == role) &&
@@ -675,19 +736,23 @@ class _EventModel implements EventModel {
                 other.declinedTemplate == declinedTemplate) &&
             (identical(other.workflowState, workflowState) ||
                 other.workflowState == workflowState) &&
+            (identical(other.isFeatured, isFeatured) ||
+                other.isFeatured == isFeatured) &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
-                .equals(other._guestList, _guestList));
+                .equals(other._guestList, _guestList) &&
+            (identical(other.guestReport, guestReport) ||
+                other.guestReport == guestReport));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        occasionId,
+        eventId,
+        dateTime,
         title,
         type,
-        date,
         language,
         role,
         mapLongitude,
@@ -701,13 +766,15 @@ class _EventModel implements EventModel {
         confirmedTemplate,
         declinedTemplate,
         workflowState,
+        isFeatured,
         status,
-        const DeepCollectionEquality().hash(_guestList)
+        const DeepCollectionEquality().hash(_guestList),
+        guestReport
       ]);
 
   @override
   String toString() {
-    return 'EventModel(occasionId: $occasionId, title: $title, type: $type, date: $date, language: $language, role: $role, mapLongitude: $mapLongitude, mapLatitude: $mapLatitude, mapLink: $mapLink, locationName: $locationName, showQr: $showQr, imageUrl: $imageUrl, image: $image, inviteTemplate: $inviteTemplate, confirmedTemplate: $confirmedTemplate, declinedTemplate: $declinedTemplate, workflowState: $workflowState, status: $status, guestList: $guestList)';
+    return 'EventModel(eventId: $eventId, dateTime: $dateTime, title: $title, type: $type, language: $language, role: $role, mapLongitude: $mapLongitude, mapLatitude: $mapLatitude, mapLink: $mapLink, locationName: $locationName, showQr: $showQr, imageUrl: $imageUrl, image: $image, inviteTemplate: $inviteTemplate, confirmedTemplate: $confirmedTemplate, declinedTemplate: $declinedTemplate, workflowState: $workflowState, isFeatured: $isFeatured, status: $status, guestList: $guestList, guestReport: $guestReport)';
   }
 }
 
@@ -720,14 +787,14 @@ abstract mixin class _$EventModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'occasion_id') String? occasionId,
+      {@JsonKey(name: 'event_id') String? eventId,
+      @JsonKey(name: 'date_time') String? dateTime,
       String? title,
       String? type,
-      String? date,
       String? language,
       String? role,
-      @JsonKey(name: 'map_longitude') String? mapLongitude,
-      @JsonKey(name: 'map_latitude') String? mapLatitude,
+      @JsonKey(name: 'longitude') String? mapLongitude,
+      @JsonKey(name: 'latitude') String? mapLatitude,
       @JsonKey(name: 'map_link') String? mapLink,
       @JsonKey(name: 'location_name') String? locationName,
       @JsonKey(name: 'show_qr') int? showQr,
@@ -737,8 +804,13 @@ abstract mixin class _$EventModelCopyWith<$Res>
       @JsonKey(name: 'confirmed_template') String? confirmedTemplate,
       @JsonKey(name: 'declined_template') String? declinedTemplate,
       @JsonKey(name: 'workflow_state') String? workflowState,
+      @JsonKey(name: 'is_featured') int? isFeatured,
       String? status,
-      @JsonKey(name: 'guest_list') List<GuestModel>? guestList});
+      @JsonKey(name: 'guest_list') List<GuestModel>? guestList,
+      @JsonKey(name: 'guest_report') GuestReportModel? guestReport});
+
+  @override
+  $GuestReportModelCopyWith<$Res>? get guestReport;
 }
 
 /// @nodoc
@@ -753,10 +825,10 @@ class __$EventModelCopyWithImpl<$Res> implements _$EventModelCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? occasionId = freezed,
+    Object? eventId = freezed,
+    Object? dateTime = freezed,
     Object? title = freezed,
     Object? type = freezed,
-    Object? date = freezed,
     Object? language = freezed,
     Object? role = freezed,
     Object? mapLongitude = freezed,
@@ -770,13 +842,19 @@ class __$EventModelCopyWithImpl<$Res> implements _$EventModelCopyWith<$Res> {
     Object? confirmedTemplate = freezed,
     Object? declinedTemplate = freezed,
     Object? workflowState = freezed,
+    Object? isFeatured = freezed,
     Object? status = freezed,
     Object? guestList = freezed,
+    Object? guestReport = freezed,
   }) {
     return _then(_EventModel(
-      occasionId: freezed == occasionId
-          ? _self.occasionId
-          : occasionId // ignore: cast_nullable_to_non_nullable
+      eventId: freezed == eventId
+          ? _self.eventId
+          : eventId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      dateTime: freezed == dateTime
+          ? _self.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
               as String?,
       title: freezed == title
           ? _self.title
@@ -785,10 +863,6 @@ class __$EventModelCopyWithImpl<$Res> implements _$EventModelCopyWith<$Res> {
       type: freezed == type
           ? _self.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      date: freezed == date
-          ? _self.date
-          : date // ignore: cast_nullable_to_non_nullable
               as String?,
       language: freezed == language
           ? _self.language
@@ -842,6 +916,10 @@ class __$EventModelCopyWithImpl<$Res> implements _$EventModelCopyWith<$Res> {
           ? _self.workflowState
           : workflowState // ignore: cast_nullable_to_non_nullable
               as String?,
+      isFeatured: freezed == isFeatured
+          ? _self.isFeatured
+          : isFeatured // ignore: cast_nullable_to_non_nullable
+              as int?,
       status: freezed == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -850,7 +928,25 @@ class __$EventModelCopyWithImpl<$Res> implements _$EventModelCopyWith<$Res> {
           ? _self._guestList
           : guestList // ignore: cast_nullable_to_non_nullable
               as List<GuestModel>?,
+      guestReport: freezed == guestReport
+          ? _self.guestReport
+          : guestReport // ignore: cast_nullable_to_non_nullable
+              as GuestReportModel?,
     ));
+  }
+
+  /// Create a copy of EventModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GuestReportModelCopyWith<$Res>? get guestReport {
+    if (_self.guestReport == null) {
+      return null;
+    }
+
+    return $GuestReportModelCopyWith<$Res>(_self.guestReport!, (value) {
+      return _then(_self.copyWith(guestReport: value));
+    });
   }
 }
 

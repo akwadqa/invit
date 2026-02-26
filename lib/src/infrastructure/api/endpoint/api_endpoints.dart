@@ -1,5 +1,5 @@
 class ApiEndPoints {
-  final domain="invite.api.";
+  final domain = "invite.api.";
 
   //? --- Home ---
   static const String homeServices = 'invite.api.api.get_home_page_data';
@@ -13,8 +13,6 @@ class ApiEndPoints {
   static const String addGuest = 'invite.api.api.add_guest';
   static const String deleteGuest = 'invite.api.api.delete_guest';
   static const String updateGuestList = 'invite.api.api.update_guest_list';
-
-
 
   //? --- AUTH ---
   static const String signIn = 'invite.api.auth.send_otp';
@@ -30,7 +28,7 @@ class ApiEndPoints {
 
   //? --- EventsCollection ---
   static const String getUserEvents = 'invite.api.api.get_user_events';
-  static const String getEventDetails = 'invite.api.api.get_event';
+  static const String getEventDetails = 'invite.api.api.event_details';
 
   //? --- QR SCAN ---
   static String scanQr = 'invite.api.api.check_in';
@@ -38,6 +36,4 @@ class ApiEndPoints {
   static const String getActiveGates = 'invite.api.api.get_active_gates';
 
   static const String sendFcmToken = 'fcm_frappe.api.device_token';
-
-
 }

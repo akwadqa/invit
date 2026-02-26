@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/home/domain/model/banners/banner_model.dart';
-import 'package:invit/features/home/domain/model/events/event_model.dart';
-import 'package:invit/features/home/domain/model/events/featured_event_model.dart';
 
 import '../ocation type/ocation_type_model.dart';
 

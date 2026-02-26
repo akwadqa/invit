@@ -13,7 +13,7 @@ part of 'event_details_controller.dart';
 const eventDetailsControllerProvider = EventDetailsControllerFamily._();
 
 final class EventDetailsControllerProvider
-    extends $AsyncNotifierProvider<EventDetailsController, EventDetailsModel> {
+    extends $AsyncNotifierProvider<EventDetailsController, EventModel> {
   const EventDetailsControllerProvider._(
       {required EventDetailsControllerFamily super.from,
       required String super.argument})
@@ -52,16 +52,12 @@ final class EventDetailsControllerProvider
 }
 
 String _$eventDetailsControllerHash() =>
-    r'0800d9537fdc9a854b491830941f905b9ec77f12';
+    r'7c59bc043f441fca69d1583dd107a579f446b7c0';
 
 final class EventDetailsControllerFamily extends $Family
     with
-        $ClassFamilyOverride<
-            EventDetailsController,
-            AsyncValue<EventDetailsModel>,
-            EventDetailsModel,
-            FutureOr<EventDetailsModel>,
-            String> {
+        $ClassFamilyOverride<EventDetailsController, AsyncValue<EventModel>,
+            EventModel, FutureOr<EventModel>, String> {
   const EventDetailsControllerFamily._()
       : super(
           retry: null,
@@ -80,12 +76,11 @@ final class EventDetailsControllerFamily extends $Family
   String toString() => r'eventDetailsControllerProvider';
 }
 
-abstract class _$EventDetailsController
-    extends $AsyncNotifier<EventDetailsModel> {
+abstract class _$EventDetailsController extends $AsyncNotifier<EventModel> {
   late final _$args = ref.$arg as String;
   String get ocassionId => _$args;
 
-  FutureOr<EventDetailsModel> build({
+  FutureOr<EventModel> build({
     required String ocassionId,
   });
   @$mustCallSuper
@@ -94,11 +89,10 @@ abstract class _$EventDetailsController
     final created = build(
       ocassionId: _$args,
     );
-    final ref =
-        this.ref as $Ref<AsyncValue<EventDetailsModel>, EventDetailsModel>;
+    final ref = this.ref as $Ref<AsyncValue<EventModel>, EventModel>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<EventDetailsModel>, EventDetailsModel>,
-        AsyncValue<EventDetailsModel>,
+        AnyNotifier<AsyncValue<EventModel>, EventModel>,
+        AsyncValue<EventModel>,
         Object?,
         Object?>;
     element.handleValue(ref, created);

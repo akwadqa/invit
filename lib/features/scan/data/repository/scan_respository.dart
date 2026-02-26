@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/scan/data/data_source/scan_remote_date_source.dart';
 import 'package:invit/features/scan/data/model/user_scan_event_response/user_scan_event_response.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
@@ -40,7 +41,7 @@ class ScanRespository {
     }
   }
 
-  Future<ApiResponse<List<UserScanEventResponse>>> getUserScanEvent({
+  Future<ApiResponse<List<EventModel>>> getUserScanEvent({
     required int page,
   }) async {
     try {

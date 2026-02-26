@@ -1,5 +1,4 @@
 import 'package:flutter_google_places_hoc081098/google_maps_webservice_places.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/event/data/repository/event_repository.dart';
@@ -7,6 +6,7 @@ import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/features/event/presentation/controller/map_controller/map_state.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
+import 'package:invit/features/event_details/presentation/controller/event_details_controller.dart';
 import 'package:invit/src/infrastructure/api/endpoint/services_urls.dart';
 import 'package:invit/src/logger/log_services/dev_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -19,7 +19,7 @@ class MapController extends _$MapController {
   late final Future<GoogleMapsPlaces> _placesFuture;
 
   @override
-  FutureOr<MapState> build() async {
+  FutureOr<MapState> build(String? occasionId) async {
     state = AsyncData(MapState.init());
     _placesFuture = GoogleApiHeaders().getHeaders().then(
           (headers) => GoogleMapsPlaces(
@@ -27,12 +27,43 @@ class MapController extends _$MapController {
             apiHeaders: headers,
           ),
         );
+    if (occasionId != null) {
+      final lat = ref
+          .read(eventDetailsControllerProvider(ocassionId: occasionId!))
+          .value!
+          .mapLatitude;
+      final lng = ref
+          .read(eventDetailsControllerProvider(ocassionId: occasionId!))
+          .value!
+          .mapLongitude;
+
+      final locationName = ref
+          .read(eventDetailsControllerProvider(ocassionId: occasionId!))
+          .value!
+          .locationName;
+      final mapLink = ref
+          .read(eventDetailsControllerProvider(ocassionId: occasionId!))
+          .value!
+          .mapLink;
+
+      return MapState.init().copyWith(
+          latLng:
+              LatLng(double.parse(lat ?? '0.0'), double.parse(lng ?? '0.0')),
+          selectedPlace: AsyncData(SelectedPlace(
+              placeId: '',
+              mapLink: mapLink ?? '',
+              locationName: locationName ?? '')));
+    }
 
     return MapState.init();
   }
 
   Future<void> initLocation(String? occasionId) async {
-    state = AsyncData(state.value!.copyWith(selectedPlace: AsyncLoading()));
+    if (occasionId == null) {
+      state = AsyncData(state.value!.copyWith(selectedPlace: AsyncLoading()));
+    } else {
+      state = AsyncData(state.value!.copyWith(initialLatLng: AsyncLoading()));
+    }
 
     try {
       final permission = await Geolocator.requestPermission();
@@ -42,7 +73,7 @@ class MapController extends _$MapController {
         return;
       }
 
-    final pos = await Geolocator.getCurrentPosition(
+      final pos = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
 
@@ -82,17 +113,21 @@ class MapController extends _$MapController {
 
       state = AsyncData(
         state.value!.copyWith(
-          latLng: LatLng(double.parse(lat), double.parse(lng)),
-          initialLatLng: state.value!.initialLatLng ??
-              LatLng(double.parse(lat), double.parse(lng)),
-          selectedPlace: AsyncData(
-            SelectedPlace(
-              placeId: placeId,
-              mapLink:
-                  "https://www.google.com/maps/search/?api=1&query=$lat,$lng",
-              locationName: locationName,
-            ),
-          ),
+          latLng: occasionId == null
+              ? LatLng(double.parse(lat), double.parse(lng))
+              : state.value!.latLng,
+          initialLatLng:
+              AsyncData(LatLng(double.parse(lat), double.parse(lng))),
+          selectedPlace: occasionId == null
+              ? AsyncData(
+                  SelectedPlace(
+                    placeId: placeId,
+                    mapLink:
+                        "https://www.google.com/maps/search/?api=1&query=$lat,$lng",
+                    locationName: locationName,
+                  ),
+                )
+              : null,
         ),
       );
     } catch (e, st) {

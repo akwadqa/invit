@@ -1,6 +1,6 @@
 
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event_details/data/datasources/event_details_datasource.dart';
-import 'package:invit/features/event_details/domain/model/event_details_model.dart';
 import 'package:invit/features/featured_events/data/datasources/featured_events_datasource.dart';
 import 'package:invit/features/featured_events/domain/model/all_events_model.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
@@ -21,7 +21,7 @@ class EventDetailsRepository {
 
   EventDetailsRepository(this._remoteDataSource);
 
-  Future<ApiResponse<EventDetailsModel>> getEventDetails(
+  Future<ApiResponse<EventModel>> getEventDetails(
        String occasionId) async {
     try {
       final result = await _remoteDataSource.getEventDetails(occasionId:occasionId);

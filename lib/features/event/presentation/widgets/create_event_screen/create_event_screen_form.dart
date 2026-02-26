@@ -28,9 +28,9 @@ class CreateEventScreenForm extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final date = occasionId == null
         ? ref.watch(createEventControllerProvider
-            .select((val) => val.value!.eventModel.date))
+            .select((val) => val.value!.eventModel.dateTime))
         : ref.watch(updateEventControllerProvider(ocassionId: occasionId!)
-            .select((val) => val.value!.updatedEvent!.date));
+            .select((val) => val.value!.updatedEvent!.dateTime));
 
     final deviceLocale = Localizations.localeOf(context).toString();
 
@@ -44,7 +44,7 @@ class CreateEventScreenForm extends ConsumerWidget {
         ? DateFormat.jm(deviceLocale).format(DateTime.parse(date))
         : '';
 
-    final locationName = ref.watch(mapControllerProvider
+    final locationName = ref.watch(mapControllerProvider(occasionId)
         .select((val) => val.value?.selectedPlace?.value?.locationName));
 
         //TODO : Delete this:

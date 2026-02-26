@@ -1,6 +1,6 @@
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/featured_events/data/repositories/featured_events_repository.dart';
 import 'package:invit/features/featured_events/domain/model/all_events_model.dart';
-import 'package:invit/features/home/domain/model/events/event_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'featured_event_controller.g.dart';

@@ -13,7 +13,6 @@ import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import '../../../../src/core/shared_widgets/custom_appbar.dart';
-import '../../domain/model/event_details_model.dart';
 import '../widgets/event_details_header_card.dart';
 import '../widgets/event_details_report_card.dart';
 import '../widgets/guest_list_section.dart';
@@ -66,18 +65,9 @@ class _EventDetailsScreenState extends ConsumerState<EventDetailsScreen> {
                 actionButton: eventDetailsAsync.whenOrNull(
                   data: (data) {
                     if (data.status == 'Draft') {
-                      final event = EventModel(
-                        occasionId: data.occasionId,
-                        title: data.title,
-                        date: data.date,
-                        type: 'Birthday',
-                        imageUrl: data.imageUrl,
-                        mapLink: data.mapLink,
-                        guestList: data.guests,
-                      );
                       return GestureDetector(
                         onTap: () => context.push(AppRoutes.updateEventScreen,
-                            extra: event),
+                            extra: data),
                         child: Container(
                           width: 30,
                           height: 30,
@@ -99,7 +89,7 @@ class _EventDetailsScreenState extends ConsumerState<EventDetailsScreen> {
                 ),
           ),
           body: eventDetailsAsync.when(
-            data: (EventDetailsModel data) {
+            data: (EventModel data) {
               return ListView(
                 padding: const EdgeInsets.all(16),
                 children: [
@@ -109,7 +99,7 @@ class _EventDetailsScreenState extends ConsumerState<EventDetailsScreen> {
                   16.verticalSpace,
                   EventDetailsHeaderCard(event: data),
                   20.verticalSpace,
-                  GuestListSection(guests: data.guests),
+                  GuestListSection(guests: data.guestList ?? []),
                   20.verticalSpace,
                   EventDetailsFooter(
                     id: widget.ocassionId,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invit/features/home/domain/model/events/event_model.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/scan/presentation/controller/scan_controller.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
@@ -76,7 +76,7 @@ class _ScanPageState extends ConsumerState<ScanPage> {
     );
   }
 
-  Widget _buildBody(List<UserScanEventResponse> events) {
+  Widget _buildBody(List<EventModel> events) {
     debugPrint(events.length.toString());
     return AppPaginationWidget(
       enablePullDown: true,
@@ -92,6 +92,7 @@ class _ScanPageState extends ConsumerState<ScanPage> {
           ),
           Expanded(
             child: ListView.separated(
+              shrinkWrap: true,
               separatorBuilder: (context, index) => 20.verticalSpace,
               padding: EdgeInsets.fromLTRB(22, 25, 22, 130),
               itemBuilder: (context, index) =>
@@ -107,7 +108,7 @@ class _ScanPageState extends ConsumerState<ScanPage> {
 
 class ScanScreenItem extends StatelessWidget {
   const ScanScreenItem({super.key, required this.event});
-  final UserScanEventResponse event;
+  final EventModel event;
 
   String? resolveImageUrl() {
     final imagePath = event.imageUrl;
@@ -142,7 +143,9 @@ class ScanScreenItem extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                    child: (event.imageUrl != null && resolveImageUrl() != null)
+                    child: (event.imageUrl != null &&
+                            event.imageUrl!.isNotEmpty &&
+                            resolveImageUrl() != null)
                         ? CachedNetworkImage(
                             fadeInCurve: Curves.linear,
                             placeholder: (context, url) => AppLoader(),
@@ -169,7 +172,7 @@ class ScanScreenItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Text(
-                      formatDate(event.date),
+                      formatDate(event.dateTime),
                       textAlign: TextAlign.center,
                       style: AppTextStyle.rubikMedium10,
                     ),
@@ -184,7 +187,7 @@ class ScanScreenItem extends StatelessWidget {
                 color: AppColors.primary,
               ),
             ).centered(),
-            Spacer(),
+            // Spacer(),
             15.verticalSpace,
             Row(
               children: [
@@ -232,7 +235,7 @@ class ScanScreenItem extends StatelessWidget {
             CustomButtonWidget(
               text: 'scan',
               onTap: () {
-                context.push(AppRoutes.scanQr, extra: event.occasionId);
+                context.push(AppRoutes.scanQr, extra: event.eventId);
               },
               // content: Text(
               //   context.tr('scan'),

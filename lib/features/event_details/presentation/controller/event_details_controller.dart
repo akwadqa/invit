@@ -1,5 +1,5 @@
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event_details/data/repositories/event_details_repository.dart';
-import 'package:invit/features/event_details/domain/model/event_details_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'event_details_controller.g.dart';
@@ -9,11 +9,11 @@ class EventDetailsController extends _$EventDetailsController {
 
 
   @override
-  FutureOr<EventDetailsModel> build({required String ocassionId}) async {
+  FutureOr<EventModel> build({required String ocassionId}) async {
     return await getEventDetails( ocassionId: ocassionId);
   }
 
-Future<EventDetailsModel> getEventDetails({required String ocassionId}) async {
+Future<EventModel> getEventDetails({required String ocassionId}) async {
   state = const AsyncLoading();
   try {
     final repo = ref.read(eventDetailsRepositoryProvider);

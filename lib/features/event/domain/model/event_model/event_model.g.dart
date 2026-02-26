@@ -7,14 +7,14 @@ part of 'event_model.dart';
 // **************************************************************************
 
 _EventModel _$EventModelFromJson(Map<String, dynamic> json) => _EventModel(
-      occasionId: json['occasion_id'] as String?,
+      eventId: json['event_id'] as String?,
+      dateTime: json['date_time'] as String?,
       title: json['title'] as String?,
       type: json['type'] as String?,
-      date: json['date'] as String?,
       language: json['language'] as String?,
       role: json['role'] as String?,
-      mapLongitude: json['map_longitude'] as String?,
-      mapLatitude: json['map_latitude'] as String?,
+      mapLongitude: json['longitude'] as String?,
+      mapLatitude: json['latitude'] as String?,
       mapLink: json['map_link'] as String?,
       locationName: json['location_name'] as String?,
       showQr: (json['show_qr'] as num?)?.toInt(),
@@ -23,22 +23,27 @@ _EventModel _$EventModelFromJson(Map<String, dynamic> json) => _EventModel(
       confirmedTemplate: json['confirmed_template'] as String?,
       declinedTemplate: json['declined_template'] as String?,
       workflowState: json['workflow_state'] as String?,
+      isFeatured: (json['is_featured'] as num?)?.toInt(),
       status: json['status'] as String?,
       guestList: (json['guest_list'] as List<dynamic>?)
           ?.map((e) => GuestModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      guestReport: json['guest_report'] == null
+          ? null
+          : GuestReportModel.fromJson(
+              json['guest_report'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$EventModelToJson(_EventModel instance) =>
     <String, dynamic>{
-      'occasion_id': instance.occasionId,
+      'event_id': instance.eventId,
+      'date_time': instance.dateTime,
       'title': instance.title,
       'type': instance.type,
-      'date': instance.date,
       'language': instance.language,
       'role': instance.role,
-      'map_longitude': instance.mapLongitude,
-      'map_latitude': instance.mapLatitude,
+      'longitude': instance.mapLongitude,
+      'latitude': instance.mapLatitude,
       'map_link': instance.mapLink,
       'location_name': instance.locationName,
       'show_qr': instance.showQr,
@@ -47,8 +52,10 @@ Map<String, dynamic> _$EventModelToJson(_EventModel instance) =>
       'confirmed_template': instance.confirmedTemplate,
       'declined_template': instance.declinedTemplate,
       'workflow_state': instance.workflowState,
+      'is_featured': instance.isFeatured,
       'status': instance.status,
       'guest_list': instance.guestList,
+      'guest_report': instance.guestReport,
     };
 
 _GuestModel _$GuestModelFromJson(Map<String, dynamic> json) => _GuestModel(

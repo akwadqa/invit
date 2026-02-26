@@ -15,7 +15,7 @@ class SelectLocationGoogleMap extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(mapControllerProvider, (previous, next) async {
+    ref.listen( mapControllerProvider(id), (previous, next) async {
       if (next.value == null) return;
 
       final latLng = next.value!.latLng;
@@ -50,8 +50,8 @@ class SelectLocationGoogleMap extends ConsumerWidget {
     //             .updatedEvent!
     //             .mapLatitude ??
     //         '25.2854473';
-    final lng = ref.watch(mapControllerProvider).value?.latLng.longitude??0;
-    final lat = ref.watch(mapControllerProvider).value?.latLng.latitude??0;
+    final lng = ref.watch( mapControllerProvider(id)).value?.latLng.longitude??0;
+    final lat = ref.watch( mapControllerProvider(id)).value?.latLng.latitude??0;
     // final lng = id == null
     //     ? ref.watch(mapControllerProvider).value!.latLng.longitude
     //     : ref
@@ -84,7 +84,7 @@ class SelectLocationGoogleMap extends ConsumerWidget {
       myLocationButtonEnabled: false,
       onTap: (position) {
         ref
-            .read(mapControllerProvider.notifier)
+            .read( mapControllerProvider(id).notifier)
             .changeLatlng(position.latitude, position.longitude);
         // id == null
         //     ? ref
