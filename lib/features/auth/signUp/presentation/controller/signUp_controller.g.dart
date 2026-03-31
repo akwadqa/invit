@@ -10,11 +10,11 @@ part of 'signUp_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(SignUpController)
-const signUpControllerProvider = SignUpControllerProvider._();
+final signUpControllerProvider = SignUpControllerProvider._();
 
 final class SignUpControllerProvider
     extends $AsyncNotifierProvider<SignUpController, SignupResponseModel?> {
-  const SignUpControllerProvider._()
+  SignUpControllerProvider._()
       : super(
           from: null,
           argument: null,
@@ -40,7 +40,6 @@ abstract class _$SignUpController extends $AsyncNotifier<SignupResponseModel?> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref
         as $Ref<AsyncValue<SignupResponseModel?>, SignupResponseModel?>;
     final element = ref.element as $ClassProviderElement<
@@ -48,6 +47,6 @@ abstract class _$SignUpController extends $AsyncNotifier<SignupResponseModel?> {
         AsyncValue<SignupResponseModel?>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

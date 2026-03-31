@@ -10,11 +10,11 @@ part of 'app_messages_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(AppMessagesController)
-const appMessagesControllerProvider = AppMessagesControllerProvider._();
+final appMessagesControllerProvider = AppMessagesControllerProvider._();
 
 final class AppMessagesControllerProvider extends $AsyncNotifierProvider<
     AppMessagesController, List<AppMessagesModel>> {
-  const AppMessagesControllerProvider._()
+  AppMessagesControllerProvider._()
       : super(
           from: null,
           argument: null,
@@ -42,7 +42,6 @@ abstract class _$AppMessagesController
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref
         as $Ref<AsyncValue<List<AppMessagesModel>>, List<AppMessagesModel>>;
     final element = ref.element as $ClassProviderElement<
@@ -50,6 +49,6 @@ abstract class _$AppMessagesController
         AsyncValue<List<AppMessagesModel>>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

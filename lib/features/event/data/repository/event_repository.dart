@@ -26,11 +26,11 @@ class EventRepository {
       EventModel params) async {
     final response = await _remoteDataSource.createEvent(params);
 
-    if (response.status == 200) {
-      return response;
-    }
+    // if (response.status! <= 201) {
+    return response;
+    // }
 
-    throw AppException(message: response.error);
+    // throw AppException(message: response.message);
   }
 
   Future<ApiResponse<List<InviteTemplateModel>>> getTemplate() async {
@@ -66,7 +66,7 @@ class EventRepository {
   }
 
   Future<dynamic> getLocationData(Ref ref, LatLng latlng) async {
-    final response = await _remoteDataSource.getLocationData(ref,latlng);
+    final response = await _remoteDataSource.getLocationData(ref, latlng);
 
     return response;
   }

@@ -10,11 +10,11 @@ part of 'update_event_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(UpdateEventController)
-const updateEventControllerProvider = UpdateEventControllerFamily._();
+final updateEventControllerProvider = UpdateEventControllerFamily._();
 
 final class UpdateEventControllerProvider
     extends $AsyncNotifierProvider<UpdateEventController, UpdateEventState> {
-  const UpdateEventControllerProvider._(
+  UpdateEventControllerProvider._(
       {required UpdateEventControllerFamily super.from,
       required String super.argument})
       : super(
@@ -61,7 +61,7 @@ final class UpdateEventControllerFamily extends $Family
             UpdateEventState,
             FutureOr<UpdateEventState>,
             String> {
-  const UpdateEventControllerFamily._()
+  UpdateEventControllerFamily._()
       : super(
           retry: null,
           name: r'updateEventControllerProvider',
@@ -90,9 +90,6 @@ abstract class _$UpdateEventController
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(
-      ocassionId: _$args,
-    );
     final ref =
         this.ref as $Ref<AsyncValue<UpdateEventState>, UpdateEventState>;
     final element = ref.element as $ClassProviderElement<
@@ -100,6 +97,10 @@ abstract class _$UpdateEventController
         AsyncValue<UpdateEventState>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(
+        ref,
+        () => build(
+              ocassionId: _$args,
+            ));
   }
 }

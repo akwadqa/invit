@@ -10,14 +10,14 @@ part of 'app_notifications_repository.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(appNotificationsRepository)
-const appNotificationsRepositoryProvider =
+final appNotificationsRepositoryProvider =
     AppNotificationsRepositoryProvider._();
 
 final class AppNotificationsRepositoryProvider extends $FunctionalProvider<
     AppNotificationsRepository,
     AppNotificationsRepository,
     AppNotificationsRepository> with $Provider<AppNotificationsRepository> {
-  const AppNotificationsRepositoryProvider._()
+  AppNotificationsRepositoryProvider._()
       : super(
           from: null,
           argument: null,

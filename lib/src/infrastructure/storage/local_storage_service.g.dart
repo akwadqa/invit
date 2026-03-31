@@ -10,13 +10,13 @@ part of 'local_storage_service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(localStorageService)
-const localStorageServiceProvider = LocalStorageServiceProvider._();
+final localStorageServiceProvider = LocalStorageServiceProvider._();
 
 final class LocalStorageServiceProvider extends $FunctionalProvider<
     LocalStorageService,
     LocalStorageService,
     LocalStorageService> with $Provider<LocalStorageService> {
-  const LocalStorageServiceProvider._()
+  LocalStorageServiceProvider._()
       : super(
           from: null,
           argument: null,
@@ -54,12 +54,12 @@ String _$localStorageServiceHash() =>
     r'ccd71570b02b4823494f98f0b361d3589c7cb1f7';
 
 @ProviderFor(isAuthenticated)
-const isAuthenticatedProvider = IsAuthenticatedProvider._();
+final isAuthenticatedProvider = IsAuthenticatedProvider._();
 
 final class IsAuthenticatedProvider
     extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
     with $FutureModifier<bool>, $FutureProvider<bool> {
-  const IsAuthenticatedProvider._()
+  IsAuthenticatedProvider._()
       : super(
           from: null,
           argument: null,

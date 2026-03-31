@@ -10,11 +10,11 @@ part of 'notification_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(NotificationController)
-const notificationControllerProvider = NotificationControllerFamily._();
+final notificationControllerProvider = NotificationControllerFamily._();
 
 final class NotificationControllerProvider extends $StreamNotifierProvider<
     NotificationController, List<NotificationModel>> {
-  const NotificationControllerProvider._(
+  NotificationControllerProvider._(
       {required NotificationControllerFamily super.from,
       required String super.argument})
       : super(
@@ -62,7 +62,7 @@ final class NotificationControllerFamily extends $Family
             List<NotificationModel>,
             Stream<List<NotificationModel>>?,
             String> {
-  const NotificationControllerFamily._()
+  NotificationControllerFamily._()
       : super(
           retry: null,
           name: r'notificationControllerProvider',
@@ -91,9 +91,6 @@ abstract class _$NotificationController
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(
-      _$args,
-    );
     final ref = this.ref
         as $Ref<AsyncValue<List<NotificationModel>>, List<NotificationModel>>;
     final element = ref.element as $ClassProviderElement<
@@ -102,6 +99,10 @@ abstract class _$NotificationController
         AsyncValue<List<NotificationModel>>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(
+        ref,
+        () => build(
+              _$args,
+            ));
   }
 }

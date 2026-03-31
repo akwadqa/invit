@@ -10,12 +10,12 @@ part of 'app_notifications_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(AppNotificationsController)
-const appNotificationsControllerProvider =
+final appNotificationsControllerProvider =
     AppNotificationsControllerProvider._();
 
 final class AppNotificationsControllerProvider extends $AsyncNotifierProvider<
     AppNotificationsController, List<AppNotificationsModel>> {
-  const AppNotificationsControllerProvider._()
+  AppNotificationsControllerProvider._()
       : super(
           from: null,
           argument: null,
@@ -43,7 +43,6 @@ abstract class _$AppNotificationsController
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<List<AppNotificationsModel>>,
         List<AppNotificationsModel>>;
     final element = ref.element as $ClassProviderElement<
@@ -52,6 +51,6 @@ abstract class _$AppNotificationsController
         AsyncValue<List<AppNotificationsModel>>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

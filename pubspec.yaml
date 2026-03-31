@@ -14,7 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_riverpod: ^3.0.3
-  riverpod_annotation: ^3.0.3
+  riverpod_annotation: ^4.0.0
   intl: ^0.20.2
   flutter_svg: ^2.0.10+1
   freezed_annotation: ^3.1.0
@@ -42,7 +42,7 @@ dependencies:
   hive_flutter: ^1.1.0
   path_provider: ^2.1.5
   intl_phone_field: ^3.2.0
-  google_fonts: ^6.3.3
+  google_fonts: ^8.0.2
   quickalert: ^1.1.0
   sizer: ^3.1.3
   device_preview: ^1.3.1
@@ -50,14 +50,14 @@ dependencies:
   animated_bottom_navigation_bar: ^1.4.0
   skeletonizer: ^2.1.2
   custom_clippers: ^2.0.4
-  firebase_core: ^3.13.0
-  firebase_messaging: ^15.2.10
+  firebase_core: ^4.6.0
+  firebase_messaging: ^16.1.3
   flutter_local_notifications: ^19.5.0
   fcm_config: ^3.6.5
   # firebase_analytics: ^12.1.1
   fl_chart: ^1.1.1
   mobile_scanner: ^7.1.4
-  image_picker: 1.2.0
+  image_picker: ^1.2.1
   flutter_contacts: ^1.1.9+2
   equatable: ^2.0.8
   uuid: ^4.5.2
@@ -78,9 +78,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  analyzer: ^7.0.0
+  analyzer: ^8.4.0
   flutter_lints: ^6.0.0
-  riverpod_generator: ^3.0.0-dev.17
+  riverpod_generator: ^4.0.0+1
   build_runner: ^2.4.13
   custom_lint: ^0.8.0
   riverpod_lint: ^3.0.0-dev.17

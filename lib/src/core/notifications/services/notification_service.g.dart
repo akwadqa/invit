@@ -10,13 +10,13 @@ part of 'notification_service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(notificationsService)
-const notificationsServiceProvider = NotificationsServiceProvider._();
+final notificationsServiceProvider = NotificationsServiceProvider._();
 
 final class NotificationsServiceProvider extends $FunctionalProvider<
     NotificationsService,
     NotificationsService,
     NotificationsService> with $Provider<NotificationsService> {
-  const NotificationsServiceProvider._()
+  NotificationsServiceProvider._()
       : super(
           from: null,
           argument: null,
@@ -54,11 +54,11 @@ String _$notificationsServiceHash() =>
     r'1210ccb08dd4d5c8d2554af87f4ed41ee14ed8e5';
 
 @ProviderFor(DeviceTokenController)
-const deviceTokenControllerProvider = DeviceTokenControllerProvider._();
+final deviceTokenControllerProvider = DeviceTokenControllerProvider._();
 
 final class DeviceTokenControllerProvider
     extends $AsyncNotifierProvider<DeviceTokenController, void> {
-  const DeviceTokenControllerProvider._()
+  DeviceTokenControllerProvider._()
       : super(
           from: null,
           argument: null,
@@ -85,13 +85,12 @@ abstract class _$DeviceTokenController extends $AsyncNotifier<void> {
   @$mustCallSuper
   @override
   void runBuild() {
-    build();
     final ref = this.ref as $Ref<AsyncValue<void>, void>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<AsyncValue<void>, void>,
         AsyncValue<void>,
         Object?,
         Object?>;
-    element.handleValue(ref, null);
+    element.handleCreate(ref, build);
   }
 }
