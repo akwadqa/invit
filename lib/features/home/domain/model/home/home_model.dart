@@ -10,7 +10,7 @@ part 'home_model.g.dart';
 @freezed
 abstract class HomeModel with _$HomeModel {
   factory HomeModel({
-    required List<BannerModel> banners,
+    required List<BundleModel> bundles,
     required List<EventModel> events,
     @JsonKey(name: 'featured_events')
     required List<EventModel> featuredEvents,
@@ -19,4 +19,17 @@ abstract class HomeModel with _$HomeModel {
 
   factory HomeModel.fromJson(Map<String, dynamic> json) =>
       _$HomeModelFromJson(json);
+}
+
+@freezed
+abstract class BundleModel with _$BundleModel {
+  factory BundleModel({
+    @JsonKey(name: 'bundle_name') String? bundleName,
+    @JsonKey(name: 'price') num? price,
+    @JsonKey(name: 'amount') num? amount,
+    @JsonKey(name: 'description') String? description,
+  }) = _BundleModel;
+
+  factory BundleModel.fromJson(Map<String, dynamic> json) =>
+      _$BundleModelFromJson(json);
 }

@@ -8,7 +8,7 @@ part of 'ocation_type_model.dart';
 
 _OcationTypeModel _$OcationTypeModelFromJson(Map<String, dynamic> json) =>
     _OcationTypeModel(
-      image: json['image'] as String,
+      image: json['image'] as String?,
       title: json['name'] as String,
     );
 

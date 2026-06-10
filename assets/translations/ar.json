@@ -112,6 +112,7 @@
     "image": "صورة",
     "upload_photo": "ارفع صورة لدعوتك",
     "guests_are_required": "الضيوف مطلوبون",
+    "ops" : "عذراً! ",
     "event_create_successful": "تم إرسال المناسبة بنجاح!",
     "invitation_sent": "تم إرسال دعوتك بنجاح! 🎉",
     "view_invitation_status": "عرض حالة الدعوة",
@@ -140,5 +141,10 @@
     "save": "حفظ",
     "scanTheQrCode": "امسح رمز الاستجابة ",
     "scanQrWithYourCamera": "امسح الرمز بواسطة الكاميرا",
-    "placeTheQRCodeInsideTheFrameToScanIt": "ضع رمز الاستجابة السريعة داخل الإطار لمسحه ضوئيًا, يرجى تجنب الاهتزاز للحصول على النتيجة بسرعة"
+    "placeTheQRCodeInsideTheFrameToScanIt": "ضع رمز الاستجابة السريعة داخل الإطار لمسحه ضوئيًا, يرجى تجنب الاهتزاز للحصول على النتيجة بسرعة",
+    "remove_image": "× إزالة الصورة",
+    "update_event": "تحديث المناسبة",
+    "select_all": "تحديد الجميع",
+    "unselect_all": "إلغاء تحديد الجميع",
+    "consumed": "مستهلك"
 }

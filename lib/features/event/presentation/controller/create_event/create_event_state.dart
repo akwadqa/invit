@@ -8,12 +8,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
+import 'package:invit/features/event/domain/model/retry_bulk_response/retry_bulk_response.dart';
 
 class CreateEventState {
   final EventModel eventModel;
-  final AsyncValue<CreateEventResponse>? createEventResponse;
+  final AsyncValue<String>? createEventResponse;
   final AsyncValue<List<InviteTemplateModel>>? templates;
   final AsyncValue<EventModel>? confirmEvent;
+  final AsyncValue<RetryBulkResponse>? resendFailed;
   final bool isConfirm;
 
   CreateEventState({
@@ -21,7 +23,7 @@ class CreateEventState {
     required this.createEventResponse,
     required this.templates,
     required this.confirmEvent,
-    required this.isConfirm,
+    required this.isConfirm, this.resendFailed,
   });
 
   factory CreateEventState.init() => CreateEventState(
@@ -33,10 +35,12 @@ class CreateEventState {
 
   CreateEventState copyWith({
     EventModel? eventModel,
-    AsyncValue<CreateEventResponse>? createEventResponse,
+    
+    AsyncValue<String>? createEventResponse,
     AsyncValue<List<InviteTemplateModel>>? templates,
     AsyncValue<EventModel>? confirmEvent,
     bool? isConfirm,
+    AsyncValue<RetryBulkResponse>? resendFailed,
   }) {
     return CreateEventState(
       eventModel: eventModel ?? this.eventModel,
@@ -44,6 +48,7 @@ class CreateEventState {
       templates: templates ?? this.templates,
       confirmEvent: confirmEvent ?? this.confirmEvent,
       isConfirm: isConfirm ?? this.isConfirm,
+      resendFailed: resendFailed ?? this.resendFailed,
     );
   }
 }

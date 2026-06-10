@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:invit/features/notifications/domain/model/app_notifications_model.dart';
 import 'package:invit/features/notifications/presentation/controller/app_notifications_controller.dart';
+import 'package:invit/features/notifications/presentation/widgets/empty_notifications_widget.dart';
 import 'package:invit/features/notifications/presentation/widgets/notification_card_widget.dart';
+import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/app_pagination_widget.dart';
@@ -12,6 +14,7 @@ import 'package:invit/src/core/shared_widgets/custom_appbar.dart';
 import 'package:invit/src/core/utils/extenssions/time_extension.dart';
 import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
+import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 @RoutePage()
 class NotificationsScreen extends ConsumerWidget {
@@ -38,7 +41,7 @@ class NotificationsScreen extends ConsumerWidget {
       body: ordersNotificationsAsync.when(
         data: (notifications) {
           if (notifications.isEmpty) {
-            return Center(child: Text('no_notifications'.tr()));
+            return EmptyNotificationsWidget();
           }
 
           final grouped = <String, List<_NotificationWrapper>>{};
@@ -80,7 +83,7 @@ class NotificationsScreen extends ConsumerWidget {
                         children: [
                           Text(
                             formatGroupDate(entry.key),
-                            style:  TextStyle(
+                            style: TextStyle(
                               color: Colors.black54,
                               fontSize: 16,
                               fontWeight: FontWeight.w600,

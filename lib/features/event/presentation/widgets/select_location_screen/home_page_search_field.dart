@@ -43,9 +43,13 @@ class HomePageSearchField extends StatelessWidget {
           hintStyle: AppTextStyle.rubikRegular14.copyWith(
             color: AppColors.grayHint,
           ),
-          prefixIcon: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(Icons.search),
+          contentPadding: EdgeInsets.zero,
+          prefixIconConstraints: BoxConstraints(
+            minWidth: 40, // Minimum width for touch targets, adjust if needed
+          ),
+          prefixIcon: Icon(
+            Icons.search,
+            color: AppColors.grayHint,
           ),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.transparent),

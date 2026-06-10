@@ -143,11 +143,13 @@ class ContactsController extends _$ContactsController {
     }
 
     final contacts = await FlutterContacts.getContacts(withProperties: true);
+    final cleanContacts = contacts.where((c) => c.phones.isNotEmpty).toList();
+
     state = AsyncData(
       state.value!.copyWith(
         contacts: search == null
-            ? contacts
-            : contacts
+            ? cleanContacts
+            : cleanContacts
                 .where(
                   (c) =>
                       c.displayName.toLowerCase().contains(
@@ -169,6 +171,50 @@ class ContactsController extends _$ContactsController {
 
     return currentState.selectedContacts
         .any((selected) => deviceContactIds.contains(selected.contact.id));
+  }
+
+  void unselectAll() {
+    final currentState = state.value!;
+    state = AsyncData(currentState.copyWith(selectedContacts: []));
+  }
+
+  void selectAll() {
+    final currentState = state.value!;
+    List<SelectedContact> selectedList = currentState.selectedContacts!;
+    final contacts = currentState.contacts;
+
+    selectedList = contacts.map((contact) {
+      final code = contact.phones.first.number.startsWith('+') ||
+              contact.phones.first.number.replaceAll(' ', '').length > 11
+          ? contact.phones.first.number.replaceAll(' ', '').substring(1, 4)
+          : '974';
+
+      final number = contact.phones.first.number.startsWith('+') ||
+              contact.phones.first.number.replaceAll(' ', '').length > 11
+          ? contact.phones.first.number.replaceAll(' ', '').substring(4)
+          : contact.phones.first.number.startsWith('0')
+              ? contact.phones.first.number.replaceAll(' ', '').substring(1)
+              : contact.phones.first.number;
+
+      final newContact = Contact(
+        id: contact.id,
+        displayName: contact.displayName,
+        name: contact.name,
+        phones: [Phone(number)],
+        emails: contact.emails
+            .map((e) => Email(e.address, label: e.label))
+            .toList(),
+      );
+
+      return SelectedContact(
+        contact: newContact,
+        count: 0,
+        id: const Uuid().v4(),
+        code: code,
+      );
+    }).toList();
+
+    state = AsyncData(currentState.copyWith(selectedContacts: selectedList));
   }
 
   void selectContact(Contact contact, String? occasionId) {

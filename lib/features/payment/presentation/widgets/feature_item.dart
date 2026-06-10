@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
@@ -15,8 +14,8 @@ class FeatureItem extends StatelessWidget {
         spacing: 10,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.check_circle,
-              color: AppColors.confirmGuest, size: 18),
+          // const Icon(Icons.check_circle,
+          //     color: AppColors.confirmGuest, size: 18),
           SizedBox(
             width: MediaQuery.of(context).size.width / 1.6,
             child: Text(text,

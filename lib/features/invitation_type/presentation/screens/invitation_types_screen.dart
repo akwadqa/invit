@@ -11,6 +11,7 @@ import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_appbar.dart';
+import 'package:invit/src/resourses/color_manager/app_colors.dart';
 
 import '../../../../src/resourses/font_manager/app_text_style.dart';
 
@@ -37,7 +38,7 @@ class InvitationTypesScreen extends ConsumerWidget {
       ),
     );
     return Scaffold(
-        backgroundColor: const Color(0xFFF5F5F5),
+        backgroundColor: AppColors.white,
         appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 65),
           child: CustomAppbar(

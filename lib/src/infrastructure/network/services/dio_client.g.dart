@@ -10,11 +10,11 @@ part of 'dio_client.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(dio)
-const dioProvider = DioProvider._();
+final dioProvider = DioProvider._();
 
 final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
     with $Provider<Dio> {
-  const DioProvider._()
+  DioProvider._()
       : super(
           from: null,
           argument: null,
@@ -52,7 +52,7 @@ String _$dioHash() => r'80ee57085722f43fa0d607854ac6104e9a0e2537';
 /// NetworkService injection
 
 @ProviderFor(networkService)
-const networkServiceProvider = NetworkServiceFamily._();
+final networkServiceProvider = NetworkServiceFamily._();
 
 /// NetworkService injection
 
@@ -61,7 +61,7 @@ final class NetworkServiceProvider extends $FunctionalProvider<
     NetworkService<dynamic>,
     NetworkService<dynamic>> with $Provider<NetworkService<dynamic>> {
   /// NetworkService injection
-  const NetworkServiceProvider._(
+  NetworkServiceProvider._(
       {required NetworkServiceFamily super.from, required Dio? super.argument})
       : super(
           retry: null,
@@ -121,7 +121,7 @@ String _$networkServiceHash() => r'7aecc727f9e648c49709ba09cd80c82e38d00614';
 
 final class NetworkServiceFamily extends $Family
     with $FunctionalFamilyOverride<NetworkService<dynamic>, Dio?> {
-  const NetworkServiceFamily._()
+  NetworkServiceFamily._()
       : super(
           retry: null,
           name: r'networkServiceProvider',

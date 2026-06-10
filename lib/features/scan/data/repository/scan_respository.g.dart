@@ -10,11 +10,11 @@ part of 'scan_respository.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(scanRepository)
-const scanRepositoryProvider = ScanRepositoryProvider._();
+final scanRepositoryProvider = ScanRepositoryProvider._();
 
 final class ScanRepositoryProvider extends $FunctionalProvider<ScanRespository,
     ScanRespository, ScanRespository> with $Provider<ScanRespository> {
-  const ScanRepositoryProvider._()
+  ScanRepositoryProvider._()
       : super(
           from: null,
           argument: null,

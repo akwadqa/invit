@@ -10,13 +10,13 @@ part of 'signUp_repository.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(signupRepository)
-const signupRepositoryProvider = SignupRepositoryProvider._();
+final signupRepositoryProvider = SignupRepositoryProvider._();
 
 final class SignupRepositoryProvider extends $FunctionalProvider<
     SignupRepository,
     SignupRepository,
     SignupRepository> with $Provider<SignupRepository> {
-  const SignupRepositoryProvider._()
+  SignupRepositoryProvider._()
       : super(
           from: null,
           argument: null,

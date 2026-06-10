@@ -12,15 +12,15 @@ class HomeScreenAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsGeometry.directional(end: 22,start: 22, top: 60),
+      padding: EdgeInsetsGeometry.directional(end: 22, start: 22, top: 60),
       child: Row(
         children: [
-          Text(
-            'welcome'.tr(),
-            style:
-                AppTextStyle.rubikSemiBold16.copyWith(color: AppColors.primary),
-          ),
-          Spacer(),
+          // Text(
+          //   'welcome'.tr(),
+          //   style:
+          //       AppTextStyle.rubikSemiBold16.copyWith(color: AppColors.primary),
+          // ),
+          // Spacer(),
           GestureDetector(
             onTap: () {
               context.goNamed(AppRoutes.notificationScreen);

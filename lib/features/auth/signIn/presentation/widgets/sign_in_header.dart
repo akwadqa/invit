@@ -13,14 +13,9 @@ class SignInHeader extends StatelessWidget {
     return Column(
       spacing: 20,
       children: [
-        Text(
-          'login'.tr(),
-          textAlign: TextAlign.center,
-          style: textTheme.headlineLarge!.copyWith(
-            color: AppColors.primary,
-            fontWeight: FontWeight.w900,
-          ),
-        ),
+        Text('login'.tr(),
+            textAlign: TextAlign.center,
+            style: AppTextStyle.rubikBold32.copyWith(color: AppColors.primary)),
         Text(
           'login_desc'.tr(),
           textAlign: TextAlign.center,

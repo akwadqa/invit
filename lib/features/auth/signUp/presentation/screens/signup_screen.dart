@@ -26,12 +26,11 @@ class _SignupContent extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         spacing: 20,
         children: [
-
           SignupHeader(),
           SignUpForm(),
           SignUpFooter(),
         ],
-      ).symmetricPadding(vertical: 20),
+      ).symmetricPadding(vertical: 25),
     );
   }
 }

@@ -15,10 +15,10 @@ class EventImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadiusGeometry.circular(5),
+      borderRadius: BorderRadiusGeometry.circular(10),
       child: SizedBox(
         width: double.infinity,
-        height: 111,
+        height: 160,
         child: Stack(
           children: [
             //? Image :
@@ -29,12 +29,16 @@ class EventImage extends StatelessWidget {
                     width: double.infinity,
                     fit: BoxFit.cover,
                   )
-                : Container(
+                : Assets.images.emptyImageEventImage.image(
                     width: double.infinity,
                     height: double.infinity,
-                    color: AppColors.white,
-                    child: Icon(Icons.card_giftcard),
-                  ),
+                    fit: BoxFit.cover),
+            // : Container(
+            //     width: double.infinity,
+            //     height: double.infinity,
+            //     color: AppColors.white,
+            //     child: Icon(Icons.card_giftcard),
+            // ),
             // : Assets.images.allEventImage.image(
             //     width: double.infinity,
             //     fit: BoxFit.cover,
@@ -69,5 +73,4 @@ class EventImage extends StatelessWidget {
       ),
     );
   }
-
 }

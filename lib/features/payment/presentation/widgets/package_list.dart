@@ -1,47 +1,42 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:invit/features/home/presentation/controller/home_controller.dart';
 import 'package:invit/features/payment/presentation/widgets/package_card.dart';
 
-class PackageList extends StatelessWidget {
+class PackageList extends ConsumerWidget {
   const PackageList({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bundles = ref.read(homeControllerProvider).value?.bundles ?? [];
+
     return Column(
-      children: const [
-        PackageCard(
-          title: "Starter",
-          price: "50 QAR",
-          features: [
-            "75 Card Pack",
-            "Full team usage",
-            "Economical price",
-            "Advanced security settings"
-          ],
-        ),
-        PackageCard(
-          title: "Pro",
-          price: "150 QAR",
-          features: [
-            "100 Card Pack",
-            "Ability to share with up to 3 users",
-            "Lower price per card (discount)",
-            "Longer card validity"
-          ],
-          isSelected: true,
-          isBestValue: true,
-        ),
-        PackageCard(
-          title: "Basic",
-          price: "100 QAR",
-          features: [
-            "50 Card Pack",
-            "Limited usage",
-            "Economical price",
-            "Suitable for first-time users"
-          ],
-        ),
-      ],
+      children: bundles
+          .map((bundle) => PackageCard(
+                title: bundle.bundleName ?? '',
+                price: '${bundle.price ?? ''} QAR',
+                description: '${bundle.description ?? ''}',
+              ))
+          .toList(),
+      // children: const [
+      //   PackageCard(
+      //     title: "Starter",
+      //     price: "50 QAR",
+      //     description: "75 Card Pack",
+      //   ),
+      //   PackageCard(
+      //     title: "Basic",
+      //     price: "100 QAR",
+      //     description: "50 Card Pack",
+      //   ),
+      //   PackageCard(
+      //     title: "Pro",
+      //     price: "150 QAR",
+      //     description: "100 Card Pack",
+      //     isSelected: true,
+      //     isBestValue: true,
+      //   ),
+      // ],
     );
   }
 }

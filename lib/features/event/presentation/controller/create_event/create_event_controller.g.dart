@@ -10,11 +10,11 @@ part of 'create_event_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(CreateEventController)
-const createEventControllerProvider = CreateEventControllerProvider._();
+final createEventControllerProvider = CreateEventControllerProvider._();
 
 final class CreateEventControllerProvider
     extends $AsyncNotifierProvider<CreateEventController, CreateEventState> {
-  const CreateEventControllerProvider._()
+  CreateEventControllerProvider._()
       : super(
           from: null,
           argument: null,
@@ -34,7 +34,7 @@ final class CreateEventControllerProvider
 }
 
 String _$createEventControllerHash() =>
-    r'c752956e6bdacf9e6e1828b8607e5184afe63c3a';
+    r'e5d23561f3982e758190f773b975693b5732ed8a';
 
 abstract class _$CreateEventController
     extends $AsyncNotifier<CreateEventState> {
@@ -42,7 +42,6 @@ abstract class _$CreateEventController
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref as $Ref<AsyncValue<CreateEventState>, CreateEventState>;
     final element = ref.element as $ClassProviderElement<
@@ -50,6 +49,6 @@ abstract class _$CreateEventController
         AsyncValue<CreateEventState>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

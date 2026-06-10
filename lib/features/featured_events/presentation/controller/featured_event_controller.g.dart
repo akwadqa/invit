@@ -10,11 +10,11 @@ part of 'featured_event_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(FeaturedEventController)
-const featuredEventControllerProvider = FeaturedEventControllerFamily._();
+final featuredEventControllerProvider = FeaturedEventControllerFamily._();
 
 final class FeaturedEventControllerProvider
     extends $AsyncNotifierProvider<FeaturedEventController, AllEventsModel> {
-  const FeaturedEventControllerProvider._(
+  FeaturedEventControllerProvider._(
       {required FeaturedEventControllerFamily super.from,
       required String? super.argument})
       : super(
@@ -62,7 +62,7 @@ final class FeaturedEventControllerFamily extends $Family
             AllEventsModel,
             FutureOr<AllEventsModel>,
             String?> {
-  const FeaturedEventControllerFamily._()
+  FeaturedEventControllerFamily._()
       : super(
           retry: null,
           name: r'featuredEventControllerProvider',
@@ -91,15 +91,16 @@ abstract class _$FeaturedEventController
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(
-      eventType: _$args,
-    );
     final ref = this.ref as $Ref<AsyncValue<AllEventsModel>, AllEventsModel>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<AsyncValue<AllEventsModel>, AllEventsModel>,
         AsyncValue<AllEventsModel>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(
+        ref,
+        () => build(
+              eventType: _$args,
+            ));
   }
 }

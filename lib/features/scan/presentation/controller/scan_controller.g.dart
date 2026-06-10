@@ -10,11 +10,11 @@ part of 'scan_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(ScanController)
-const scanControllerProvider = ScanControllerProvider._();
+final scanControllerProvider = ScanControllerProvider._();
 
 final class ScanControllerProvider
     extends $AsyncNotifierProvider<ScanController, ScanState> {
-  const ScanControllerProvider._()
+  ScanControllerProvider._()
       : super(
           from: null,
           argument: null,
@@ -40,13 +40,12 @@ abstract class _$ScanController extends $AsyncNotifier<ScanState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<ScanState>, ScanState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<AsyncValue<ScanState>, ScanState>,
         AsyncValue<ScanState>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

@@ -53,7 +53,8 @@
     "english": "English",
     "successful_check" : "Successfully Checked",
     "notifications": "Notifications",
-    "no_notifications": "Notifications is Empty",
+    "ops" : "Oops! ",
+    "no_notifications": "No notifications yet",
     "no_events_to_scan_yet": "No events to scan yet",
 
     "pricing_services": "Pricing & Services",
@@ -141,5 +142,10 @@
     "save" : "Save",
     "scanTheQrCode": "Scan the QR code",
     "scanQrWithYourCamera": "Scan the code with your camera",
-    "placeTheQRCodeInsideTheFrameToScanIt": "Place the QR code inside the frame to scan it, please avoid shaking to get the result quickly"
+    "placeTheQRCodeInsideTheFrameToScanIt": "Place the QR code inside the frame to scan it, please avoid shaking to get the result quickly",
+    "remove_image" : "× Remove Image",
+    "select_all" : "Select All",
+    "unselect_all" : "Unselect All",
+    "update_event" : "Update Event",
+    "consumed" : "Consumed"
 }

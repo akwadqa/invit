@@ -69,7 +69,6 @@ class _UploadImageScreenContent extends ConsumerWidget {
       if (next is AsyncError) {
         context.pop();
         Future.delayed(Duration(milliseconds: 100), () {
-          context.pop();
           showErrorDialog(context, next!.error.toString());
         });
       }
@@ -80,11 +79,10 @@ class _UploadImageScreenContent extends ConsumerWidget {
         if (isConfirm) {
           ref
               .read(createEventControllerProvider.notifier)
-              .confirmEvent(next!.value!.eventId!);
+              .confirmEvent(next!.value!);
         } else {
           context.pop();
-          context.goNamed(AppRoutes.successEventScreen,
-              extra: next!.value!.eventId!);
+          context.goNamed(AppRoutes.successEventScreen, extra: next!.value!);
         }
       }
     });

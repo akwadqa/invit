@@ -10,11 +10,11 @@ part of 'map_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(MapController)
-const mapControllerProvider = MapControllerFamily._();
+final mapControllerProvider = MapControllerFamily._();
 
 final class MapControllerProvider
     extends $AsyncNotifierProvider<MapController, MapState> {
-  const MapControllerProvider._(
+  MapControllerProvider._(
       {required MapControllerFamily super.from,
       required String? super.argument})
       : super(
@@ -50,13 +50,13 @@ final class MapControllerProvider
   }
 }
 
-String _$mapControllerHash() => r'7ef7f2a8d1e669a726c1f6261f0748314a8060f4';
+String _$mapControllerHash() => r'06939c1fa1423e92294d5c0059b8cc1792dcb03b';
 
 final class MapControllerFamily extends $Family
     with
         $ClassFamilyOverride<MapController, AsyncValue<MapState>, MapState,
             FutureOr<MapState>, String?> {
-  const MapControllerFamily._()
+  MapControllerFamily._()
       : super(
           retry: null,
           name: r'mapControllerProvider',
@@ -84,15 +84,16 @@ abstract class _$MapController extends $AsyncNotifier<MapState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(
-      _$args,
-    );
     final ref = this.ref as $Ref<AsyncValue<MapState>, MapState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<AsyncValue<MapState>, MapState>,
         AsyncValue<MapState>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(
+        ref,
+        () => build(
+              _$args,
+            ));
   }
 }

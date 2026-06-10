@@ -10,13 +10,13 @@ part of 'verify_otp_repository.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(verifyOtpRepository)
-const verifyOtpRepositoryProvider = VerifyOtpRepositoryProvider._();
+final verifyOtpRepositoryProvider = VerifyOtpRepositoryProvider._();
 
 final class VerifyOtpRepositoryProvider extends $FunctionalProvider<
     VerifyOtpRepository,
     VerifyOtpRepository,
     VerifyOtpRepository> with $Provider<VerifyOtpRepository> {
-  const VerifyOtpRepositoryProvider._()
+  VerifyOtpRepositoryProvider._()
       : super(
           from: null,
           argument: null,

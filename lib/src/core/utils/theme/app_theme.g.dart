@@ -10,12 +10,12 @@ part of 'app_theme.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(appTheme)
-const appThemeProvider = AppThemeProvider._();
+final appThemeProvider = AppThemeProvider._();
 
 final class AppThemeProvider
     extends $FunctionalProvider<ThemeData, ThemeData, ThemeData>
     with $Provider<ThemeData> {
-  const AppThemeProvider._()
+  AppThemeProvider._()
       : super(
           from: null,
           argument: null,

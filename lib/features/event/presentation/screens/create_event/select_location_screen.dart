@@ -78,6 +78,7 @@ class _SelectLocationPageState extends ConsumerState<SelectLocationPage> {
             style: AppTextStyle.nunitoBold16.copyWith(color: AppColors.white),
             height: 44,
             width: 260,
+            radius: 10,
             backgroundColor: AppColors.primary,
           ),
           // 12.horizontalSpace,

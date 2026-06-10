@@ -78,6 +78,12 @@ class UpdateEventController extends _$UpdateEventController {
     updateDataForEvent(EventModel(dateTime: updated.toString()));
   }
 
+  void removeImage() {
+    state = AsyncData(state.value!.copyWith(
+        updatedEvent:
+            state.value!.updatedEvent!.copyWith(image: null, imageUrl: '')));
+  }
+
   void updateDataForEvent(EventModel newData) {
     final current = state.value?.updatedEvent;
 

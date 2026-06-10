@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:invit/features/payment/presentation/widgets/best_value_budge.dart';
 import 'package:invit/features/payment/presentation/widgets/feature_item.dart';
@@ -10,7 +9,7 @@ import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 class PackageCard extends StatelessWidget {
   final String title;
   final String price;
-  final List<String> features;
+  final String description;
   final bool isSelected;
   final bool isBestValue;
 
@@ -18,7 +17,7 @@ class PackageCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.price,
-    required this.features,
+    required this.description,
     this.isSelected = false,
     this.isBestValue = false,
   });
@@ -47,7 +46,8 @@ class PackageCard extends StatelessWidget {
                 ],
               ),
               15.verticalSpace,
-              ...features.map((f) => FeatureItem(text: f)).toList(),
+              // ...features.map((f) => FeatureItem(text: f)).toList(),
+              FeatureItem(text: description),
               15.verticalSpace,
               SelectPackageButton(title: title, isSelected: isSelected),
             ],

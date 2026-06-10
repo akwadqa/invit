@@ -91,9 +91,17 @@ class AppTextStyle {
   );
 
   //? Bold :
+  static TextStyle rubikBold32 = GoogleFonts.rubik(
+    fontWeight: FontWeight.w700,
+    fontSize: 32,
+  );
   static TextStyle rubikBold20 = GoogleFonts.rubik(
     fontWeight: FontWeight.w700,
     fontSize: 20,
+  );
+  static TextStyle rubikBold18 = GoogleFonts.rubik(
+    fontWeight: FontWeight.w700,
+    fontSize: 18,
   );
 
   //************************* Poppins ////////////// */

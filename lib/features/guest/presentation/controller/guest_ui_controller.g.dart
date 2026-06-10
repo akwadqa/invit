@@ -10,11 +10,11 @@ part of 'guest_ui_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(GuestUiController)
-const guestUiControllerProvider = GuestUiControllerProvider._();
+final guestUiControllerProvider = GuestUiControllerProvider._();
 
 final class GuestUiControllerProvider
     extends $AsyncNotifierProvider<GuestUiController, GuestUiState> {
-  const GuestUiControllerProvider._()
+  GuestUiControllerProvider._()
       : super(
           from: null,
           argument: null,
@@ -40,13 +40,12 @@ abstract class _$GuestUiController extends $AsyncNotifier<GuestUiState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<GuestUiState>, GuestUiState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<AsyncValue<GuestUiState>, GuestUiState>,
         AsyncValue<GuestUiState>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

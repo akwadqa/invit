@@ -10,13 +10,13 @@ part of 'event_details_repository.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(eventDetailsRepository)
-const eventDetailsRepositoryProvider = EventDetailsRepositoryProvider._();
+final eventDetailsRepositoryProvider = EventDetailsRepositoryProvider._();
 
 final class EventDetailsRepositoryProvider extends $FunctionalProvider<
     EventDetailsRepository,
     EventDetailsRepository,
     EventDetailsRepository> with $Provider<EventDetailsRepository> {
-  const EventDetailsRepositoryProvider._()
+  EventDetailsRepositoryProvider._()
       : super(
           from: null,
           argument: null,

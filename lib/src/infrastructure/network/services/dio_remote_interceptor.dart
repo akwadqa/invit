@@ -18,12 +18,13 @@ class RemoteInterceptor extends Interceptor {
   RemoteInterceptor(this.ref);
 
   @override
-  Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  Future<void> onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     // final token = ref.read(userDataProvider);
     final token = await ref.read(localStorageServiceProvider).getToken();
     final language = ref.read(currentLanguageProvider);
 
-      // options.headers['Authorization'] = "token d79240d17d58d2a:770b5dfb36d106c";
+    // options.headers['Authorization'] = "token eb20aaa2681702b:8cc4c7d43e06f53";
 
     if (token != null) {
       options.headers['Authorization'] = "token $token";
@@ -71,12 +72,17 @@ class RemoteInterceptor extends Interceptor {
         (responseData['exc_type']?.toString().contains(
                   'PermissionError',
                 )) ==
+            true ||
+        (responseData['exc_type']?.toString().contains(
+                  'AuthenticationError',
+                )) ==
             true;
 
     if (isUnauthorized) {
       debugPrint("🚪 Session expired → redirect to Login");
 
       ref.read(userDataProvider.notifier).removeData();
+      ref.read(localStorageServiceProvider).logout();
       rootKey.currentContext!.go(AppRoutes.signInScreen);
 
       // ref.read().go(Routes.login);

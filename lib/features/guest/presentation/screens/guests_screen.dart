@@ -169,29 +169,35 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
 
     final filteredGuests = statuses.isEmpty
         ? event.guestList
-        : event.guestList?.where((g) => statuses.contains(g.rsvpStatus)).toList();
+        : event.guestList
+            ?.where((g) => statuses.contains(g.rsvpStatus))
+            .toList();
 
     return filteredGuests?.isNotEmpty ?? false
-        ? Container(
-            margin: EdgeInsets.symmetric(horizontal: 22),
-            decoration: BoxDecoration(
-                color: AppColors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.black.withValues(alpha: .25),
-                    blurRadius: 4,
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(10)),
-            child: ListView.separated(
-              separatorBuilder: (context, index) =>
-                  Divider(color: AppColors.lightGray02.withValues(alpha: .4)),
-              itemBuilder: (context, index) => GuestsScreenGuestItem(
-                index: index,
-                guest: filteredGuests?[index],
-                isConfirmed: event.status == 'Confirmed',
+        ? Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 22),
+              decoration: BoxDecoration(
+                  color: AppColors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.black.withValues(alpha: .25),
+                      blurRadius: 4,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(10)),
+              child: ListView.separated(
+                shrinkWrap: true,
+                separatorBuilder: (context, index) =>
+                    Divider(color: AppColors.lightGray02.withValues(alpha: .4)),
+                itemBuilder: (context, index) => GuestsScreenGuestItem(
+                  index: index,
+                  guest: filteredGuests?[index],
+                  isConfirmed: event.status == 'Confirmed',
+                ),
+                itemCount: filteredGuests?.length ?? 0,
               ),
-              itemCount: filteredGuests?.length ?? 0,
             ),
           )
         : Center(
@@ -281,7 +287,8 @@ class GuestsScreenGuestItem extends ConsumerWidget {
           padding: EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.guestName,
+              // color: AppColors.guestName,
+              color: AvatarColors.getColorForName(guest?.fullName ?? 'NA'),
               boxShadow: [
                 BoxShadow(
                   color: AppColors.black.withValues(alpha: .25),
@@ -299,34 +306,32 @@ class GuestsScreenGuestItem extends ConsumerWidget {
         guest?.fullName ?? 'name',
         style: AppTextStyle.rubikRegular16.copyWith(color: AppColors.black),
       ),
-      trailing: tabIndex == 0
-          ? Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: guest!.rsvpStatus == 'Confirmed'
-                    ? AppColors.confirmGuest
-                    : guest!.rsvpStatus == 'Pending' ||
-                            guest!.rsvpStatus == 'Not Sent' ||
-                            guest!.rsvpStatus == null
-                        ? AppColors.waitingGuest
-                        : AppColors.noticeRed,
-                borderRadius: BorderRadius.circular(32),
-              ),
-              child: guest!.rsvpStatus == 'Confirmed'
-                  ? Assets.icons.confirmGuestIc.svg()
-                  : guest!.rsvpStatus == 'Pending' ||
-                          guest!.rsvpStatus == 'Not Sent' ||
-                          guest!.rsvpStatus == null
-                      ? Assets.icons.waitingGuestIc.svg()
-                      : Assets.icons.failedGuestIc.svg(),
-              // child: Text(
-              //   guest!.rsvpStatus ?? 'Not Sent',
-              //   style: AppTextStyle.rubikRegular14.copyWith(
-              //     color: AppColors.white,
-              //   ),
-              // ),
-            )
-          : null,
+      trailing: Container(
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: guest!.rsvpStatus == 'Confirmed'
+              ? AppColors.confirmGuest
+              : guest!.rsvpStatus == 'Pending' ||
+                      guest!.rsvpStatus == 'Not Sent' ||
+                      guest!.rsvpStatus == null
+                  ? AppColors.waitingGuest
+                  : AppColors.noticeRed,
+          borderRadius: BorderRadius.circular(32),
+        ),
+        child: guest!.rsvpStatus == 'Confirmed'
+            ? Assets.icons.confirmGuestIc.svg()
+            : guest!.rsvpStatus == 'Pending' ||
+                    guest!.rsvpStatus == 'Not Sent' ||
+                    guest!.rsvpStatus == null
+                ? Assets.icons.waitingGuestIc.svg()
+                : Assets.icons.failedGuestIc.svg(),
+        // child: Text(
+        //   guest!.rsvpStatus ?? 'Not Sent',
+        //   style: AppTextStyle.rubikRegular14.copyWith(
+        //     color: AppColors.white,
+        //   ),
+        // ),
+      ),
     );
   }
 }

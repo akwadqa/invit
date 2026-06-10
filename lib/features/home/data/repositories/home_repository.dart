@@ -1,5 +1,6 @@
 import 'package:invit/features/home/data/datasources/home_dataSource.dart';
 import 'package:invit/features/home/domain/model/home/home_model.dart';
+import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/dio_client.dart';
 import 'package:invit/src/logger/failure/exceptions/app_exception.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,7 +16,7 @@ class HomeRepository {
   final HomeRemoteDataSource _remoteDataSource;
 
   HomeRepository(this._remoteDataSource);
-  Future<HomeModel> getHomeData({required int page}) async {
+  Future<ApiResponse<HomeModel>> getHomeData({required int page}) async {
     try {
       final result = await _remoteDataSource.getHomeData(page: page);
   
@@ -23,7 +24,7 @@ class HomeRepository {
         throw AppException( message :result.message ?? 'Failed to fetch data');
       }
   
-      return result.data!;
+      return result;
     } catch (e) {
       throw AppException(message: 'Failed to fetch HomeModel: $e');
     }

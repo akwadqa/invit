@@ -10,13 +10,13 @@ part of 'app_messages_repository.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(appMessagesRepository)
-const appMessagesRepositoryProvider = AppMessagesRepositoryProvider._();
+final appMessagesRepositoryProvider = AppMessagesRepositoryProvider._();
 
 final class AppMessagesRepositoryProvider extends $FunctionalProvider<
     AppMessagesRepository,
     AppMessagesRepository,
     AppMessagesRepository> with $Provider<AppMessagesRepository> {
-  const AppMessagesRepositoryProvider._()
+  AppMessagesRepositoryProvider._()
       : super(
           from: null,
           argument: null,

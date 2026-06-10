@@ -10,7 +10,7 @@ part of 'auth_service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(sharedPreferences)
-const sharedPreferencesProvider = SharedPreferencesProvider._();
+final sharedPreferencesProvider = SharedPreferencesProvider._();
 
 final class SharedPreferencesProvider extends $FunctionalProvider<
         AsyncValue<SharedPreferences>,
@@ -19,7 +19,7 @@ final class SharedPreferencesProvider extends $FunctionalProvider<
     with
         $FutureModifier<SharedPreferences>,
         $FutureProvider<SharedPreferences> {
-  const SharedPreferencesProvider._()
+  SharedPreferencesProvider._()
       : super(
           from: null,
           argument: null,
@@ -48,7 +48,7 @@ final class SharedPreferencesProvider extends $FunctionalProvider<
 String _$sharedPreferencesHash() => r'ca329d21cb9532acf76436fc839fde21c0b7f1e6';
 
 @ProviderFor(UserData)
-const userDataProvider = UserDataProvider._();
+final userDataProvider = UserDataProvider._();
 
 final class UserDataProvider extends $NotifierProvider<
     UserData,
@@ -56,7 +56,7 @@ final class UserDataProvider extends $NotifierProvider<
       String,
       int,
     )?> {
-  const UserDataProvider._()
+  UserDataProvider._()
       : super(
           from: null,
           argument: null,
@@ -105,7 +105,6 @@ abstract class _$UserData extends $Notifier<
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<
         (
           String,
@@ -131,16 +130,16 @@ abstract class _$UserData extends $Notifier<
         )?,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(isAuthinticated)
-const isAuthinticatedProvider = IsAuthinticatedProvider._();
+final isAuthinticatedProvider = IsAuthinticatedProvider._();
 
 final class IsAuthinticatedProvider
     extends $FunctionalProvider<bool, bool, bool> with $Provider<bool> {
-  const IsAuthinticatedProvider._()
+  IsAuthinticatedProvider._()
       : super(
           from: null,
           argument: null,

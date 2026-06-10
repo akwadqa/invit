@@ -9,6 +9,7 @@ import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
+import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({super.key});
@@ -31,8 +32,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
         context.push(AppRoutes.verificationScreen, extra: phoneController.text);
         // _showDialog();
         // });
-      }
-       else if (next is AsyncError) {
+      } else if (next is AsyncError) {
         showErrorDialog(context, next.error.toString());
       }
     });
@@ -75,11 +75,14 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                     false;
             return CustomButtonWidget(
               text: 'login'.tr(),
+              style:
+                  AppTextStyle.rubikMedium18.copyWith(color: AppColors.white),
               onTap: () => !isEmpty ? null : _submit(ref),
               isFiled: true,
               height: 50,
               width: double.infinity,
-              backgroundColor: !isEmpty ? AppColors.gray : AppColors.primary,
+              // backgroundColor: !isEmpty ? AppColors.gray : AppColors.primary,
+              backgroundColor: AppColors.primary,
               radius: 10,
             );
             // return Container();
@@ -107,6 +110,3 @@ class _SignInFormState extends ConsumerState<SignInForm> {
     }
   }
 }
-
-
-

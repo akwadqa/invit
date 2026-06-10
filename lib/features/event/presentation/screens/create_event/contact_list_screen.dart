@@ -76,9 +76,41 @@ class _ContactListScreenContentState
               spacing: 18,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'invite_friends'.tr(),
-                  style: AppTextStyle.plusBold18,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'invite_friends'.tr(),
+                      style: AppTextStyle.rubikBold18,
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          if (controller.value!.selectedContacts!.length ==
+                              controller.value!.contacts.length) {
+                            ref
+                                .read(contactsControllerProvider(
+                                        widget.occasionId)
+                                    .notifier)
+                                .unselectAll();
+                          } else {
+                            ref
+                                .read(contactsControllerProvider(
+                                        widget.occasionId)
+                                    .notifier)
+                                .selectAll();
+                          }
+                        },
+                        child: Text(
+                          (controller.value!.selectedContacts!.length ==
+                                      controller.value!.contacts.length &&
+                                  controller.value!.contacts.isNotEmpty)
+                              ? 'unselect_all'.tr()
+                              : 'select_all'.tr(),
+                          style: AppTextStyle.rubikSemiBold14.copyWith(
+                              color: AppColors.primary,
+                              decoration: TextDecoration.underline),
+                        ))
+                  ],
                 ),
                 Expanded(
                     child: controller.when(

@@ -18,7 +18,7 @@ Future<void> main() async {
 
   final container = await initializeProviders();
   await handleSplashScreen(container); 
-
+ 
   runApp(
     DevicePreview(
         enabled: !kReleaseMode,

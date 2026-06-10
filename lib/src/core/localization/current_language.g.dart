@@ -10,11 +10,11 @@ part of 'current_language.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(CurrentLanguage)
-const currentLanguageProvider = CurrentLanguageProvider._();
+final currentLanguageProvider = CurrentLanguageProvider._();
 
 final class CurrentLanguageProvider
     extends $NotifierProvider<CurrentLanguage, String> {
-  const CurrentLanguageProvider._()
+  CurrentLanguageProvider._()
       : super(
           from: null,
           argument: null,
@@ -48,10 +48,9 @@ abstract class _$CurrentLanguage extends $Notifier<String> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<String, String>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<String, String>, String, Object?, Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

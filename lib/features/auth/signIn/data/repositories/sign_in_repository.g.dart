@@ -10,13 +10,13 @@ part of 'sign_in_repository.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(signInRepository)
-const signInRepositoryProvider = SignInRepositoryProvider._();
+final signInRepositoryProvider = SignInRepositoryProvider._();
 
 final class SignInRepositoryProvider extends $FunctionalProvider<
     SignInRepository,
     SignInRepository,
     SignInRepository> with $Provider<SignInRepository> {
-  const SignInRepositoryProvider._()
+  SignInRepositoryProvider._()
       : super(
           from: null,
           argument: null,

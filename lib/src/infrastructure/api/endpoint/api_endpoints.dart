@@ -8,6 +8,7 @@ class ApiEndPoints {
   static const String getTemplates = 'invite.api.api.templates';
   static const String confirmEvent = 'invite.api.api.confirm_event';
   static const String updateEvent = 'invite.api.api.update_event';
+  static String resendFailed = 'invite.api.api.resend_failed_invites';
 
   //? --- Guest ---
   static const String addGuest = 'invite.api.api.add_guest';
@@ -25,6 +26,7 @@ class ApiEndPoints {
   //? --- Settings ---
   static const String deleteAccountApi = 'invite.api.auth.delete_user';
   static const String logoutApi = 'invite.api.auth.logout';
+  static String getPaymentLink = 'sadad.api.api.get_payment_url';
 
   //? --- EventsCollection ---
   static const String getUserEvents = 'invite.api.api.get_user_events';

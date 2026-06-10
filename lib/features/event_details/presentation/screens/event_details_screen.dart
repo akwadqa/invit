@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/features/event_details/domain/model/guest_report_model.dart';
 import 'package:invit/features/event_details/presentation/controller/event_details_controller.dart';
 import 'package:invit/src/application/router/app_routes.dart';
+import 'package:invit/src/core/shared_widgets/app_alert.dart';
+import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_app_bar.dart';
@@ -104,6 +107,7 @@ class _EventDetailsScreenState extends ConsumerState<EventDetailsScreen> {
                   EventDetailsFooter(
                     id: widget.ocassionId,
                     report: data.guestReport!,
+                    status: data.status!,
                   ),
                 ],
               );
@@ -115,17 +119,52 @@ class _EventDetailsScreenState extends ConsumerState<EventDetailsScreen> {
   }
 }
 
-class EventDetailsFooter extends StatelessWidget {
+class EventDetailsFooter extends ConsumerWidget {
   const EventDetailsFooter({
     super.key,
     required this.id,
     required this.report,
+    required this.status,
   });
   final String id;
+  final String status;
   final GuestReportModel report;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    //? For confirm event :
+    ref.listen(
+        createEventControllerProvider.select((val) => val.value!.confirmEvent),
+        (previous, next) {
+      if (next is AsyncLoading) {
+        AppAlert.showLoadingDialog(context);
+      } else if (next is AsyncData) {
+        context.pop();
+        ref
+            .read(eventDetailsControllerProvider(ocassionId: id).notifier)
+            .getEventDetails(ocassionId: id);
+      } else if (next is AsyncError) {
+        context.pop();
+        showErrorDialog(context, next!.error.toString());
+      }
+    });
+
+    //? For retry failed invites :
+    ref.listen(
+        createEventControllerProvider.select((val) => val.value!.resendFailed),
+        (previous, next) {
+      if (next is AsyncLoading) {
+        AppAlert.showLoadingDialog(context);
+      } else if (next is AsyncData) {
+        context.pop();
+        ref
+            .read(eventDetailsControllerProvider(ocassionId: id).notifier)
+            .getEventDetails(ocassionId: id);
+      } else if (next is AsyncError) {
+        context.pop();
+        showErrorDialog(context, next!.error.toString());
+      }
+    });
     return Row(
       spacing: 12,
       children: [
@@ -144,7 +183,22 @@ class EventDetailsFooter extends StatelessWidget {
           Expanded(
               child: CustomButtonWidget(
             text: "retry_failed".tr(),
-            onTap: () {},
+            onTap: () {
+              ref.read(createEventControllerProvider.notifier).retryFailed(id);
+            },
+            isFiled: true,
+            backgroundColor: AppColors.primary,
+            radius: 8,
+            height: 45,
+            width: double.infinity,
+          )),
+        if (status == "Draft")
+          Expanded(
+              child: CustomButtonWidget(
+            text: "confirm".tr(),
+            onTap: () {
+              ref.read(createEventControllerProvider.notifier).confirmEvent(id);
+            },
             isFiled: true,
             backgroundColor: AppColors.primary,
             radius: 8,

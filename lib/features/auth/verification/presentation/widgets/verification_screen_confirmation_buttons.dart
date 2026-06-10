@@ -10,6 +10,7 @@ import 'package:invit/src/core/shared_widgets/app_dialogs.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
+import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class VerificationScreenConfirmationButtons extends ConsumerWidget {
   final TextEditingController otp;
@@ -24,14 +25,14 @@ class VerificationScreenConfirmationButtons extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
-      spacing: 24,
+      // spacing: 24,
       children: [
         Consumer(builder: (context, ref, child) {
           ref.listen(verifyOtpControllerProvider, (prev, next) {
             if (next is AsyncData && prev is AsyncLoading) {
               // context.maybePop().then((_) {
               debugPrint("Success check");
-              context.pushReplacement(AppRoutes.mainScreen);
+              context.go(AppRoutes.mainScreen);
               // context
               //     .pushRoute(VerificationRoute(inputedPhone: _phoneNumber!));
               // _showDialog();
@@ -45,8 +46,8 @@ class VerificationScreenConfirmationButtons extends ConsumerWidget {
               ref.watch(signInControllerProvider).value!.isVerify ?? true;
           if (!isVisible) {
             return SizedBox(
-              height: 50,
-            );
+                // height: 50,
+                );
           }
 
           final signInProvider = ref.watch(verifyOtpControllerProvider);
@@ -70,6 +71,7 @@ class VerificationScreenConfirmationButtons extends ConsumerWidget {
                   .read(verifyOtpControllerProvider.notifier)
                   .verifyOtp(phone, otp.text);
             },
+            style: AppTextStyle.rubikMedium18.copyWith(color: AppColors.white),
             isFiled: true,
             height: 50,
             width: double.infinity,

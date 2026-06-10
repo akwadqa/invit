@@ -10,11 +10,11 @@ part of 'contacts_controller.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(ContactsController)
-const contactsControllerProvider = ContactsControllerFamily._();
+final contactsControllerProvider = ContactsControllerFamily._();
 
 final class ContactsControllerProvider
     extends $AsyncNotifierProvider<ContactsController, ContactsState> {
-  const ContactsControllerProvider._(
+  ContactsControllerProvider._(
       {required ContactsControllerFamily super.from,
       required String? super.argument})
       : super(
@@ -51,13 +51,13 @@ final class ContactsControllerProvider
 }
 
 String _$contactsControllerHash() =>
-    r'8820fd628f67270b80aeeb96c9d36418956bbe72';
+    r'c5b510fa514a328fa8ed9aeafc525490ce017a4e';
 
 final class ContactsControllerFamily extends $Family
     with
         $ClassFamilyOverride<ContactsController, AsyncValue<ContactsState>,
             ContactsState, FutureOr<ContactsState>, String?> {
-  const ContactsControllerFamily._()
+  ContactsControllerFamily._()
       : super(
           retry: null,
           name: r'contactsControllerProvider',
@@ -85,15 +85,16 @@ abstract class _$ContactsController extends $AsyncNotifier<ContactsState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(
-      _$args,
-    );
     final ref = this.ref as $Ref<AsyncValue<ContactsState>, ContactsState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<AsyncValue<ContactsState>, ContactsState>,
         AsyncValue<ContactsState>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(
+        ref,
+        () => build(
+              _$args,
+            ));
   }
 }

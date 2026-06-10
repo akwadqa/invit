@@ -23,6 +23,7 @@ abstract class AppRoutes {
   static const String paymentScreen = '/payment_screen';
   static const String updateEventScreen = '/update_event';
   static const String updateGuestListScreen = '/update_guest_list';
+  static const String webPaymentScreen = '/web_payment';
 
   // static String qrScreen = '/qr-page';
 
