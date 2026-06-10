@@ -31,6 +31,13 @@ class $AssetsIconsGen {
   /// File path: assets/icons/app_icon.jpg
   AssetGenImage get appIcon => const AssetGenImage('assets/icons/app_icon.jpg');
 
+  /// File path: assets/icons/available_cards_ic.svg
+  SvgGenImage get availableCardsIc =>
+      const SvgGenImage('assets/icons/available_cards_ic.svg');
+
+  /// File path: assets/icons/card_ic.svg
+  SvgGenImage get cardIc => const SvgGenImage('assets/icons/card_ic.svg');
+
   /// File path: assets/icons/chat_ic.svg
   SvgGenImage get chatIc => const SvgGenImage('assets/icons/chat_ic.svg');
 
@@ -167,6 +174,8 @@ class $AssetsIconsGen {
         addContactIc,
         addEventIc,
         appIcon,
+        availableCardsIc,
+        cardIc,
         chatIc,
         confirmGuestIc,
         consumedIs,
@@ -228,9 +237,21 @@ class $AssetsImagesGen {
   SvgGenImage get emptyData =>
       const SvgGenImage('assets/images/empty_data.svg');
 
+  /// File path: assets/images/empty_image_event_image.png
+  AssetGenImage get emptyImageEventImage =>
+      const AssetGenImage('assets/images/empty_image_event_image.png');
+
   /// File path: assets/images/empty_messages.png
   AssetGenImage get emptyMessages =>
       const AssetGenImage('assets/images/empty_messages.png');
+
+  /// File path: assets/images/empty_notifications_image.svg
+  SvgGenImage get emptyNotificationsImage =>
+      const SvgGenImage('assets/images/empty_notifications_image.svg');
+
+  /// File path: assets/images/empty_scan_events_image.svg
+  SvgGenImage get emptyScanEventsImage =>
+      const SvgGenImage('assets/images/empty_scan_events_image.svg');
 
   /// File path: assets/images/event_success_image.png
   AssetGenImage get eventSuccessImage =>
@@ -279,7 +300,10 @@ class $AssetsImagesGen {
         backgroundEventIm,
         bookImage,
         emptyData,
+        emptyImageEventImage,
         emptyMessages,
+        emptyNotificationsImage,
+        emptyScanEventsImage,
         eventSuccessImage,
         imErrorScreen,
         invitationCreateIm,

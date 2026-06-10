@@ -23,6 +23,7 @@ import 'package:invit/features/notifications/presentation/screens/notifications_
 import 'package:invit/features/onBoarding/on_boarding.dart';
 import 'package:invit/features/auth/signIn/presentation/screens/sign_in_screen.dart';
 import 'package:invit/features/onBoarding/splash_screen.dart';
+import 'package:invit/features/payment/presentation/screens/payment_screen.dart';
 import 'package:invit/features/scan/presentation/pages/scan_qr_event_page.dart';
 import 'package:invit/features/payment/presentation/screens/recharge_credits_screen.dart';
 // import 'package:invit/features/onBoarding/splash.dart';
@@ -451,6 +452,23 @@ class AppRouter {
             return CustomTransitionPage(
               child: UpdateGuestListScreen(
                 occasionId: state.extra as String,
+              ),
+              key: state.pageKey,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.webPaymentScreen,
+          name: AppRoutes.webPaymentScreen,
+          parentNavigatorKey: rootKey,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return CustomTransitionPage(
+              child: PaymentScreen(
+                paymentUrl: state.extra as String,
               ),
               key: state.pageKey,
               transitionsBuilder:

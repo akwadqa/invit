@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
@@ -40,9 +39,12 @@ class SmallInfoCard extends StatelessWidget {
                 color: bgColor, borderRadius: BorderRadius.circular(4)),
             child: icon.svg(),
           ),
-          Text(title,
-              style: AppTextStyle.rubikRegular16
-                  .copyWith(color: AppColors.textGrey)),
+          FittedBox(
+            child: Text(title,
+                maxLines: 1,
+                style: AppTextStyle.rubikRegular16
+                    .copyWith(color: AppColors.textGrey)),
+          ),
           Text(value, style: AppTextStyle.rubikMedium16),
         ],
       ),

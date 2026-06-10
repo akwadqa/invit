@@ -16,6 +16,7 @@ import 'package:invit/features/home/presentation/widgets/home_screen_invitation_
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
+import 'package:invit/src/core/shared_widgets/app_pagination_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
@@ -30,7 +31,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _HomeScreenContent());
+    return Scaffold(body: _HomeScreenContent()).onlyPadding(top: 10);
   }
 }
 
@@ -40,20 +41,23 @@ class _HomeScreenContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final homeProvider = ref.watch(homeControllerProvider);
+    // return _buildSkelton();
     return homeProvider.when(
         data: (data) {
           return Scaffold(
               appBar: AppBar(
-                leading: SizedBox(),
+                surfaceTintColor: Colors.transparent,
+                // leading: SizedBox(),
+                centerTitle: true,
                 title: Text(
-                  'welcome'.tr(),
-                  style: AppTextStyle.rubikSemiBold16
+                  'all_events'.tr(),
+                  style: AppTextStyle.rubikSemiBold20
                       .copyWith(color: AppColors.primary),
                 ),
                 actions: [
                   GestureDetector(
                     onTap: () {
-                      context.goNamed(AppRoutes.notificationScreen);
+                      context.push(AppRoutes.paymentScreen);
                     },
                     child: Container(
                       width: 30,
@@ -68,33 +72,38 @@ class _HomeScreenContent extends ConsumerWidget {
                                 color: AppColors.black.withValues(alpha: .25),
                                 blurRadius: 4)
                           ]),
-                      child: Assets.icons.notificationIc.svg(),
+                      child: Assets.icons.cardIc.svg(),
                     ),
                   )
                 ],
               ),
-              body: data.events.isEmpty
+              body: data?.events.isEmpty ?? true
                   ? EmptyHomeData()
                   : Column(
                       spacing: 20,
                       children: [
-                        SectionTitleWidget(),
+                        // SectionTitleWidget(),
                         Expanded(
-                          child: ListView.separated(
-                            padding: EdgeInsets.only(bottom: 140),
-                            // scrollDirection: Axis.horizontal,
-                            separatorBuilder: (context, index) =>
-                                35.verticalSpace,
-                            itemCount: data.events.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                  onTap: () => context.push(
-                                      AppRoutes.eventDetails,
-                                      extra: data.events[index].eventId),
-                                  child: EventItemWidget(
-                                      event: data.events[index]));
-                              // HomeScreenAllEvents(featuredEvent: true,),
-                            },
+                          child: AppPaginationWidget(
+                            onLoading: (page) => ref
+                                .read(homeControllerProvider.notifier)
+                                .loadNextPage(),
+                            child: ListView.separated(
+                              padding: EdgeInsets.only(bottom: 140),
+                              // scrollDirection: Axis.horizontal,
+                              separatorBuilder: (context, index) =>
+                                  35.verticalSpace,
+                              itemCount: data?.events.length ?? 0,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                    onTap: () => context.push(
+                                        AppRoutes.eventDetails,
+                                        extra: data?.events[index].eventId),
+                                    child: EventItemWidget(
+                                        event: data?.events[index]));
+                                // HomeScreenAllEvents(featuredEvent: true,),
+                              },
+                            ),
                           ),
                         ),
                         // 140.verticalSpace
@@ -117,9 +126,10 @@ class _HomeScreenContent extends ConsumerWidget {
           backgroundColor: Colors.white,
           body: Column(
             children: [
-              HomeScreenAppBar(),
-              20.verticalSpace,
-              SectionTitleWidget(),
+              // HomeScreenAppBar(),
+              80.verticalSpace,
+
+              // SectionTitleWidget(),
               Expanded(
                 child: ListView.separated(
                   // scrollDirection: Axis.horizontal,

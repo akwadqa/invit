@@ -7,8 +7,8 @@ part of 'home_model.dart';
 // **************************************************************************
 
 _HomeModel _$HomeModelFromJson(Map<String, dynamic> json) => _HomeModel(
-      banners: (json['banners'] as List<dynamic>)
-          .map((e) => BannerModel.fromJson(e as Map<String, dynamic>))
+      bundles: (json['bundles'] as List<dynamic>)
+          .map((e) => BundleModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       events: (json['events'] as List<dynamic>)
           .map((e) => EventModel.fromJson(e as Map<String, dynamic>))
@@ -23,8 +23,23 @@ _HomeModel _$HomeModelFromJson(Map<String, dynamic> json) => _HomeModel(
 
 Map<String, dynamic> _$HomeModelToJson(_HomeModel instance) =>
     <String, dynamic>{
-      'banners': instance.banners,
+      'bundles': instance.bundles,
       'events': instance.events,
       'featured_events': instance.featuredEvents,
       'occasion_types': instance.occasionTypes,
+    };
+
+_BundleModel _$BundleModelFromJson(Map<String, dynamic> json) => _BundleModel(
+      bundleName: json['bundle_name'] as String?,
+      price: json['price'] as num?,
+      amount: json['amount'] as num?,
+      description: json['description'] as String?,
+    );
+
+Map<String, dynamic> _$BundleModelToJson(_BundleModel instance) =>
+    <String, dynamic>{
+      'bundle_name': instance.bundleName,
+      'price': instance.price,
+      'amount': instance.amount,
+      'description': instance.description,
     };

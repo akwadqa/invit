@@ -14,6 +14,7 @@ class EventLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 8,
       children: [
         Assets.icons.locationIc.svg(),
@@ -22,7 +23,7 @@ class EventLocation extends StatelessWidget {
           child: Text(
             location ?? 'location',
             style:
-                AppTextStyle.rubikRegular12.copyWith(color: AppColors.textDart),
+                AppTextStyle.rubikRegular14.copyWith(color: AppColors.textDart),
           ),
         )
       ],

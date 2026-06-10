@@ -23,10 +23,10 @@ class DeleteContactAlert extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AlertDialog(
-      contentPadding: EdgeInsets.zero,
-      content: Container(
-        // width: 256,
+    return Dialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        // width: 450,
         // height: 300,
         decoration: BoxDecoration(
             color: AppColors.white, borderRadius: BorderRadius.circular(12)),
@@ -57,6 +57,7 @@ class DeleteContactAlert extends ConsumerWidget {
             ),
             33.verticalSpace,
             Row(
+              spacing: 10,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
@@ -67,7 +68,7 @@ class DeleteContactAlert extends ConsumerWidget {
                     height: 48,
                     radius: 10,
                     style: AppTextStyle.rubikMedium18
-                        .copyWith(color: AppColors.black),
+                        .copyWith(color: AppColors.primary),
                     width: 140,
                     backgroundColor: AppColors.white,
                   ),

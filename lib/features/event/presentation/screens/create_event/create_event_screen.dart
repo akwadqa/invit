@@ -50,7 +50,7 @@ class _CreateEventScreenContentState
     super.initState();
     title = TextEditingController();
     Future(() {
-      ref.read( mapControllerProvider(null).notifier).initLocation(null);
+      ref.read(mapControllerProvider(null).notifier).initLocation(null);
     });
   }
 
@@ -62,7 +62,8 @@ class _CreateEventScreenContentState
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(mapControllerProvider(null).select((val) => val.value?.selectedPlace),
+    ref.listen(
+        mapControllerProvider(null).select((val) => val.value?.selectedPlace),
         (previous, next) {
       if (next is AsyncLoading) {
         AppAlert.showLoadingDialog(context);

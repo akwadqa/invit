@@ -4,6 +4,7 @@ import 'package:invit/features/event/data/data_source/event_data_source.dart';
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
+import 'package:invit/features/event/domain/model/retry_bulk_response/retry_bulk_response.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/dio_client.dart';
 import 'package:invit/src/logger/failure/exceptions/app_exception.dart';
@@ -22,7 +23,7 @@ class EventRepository {
 
   EventRepository(this._remoteDataSource);
 
-  Future<ApiResponse<CreateEventResponse>> createEvent(
+  Future<ApiResponse<String>> createEvent(
       EventModel params) async {
     final response = await _remoteDataSource.createEvent(params);
 
@@ -35,6 +36,15 @@ class EventRepository {
 
   Future<ApiResponse<List<InviteTemplateModel>>> getTemplate() async {
     final response = await _remoteDataSource.getTemplates();
+
+    if (response.status == 200) {
+      return response;
+    }
+
+    throw AppException(message: response.error);
+  }
+  Future<ApiResponse<RetryBulkResponse>> resendFailedInvites(String occasionId) async {
+    final response = await _remoteDataSource.resendFailue(occasionId);
 
     if (response.status == 200) {
       return response;

@@ -98,7 +98,6 @@ abstract class AppColors {
   static const Color softOrange = Color(0xFFFFEADA);
   static const Color softBlue = Color(0xFFE7F2FD);
   static const Color buttonBackground = Color(0xFFD1D1D1);
-
 }
 
 class AvatarColors {
@@ -111,6 +110,10 @@ class AvatarColors {
     const Color(0xFF5D4037), // Dark Brown
     const Color(0xFF455A64), // Blue Grey
   ];
+  static Color getColorForName(String name) {
+    final index = name.hashCode.abs() % _colors.length;
+    return _colors[index];
+  }
 
   static Color random() {
     final random = Random();

@@ -1,9 +1,27 @@
 allprojects {
     repositories {
+        // google()
+        // mavenCentral()
+        maven { url "https://maven.aliyun.com/repository/google" }
+        maven { url "https://maven.aliyun.com/repository/public" }
+        google()
+        mavenCentral()
+        maven { url "https://storage.googleapis.com/download.flutter.io" }
+    }
+}
+
+buildscript {
+    repositories {
+        maven { url "https://maven.aliyun.com/repository/google" }
+        maven { url "https://maven.aliyun.com/repository/public" }
         google()
         mavenCentral()
     }
+    dependencies {
+    }
 }
+
+
 // allprojects {
 //     configurations.all {
 //         resolutionStrategy {

@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
+import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 import '../controller/home_controller.dart';
 
@@ -23,7 +24,7 @@ class BottomNavigationBarView extends ConsumerWidget {
     final iconList = [
       Assets.icons.homeIc.svg(),
       Assets.icons.scanIc.svg(),
-      Assets.icons.messagesIc.svg(),
+      Assets.icons.notificationIc.svg(),
       Assets.icons.settingsIc.svg(),
     ];
 
@@ -65,11 +66,12 @@ class BottomNavigationBarView extends ConsumerWidget {
                 child: iconList[i],
               ),
               // SizedBox(height: 4),
-              Spacer(),
+              // Spacer(),
+              10.verticalSpace,
               FittedBox(
                 child: Text(
                   labelList[i],
-                  style: TextStyle(fontSize: 12, color: color),
+                  style: AppTextStyle.rubikMedium14.copyWith(color: color),
                 ),
               ),
               // 10.verticalSpace,

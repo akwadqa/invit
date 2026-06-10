@@ -1,4 +1,4 @@
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:invit/features/payment/presentation/widgets/small_info_card.dart';
 import 'package:invit/gen/assets.gen.dart';
@@ -14,18 +14,18 @@ class InfoCardsRow extends StatelessWidget {
       children: [
         Expanded(
           child: SmallInfoCard(
-            title: "Consumed",
+            title: "available_cards".tr(),
             value: "0 Cards",
             bgColor: AppColors.softBlue,
-            icon: Assets.icons.consumedIs,
+            icon: Assets.icons.availableCardsIc,
           ),
         ),
         Expanded(
           child: SmallInfoCard(
-            title: "Expiring",
-            value: "365 Days",
+            title: "consumed".tr(),
+            value: "365 Cards",
             bgColor: AppColors.softOrange,
-            icon: Assets.icons.expiringIc,
+            icon: Assets.icons.consumedIs,
           ),
         ),
       ],

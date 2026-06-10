@@ -408,6 +408,7 @@ Future<void> showConfirmationDialog({
     barrierDismissible: barrierDismissible,
     builder: (_) {
       return Dialog(
+        insetPadding: const EdgeInsets.symmetric(horizontal: 16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Stack(
           children: [
@@ -452,7 +453,7 @@ Future<void> showConfirmationDialog({
                           text: cancelText,
                           isFiled: false,
                           backgroundColor: AppColors.background,
-                          color: AppColors.grayBorder,
+                          color: AppColors.primary,
                           radius: 10,
                           height: 45,
                           onTap: () {

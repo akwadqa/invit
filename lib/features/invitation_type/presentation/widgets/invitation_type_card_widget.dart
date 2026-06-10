@@ -33,12 +33,12 @@ class InvitationTypeCard extends StatelessWidget {
       leading: CircleAvatar(
   radius: 25,
   backgroundColor: color.iconBg,
-  child: ocationTypeModel.image.isEmpty
+  child:(ocationTypeModel.image == null || ocationTypeModel.image!.isEmpty)
       ? const Icon(Icons.image, size: 22)
       : ClipOval(
           child: CachedNetworkImage(
             imageUrl:
-                ServicesUrls.imageUrl + ocationTypeModel.image,
+                ServicesUrls.imageUrl + ocationTypeModel!.image!,
             width: 50,
             height: 50,
             fit: BoxFit.cover,

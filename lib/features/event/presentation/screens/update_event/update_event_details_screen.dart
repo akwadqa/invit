@@ -98,6 +98,7 @@ class _UpdateEventDetailsScreenContentState
             child: CreateEventScreenForm(
                 occasionId: widget.eventModel.eventId,
                 formKey: _formKey,
+                isUpdate: true,
                 title: _title),
           ),
           CustomButtonWidget(

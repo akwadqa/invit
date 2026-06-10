@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/scan/presentation/controller/scan_controller.dart';
+import 'package:invit/features/scan/presentation/widgets/empty_scan_events_widget.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_empty_data_widget.dart';
@@ -55,8 +56,7 @@ class _ScanPageState extends ConsumerState<ScanPage> {
       body: controller?.when(
         data: (data) {
           if (data.isEmpty) {
-            return AppEmptyDataWidget(text: "no_events_to_scan_yet".tr());
-            // Center(child: Assets.images.emptyData.svg());
+            return EmptyScanEventsWidget();
           }
           return _buildBody(data);
         },
@@ -180,15 +180,15 @@ class ScanScreenItem extends StatelessWidget {
                 ),
               ],
             ),
-            10.verticalSpace,
+            // 10.verticalSpace,
             Text(
               event.title ?? '',
               style: AppTextStyle.rubikMedium14.copyWith(
-                color: AppColors.primary,
-              ),
+                  // color: AppColors.primary,
+                  ),
             ).centered(),
             // Spacer(),
-            15.verticalSpace,
+            // 15.verticalSpace,
             Row(
               children: [
                 19.horizontalSpace,

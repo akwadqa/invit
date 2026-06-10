@@ -16,11 +16,11 @@ T _$identity<T>(T value) => value;
 mixin _$SignupResponseModel {
   @JsonKey(name: 'user_id')
   String get userId;
-  String get subscriber;
-  @JsonKey(name: 'first_name')
-  String get firstName;
-  @JsonKey(name: 'last_name')
-  String get lastName;
+  String
+      get subscriber; // @JsonKey(name: 'first_name') required String firstName,
+// @JsonKey(name: 'last_name') required String lastName,
+  @JsonKey(name: 'full_name')
+  String get fullName;
   String get email;
   @JsonKey(name: 'mobile_no')
   String get mobileNo;
@@ -44,10 +44,8 @@ mixin _$SignupResponseModel {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.subscriber, subscriber) ||
                 other.subscriber == subscriber) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.mobileNo, mobileNo) ||
                 other.mobileNo == mobileNo));
@@ -55,12 +53,12 @@ mixin _$SignupResponseModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, userId, subscriber, firstName, lastName, email, mobileNo);
+  int get hashCode =>
+      Object.hash(runtimeType, userId, subscriber, fullName, email, mobileNo);
 
   @override
   String toString() {
-    return 'SignupResponseModel(userId: $userId, subscriber: $subscriber, firstName: $firstName, lastName: $lastName, email: $email, mobileNo: $mobileNo)';
+    return 'SignupResponseModel(userId: $userId, subscriber: $subscriber, fullName: $fullName, email: $email, mobileNo: $mobileNo)';
   }
 }
 
@@ -73,8 +71,7 @@ abstract mixin class $SignupResponseModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'user_id') String userId,
       String subscriber,
-      @JsonKey(name: 'first_name') String firstName,
-      @JsonKey(name: 'last_name') String lastName,
+      @JsonKey(name: 'full_name') String fullName,
       String email,
       @JsonKey(name: 'mobile_no') String mobileNo});
 }
@@ -94,8 +91,7 @@ class _$SignupResponseModelCopyWithImpl<$Res>
   $Res call({
     Object? userId = null,
     Object? subscriber = null,
-    Object? firstName = null,
-    Object? lastName = null,
+    Object? fullName = null,
     Object? email = null,
     Object? mobileNo = null,
   }) {
@@ -108,13 +104,9 @@ class _$SignupResponseModelCopyWithImpl<$Res>
           ? _self.subscriber
           : subscriber // ignore: cast_nullable_to_non_nullable
               as String,
-      firstName: null == firstName
-          ? _self.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
-          ? _self.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      fullName: null == fullName
+          ? _self.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _self.email
@@ -224,8 +216,7 @@ extension SignupResponseModelPatterns on SignupResponseModel {
     TResult Function(
             @JsonKey(name: 'user_id') String userId,
             String subscriber,
-            @JsonKey(name: 'first_name') String firstName,
-            @JsonKey(name: 'last_name') String lastName,
+            @JsonKey(name: 'full_name') String fullName,
             String email,
             @JsonKey(name: 'mobile_no') String mobileNo)?
         $default, {
@@ -234,8 +225,8 @@ extension SignupResponseModelPatterns on SignupResponseModel {
     final _that = this;
     switch (_that) {
       case _SignupResponseModel() when $default != null:
-        return $default(_that.userId, _that.subscriber, _that.firstName,
-            _that.lastName, _that.email, _that.mobileNo);
+        return $default(_that.userId, _that.subscriber, _that.fullName,
+            _that.email, _that.mobileNo);
       case _:
         return orElse();
     }
@@ -259,8 +250,7 @@ extension SignupResponseModelPatterns on SignupResponseModel {
     TResult Function(
             @JsonKey(name: 'user_id') String userId,
             String subscriber,
-            @JsonKey(name: 'first_name') String firstName,
-            @JsonKey(name: 'last_name') String lastName,
+            @JsonKey(name: 'full_name') String fullName,
             String email,
             @JsonKey(name: 'mobile_no') String mobileNo)
         $default,
@@ -268,8 +258,8 @@ extension SignupResponseModelPatterns on SignupResponseModel {
     final _that = this;
     switch (_that) {
       case _SignupResponseModel():
-        return $default(_that.userId, _that.subscriber, _that.firstName,
-            _that.lastName, _that.email, _that.mobileNo);
+        return $default(_that.userId, _that.subscriber, _that.fullName,
+            _that.email, _that.mobileNo);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -292,8 +282,7 @@ extension SignupResponseModelPatterns on SignupResponseModel {
     TResult? Function(
             @JsonKey(name: 'user_id') String userId,
             String subscriber,
-            @JsonKey(name: 'first_name') String firstName,
-            @JsonKey(name: 'last_name') String lastName,
+            @JsonKey(name: 'full_name') String fullName,
             String email,
             @JsonKey(name: 'mobile_no') String mobileNo)?
         $default,
@@ -301,8 +290,8 @@ extension SignupResponseModelPatterns on SignupResponseModel {
     final _that = this;
     switch (_that) {
       case _SignupResponseModel() when $default != null:
-        return $default(_that.userId, _that.subscriber, _that.firstName,
-            _that.lastName, _that.email, _that.mobileNo);
+        return $default(_that.userId, _that.subscriber, _that.fullName,
+            _that.email, _that.mobileNo);
       case _:
         return null;
     }
@@ -315,8 +304,7 @@ class _SignupResponseModel extends SignupResponseModel {
   const _SignupResponseModel(
       {@JsonKey(name: 'user_id') required this.userId,
       required this.subscriber,
-      @JsonKey(name: 'first_name') required this.firstName,
-      @JsonKey(name: 'last_name') required this.lastName,
+      @JsonKey(name: 'full_name') required this.fullName,
       required this.email,
       @JsonKey(name: 'mobile_no') required this.mobileNo})
       : super._();
@@ -328,12 +316,11 @@ class _SignupResponseModel extends SignupResponseModel {
   final String userId;
   @override
   final String subscriber;
+// @JsonKey(name: 'first_name') required String firstName,
+// @JsonKey(name: 'last_name') required String lastName,
   @override
-  @JsonKey(name: 'first_name')
-  final String firstName;
-  @override
-  @JsonKey(name: 'last_name')
-  final String lastName;
+  @JsonKey(name: 'full_name')
+  final String fullName;
   @override
   final String email;
   @override
@@ -364,10 +351,8 @@ class _SignupResponseModel extends SignupResponseModel {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.subscriber, subscriber) ||
                 other.subscriber == subscriber) &&
-            (identical(other.firstName, firstName) ||
-                other.firstName == firstName) &&
-            (identical(other.lastName, lastName) ||
-                other.lastName == lastName) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.mobileNo, mobileNo) ||
                 other.mobileNo == mobileNo));
@@ -375,12 +360,12 @@ class _SignupResponseModel extends SignupResponseModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, userId, subscriber, firstName, lastName, email, mobileNo);
+  int get hashCode =>
+      Object.hash(runtimeType, userId, subscriber, fullName, email, mobileNo);
 
   @override
   String toString() {
-    return 'SignupResponseModel(userId: $userId, subscriber: $subscriber, firstName: $firstName, lastName: $lastName, email: $email, mobileNo: $mobileNo)';
+    return 'SignupResponseModel(userId: $userId, subscriber: $subscriber, fullName: $fullName, email: $email, mobileNo: $mobileNo)';
   }
 }
 
@@ -395,8 +380,7 @@ abstract mixin class _$SignupResponseModelCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'user_id') String userId,
       String subscriber,
-      @JsonKey(name: 'first_name') String firstName,
-      @JsonKey(name: 'last_name') String lastName,
+      @JsonKey(name: 'full_name') String fullName,
       String email,
       @JsonKey(name: 'mobile_no') String mobileNo});
 }
@@ -416,8 +400,7 @@ class __$SignupResponseModelCopyWithImpl<$Res>
   $Res call({
     Object? userId = null,
     Object? subscriber = null,
-    Object? firstName = null,
-    Object? lastName = null,
+    Object? fullName = null,
     Object? email = null,
     Object? mobileNo = null,
   }) {
@@ -430,13 +413,9 @@ class __$SignupResponseModelCopyWithImpl<$Res>
           ? _self.subscriber
           : subscriber // ignore: cast_nullable_to_non_nullable
               as String,
-      firstName: null == firstName
-          ? _self.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
-          ? _self.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      fullName: null == fullName
+          ? _self.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _self.email

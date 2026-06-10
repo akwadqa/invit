@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/home/data/repositories/home_repository.dart';
 import 'package:invit/features/home/domain/model/home/home_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -7,22 +8,58 @@ part 'home_controller.g.dart';
 @riverpod
 class HomeController extends _$HomeController {
   @override
-  FutureOr<HomeModel> build() async {
-    return await getHomeData();
+  FutureOr<HomeModel?> build() async {
+    return await getHomeData(page: 1);
   }
 
-  Future<HomeModel> getHomeData() async {
-    state = const AsyncLoading();
+  List<EventModel> _items = [];
+  int _currentPage = 1;
+  int _totalPages = 1;
 
-    final result = await AsyncValue.guard(() async {
+  Future<HomeModel?> getHomeData(
+      {required int page, bool showLoading = true}) async {
+    try {
+      if (showLoading) state = const AsyncLoading();
+
       final repo = ref.read(homeRepositoryProvider);
-      return await repo.getHomeData(page: 1);
-    });
-    // (error) => AsyncError(error, StackTrace.current);
+      final response = await repo.getHomeData(page: page);
 
-    state = result;
+      _currentPage = response.pagination!.currentPage;
+      _totalPages = response.pagination!.totalPages;
 
-    return result.value!;
+      if (page == 1) {
+        _items = List.from(response.data?.events ?? []);
+      } else {
+        _items = [..._items, ...List.from(response.data?.events ?? [])];
+      }
+      // final homeModel = response.data!.copyWith(events: _items);
+      final homeModel = HomeModel(
+          bundles: response.data?.bundles ?? [],
+          events: _items,
+          featuredEvents: response.data?.featuredEvents ?? [],
+          occasionTypes: response.data?.occasionTypes ?? []);
+
+      state = AsyncData(homeModel);
+      return homeModel;
+    } catch (e, st) {
+      state = AsyncError(e, st);
+      return null;
+    }
+  }
+
+  Future<bool> loadNextPage() async {
+    if (_currentPage >= _totalPages) return false;
+    final nextPage = _currentPage + 1;
+    final result = await getHomeData(page: nextPage, showLoading: false);
+    return result?.events.isNotEmpty ?? false;
+  }
+
+  Future<void> refresh() async {
+    _items.clear();
+    _currentPage = 1;
+    _totalPages = 1;
+    await getHomeData(page: 1);
   }
 }
+
 final bottomNavIndexProvider = StateProvider<int>((ref) => 0);

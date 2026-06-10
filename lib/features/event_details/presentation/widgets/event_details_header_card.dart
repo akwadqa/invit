@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
-import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/infrastructure/api/endpoint/services_urls.dart';
 
 class EventDetailsHeaderCard extends StatelessWidget {
@@ -17,7 +15,8 @@ class EventDetailsHeaderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         elevation: 1,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        clipBehavior: Clip.antiAlias,
         child: event.imageUrl?.isNotEmpty ?? false
             ? CachedNetworkImage(
                 imageUrl: ServicesUrls.imageUrl + (event.imageUrl ?? ''),

@@ -50,25 +50,30 @@ class _VerificationScreenContentState
   Widget build(BuildContext context) {
     return Form(
       key: key,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        spacing: 28,
-        children: [
-          VerificationScreenHeading(phone: widget.phone),
-          VerificationScreenPin(
-            controller: controller,
-            // onSaved: (v) {
-            //   controller.setText(v ?? "99");
-            //   setState(() {});
-            // },
-          ),
-          VerificationScreenTimer(),
-          VerificationScreenConfirmationButtons(
-            phone: widget.phone,
-            otp: controller,
-            formKey: key,
-          )
-        ],
+      child: AnimatedSize(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 28,
+          children: [
+            VerificationScreenHeading(phone: widget.phone),
+            VerificationScreenPin(
+              controller: controller,
+              // onSaved: (v) {
+              //   controller.setText(v ?? "99");
+              //   setState(() {});
+              // },
+            ),
+            VerificationScreenTimer(),
+            VerificationScreenConfirmationButtons(
+              phone: widget.phone,
+              otp: controller,
+              formKey: key,
+            )
+          ],
+        ),
       ),
     );
   }

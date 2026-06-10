@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:invit/features/auth/signIn/domain/model/signin_response_model.dart';
 import 'package:invit/src/infrastructure/api/endpoint/api_endpoints.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
@@ -11,11 +12,14 @@ class SignInRemoteDataSource {
 
   Future<ApiResponse<SigninResponseModel>> signIn(String phone) async {
     try {
+      final data = FormData.fromMap({
+        "mobile_no": '30255377',
+      });
       final response = await _networkService.post(
         ApiEndPoints.signIn,
+        data: data,
         queryParameters: {
-          // "mobile_no":phone,
-          "mobile_no": ' 0981063882',
+          // "mobile_no": phone,
         },
       );
 

@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
+import 'package:invit/features/event/domain/model/retry_bulk_response/retry_bulk_response.dart';
 import 'package:invit/src/infrastructure/api/endpoint/api_endpoints.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/dio_client.dart';
@@ -19,7 +20,7 @@ class EventRemoteDataSource {
 
   EventRemoteDataSource(this._networkService);
 
-  Future<ApiResponse<CreateEventResponse>> createEvent(EventModel event) async {
+  Future<ApiResponse<String>> createEvent(EventModel event) async {
     try {
       final data = FormData.fromMap({
         ...event.toJson(),
@@ -49,7 +50,8 @@ class EventRemoteDataSource {
 
       return ApiResponse.fromJson(
         response.data as Map<String, dynamic>,
-        (json) => CreateEventResponse.fromJson(json as Map<String, dynamic>),
+        (json) =>
+            CreateEventResponse.fromJson(json as Map<String, dynamic>).eventId!,
       );
     } catch (e) {
       Dev.logLine('Error in submitData: e');
@@ -100,6 +102,22 @@ class EventRemoteDataSource {
     }
   }
 
+  Future<ApiResponse<RetryBulkResponse>> resendFailue(String occasionId) async {
+    try {
+      final data = FormData.fromMap({'occasion_id': occasionId});
+      final response = await _networkService.post(
+        ApiEndPoints.resendFailed,
+        data: data,
+      );
+      return ApiResponse.fromJson(
+        response.data,
+        (json) => RetryBulkResponse.fromJson(json as Map<String, dynamic>),
+      );
+    } catch (e) {
+      return ApiResponse.error(message: e.toString());
+    }
+  }
+
   Future<ApiResponse<CreateEventResponse>> updateEvent(
     EventModel event,
   ) async {
@@ -107,11 +125,12 @@ class EventRemoteDataSource {
       final data = FormData.fromMap({
         'occasion_id': event.eventId,
         'type': 'Birthday',
-        'image': event.image != null
-            ? await MultipartFile.fromFile(event.image!.path)
-            : null,
+        if (event.image != null)
+          'image': await MultipartFile.fromFile(event.image!.path),
         ...(event.toJson()
-          ..remove('image_url')
+          ..remove(event.imageUrl == null || (event.imageUrl?.isEmpty ?? true)
+              ? 'image_url'
+              : null)
           ..remove('type')),
       });
       final response = await _networkService.post(

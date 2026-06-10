@@ -19,7 +19,7 @@ class VerificationScreenPin extends StatelessWidget {
       width: 60,
       height: 60,
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: AppColors.primaryOpacity.withValues(alpha: .3),
         border: Border.all(color: AppColors.grayBorder),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -41,15 +41,31 @@ class VerificationScreenPin extends StatelessWidget {
         readOnly: false,
         controller: controller,
         showCursor: false,
+
         preFilledWidget: Text(
           '-',
           style: AppTextStyle.rubikRegular20.copyWith(color: AppColors.black),
         ),
-        focusedPinTheme: pinTheme.copyBorderWith(
-          border: Border.all(color: AppColors.black),
+        followingPinTheme: pinTheme.copyWith(
+          decoration: BoxDecoration(
+            color: AppColors.background,
+            border: Border.all(color: AppColors.grayBorder),
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
-        errorPinTheme: pinTheme.copyBorderWith(
-          border: Border.all(color: AppColors.darkRed),
+        focusedPinTheme: pinTheme.copyWith(
+          decoration: BoxDecoration(
+            color: AppColors.background,
+            border: Border.all(color: AppColors.black),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        errorPinTheme: pinTheme.copyWith(
+          decoration: BoxDecoration(
+            color: AppColors.background,
+            border: Border.all(color: AppColors.darkRed),
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
         length: 4,
         defaultPinTheme: pinTheme,

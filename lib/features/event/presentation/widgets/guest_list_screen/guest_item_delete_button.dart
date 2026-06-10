@@ -35,6 +35,7 @@ class GuestItemDeleteButton extends StatelessWidget {
   Future<dynamic> _showDeleteDialog(
       BuildContext context, Contact contact, String? occasionId) {
     return showDialog(
+      
         context: context,
         fullscreenDialog: false,
         builder: (context) => DeleteContactAlert(contact, occasionId));

@@ -24,10 +24,10 @@ class RemoteInterceptor extends Interceptor {
     final token = await ref.read(localStorageServiceProvider).getToken();
     final language = ref.read(currentLanguageProvider);
 
-    options.headers['Authorization'] = "token 48bca59435fd5f8:e310f88dc2f9223";
+    // options.headers['Authorization'] = "token eb20aaa2681702b:8cc4c7d43e06f53";
 
     if (token != null) {
-      // options.headers['Authorization'] = "token $token";
+      options.headers['Authorization'] = "token $token";
     }
 
     options.headers['Accept-Language'] = language;
@@ -82,6 +82,7 @@ class RemoteInterceptor extends Interceptor {
       debugPrint("🚪 Session expired → redirect to Login");
 
       ref.read(userDataProvider.notifier).removeData();
+      ref.read(localStorageServiceProvider).logout();
       rootKey.currentContext!.go(AppRoutes.signInScreen);
 
       // ref.read().go(Routes.login);

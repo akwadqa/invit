@@ -118,10 +118,15 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
               // contentPadding: withIcon
               //     ? EdgeInsets.zero
               //     : EdgeInsets.symmetric(horizontal: 16.w),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16),
+              prefixIconConstraints: BoxConstraints(
+                minWidth:
+                    32, // Minimum width for touch targets, adjust if needed
+              ),
               prefixIcon: widget.withIcon
                   ? Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 17),
-                      child: widget.icon!.svg(),
+                      padding: EdgeInsets.only(left: 16, right: 10),
+                      child: widget.icon!.svg(width: 18),
                     )
                   : null,
 

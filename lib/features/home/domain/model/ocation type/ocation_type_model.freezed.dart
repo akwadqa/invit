@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OcationTypeModel {
   @JsonKey(name: 'image')
-  String get image;
+  String? get image;
   @JsonKey(name: 'name')
   String get title;
 
@@ -56,7 +56,7 @@ abstract mixin class $OcationTypeModelCopyWith<$Res> {
       _$OcationTypeModelCopyWithImpl;
   @useResult
   $Res call(
-      {@JsonKey(name: 'image') String image,
+      {@JsonKey(name: 'image') String? image,
       @JsonKey(name: 'name') String title});
 }
 
@@ -73,14 +73,14 @@ class _$OcationTypeModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? image = null,
+    Object? image = freezed,
     Object? title = null,
   }) {
     return _then(_self.copyWith(
-      image: null == image
+      image: freezed == image
           ? _self.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: null == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -182,7 +182,7 @@ extension OcationTypeModelPatterns on OcationTypeModel {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(@JsonKey(name: 'image') String image,
+    TResult Function(@JsonKey(name: 'image') String? image,
             @JsonKey(name: 'name') String title)?
         $default, {
     required TResult orElse(),
@@ -211,7 +211,7 @@ extension OcationTypeModelPatterns on OcationTypeModel {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(@JsonKey(name: 'image') String image,
+    TResult Function(@JsonKey(name: 'image') String? image,
             @JsonKey(name: 'name') String title)
         $default,
   ) {
@@ -238,7 +238,7 @@ extension OcationTypeModelPatterns on OcationTypeModel {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(@JsonKey(name: 'image') String image,
+    TResult? Function(@JsonKey(name: 'image') String? image,
             @JsonKey(name: 'name') String title)?
         $default,
   ) {
@@ -256,14 +256,14 @@ extension OcationTypeModelPatterns on OcationTypeModel {
 @JsonSerializable()
 class _OcationTypeModel implements OcationTypeModel {
   const _OcationTypeModel(
-      {@JsonKey(name: 'image') required this.image,
+      {@JsonKey(name: 'image') this.image,
       @JsonKey(name: 'name') required this.title});
   factory _OcationTypeModel.fromJson(Map<String, dynamic> json) =>
       _$OcationTypeModelFromJson(json);
 
   @override
   @JsonKey(name: 'image')
-  final String image;
+  final String? image;
   @override
   @JsonKey(name: 'name')
   final String title;
@@ -311,7 +311,7 @@ abstract mixin class _$OcationTypeModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'image') String image,
+      {@JsonKey(name: 'image') String? image,
       @JsonKey(name: 'name') String title});
 }
 
@@ -328,14 +328,14 @@ class __$OcationTypeModelCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? image = null,
+    Object? image = freezed,
     Object? title = null,
   }) {
     return _then(_OcationTypeModel(
-      image: null == image
+      image: freezed == image
           ? _self.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: null == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable

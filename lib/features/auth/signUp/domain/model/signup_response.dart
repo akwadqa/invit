@@ -10,8 +10,10 @@ abstract class SignupResponseModel with _$SignupResponseModel {
   const factory SignupResponseModel({
     @JsonKey(name: 'user_id') required String userId,
     required String subscriber,
-    @JsonKey(name: 'first_name') required String firstName,
-    @JsonKey(name: 'last_name') required String lastName,
+    // @JsonKey(name: 'first_name') required String firstName,
+    // @JsonKey(name: 'last_name') required String lastName,
+    @JsonKey(name: 'full_name') required String fullName,
+
     required String email,
     @JsonKey(name: 'mobile_no') required String mobileNo,
   }) = _SignupResponseModel;
@@ -20,5 +22,5 @@ abstract class SignupResponseModel with _$SignupResponseModel {
       _$SignupResponseModelFromJson(json);
 
   /// Getter مفيد للواجهة
-  String get fullName => '$firstName $lastName';
+  // String get fullName => '$firstName $lastName';
 }

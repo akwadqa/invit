@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,8 +9,11 @@ import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/features/event/presentation/controller/map_controller/map_controller.dart';
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
+import 'package:invit/features/event/presentation/screens/create_event/upload_image_screen.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
+import 'package:invit/src/core/shared_widgets/image_picker.dart';
+import 'package:invit/src/infrastructure/api/endpoint/services_urls.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
@@ -19,10 +23,12 @@ class CreateEventScreenForm extends ConsumerWidget {
     this.occasionId,
     required this.formKey,
     required this.title,
+    this.isUpdate = false,
   });
   final GlobalKey<FormState> formKey;
   final TextEditingController title;
   final String? occasionId;
+  final bool isUpdate;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,7 +53,7 @@ class CreateEventScreenForm extends ConsumerWidget {
     final locationName = ref.watch(mapControllerProvider(occasionId)
         .select((val) => val.value?.selectedPlace?.value?.locationName));
 
-        //TODO : Delete this:
+    //TODO : Delete this:
 
     // final locationName = occasionId == null
     //     ? ref.watch(createEventControllerProvider
@@ -55,7 +61,7 @@ class CreateEventScreenForm extends ConsumerWidget {
     //     : ref.watch(updateEventControllerProvider(ocassionId: occasionId!)
     //         .select((val) => val.value!.selectedPlace?.value?.locationName));
 
-        //TODO : Delete this:
+    //TODO : Delete this:
 
     // final locationName = occasionId == null
     //     ? ref.watch(createEventControllerProvider
@@ -70,6 +76,7 @@ class CreateEventScreenForm extends ConsumerWidget {
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColors.dividerColor),
           boxShadow: [
             BoxShadow(
                 color: AppColors.black.withValues(alpha: .25), blurRadius: 4),
@@ -208,11 +215,83 @@ class CreateEventScreenForm extends ConsumerWidget {
                       ),
                     ),
                   ],
-                )
+                ),
+              if (isUpdate) _buildImageSection(ref)
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildImageSection(WidgetRef ref) {
+    final imageUrl = ref.watch(
+        updateEventControllerProvider(ocassionId: occasionId!)
+            .select((val) => val.value?.updatedEvent?.imageUrl));
+
+    final imageFile = ref.watch(
+        updateEventControllerProvider(ocassionId: occasionId!)
+            .select((val) => val.value?.updatedEvent?.image));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 16,
+      children: [
+        Text(
+          'image'.tr(),
+          style: AppTextStyle.rubikMedium16,
+        ),
+        SizedBox(
+          width: double.infinity,
+          height:
+              (imageFile != null || (imageUrl != null && imageUrl.isNotEmpty))
+                  ? null
+                  : 80,
+          child: imageFile != null
+              ? Image.file(
+                  imageFile,
+                  fit: BoxFit.cover,
+                )
+              : (imageUrl != null && imageUrl.isNotEmpty)
+                  ? Image.network(
+                      ServicesUrls.imageUrl + imageUrl,
+                      fit: BoxFit.cover,
+                    )
+                  : GestureDetector(
+                      onTap: () async {
+                        final newImage = await pickImage();
+                        if (newImage != null) {
+                          ref
+                              .read(updateEventControllerProvider(
+                                      ocassionId: occasionId!)
+                                  .notifier)
+                              .updateDataForEvent(EventModel(image: newImage));
+                        }
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: AppColors.primary),
+                          ),
+                          child: Center(
+                            child: Assets.icons.uploadImageIc.svg(),
+                          )),
+                    ),
+        ),
+        if (imageFile != null || (imageUrl != null && imageUrl.isNotEmpty))
+          GestureDetector(
+            onTap: () {
+              ref
+                  .read(updateEventControllerProvider(ocassionId: occasionId!)
+                      .notifier)
+                  .removeImage();
+            },
+            child: Text(
+              'remove_image'.tr(),
+              style: AppTextStyle.rubikMedium14.copyWith(color: AppColors.red),
+            ),
+          )
+      ],
     );
   }
 }

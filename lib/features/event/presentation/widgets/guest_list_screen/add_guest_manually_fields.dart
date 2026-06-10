@@ -38,7 +38,8 @@ class _AddGuestManuallyFieldsState extends State<AddGuestManuallyFields> {
     _nationalController.dispose();
     super.dispose();
   }
- void _updateFullPhone(String countryCode) {
+
+  void _updateFullPhone(String countryCode) {
     final number = _nationalController.text.startsWith('0')
         ? _nationalController.text.substring(1)
         : _nationalController.text;
@@ -77,7 +78,7 @@ class _AddGuestManuallyFieldsState extends State<AddGuestManuallyFields> {
               decoration: InputDecoration(
                 prefixIcon: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 17),
-                  child: Assets.icons.fullNameIc.svg(),
+                  child: Assets.icons.fullNameIc.svg(width: 16),
                 ),
                 hintText: 'full_name'.tr(),
                 hintStyle: AppTextStyle.rubikRegular14

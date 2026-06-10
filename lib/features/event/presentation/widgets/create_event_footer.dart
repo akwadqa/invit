@@ -15,28 +15,34 @@ class CreateEventFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      spacing: 10,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomButtonWidget(
-          text: 'cancel'.tr(),
-          onTap: () => context.pop(),
-          isFiled: false,
-          height: 48,
-          radius: 10,
-          style: AppTextStyle.rubikMedium18.copyWith(color: AppColors.primary),
-          width: 157,
-          backgroundColor: AppColors.white,
+        Expanded(
+          child: CustomButtonWidget(
+            text: 'cancel'.tr(),
+            onTap: () => context.pop(),
+            isFiled: false,
+            height: 48,
+            radius: 10,
+            style:
+                AppTextStyle.rubikMedium18.copyWith(color: AppColors.primary),
+            width: 157,
+            backgroundColor: AppColors.white,
+          ),
         ),
-        CustomButtonWidget(
-          text: 'continue'.tr(),
-          onTap: onContinue,
-          isFiled: false,
-          height: 48,
-          radius: 10,
-          style: AppTextStyle.rubikMedium18.copyWith(color: AppColors.white),
-          width: 157,
-          backgroundColor: AppColors.primary,
-        ),
+        Expanded(
+          child: CustomButtonWidget(
+            text: 'continue'.tr(),
+            onTap: onContinue,
+            isFiled: false,
+            height: 48,
+            radius: 10,
+            style: AppTextStyle.rubikMedium18.copyWith(color: AppColors.white),
+            width: 157,
+            backgroundColor: AppColors.primary,
+          ),
+        )
       ],
     );
   }

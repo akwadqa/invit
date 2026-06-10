@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
@@ -10,7 +9,9 @@ class EventTitle extends StatelessWidget {
   final String? title;
   final String? type;
   const EventTitle({
-    super.key, required this.title, required this.type,
+    super.key,
+    required this.title,
+    required this.type,
   });
 
   @override
@@ -20,8 +21,8 @@ class EventTitle extends StatelessWidget {
         //? Title :
         Expanded(
           child: Text(
-          title??  'Hadeel graduated',
-            style: AppTextStyle.rubikMedium12,
+            title ?? 'Hadeel graduated',
+            style: AppTextStyle.rubikMedium16,
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -34,8 +35,8 @@ class EventTitle extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(32),
                 color: AppColors.primary),
-            child: Text(type??'graduation'.tr(),
-                style: AppTextStyle.rubikRegular10
+            child: Text(type ?? 'graduation'.tr(),
+                style: AppTextStyle.rubikMedium14
                     .copyWith(color: AppColors.background)),
           ),
         ),

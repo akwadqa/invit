@@ -3,6 +3,7 @@ import 'package:invit/features/event/data/repository/event_repository.dart';
 import 'package:invit/features/event/domain/model/create_event_response/create_event_response.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
+import 'package:invit/features/event/domain/model/retry_bulk_response/retry_bulk_response.dart';
 import 'package:invit/features/event/presentation/controller/contacts_controller/contacts_controller.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,7 +17,7 @@ class CreateEventController extends _$CreateEventController {
     return CreateEventState.init();
   }
 
-  Future<CreateEventResponse?> createEvent(bool isConfirm) async {
+  Future<String?> createEvent(bool isConfirm) async {
     try {
       state = AsyncData(state.value!
           .copyWith(createEventResponse: AsyncLoading(), isConfirm: isConfirm));
@@ -41,6 +42,38 @@ class CreateEventController extends _$CreateEventController {
     } catch (e, st) {
       state = AsyncData(
           state.value!.copyWith(createEventResponse: AsyncError(e, st)));
+      return null;
+    }
+  }
+
+  Future<RetryBulkResponse?> retryFailed(String occasionId) async {
+    try {
+      state = AsyncData(
+        state.value!.copyWith(resendFailed: AsyncLoading()),
+      );
+      final repo = ref.read(eventRepositoryProvider);
+      final response = await repo.resendFailedInvites(occasionId);
+
+      if (response.hasFailed) {
+        state = AsyncData(
+          state.value!.copyWith(
+            resendFailed: AsyncError(
+              response.message ?? '',
+              StackTrace.current,
+            ),
+          ),
+        );
+        return null;
+      }
+
+      state = AsyncData(
+        state.value!.copyWith(resendFailed: AsyncData(response.data!)),
+      );
+      return response.data;
+    } catch (e, st) {
+      state = AsyncData(
+        state.value!.copyWith(resendFailed: AsyncError(e, st)),
+      );
       return null;
     }
   }

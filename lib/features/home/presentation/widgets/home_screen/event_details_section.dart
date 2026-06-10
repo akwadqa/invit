@@ -16,12 +16,14 @@ class EventDetailsSection extends StatelessWidget {
       child: Column(
         spacing: 13,
         children: [
-          EventTitle(title:event?.title, type: event?.type,),
-          EventOwnerName(owner: event?.role,),
+          EventTitle(
+            title: event?.title,
+            type: event?.type,
+          ),
+          // EventOwnerName(owner: event?.role,),
           EventLocation(location: event?.locationName),
         ],
       ),
     );
   }
 }
-
