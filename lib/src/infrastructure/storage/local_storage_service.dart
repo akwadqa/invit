@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:invit/features/home/presentation/controller/home_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,10 +37,7 @@ class LocalStorageService {
   // TOKEN (SECURE)
   // ============================
   Future<void> saveToken(String token) async {
-    await _secureStorage.write(
-      key: Keys.securedToken,
-      value: token,
-    );
+    await _secureStorage.write(key: Keys.securedToken, value: token);
   }
 
   Future<String?> getToken() async {
@@ -53,8 +51,7 @@ class LocalStorageService {
   // ============================
   // USER INFO (HIVE)
   // ============================
-  UserInformation get userInfo =>
-      _userBox.get(0) ?? UserInformation.empty();
+  UserInformation get userInfo => _userBox.get(0) ?? UserInformation.empty();
 
   Future<void> saveUserInfo(UserInformation info) async {
     await _userBox.put(0, info);
@@ -71,7 +68,7 @@ class LocalStorageService {
     final updated = current.copyWith(
       fullName: fullName ?? current.fullName,
       // email: email??current.email,
-      mobileNumber: phone??current.mobileNumber,
+      mobileNumber: phone ?? current.mobileNumber,
     );
 
     await _userBox.put(0, updated);
@@ -100,8 +97,10 @@ class LocalStorageService {
   Future<void> logout() async {
     await removeToken();
     await removeUserInfo();
+    ref.invalidate(homeControllerProvider);
   }
 }
+
 @riverpod
 Future<bool> isAuthenticated(Ref ref) async {
   final storage = ref.read(localStorageServiceProvider);

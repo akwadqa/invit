@@ -15,15 +15,15 @@ final createEventControllerProvider = CreateEventControllerProvider._();
 final class CreateEventControllerProvider
     extends $AsyncNotifierProvider<CreateEventController, CreateEventState> {
   CreateEventControllerProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'createEventControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'createEventControllerProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$createEventControllerHash();
@@ -34,7 +34,7 @@ final class CreateEventControllerProvider
 }
 
 String _$createEventControllerHash() =>
-    r'e5d23561f3982e758190f773b975693b5732ed8a';
+    r'6fa61c6866ec7ab80e3d48cdc49547ae86c81a87';
 
 abstract class _$CreateEventController
     extends $AsyncNotifier<CreateEventState> {
@@ -44,11 +44,14 @@ abstract class _$CreateEventController
   void runBuild() {
     final ref =
         this.ref as $Ref<AsyncValue<CreateEventState>, CreateEventState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<CreateEventState>, CreateEventState>,
-        AsyncValue<CreateEventState>,
-        Object?,
-        Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<CreateEventState>, CreateEventState>,
+              AsyncValue<CreateEventState>,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

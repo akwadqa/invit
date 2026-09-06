@@ -9,11 +9,13 @@ import 'package:invit/features/auth/signIn/presentation/widgets/sign_in_form.dar
 import 'package:invit/features/settings/presentation/controller/settings_controller.dart';
 import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
+import 'package:invit/src/core/shared_widgets/app_toast.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 import 'package:invit/src/logger/log_services/dev_logger.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
+import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class AppDialogs {
   AppDialogs._();
@@ -288,10 +290,10 @@ Future<void> showAutoClosingDialog(BuildContext context, String message) async {
       title: Text(
         message,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: 16,
-              // fontWeight: FontWeight.w700,
-              // color: Colors.grey,
-            ),
+          fontSize: 16,
+          // fontWeight: FontWeight.w700,
+          // color: Colors.grey,
+        ),
       ).centered(),
       icon: Icon(Icons.error, color: AppColors.darkRed, size: 50),
       actions: [
@@ -303,10 +305,10 @@ Future<void> showAutoClosingDialog(BuildContext context, String message) async {
           child: Text(
             "OK".tr(),
             style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
+              fontSize: 16,
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
           ).centered(),
         ),
       ],
@@ -338,19 +340,19 @@ Dialog showYesNowChoicesDialog(
         Text(
           title.tr(),
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                // color: Colors.grey,
-              ),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            // color: Colors.grey,
+          ),
         ).centered(),
         40.verticalSpace,
         Text(
           dsc.tr(),
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontSize: 14,
-                color: AppColors.darkGray,
-                fontWeight: FontWeight.w500,
-              ),
+            fontSize: 14,
+            color: AppColors.darkGray,
+            fontWeight: FontWeight.w500,
+          ),
         ).centered(),
         40.verticalSpace,
         Row(
@@ -371,7 +373,8 @@ Dialog showYesNowChoicesDialog(
             Flexible(
               child: CustomButtonWidget(
                 text: context.tr("no"),
-                onTap: noButton ??
+                onTap:
+                    noButton ??
                     () {
                       Navigator.pop(context);
                     },
@@ -424,10 +427,9 @@ Future<void> showConfirmationDialog({
                   Text(
                     title.tr(),
                     textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
 
                   12.verticalSpace,
@@ -436,10 +438,9 @@ Future<void> showConfirmationDialog({
                   Text(
                     description.tr(),
                     textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: AppColors.darkGray),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: AppColors.darkGray),
                   ),
 
                   30.verticalSpace,
@@ -463,52 +464,60 @@ Future<void> showConfirmationDialog({
                         ),
                       ),
                       12.horizontalSpace,
-                      Consumer(builder: (context, ref, child) {
-                        ref.listen(settingsControllerProvider, (prev, next) {
+                      Consumer(
+                        builder: (context, ref, child) {
+                          ref.listen(settingsControllerProvider, (prev, next) {
+                            final current = deleteAcc
+                                ? next.value?.deleteAccountState
+                                : next.value?.logoutState;
+                            if (current is AsyncData) {
+                              // context.maybePop().then((_) {
+                              Dev.logSuccess("Success check");
+                              // Navigator.pop(context);
+
+                              context.pushReplacement(AppRoutes.signInScreen);
+                              // _showDialog();
+                              AppToast.doneToast('successfullyCompleted'.tr());
+                              // BotToast.showText(
+                              //   text: 'successful_check'.tr(),
+                              //   contentColor: AppColors.green,
+                              // );
+
+                              // });
+                            } else if (current is AsyncError) {
+                              showErrorDialog(
+                                context,
+                                current.error.toString(),
+                              );
+                            }
+                          });
+
+                          final provider = ref.watch(
+                            settingsControllerProvider,
+                          );
                           final current = deleteAcc
-                              ? next.value?.deleteAccountState
-                              : next.value?.logoutState;
-                          if (current is AsyncData) {
-                            // context.maybePop().then((_) {
-                            Dev.logSuccess("Success check");
-                            // Navigator.pop(context);
-
-                            context.pushReplacement(AppRoutes.signInScreen);
-                            // _showDialog();
-                            BotToast.showText(
-                              text: 'successful_check'.tr(),
-                              contentColor: AppColors.green,
-                            );
-
-                            // });
-                          } else if (current is AsyncError) {
-                            showErrorDialog(context, current.error.toString());
+                              ? provider.value?.deleteAccountState
+                              : provider.value?.logoutState;
+                          if (current is AsyncLoading) {
+                            return Flexible(flex: 2, child: AppLoader());
+                            // const FadeCircleLoadingIndicator();
                           }
-                        });
-
-                        final provider = ref.watch(settingsControllerProvider);
-                        final current = deleteAcc
-                            ? provider.value?.deleteAccountState
-                            : provider.value?.logoutState;
-                        if (current is AsyncLoading) {
-                          return Flexible(flex: 2, child: AppLoader());
-                          // const FadeCircleLoadingIndicator();
-                        }
-                        return Flexible(
-                          flex: 2,
-                          child: CustomButtonWidget(
-                            text: confirmText,
-                            isFiled: true,
-                            backgroundColor: confirmColor,
-                            radius: 10,
-                            height: 45,
-                            onTap: () {
-                              onConfirm();
-                            },
-                            width: MediaQuery.sizeOf(context).width,
-                          ),
-                        );
-                      }),
+                          return Flexible(
+                            flex: 2,
+                            child: CustomButtonWidget(
+                              text: confirmText,
+                              isFiled: true,
+                              backgroundColor: confirmColor,
+                              radius: 10,
+                              height: 45,
+                              onTap: () {
+                                onConfirm();
+                              },
+                              width: MediaQuery.sizeOf(context).width,
+                            ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ],
@@ -535,11 +544,11 @@ Future<void> showConfirmationDialog({
 Future<void> showErrorDialog(BuildContext context, String message) {
   return showCustomDialog(
     context: context,
-    title: Text(message),
-    icon: Icon(
-      Icons.error,
-      color: AppColors.darkRed,
-      size: 50,
+    title: Text(
+      message,
+      style: AppTextStyle.rubikMedium16,
+      textAlign: TextAlign.center,
     ),
+    icon: Icon(Icons.error, color: AppColors.darkRed, size: 50),
   );
 }

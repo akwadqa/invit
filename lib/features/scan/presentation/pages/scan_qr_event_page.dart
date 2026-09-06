@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/scan/presentation/controller/scan_controller.dart';
 import 'package:invit/src/core/shared_widgets/app_alert.dart';
+import 'package:invit/src/core/shared_widgets/app_toast.dart';
 import 'package:invit/src/core/shared_widgets/custom_appbar.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
@@ -94,16 +95,18 @@ class _ScanQrEventPageState extends ConsumerState<ScanQrEventPage> {
       if (next is AsyncData) {
         context.pop();
 
-        BotToast.showText(
-          text: 'successfullyCompleted'.tr(),
-          contentColor: AppColors.green,
+        AppToast.doneToast(
+          'successfullyCompleted'.tr(),
         );
+        // BotToast.showText(
+        //   text: 'successfullyCompleted'.tr(),
+        //   contentColor: AppColors.green,
+        // );
       }
       if (next is AsyncError) {
         context.pop();
-        BotToast.showText(
-          text: next!.error!.toString(),
-          contentColor: AppColors.darkRed,
+        AppToast.errorToast(
+          next!.error!.toString(),
         );
       }
     });

@@ -18,7 +18,7 @@ class SignupParams {
     return {
 
       'full_name': fullNamae,
-      'subscription_type' : '53dspm34nb',
+      // 'subscription_type' : '53dspm34nb',
       'mobile_no': mobileNumber,
     };
   }

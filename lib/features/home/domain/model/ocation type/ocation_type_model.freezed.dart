@@ -14,52 +14,47 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$OcationTypeModel {
-  @JsonKey(name: 'image')
-  String? get image;
-  @JsonKey(name: 'name')
-  String get title;
 
-  /// Create a copy of OcationTypeModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $OcationTypeModelCopyWith<OcationTypeModel> get copyWith =>
-      _$OcationTypeModelCopyWithImpl<OcationTypeModel>(
-          this as OcationTypeModel, _$identity);
+@JsonKey(name: 'image') String? get image;@JsonKey(name: 'name') String get title;@JsonKey(name: 'color') String get color;
+/// Create a copy of OcationTypeModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$OcationTypeModelCopyWith<OcationTypeModel> get copyWith => _$OcationTypeModelCopyWithImpl<OcationTypeModel>(this as OcationTypeModel, _$identity);
 
   /// Serializes this OcationTypeModel to a JSON map.
   Map<String, dynamic> toJson();
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is OcationTypeModel &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.title, title) || other.title == title));
-  }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, image, title);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OcationTypeModel&&(identical(other.image, image) || other.image == image)&&(identical(other.title, title) || other.title == title)&&(identical(other.color, color) || other.color == color));
+}
 
-  @override
-  String toString() {
-    return 'OcationTypeModel(image: $image, title: $title)';
-  }
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,image,title,color);
+
+@override
+String toString() {
+  return 'OcationTypeModel(image: $image, title: $title, color: $color)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $OcationTypeModelCopyWith<$Res> {
-  factory $OcationTypeModelCopyWith(
-          OcationTypeModel value, $Res Function(OcationTypeModel) _then) =
-      _$OcationTypeModelCopyWithImpl;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'image') String? image,
-      @JsonKey(name: 'name') String title});
-}
+abstract mixin class $OcationTypeModelCopyWith<$Res>  {
+  factory $OcationTypeModelCopyWith(OcationTypeModel value, $Res Function(OcationTypeModel) _then) = _$OcationTypeModelCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'image') String? image,@JsonKey(name: 'name') String title,@JsonKey(name: 'color') String color
+});
 
+
+
+
+}
 /// @nodoc
 class _$OcationTypeModelCopyWithImpl<$Res>
     implements $OcationTypeModelCopyWith<$Res> {
@@ -68,253 +63,201 @@ class _$OcationTypeModelCopyWithImpl<$Res>
   final OcationTypeModel _self;
   final $Res Function(OcationTypeModel) _then;
 
-  /// Create a copy of OcationTypeModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? image = freezed,
-    Object? title = null,
-  }) {
-    return _then(_self.copyWith(
-      image: freezed == image
-          ? _self.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: null == title
-          ? _self.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+/// Create a copy of OcationTypeModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? image = freezed,Object? title = null,Object? color = null,}) {
+  return _then(_self.copyWith(
+image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
+as String?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
+
+}
+
 
 /// Adds pattern-matching-related methods to [OcationTypeModel].
 extension OcationTypeModelPatterns on OcationTypeModel {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_OcationTypeModel value)? $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _OcationTypeModel() when $default != null:
-        return $default(_that);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _OcationTypeModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _OcationTypeModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// Callbacks receives the raw object, upcasted.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case final Subclass2 value:
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_OcationTypeModel value) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _OcationTypeModel():
-        return $default(_that);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _OcationTypeModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _OcationTypeModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `map` that fallback to returning `null`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_OcationTypeModel value)? $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _OcationTypeModel() when $default != null:
-        return $default(_that);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _OcationTypeModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _OcationTypeModel() when $default != null:
+return $default(_that);case _:
+  return null;
 
-  /// A variant of `when` that fallback to an `orElse` callback.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(@JsonKey(name: 'image') String? image,
-            @JsonKey(name: 'name') String title)?
-        $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _OcationTypeModel() when $default != null:
-        return $default(_that.image, _that.title);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'image')  String? image, @JsonKey(name: 'name')  String title, @JsonKey(name: 'color')  String color)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _OcationTypeModel() when $default != null:
+return $default(_that.image,_that.title,_that.color);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// As opposed to `map`, this offers destructuring.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case Subclass2(:final field2):
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(@JsonKey(name: 'image') String? image,
-            @JsonKey(name: 'name') String title)
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _OcationTypeModel():
-        return $default(_that.image, _that.title);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'image')  String? image, @JsonKey(name: 'name')  String title, @JsonKey(name: 'color')  String color)  $default,) {final _that = this;
+switch (_that) {
+case _OcationTypeModel():
+return $default(_that.image,_that.title,_that.color);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `when` that fallback to returning `null`
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(@JsonKey(name: 'image') String? image,
-            @JsonKey(name: 'name') String title)?
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _OcationTypeModel() when $default != null:
-        return $default(_that.image, _that.title);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'image')  String? image, @JsonKey(name: 'name')  String title, @JsonKey(name: 'color')  String color)?  $default,) {final _that = this;
+switch (_that) {
+case _OcationTypeModel() when $default != null:
+return $default(_that.image,_that.title,_that.color);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
+
 class _OcationTypeModel implements OcationTypeModel {
-  const _OcationTypeModel(
-      {@JsonKey(name: 'image') this.image,
-      @JsonKey(name: 'name') required this.title});
-  factory _OcationTypeModel.fromJson(Map<String, dynamic> json) =>
-      _$OcationTypeModelFromJson(json);
+  const _OcationTypeModel({@JsonKey(name: 'image') this.image, @JsonKey(name: 'name') required this.title, @JsonKey(name: 'color') required this.color});
+  factory _OcationTypeModel.fromJson(Map<String, dynamic> json) => _$OcationTypeModelFromJson(json);
 
-  @override
-  @JsonKey(name: 'image')
-  final String? image;
-  @override
-  @JsonKey(name: 'name')
-  final String title;
+@override@JsonKey(name: 'image') final  String? image;
+@override@JsonKey(name: 'name') final  String title;
+@override@JsonKey(name: 'color') final  String color;
 
-  /// Create a copy of OcationTypeModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$OcationTypeModelCopyWith<_OcationTypeModel> get copyWith =>
-      __$OcationTypeModelCopyWithImpl<_OcationTypeModel>(this, _$identity);
+/// Create a copy of OcationTypeModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$OcationTypeModelCopyWith<_OcationTypeModel> get copyWith => __$OcationTypeModelCopyWithImpl<_OcationTypeModel>(this, _$identity);
 
-  @override
-  Map<String, dynamic> toJson() {
-    return _$OcationTypeModelToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$OcationTypeModelToJson(this, );
+}
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _OcationTypeModel &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.title, title) || other.title == title));
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OcationTypeModel&&(identical(other.image, image) || other.image == image)&&(identical(other.title, title) || other.title == title)&&(identical(other.color, color) || other.color == color));
+}
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, image, title);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,image,title,color);
 
-  @override
-  String toString() {
-    return 'OcationTypeModel(image: $image, title: $title)';
-  }
+@override
+String toString() {
+  return 'OcationTypeModel(image: $image, title: $title, color: $color)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$OcationTypeModelCopyWith<$Res>
-    implements $OcationTypeModelCopyWith<$Res> {
-  factory _$OcationTypeModelCopyWith(
-          _OcationTypeModel value, $Res Function(_OcationTypeModel) _then) =
-      __$OcationTypeModelCopyWithImpl;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'image') String? image,
-      @JsonKey(name: 'name') String title});
-}
+abstract mixin class _$OcationTypeModelCopyWith<$Res> implements $OcationTypeModelCopyWith<$Res> {
+  factory _$OcationTypeModelCopyWith(_OcationTypeModel value, $Res Function(_OcationTypeModel) _then) = __$OcationTypeModelCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'image') String? image,@JsonKey(name: 'name') String title,@JsonKey(name: 'color') String color
+});
 
+
+
+
+}
 /// @nodoc
 class __$OcationTypeModelCopyWithImpl<$Res>
     implements _$OcationTypeModelCopyWith<$Res> {
@@ -323,25 +266,18 @@ class __$OcationTypeModelCopyWithImpl<$Res>
   final _OcationTypeModel _self;
   final $Res Function(_OcationTypeModel) _then;
 
-  /// Create a copy of OcationTypeModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? image = freezed,
-    Object? title = null,
-  }) {
-    return _then(_OcationTypeModel(
-      image: freezed == image
-          ? _self.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: null == title
-          ? _self.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+/// Create a copy of OcationTypeModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? image = freezed,Object? title = null,Object? color = null,}) {
+  return _then(_OcationTypeModel(
+image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
+as String?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
 }
 
 // dart format on

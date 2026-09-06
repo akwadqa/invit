@@ -13,9 +13,7 @@ import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 import '../controller/home_controller.dart';
 
 class BottomNavigationBarView extends ConsumerWidget {
-  const BottomNavigationBarView({
-    super.key,
-  });
+  const BottomNavigationBarView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,47 +33,62 @@ class BottomNavigationBarView extends ConsumerWidget {
       context.tr('settings'),
     ];
 
-    return SizedBox(
-      height: 107,
+    return Directionality(
+      textDirection: ui.TextDirection.ltr,
+      // 1. أزلنا الـ SizedBox الخارجي تماماً
       child: AnimatedBottomNavigationBar.builder(
+        // 2. استخدمنا ارتفاعاً ثابتاً ومثالياً (65 إلى 70 ممتاز جداً لنسبة وتناسب الـ FAB)
+        height: 68,
+        // 3. هذا السطر يحمي النص من لمس الخط السفلي للآيفون (Safe Area)
+        safeAreaValues: const SafeAreaValues(bottom: true),
         itemCount: iconList.length,
         tabBuilder: (int i, bool isActive) {
           final color = isActive ? AppColors.primary : AppColors.black;
 
-          return Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 10),
-              AnimatedContainer(
-                padding: EdgeInsets.zero,
-                margin: EdgeInsets.zero,
-                duration: Duration(milliseconds: 300),
-                // width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: selectedIndex == i
-                      ? AppColors.primary
-                      : Colors.transparent,
+          return Padding(
+            // 4. إعطاء مساحة تنفس صغيرة من الأعلى والأسفل
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // لاحتواء العناصر بحجمها الطبيعي
+              children: [
+                // --- المؤشر العلوي ---
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: selectedIndex == i
+                        ? AppColors.primary
+                        : Colors.transparent,
+                  ),
+                  width: 27,
+                  height: 4, // من الأفضل ترك الارتفاعات الصغيرة ثابتة بدون .h
                 ),
-                width: 27,
-                height: 4,
-              ),
-              12.verticalSpace,
-              ColorFiltered(
-                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-                child: iconList[i],
-              ),
-              // SizedBox(height: 4),
-              // Spacer(),
-              10.verticalSpace,
-              FittedBox(
-                child: Text(
+
+                // --- الأيقونة (مغلفة بـ Expanded) ---
+                // الـ Expanded سيجبر الأيقونة على التوسط في المساحة المتبقية
+                // بدون أن تضغط على النص أو المؤشر وبدون Overflow
+                Expanded(
+                  child: Center(
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+                      child: iconList[i],
+                    ),
+                  ),
+                ),
+
+                // --- النص ---
+                Text(
                   labelList[i],
-                  style: AppTextStyle.rubikMedium14.copyWith(color: color),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: color,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  maxLines: 1, // لمنع أي Overflow في حال كان النص طويلاً
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              // 10.verticalSpace,
-            ],
+              ],
+            ),
           );
         },
         gapLocation: GapLocation.center,
@@ -86,7 +99,7 @@ class BottomNavigationBarView extends ConsumerWidget {
         backgroundColor: Colors.white,
         shadow: Shadow(
           blurRadius: 24,
-          offset: Offset(0, -5),
+          offset: const Offset(0, -5),
           color: Colors.black.withOpacity(.12),
         ),
       ),

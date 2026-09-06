@@ -53,7 +53,7 @@ class NotificationsService {
           .sendFCMToken(token, userId);
     });
 
-    // sendDeviceToken(userId);
+    sendDeviceToken(userId);
   }
 
   Future<void> setupInteractedMessage(GoRoute appRouter) async {

@@ -157,6 +157,22 @@ class $AssetsIconsGen {
   SvgGenImage get settingsIc =>
       const SvgGenImage('assets/icons/settings_ic.svg');
 
+  /// File path: assets/icons/template_confirm_arrow_ic.svg
+  SvgGenImage get templateConfirmArrowIc =>
+      const SvgGenImage('assets/icons/template_confirm_arrow_ic.svg');
+
+  /// File path: assets/icons/template_date_ic.svg
+  SvgGenImage get templateDateIc =>
+      const SvgGenImage('assets/icons/template_date_ic.svg');
+
+  /// File path: assets/icons/template_location_ic.svg
+  SvgGenImage get templateLocationIc =>
+      const SvgGenImage('assets/icons/template_location_ic.svg');
+
+  /// File path: assets/icons/template_time_ic.svg
+  SvgGenImage get templateTimeIc =>
+      const SvgGenImage('assets/icons/template_time_ic.svg');
+
   /// File path: assets/icons/title_ic.svg
   SvgGenImage get titleIc => const SvgGenImage('assets/icons/title_ic.svg');
 
@@ -170,48 +186,52 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<dynamic> get values => [
-        activeIc,
-        addContactIc,
-        addEventIc,
-        appIcon,
-        availableCardsIc,
-        cardIc,
-        chatIc,
-        confirmGuestIc,
-        consumedIs,
-        contactsIc,
-        dateIc,
-        deleteContactAlertIc,
-        deleteContactIc,
-        deleteIc,
-        deleteWithCornerIc,
-        editProfileIc,
-        eventDateIc,
-        eventTimeIc,
-        expiringIc,
-        failedGuestIc,
-        fullNameIc,
-        googleIc,
-        homeIc,
-        iconCorner,
-        langIc,
-        locationIc,
-        logoutIc,
-        logoutWithCornerIc,
-        messagesIc,
-        notificationIc,
-        passwordIc,
-        phoneNumberIc,
-        privacyIc,
-        qatarCountry,
-        qatarFlag,
-        saveEventIc,
-        scanIc,
-        settingsIc,
-        titleIc,
-        uploadImageIc,
-        waitingGuestIc
-      ];
+    activeIc,
+    addContactIc,
+    addEventIc,
+    appIcon,
+    availableCardsIc,
+    cardIc,
+    chatIc,
+    confirmGuestIc,
+    consumedIs,
+    contactsIc,
+    dateIc,
+    deleteContactAlertIc,
+    deleteContactIc,
+    deleteIc,
+    deleteWithCornerIc,
+    editProfileIc,
+    eventDateIc,
+    eventTimeIc,
+    expiringIc,
+    failedGuestIc,
+    fullNameIc,
+    googleIc,
+    homeIc,
+    iconCorner,
+    langIc,
+    locationIc,
+    logoutIc,
+    logoutWithCornerIc,
+    messagesIc,
+    notificationIc,
+    passwordIc,
+    phoneNumberIc,
+    privacyIc,
+    qatarCountry,
+    qatarFlag,
+    saveEventIc,
+    scanIc,
+    settingsIc,
+    templateConfirmArrowIc,
+    templateDateIc,
+    templateLocationIc,
+    templateTimeIc,
+    titleIc,
+    uploadImageIc,
+    waitingGuestIc,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -232,6 +252,18 @@ class $AssetsImagesGen {
   /// File path: assets/images/book_image.jpg
   AssetGenImage get bookImage =>
       const AssetGenImage('assets/images/book_image.jpg');
+
+  /// File path: assets/images/confirm_background_image.png
+  AssetGenImage get confirmBackgroundImage =>
+      const AssetGenImage('assets/images/confirm_background_image.png');
+
+  /// File path: assets/images/confitm_template_qr.png
+  AssetGenImage get confitmTemplateQr =>
+      const AssetGenImage('assets/images/confitm_template_qr.png');
+
+  /// File path: assets/images/decline_template_background.png
+  AssetGenImage get declineTemplateBackground =>
+      const AssetGenImage('assets/images/decline_template_background.png');
 
   /// File path: assets/images/empty_data.svg
   SvgGenImage get emptyData =>
@@ -289,32 +321,40 @@ class $AssetsImagesGen {
   AssetGenImage get template2Image =>
       const AssetGenImage('assets/images/template2_image.png');
 
+  /// File path: assets/images/template_background_image.png
+  AssetGenImage get templateBackgroundImage =>
+      const AssetGenImage('assets/images/template_background_image.png');
+
   /// File path: assets/images/template_reply_image.png
   AssetGenImage get templateReplyImage =>
       const AssetGenImage('assets/images/template_reply_image.png');
 
   /// List of all assets
   List<dynamic> get values => [
-        rectangle,
-        allEventImage,
-        backgroundEventIm,
-        bookImage,
-        emptyData,
-        emptyImageEventImage,
-        emptyMessages,
-        emptyNotificationsImage,
-        emptyScanEventsImage,
-        eventSuccessImage,
-        imErrorScreen,
-        invitationCreateIm,
-        inviteTypeImage,
-        qatarCountry,
-        qatarFlag,
-        qrTemplateImage,
-        template1Image,
-        template2Image,
-        templateReplyImage
-      ];
+    rectangle,
+    allEventImage,
+    backgroundEventIm,
+    bookImage,
+    confirmBackgroundImage,
+    confitmTemplateQr,
+    declineTemplateBackground,
+    emptyData,
+    emptyImageEventImage,
+    emptyMessages,
+    emptyNotificationsImage,
+    emptyScanEventsImage,
+    eventSuccessImage,
+    imErrorScreen,
+    invitationCreateIm,
+    inviteTypeImage,
+    qatarCountry,
+    qatarFlag,
+    qrTemplateImage,
+    template1Image,
+    template2Image,
+    templateBackgroundImage,
+    templateReplyImage,
+  ];
 }
 
 class $AssetsLottieGen {
@@ -441,15 +481,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
@@ -470,17 +503,11 @@ class AssetGenImageAnimation {
 }
 
 class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
+  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = false;
 
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
+  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -536,7 +563,8 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ??
+      colorFilter:
+          colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,

@@ -38,50 +38,57 @@ class InvitationTypesScreen extends ConsumerWidget {
       ),
     );
     return Scaffold(
-        backgroundColor: AppColors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, 65),
-          child: CustomAppbar(
-            title: context.tr('invitation_type'),
-            // withBackButton: false,
-          ),
+      backgroundColor: AppColors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size(double.infinity, 65),
+        child: CustomAppbar(
+          title: context.tr('invitation_type'),
+          // withBackButton: false,
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(22),
-              child: Text(
-                "chooseEventType".tr(),
-                style: AppTextStyle.rubikSemiBold18,
-              ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(22),
+            child: Text(
+              "chooseEventType".tr(),
+              style: AppTextStyle.rubikSemiBold18,
             ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: occasionTypes.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      if (!fromCreateEvent) {
-                        context.push(AppRoutes.allEventsSecreen);
-                      } else {
-                        ref
-                            .read(createEventControllerProvider.notifier)
-                            .updateEvent(
-                                EventModel(type: occasionTypes[index].title));
-                        context.pushNamed(AppRoutes.templatesScreen);
-                      }
-                    },
-                    child: InvitationTypeCard(
-                      ocationTypeModel: occasionTypes[index],
-                      index: index,
-                    ),
-                  );
-                },
-              ),
-            )
-          ],
-        ));
+          ),
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: occasionTypes.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    // if (!fromCreateEvent) {
+                    //   ref
+                    //       .read(createEventControllerProvider.notifier)
+                    //       .updateEvent(
+                    //         EventModel(type: occasionTypes[index].title),
+                    //       );
+                    //   context.push(AppRoutes.allEventsSecreen);
+                    // } else {
+                    //   ref
+                    //       .read(createEventControllerProvider.notifier)
+                    //       .updateEvent(
+                    //         EventModel(type: occasionTypes[index].title),
+                    //       );
+                    //   context.pushNamed(AppRoutes.templatesScreen);
+                    // }
+                  },
+                  child: InvitationTypeCard(
+                    ocationTypeModel: occasionTypes[index],
+                    index: index,
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -9,11 +9,12 @@ import 'package:invit/features/event/domain/model/create_event_response/create_e
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
 import 'package:invit/features/event/domain/model/retry_bulk_response/retry_bulk_response.dart';
+import 'package:invit/features/event/domain/model/template%20model/template_model.dart';
 
 class CreateEventState {
   final EventModel eventModel;
   final AsyncValue<String>? createEventResponse;
-  final AsyncValue<List<InviteTemplateModel>>? templates;
+  final AsyncValue<List<TemplateModel>>? templates;
   final AsyncValue<EventModel>? confirmEvent;
   final AsyncValue<RetryBulkResponse>? resendFailed;
   final bool isConfirm;
@@ -37,7 +38,7 @@ class CreateEventState {
     EventModel? eventModel,
     
     AsyncValue<String>? createEventResponse,
-    AsyncValue<List<InviteTemplateModel>>? templates,
+    AsyncValue<List<TemplateModel>>? templates,
     AsyncValue<EventModel>? confirmEvent,
     bool? isConfirm,
     AsyncValue<RetryBulkResponse>? resendFailed,

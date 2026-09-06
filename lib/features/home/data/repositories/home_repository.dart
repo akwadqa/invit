@@ -12,6 +12,7 @@ HomeRepository homeRepository(Ref ref) {
   final networkService = ref.watch(networkServiceProvider());
   return HomeRepository(HomeRemoteDataSource(networkService));
 }
+
 class HomeRepository {
   final HomeRemoteDataSource _remoteDataSource;
 
@@ -19,15 +20,14 @@ class HomeRepository {
   Future<ApiResponse<HomeModel>> getHomeData({required int page}) async {
     try {
       final result = await _remoteDataSource.getHomeData(page: page);
-  
+
       if (result.hasFailed) {
-        throw AppException( message :result.message ?? 'Failed to fetch data');
+        throw AppException(message: result.message ?? 'Failed to fetch data');
       }
-  
+
       return result;
     } catch (e) {
-      throw AppException(message: 'Failed to fetch HomeModel: $e');
+      throw AppException(message: e.toString());
     }
   }
-
 }

@@ -16,11 +16,13 @@ class FeatureItem extends StatelessWidget {
         children: [
           // const Icon(Icons.check_circle,
           //     color: AppColors.confirmGuest, size: 18),
-          SizedBox(
-            width: MediaQuery.of(context).size.width / 1.6,
-            child: Text(text,
-                style: AppTextStyle.rubikRegular16
-                    .copyWith(color: AppColors.textGrey)),
+          Expanded(
+            child: Text(
+              text,
+              style: AppTextStyle.rubikRegular16.copyWith(
+                color: AppColors.textGrey,
+              ),
+            ),
           ),
         ],
       ),

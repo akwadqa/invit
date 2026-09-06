@@ -12,18 +12,19 @@ part of 'app_messages_controller.dart';
 @ProviderFor(AppMessagesController)
 final appMessagesControllerProvider = AppMessagesControllerProvider._();
 
-final class AppMessagesControllerProvider extends $AsyncNotifierProvider<
-    AppMessagesController, List<AppMessagesModel>> {
+final class AppMessagesControllerProvider
+    extends
+        $AsyncNotifierProvider<AppMessagesController, List<AppMessagesModel>> {
   AppMessagesControllerProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'appMessagesControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'appMessagesControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$appMessagesControllerHash();
@@ -42,13 +43,20 @@ abstract class _$AppMessagesController
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref
-        as $Ref<AsyncValue<List<AppMessagesModel>>, List<AppMessagesModel>>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<List<AppMessagesModel>>, List<AppMessagesModel>>,
-        AsyncValue<List<AppMessagesModel>>,
-        Object?,
-        Object?>;
+    final ref =
+        this.ref
+            as $Ref<AsyncValue<List<AppMessagesModel>>, List<AppMessagesModel>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<
+                AsyncValue<List<AppMessagesModel>>,
+                List<AppMessagesModel>
+              >,
+              AsyncValue<List<AppMessagesModel>>,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

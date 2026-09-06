@@ -28,8 +28,15 @@ class _SignInFormState extends ConsumerState<SignInForm> {
       if (next is AsyncData && prev is AsyncLoading) {
         // context.maybePop().then((_) {
         debugPrint("Success check");
+        if (next.value?.signinResponseModel?.validation.userExist == false) {
+          context.push(AppRoutes.signUpScreen, extra: phoneController.text);
+        } else {
+          context.push(
+            AppRoutes.verificationScreen,
+            extra: phoneController.text,
+          );
+        }
 
-        context.push(AppRoutes.verificationScreen, extra: phoneController.text);
         // _showDialog();
         // });
       } else if (next is AsyncError) {
@@ -59,34 +66,39 @@ class _SignInFormState extends ConsumerState<SignInForm> {
           // PhoneNumberField(
           //   onSaved: (value) => _phoneNumber = value,
           // ),
-          Consumer(builder: (context, ref, child) {
-            final signInProvider = ref.watch(signInControllerProvider);
+          Consumer(
+            builder: (context, ref, child) {
+              final signInProvider = ref.watch(signInControllerProvider);
 
-            if (signInProvider is AsyncLoading) {
-              return AppLoader();
-              // const FadeCircleLoadingIndicator();
-            }
-            // signInProvider.isLoading
-            //     ?
+              if (signInProvider is AsyncLoading) {
+                return AppLoader();
+                // const FadeCircleLoadingIndicator();
+              }
+              // signInProvider.isLoading
+              //     ?
 
-            // :
-            final isEmpty =
-                ref.watch(signInControllerProvider).value!.isPhoneFilled ??
-                    false;
-            return CustomButtonWidget(
-              text: 'login'.tr(),
-              style:
-                  AppTextStyle.rubikMedium18.copyWith(color: AppColors.white),
-              onTap: () => !isEmpty ? null : _submit(ref),
-              isFiled: true,
-              height: 50,
-              width: double.infinity,
-              // backgroundColor: !isEmpty ? AppColors.gray : AppColors.primary,
-              backgroundColor: AppColors.primary,
-              radius: 10,
-            );
-            // return Container();
-          }),
+              // :
+              final isEmpty =
+                  ref.watch(signInControllerProvider).value!.isPhoneFilled ??
+                  false;
+              return CustomButtonWidget(
+                text: 'login'.tr(),
+                style: AppTextStyle.rubikMedium18.copyWith(
+                  color: AppColors.white,
+                ),
+                onTap: () {
+                  !isEmpty ? null : _submit(ref);
+                },
+                isFiled: true,
+                height: 50,
+                width: double.infinity,
+                // backgroundColor: !isEmpty ? AppColors.gray : AppColors.primary,
+                backgroundColor: AppColors.primary,
+                radius: 10,
+              );
+              // return Container();
+            },
+          ),
         ],
       ),
     );
@@ -99,14 +111,15 @@ class _SignInFormState extends ConsumerState<SignInForm> {
 
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
+      FocusScope.of(context).unfocus();
       await ref
           .read(signInControllerProvider.notifier)
           .signIn(phoneController.text)
           .then((_) {
-        ref.read(signInControllerProvider.notifier)
-          ..makeResendButtonVisible(false)
-          ..makeConfirmButtonVisible(true);
-      });
+            ref.read(signInControllerProvider.notifier)
+              ..makeResendButtonVisible(false)
+              ..makeConfirmButtonVisible(true);
+          });
     }
   }
 }

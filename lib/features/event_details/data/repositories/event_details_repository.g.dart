@@ -12,20 +12,24 @@ part of 'event_details_repository.dart';
 @ProviderFor(eventDetailsRepository)
 final eventDetailsRepositoryProvider = EventDetailsRepositoryProvider._();
 
-final class EventDetailsRepositoryProvider extends $FunctionalProvider<
-    EventDetailsRepository,
-    EventDetailsRepository,
-    EventDetailsRepository> with $Provider<EventDetailsRepository> {
+final class EventDetailsRepositoryProvider
+    extends
+        $FunctionalProvider<
+          EventDetailsRepository,
+          EventDetailsRepository,
+          EventDetailsRepository
+        >
+    with $Provider<EventDetailsRepository> {
   EventDetailsRepositoryProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'eventDetailsRepositoryProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'eventDetailsRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$eventDetailsRepositoryHash();
@@ -33,8 +37,8 @@ final class EventDetailsRepositoryProvider extends $FunctionalProvider<
   @$internal
   @override
   $ProviderElement<EventDetailsRepository> $createElement(
-          $ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   EventDetailsRepository create(Ref ref) {

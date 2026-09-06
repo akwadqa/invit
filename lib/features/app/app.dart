@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:invit/src/application/router/routing/app_router_provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:toastification/toastification.dart';
 import '../../src/core/localization/current_language.dart';
 import '../../src/core/utils/theme/app_theme.dart';
 
@@ -29,20 +30,22 @@ class _AppState extends ConsumerState<App> {
     final currentLanguage = ref.watch(currentLanguageProvider);
     return Sizer(
       maxMobileWidth: 400,
-      builder: (context, oreintation, screenYupe) => MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        // routerDelegate: appRouter.delegate(
-        //     deepLinkBuilder: (deepLink) => DeepLink.defaultPath),
-        routerConfig: appRouter.goRouter,
-        builder: BotToastInit(),
+      builder: (context, oreintation, screenYupe) => ToastificationWrapper(
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          // routerDelegate: appRouter.delegate(
+          //     deepLinkBuilder: (deepLink) => DeepLink.defaultPath),
+          routerConfig: appRouter.goRouter,
+          builder: BotToastInit(),
 
-        theme: ref.watch(appThemeProvider),
-        onGenerateTitle: (context) => context.tr('appTitle'),
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        // supportedLocales: [Locale('en')],
+          theme: ref.watch(appThemeProvider),
+          onGenerateTitle: (context) => context.tr('appTitle'),
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          // supportedLocales: [Locale('en')],
           locale: context.locale,
-        // locale: Locale('en'),
+          // locale: Locale('en'),
+        ),
       ),
     );
   }

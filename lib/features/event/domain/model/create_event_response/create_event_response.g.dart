@@ -13,8 +13,5 @@ _CreateEventResponse _$CreateEventResponseFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$CreateEventResponseToJson(
-        _CreateEventResponse instance) =>
-    <String, dynamic>{
-      'event_id': instance.eventId,
-      'image': instance.image,
-    };
+  _CreateEventResponse instance,
+) => <String, dynamic>{'event_id': instance.eventId, 'image': instance.image};

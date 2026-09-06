@@ -24,33 +24,40 @@ class VerifyOtpController extends _$VerifyOtpController {
       final repo = ref.read(verifyOtpRepositoryProvider);
       final response = await repo.verifyOtp(phone, otp);
       final info = UserInformation(
-          token: '',
-          fullName: response.data!.fullName,
-          mobileNumber: response.data!.mobileNo,
-        );
+        userId: response.data!.userId,
+        token: '',
+        fullName: response.data!.fullName,
+        mobileNumber: response.data!.mobileNo,
+      );
 
-     await ref.read(localStorageServiceProvider).saveToken(response.data!.token);
-    await  ref.read(localStorageServiceProvider).saveUserInfo(info);
+      await ref
+          .read(localStorageServiceProvider)
+          .saveToken(response.data!.token);
+      await ref.read(localStorageServiceProvider).saveUserInfo(info);
       final token = await ref.read(localStorageServiceProvider).getToken();
       Dev.logLine(token);
       await ref
           .read(notificationsServiceProvider)
-          .sendDeviceToken(info.mobileNumber ?? "");
+          .sendDeviceToken(response.data!.userId);
       return state.value!.copyWith(verifyOtpResponseModel: response.data);
     });
   }
 
   Future<void> resendCoe(String phone) async {
-    state =
-        AsyncData(state.value!.copyWith(signinResponseModel: AsyncLoading()));
+    state = AsyncData(
+      state.value!.copyWith(signinResponseModel: AsyncLoading()),
+    );
 
-    state = AsyncData(state.value!.copyWith(
+    state = AsyncData(
+      state.value!.copyWith(
         signinResponseModel: await AsyncValue.guard(() async {
-      final repo = ref.read(signInRepositoryProvider);
-      final response = await repo.signIn(phone);
+          final repo = ref.read(signInRepositoryProvider);
+          final response = await repo.signIn(phone);
 
-      return Future.value(response.data);
-    })));
+          return Future.value(response.data);
+        }),
+      ),
+    );
     // state = const AsyncLoading();
     // state = await AsyncValue.guard(() async {
     //   final repo = ref.read(signInRepositoryProvider);

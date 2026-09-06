@@ -15,20 +15,19 @@ abstract class UserInformation with _$UserInformation {
     @HiveField(0) required String token,
     @HiveField(1) @JsonKey(name: "full_name") required String fullName,
     @HiveField(2) @JsonKey(name: "mobile_no") required String mobileNumber,
+    @HiveField(3) @JsonKey(name: "user_id")  String? userId,
   }) = _UserInformation;
 
   /// **Default Empty Object (If Needed)**
-  factory UserInformation.empty() => UserInformation(
-        token: "",
-        fullName: "",
-        mobileNumber: "",
-      );
+  factory UserInformation.empty() =>
+      UserInformation(token: "", fullName: "", mobileNumber: "", userId: "");
   static UserInformation defaultValue = UserInformation(
     fullName: '',
     // email: "",
     mobileNumber: "",
     // image: null,
     token: '',
+    userId: '',
   );
 
   /// **Factory Constructor for JSON**
@@ -51,19 +50,22 @@ class UserInformationAdapter extends TypeAdapter<UserInformation> {
       token: fields[0] as String,
       fullName: fields[1] as String,
       mobileNumber: fields[2] as String,
-      // email: fields[3] as String,
+      userId: fields[3] as String?,
+      // email: fields[4] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserInformation obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.token)
       ..writeByte(1)
       ..write(obj.fullName)
       ..writeByte(2)
-      ..write(obj.mobileNumber);
+      ..write(obj.mobileNumber)
+      ..writeByte(3)
+      ..write(obj.userId);
   }
 }

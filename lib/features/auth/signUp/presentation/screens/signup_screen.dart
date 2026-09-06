@@ -6,18 +6,20 @@ import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
 import '../widgets/signUp_footer.dart';
 
 class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+  const SignupScreen({super.key, this.phoneNumber});
+  final String? phoneNumber;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AuthScreen(child: _SignupContent()),
+      body: AuthScreen(child: _SignupContent(phoneNumber: phoneNumber)),
     );
   }
 }
 
 class _SignupContent extends StatelessWidget {
-  const _SignupContent();
+  const _SignupContent({this.phoneNumber});
+  final String? phoneNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class _SignupContent extends StatelessWidget {
         spacing: 20,
         children: [
           SignupHeader(),
-          SignUpForm(),
+          SignUpForm(phoneNumber: phoneNumber),
           SignUpFooter(),
         ],
       ).symmetricPadding(vertical: 25),

@@ -22,11 +22,10 @@ class NotificationsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ordersNotificationsAsync =
-        ref.watch(appNotificationsControllerProvider);
-    final controller = ref.read(
-      appNotificationsControllerProvider.notifier,
+    final ordersNotificationsAsync = ref.watch(
+      appNotificationsControllerProvider,
     );
+    final controller = ref.read(appNotificationsControllerProvider.notifier);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -34,6 +33,7 @@ class NotificationsScreen extends ConsumerWidget {
         preferredSize: const Size(double.infinity, 65),
         child: CustomAppbar(
           title: context.tr('notifications'),
+          withBackButton: false,
 
           // withBackButton: false,
         ),
@@ -51,7 +51,9 @@ class NotificationsScreen extends ConsumerWidget {
             final dateKey = DateFormat('dd-MM-yyyy').format(createdAt);
             final formattedTime = item.creation.timeAgo();
 
-            grouped.putIfAbsent(dateKey, () => []).add(
+            grouped
+                .putIfAbsent(dateKey, () => [])
+                .add(
                   _NotificationWrapper(
                     notification: item,
                     formattedTime: formattedTime,
@@ -96,7 +98,7 @@ class NotificationsScreen extends ConsumerWidget {
                               indent: 16,
                               color: AppColors.dividerColor,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     );
@@ -110,8 +112,8 @@ class NotificationsScreen extends ConsumerWidget {
                       final type = data.subject.contains("Sent")
                           ? NotificationType.success
                           : data.subject.contains("Confirmed")
-                              ? NotificationType.confirmed
-                              : NotificationType.declined;
+                          ? NotificationType.confirmed
+                          : NotificationType.declined;
 
                       return NotificationItemCard(
                         title: data.subject.toUpperCase(),
@@ -129,7 +131,11 @@ class NotificationsScreen extends ConsumerWidget {
             ),
           );
         },
-        error: (error, stackTrace) => const AppErrorWidget(),
+        error: (error, stackTrace) => AppErrorWidget(
+          onTap: () => ref
+              .read(appNotificationsControllerProvider.notifier)
+              .fetchOrdersOffersNotifications(page: 1),
+        ),
         loading: () => const Center(child: AppLoader()),
       ),
     );

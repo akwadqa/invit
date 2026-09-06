@@ -9,6 +9,7 @@ import 'package:invit/features/event/domain/model/create_event_response/create_e
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
 import 'package:invit/features/event/domain/model/retry_bulk_response/retry_bulk_response.dart';
+import 'package:invit/features/event/domain/model/template%20model/template_model.dart';
 import 'package:invit/src/infrastructure/api/endpoint/api_endpoints.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/dio_client.dart';
@@ -35,7 +36,7 @@ class EventRemoteDataSource {
             if (event.image != null)
               'image': await MultipartFile.fromFile(event.image!.path),
           },
-        }
+        },
       });
 
       final response = await _networkService.post(
@@ -59,20 +60,19 @@ class EventRemoteDataSource {
     }
   }
 
-  Future<ApiResponse<List<InviteTemplateModel>>> getTemplates() async {
+  Future<ApiResponse<List<TemplateModel>>> getTemplates(
+    String occasionType,
+  ) async {
     try {
       final response = await _networkService.get(
         ApiEndPoints.getTemplates,
-        // queryParameters: {
-        // 'page': page,
-        // },
+        data: FormData.fromMap({'occasion_type': occasionType}),
       );
 
       return ApiResponse.fromJson(
         response.data,
         (json) => (json as List)
-            .map((item) =>
-                InviteTemplateModel.fromJson(item as Map<String, dynamic>))
+            .map((item) => TemplateModel.fromJson(item as Map<String, dynamic>))
             .toList(),
       );
     } catch (e) {
@@ -118,19 +118,20 @@ class EventRemoteDataSource {
     }
   }
 
-  Future<ApiResponse<CreateEventResponse>> updateEvent(
-    EventModel event,
-  ) async {
+  Future<ApiResponse<CreateEventResponse>> updateEvent(EventModel event) async {
     try {
       final data = FormData.fromMap({
         'occasion_id': event.eventId,
-        'type': 'Birthday',
+        // 'type': 'Birthday',
+        'type': event.type,
         if (event.image != null)
           'image': await MultipartFile.fromFile(event.image!.path),
         ...(event.toJson()
-          ..remove(event.imageUrl == null || (event.imageUrl?.isEmpty ?? true)
-              ? 'image_url'
-              : null)
+          ..remove(
+            event.imageUrl == null || (event.imageUrl?.isEmpty ?? true)
+                ? 'image_url'
+                : null,
+          )
           ..remove('type')),
       });
       final response = await _networkService.post(

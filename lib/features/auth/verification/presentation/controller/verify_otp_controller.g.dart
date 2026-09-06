@@ -15,15 +15,15 @@ final verifyOtpControllerProvider = VerifyOtpControllerProvider._();
 final class VerifyOtpControllerProvider
     extends $AsyncNotifierProvider<VerifyOtpController, VerifyOtpState> {
   VerifyOtpControllerProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'verifyOtpControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'verifyOtpControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$verifyOtpControllerHash();
@@ -34,7 +34,7 @@ final class VerifyOtpControllerProvider
 }
 
 String _$verifyOtpControllerHash() =>
-    r'efb7c7c0f5955759851ac9c1765aa75de1f97e4b';
+    r'ba97c72ea4981cbc83a4557afacfa7d0d5e4a1cd';
 
 abstract class _$VerifyOtpController extends $AsyncNotifier<VerifyOtpState> {
   FutureOr<VerifyOtpState> build();
@@ -42,11 +42,14 @@ abstract class _$VerifyOtpController extends $AsyncNotifier<VerifyOtpState> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<AsyncValue<VerifyOtpState>, VerifyOtpState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<VerifyOtpState>, VerifyOtpState>,
-        AsyncValue<VerifyOtpState>,
-        Object?,
-        Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<VerifyOtpState>, VerifyOtpState>,
+              AsyncValue<VerifyOtpState>,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

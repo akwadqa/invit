@@ -12,20 +12,24 @@ part of 'app_messages_repository.dart';
 @ProviderFor(appMessagesRepository)
 final appMessagesRepositoryProvider = AppMessagesRepositoryProvider._();
 
-final class AppMessagesRepositoryProvider extends $FunctionalProvider<
-    AppMessagesRepository,
-    AppMessagesRepository,
-    AppMessagesRepository> with $Provider<AppMessagesRepository> {
+final class AppMessagesRepositoryProvider
+    extends
+        $FunctionalProvider<
+          AppMessagesRepository,
+          AppMessagesRepository,
+          AppMessagesRepository
+        >
+    with $Provider<AppMessagesRepository> {
   AppMessagesRepositoryProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'appMessagesRepositoryProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'appMessagesRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$appMessagesRepositoryHash();
@@ -33,8 +37,8 @@ final class AppMessagesRepositoryProvider extends $FunctionalProvider<
   @$internal
   @override
   $ProviderElement<AppMessagesRepository> $createElement(
-          $ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   AppMessagesRepository create(Ref ref) {

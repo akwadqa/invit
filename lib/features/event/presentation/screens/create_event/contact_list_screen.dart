@@ -7,6 +7,8 @@ import 'package:invit/features/event/presentation/controller/create_event/create
 import 'package:invit/features/event/presentation/controller/update_event/update_event_controller.dart';
 import 'package:invit/features/event/presentation/widgets/contact_list_screen/contact_list_screen_tile.dart';
 import 'package:invit/features/event/presentation/widgets/create_event_screen/create_event_steps_section.dart';
+import 'package:invit/gen/assets.gen.dart';
+import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_app_bar.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
@@ -20,9 +22,7 @@ class ContactListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomDeafultAppbar(
-        title: 'guest_list'.tr(),
-      ),
+      appBar: CustomDeafultAppbar(title: 'guest_list'.tr()),
       body: _ContactListScreenContent(occasionId),
     );
   }
@@ -60,97 +60,128 @@ class _ContactListScreenContentState
         children: [
           if (widget.occasionId == null) CreateEventStepsSection(current: 2),
           Expanded(
-              child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-            decoration: BoxDecoration(
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+              decoration: BoxDecoration(
                 color: AppColors.white,
                 boxShadow: [
                   BoxShadow(
                     color: AppColors.black.withValues(alpha: .25),
                     blurRadius: 4,
-                  )
+                  ),
                 ],
-                borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              spacing: 18,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'invite_friends'.tr(),
-                      style: AppTextStyle.rubikBold18,
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          if (controller.value!.selectedContacts!.length ==
-                              controller.value!.contacts.length) {
-                            ref
-                                .read(contactsControllerProvider(
-                                        widget.occasionId)
-                                    .notifier)
-                                .unselectAll();
-                          } else {
-                            ref
-                                .read(contactsControllerProvider(
-                                        widget.occasionId)
-                                    .notifier)
-                                .selectAll();
-                          }
-                        },
-                        child: Text(
-                          (controller.value!.selectedContacts!.length ==
-                                      controller.value!.contacts.length &&
-                                  controller.value!.contacts.isNotEmpty)
-                              ? 'unselect_all'.tr()
-                              : 'select_all'.tr(),
-                          style: AppTextStyle.rubikSemiBold14.copyWith(
-                              color: AppColors.primary,
-                              decoration: TextDecoration.underline),
-                        ))
-                  ],
-                ),
-                Expanded(
-                    child: controller.when(
-                  data: (data) {
-                    if (data.contacts.isEmpty) {}
-                    return ListView.separated(
-                        padding: EdgeInsets.zero,
-                        itemBuilder: (context, index) => ContactListScreenTile(
-                            contact: data.contacts[index],
-                            selectedContacts:
-                                controller.value!.selectedContacts,
-                            onChange: (val) {
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                spacing: 18,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'invite_friends'.tr(),
+                        style: AppTextStyle.rubikBold18,
+                      ),
+                      if (controller.value!.contacts.isNotEmpty)
+                        GestureDetector(
+                          onTap: () {
+                            if (controller.value!.selectedContacts!.length ==
+                                controller.value!.contacts.length) {
                               ref
-                                  .read(contactsControllerProvider(
-                                          widget.occasionId)
-                                      .notifier)
-                                  .selectContact(
-                                      data.contacts[index], widget.occasionId);
-                            }),
-                        separatorBuilder: (context, index) => Divider(
-                              height: 0,
-                              color: AppColors.lightGray02,
+                                  .read(
+                                    contactsControllerProvider(
+                                      widget.occasionId,
+                                    ).notifier,
+                                  )
+                                  .unselectAll();
+                            } else {
+                              ref
+                                  .read(
+                                    contactsControllerProvider(
+                                      widget.occasionId,
+                                    ).notifier,
+                                  )
+                                  .selectAll();
+                            }
+                          },
+                          child: Text(
+                            (controller.value!.selectedContacts!.length ==
+                                        controller.value!.contacts.length &&
+                                    controller.value!.contacts.isNotEmpty)
+                                ? 'unselect_all'.tr()
+                                : 'select_all'.tr(),
+                            style: AppTextStyle.rubikSemiBold14.copyWith(
+                              color: AppColors.primary,
+                              decoration: TextDecoration.underline,
                             ),
-                        itemCount: data.contacts.length);
-                  },
-                  error: (e, st) => Center(),
-                  loading: () => AppLoader(),
-                ))
-              ],
+                          ),
+                        ),
+                    ],
+                  ),
+                  Expanded(
+                    child: controller.when(
+                      data: (data) {
+                        if (data.contacts.isEmpty) {
+                          return Center(
+                            child: Assets.images.emptyData.svg(width: 200),
+                          );
+                        }
+                        return ListView.separated(
+                          padding: EdgeInsets.zero,
+                          itemBuilder: (context, index) =>
+                              ContactListScreenTile(
+                                contact: data.contacts[index],
+                                selectedContacts:
+                                    controller.value!.selectedContacts,
+                                onChange: (val) {
+                                  ref
+                                      .read(
+                                        contactsControllerProvider(
+                                          widget.occasionId,
+                                        ).notifier,
+                                      )
+                                      .selectContact(
+                                        data.contacts[index],
+                                        widget.occasionId,
+                                      );
+                                },
+                              ),
+                          separatorBuilder: (context, index) =>
+                              Divider(height: 0, color: AppColors.lightGray02),
+                          itemCount: data.contacts.length,
+                        );
+                      },
+                      error: (e, st) => AppErrorWidget(
+                        onTap: () {
+                          ref
+                              .read(
+                                contactsControllerProvider(
+                                  widget.occasionId,
+                                ).notifier,
+                              )
+                              .getContacts(null);
+                        },
+                      ),
+                      loading: () => AppLoader(),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )),
+          ),
           CustomButtonWidget(
             text: 'done'.tr(),
             onTap: () => context.pop(),
             isFiled: false,
             radius: 10,
             style: AppTextStyle.rubikMedium18.copyWith(color: AppColors.white),
-            backgroundColor: ref
+            backgroundColor:
+                ref
                     .watch(
-                        contactsControllerProvider(widget.occasionId).notifier)
+                      contactsControllerProvider(widget.occasionId).notifier,
+                    )
                     .hasDeviceContactsSelected
                 ? AppColors.primary
                 : AppColors.grey600,

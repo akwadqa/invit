@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:invit/src/core/utils/validator/app_validation.dart';
@@ -56,28 +57,31 @@ class _LoginPageNumberFieldState extends ConsumerState<LoginPageNumberField> {
     return Directionality(
       textDirection: ui.TextDirection.ltr,
       child: IntlPhoneField(
-        
+        showDropdownIcon: false,
+
         autovalidateMode: AutovalidateMode.onUnfocus,
         invalidNumberMessage: context.tr('invalidNumber'),
         controller: _nationalController,
         initialCountryCode: 'QA',
         onSaved: (newValue) {
-          _updateFullPhone(newValue?.countryCode??"");
-          
+          _updateFullPhone(newValue?.countryCode ?? "");
         },
+        countries: countries
+            .where((countriy) => countriy.code == 'QA')
+            .toList(),
         onChanged: widget.onChange,
         // (phone) {
-    
-          // ref
-          //     .read(signInControllerProvider.notifier)
-          //     .changePhoneNumber(phone.number);
-            
+
+        // ref
+        //     .read(signInControllerProvider.notifier)
+        //     .changePhoneNumber(phone.number);
+
         //   //     .checkPhoneFilled(phone.number.isNotEmpty);
         // },
         onCountryChanged: (country) {
           _updateFullPhone('+${country.dialCode}');
         },
-        validator:mobileNumberValidationIntl(context),
+        validator: mobileNumberValidationIntl(context),
         // disableLengthCheck: true,
         dropdownIcon: Icon(
           Icons.arrow_drop_down_rounded,
@@ -96,7 +100,6 @@ class _LoginPageNumberFieldState extends ConsumerState<LoginPageNumberField> {
         keyboardType: TextInputType.phone,
         style: AppTextStyle.rubikRegular14.copyWith(color: AppColors.black),
         decoration: InputDecoration(
-          
           filled: true,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.primary),

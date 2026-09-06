@@ -50,8 +50,10 @@ class _ScanPageState extends ConsumerState<ScanPage> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: PreferredSize(
+
         preferredSize: const Size(double.infinity, 65),
         child: CustomAppbar(title: context.tr('scan'), withBackButton: false),
+        
       ),
       body: controller?.when(
         data: (data) {
@@ -84,23 +86,12 @@ class _ScanPageState extends ConsumerState<ScanPage> {
           ref.read(scanControllerProvider.notifier).refreshEvents(),
       onLoading: (_) =>
           ref.read(scanControllerProvider.notifier).onLoadMoreEvents(),
-      child: Column(
-        children: [
-          SectionTitle(
-            title: "all_events".tr(),
-            count: events.length.toString(),
-          ),
-          Expanded(
-            child: ListView.separated(
-              shrinkWrap: true,
-              separatorBuilder: (context, index) => 20.verticalSpace,
-              padding: EdgeInsets.fromLTRB(22, 25, 22, 130),
-              itemBuilder: (context, index) =>
-                  ScanScreenItem(event: events[index]),
-              itemCount: events.length,
-            ),
-          ),
-        ],
+      child: ListView.separated(
+        shrinkWrap: true,
+        separatorBuilder: (context, index) => 20.verticalSpace,
+        padding: EdgeInsets.fromLTRB(22, 25, 22, 130),
+        itemBuilder: (context, index) => ScanScreenItem(event: events[index]),
+        itemCount: events.length,
       ),
     );
   }
@@ -143,25 +134,27 @@ class ScanScreenItem extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                    child: (event.imageUrl != null &&
-                            event.imageUrl!.isNotEmpty &&
-                            resolveImageUrl() != null)
-                        ? CachedNetworkImage(
-                            fadeInCurve: Curves.linear,
-                            placeholder: (context, url) => AppLoader(),
-                            imageUrl: resolveImageUrl()!,
-                            height: 129,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          )
-                        : SizedBox(
-                            width: double.infinity,
-                            height: 129,
-                            child: Icon(
-                              Icons.card_giftcard_sharp,
-                              color: AppColors.primary,
-                            ),
-                          )),
+                  child:
+                      (event.imageUrl != null &&
+                          event.imageUrl!.isNotEmpty &&
+                          resolveImageUrl() != null)
+                      ? CachedNetworkImage(
+                          fadeInCurve: Curves.linear,
+                          placeholder: (context, url) => AppLoader(),
+                          imageUrl: resolveImageUrl()!,
+                          height: 129,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        )
+                      : SizedBox(
+                          width: double.infinity,
+                          height: 129,
+                          child: Icon(
+                            Icons.card_giftcard_sharp,
+                            color: AppColors.primary,
+                          ),
+                        ),
+                ),
                 Positioned(
                   top: 10,
                   left: 10,
@@ -184,14 +177,15 @@ class ScanScreenItem extends StatelessWidget {
             Text(
               event.title ?? '',
               style: AppTextStyle.rubikMedium14.copyWith(
-                  // color: AppColors.primary,
-                  ),
+                // color: AppColors.primary,
+              ),
             ).centered(),
             // Spacer(),
             // 15.verticalSpace,
             Row(
               children: [
                 19.horizontalSpace,
+
                 // if (event.role == 'operator')
                 //   CustomButtonWidget(
                 //     // content: Text(
@@ -227,7 +221,6 @@ class ScanScreenItem extends StatelessWidget {
                 //     topPading: 0,
                 //   ),
                 // Spacer(),
-
                 19.horizontalSpace,
               ],
             ),

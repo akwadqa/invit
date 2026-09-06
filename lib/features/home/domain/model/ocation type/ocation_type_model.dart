@@ -8,6 +8,7 @@ abstract class OcationTypeModel with _$OcationTypeModel {
   const factory OcationTypeModel({
     @JsonKey(name: 'image')  String? image,
     @JsonKey(name: 'name') required String title,
+    @JsonKey(name: 'color') required String color,
   }) = _OcationTypeModel;
 
   factory OcationTypeModel.fromJson(Map<String, dynamic> json) =>

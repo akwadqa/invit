@@ -14,16 +14,16 @@ final eventDetailsControllerProvider = EventDetailsControllerFamily._();
 
 final class EventDetailsControllerProvider
     extends $AsyncNotifierProvider<EventDetailsController, EventModel> {
-  EventDetailsControllerProvider._(
-      {required EventDetailsControllerFamily super.from,
-      required String super.argument})
-      : super(
-          retry: null,
-          name: r'eventDetailsControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  EventDetailsControllerProvider._({
+    required EventDetailsControllerFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'eventDetailsControllerProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$eventDetailsControllerHash();
@@ -56,20 +56,23 @@ String _$eventDetailsControllerHash() =>
 
 final class EventDetailsControllerFamily extends $Family
     with
-        $ClassFamilyOverride<EventDetailsController, AsyncValue<EventModel>,
-            EventModel, FutureOr<EventModel>, String> {
+        $ClassFamilyOverride<
+          EventDetailsController,
+          AsyncValue<EventModel>,
+          EventModel,
+          FutureOr<EventModel>,
+          String
+        > {
   EventDetailsControllerFamily._()
-      : super(
-          retry: null,
-          name: r'eventDetailsControllerProvider',
-          dependencies: null,
-          $allTransitiveDependencies: null,
-          isAutoDispose: true,
-        );
+    : super(
+        retry: null,
+        name: r'eventDetailsControllerProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-  EventDetailsControllerProvider call({
-    required String ocassionId,
-  }) =>
+  EventDetailsControllerProvider call({required String ocassionId}) =>
       EventDetailsControllerProvider._(argument: ocassionId, from: this);
 
   @override
@@ -80,22 +83,19 @@ abstract class _$EventDetailsController extends $AsyncNotifier<EventModel> {
   late final _$args = ref.$arg as String;
   String get ocassionId => _$args;
 
-  FutureOr<EventModel> build({
-    required String ocassionId,
-  });
+  FutureOr<EventModel> build({required String ocassionId});
   @$mustCallSuper
   @override
   void runBuild() {
     final ref = this.ref as $Ref<AsyncValue<EventModel>, EventModel>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<EventModel>, EventModel>,
-        AsyncValue<EventModel>,
-        Object?,
-        Object?>;
-    element.handleCreate(
-        ref,
-        () => build(
-              ocassionId: _$args,
-            ));
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<EventModel>, EventModel>,
+              AsyncValue<EventModel>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(ocassionId: _$args));
   }
 }

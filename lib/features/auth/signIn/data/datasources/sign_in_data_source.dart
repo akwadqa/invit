@@ -13,14 +13,15 @@ class SignInRemoteDataSource {
   Future<ApiResponse<SigninResponseModel>> signIn(String phone) async {
     try {
       final data = FormData.fromMap({
-        "mobile_no": '30255377',
+        "mobile_no": phone,
+        // "mobile_no": '30255377',
       });
       final response = await _networkService.post(
         ApiEndPoints.signIn,
         data: data,
-        queryParameters: {
-          // "mobile_no": phone,
-        },
+        // queryParameters: {
+        //   "mobile_no": phone,
+        // },
       );
 
       if (response.data == null || response.statusCode != 200) {
@@ -29,7 +30,8 @@ class SignInRemoteDataSource {
 
       return ApiResponse.fromJson(
         response.data,
-        (json) => SigninResponseModel.fromJson(json as Map<String, dynamic>),
+        (json) => SigninResponseModel.fromJson((json as Map<String, dynamic>)),
+        // (json) => SigninResponseModel.fromJson((json as Map<String, dynamic>)['validation']),
       );
     } catch (e) {
       Dev.logLine('Error in signIn: $e');

@@ -15,15 +15,15 @@ final signUpControllerProvider = SignUpControllerProvider._();
 final class SignUpControllerProvider
     extends $AsyncNotifierProvider<SignUpController, SignupResponseModel?> {
   SignUpControllerProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'signUpControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'signUpControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$signUpControllerHash();
@@ -40,13 +40,20 @@ abstract class _$SignUpController extends $AsyncNotifier<SignupResponseModel?> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref
-        as $Ref<AsyncValue<SignupResponseModel?>, SignupResponseModel?>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<SignupResponseModel?>, SignupResponseModel?>,
-        AsyncValue<SignupResponseModel?>,
-        Object?,
-        Object?>;
+    final ref =
+        this.ref
+            as $Ref<AsyncValue<SignupResponseModel?>, SignupResponseModel?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<
+                AsyncValue<SignupResponseModel?>,
+                SignupResponseModel?
+              >,
+              AsyncValue<SignupResponseModel?>,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

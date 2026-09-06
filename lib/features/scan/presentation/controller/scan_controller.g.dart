@@ -15,15 +15,15 @@ final scanControllerProvider = ScanControllerProvider._();
 final class ScanControllerProvider
     extends $AsyncNotifierProvider<ScanController, ScanState> {
   ScanControllerProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'scanControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'scanControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$scanControllerHash();
@@ -41,11 +41,14 @@ abstract class _$ScanController extends $AsyncNotifier<ScanState> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<AsyncValue<ScanState>, ScanState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<ScanState>, ScanState>,
-        AsyncValue<ScanState>,
-        Object?,
-        Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<ScanState>, ScanState>,
+              AsyncValue<ScanState>,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

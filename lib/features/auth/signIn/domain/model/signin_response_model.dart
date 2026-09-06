@@ -6,9 +6,9 @@ part 'signin_response_model.g.dart';
 @freezed
 abstract class SigninResponseModel with _$SigninResponseModel {
   const factory SigninResponseModel({
-    @JsonKey(name: 'mobile_number') required String mobileNumber,
-    @JsonKey(name: 'remaining_attempts') required int remainingAttempts,
-    @JsonKey(name: 'allow_login_after') required int allowLoginAfter,
+    // @JsonKey(name: 'mobile_number') String mobileNumber,
+    // @JsonKey(name: 'remaining_attempts') required int remainingAttempts,
+    @JsonKey(name: 'allow_login_after')  int? allowLoginAfter,
     required LoginValidation validation,
   }) = _SigninResponseModel;
 

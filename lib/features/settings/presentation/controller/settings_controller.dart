@@ -31,31 +31,66 @@ class SettingsController extends _$SettingsController {
     final current = state.value;
     if (current == null) return;
 
-    state = AsyncData(
-      current.copyWith(notificationState: value),
-    );
+    state = AsyncData(current.copyWith(notificationState: value));
   }
 
   // 🔴 Delete Account
-  Future<void> deleteAccount() async {
-    final current = state.value;
-    if (current == null) return;
-    final storage = ref.read(localStorageServiceProvider);
+  // Future<void> deleteAccount() async {
+  //   final current = state.value;
+  //   if (current == null) return;
+  //   final storage = ref.read(localStorageServiceProvider);
 
-    state = AsyncData(
-      current.copyWith(deleteAccountState: const AsyncLoading()),
-    );
-    final mobileNumber=storage.userInfo.mobileNumber;
+  //   state = AsyncData(
+  //     current.copyWith(deleteAccountState: const AsyncLoading()),
+  //   );
+  //   final mobileNumber=storage.userInfo.mobileNumber;
 
-    final result = await AsyncValue.guard(() async {
+  //   final result = await AsyncValue.guard(() async {
+  //     final repo = ref.read(settingsRepositoryProvider);
+  //     await repo.deleteAccount(mobileNumber);
+  //   });
+  //   await storage.logout();
+
+  //   state = AsyncData(
+  //     current.copyWith(deleteAccountState: AsyncData(result)),
+  //   );
+  // }
+
+  Future<dynamic> deleteAccount() async {
+    try {
+      final storage = ref.read(localStorageServiceProvider);
+
+      state = AsyncData(
+        state.value!.copyWith(deleteAccountState: AsyncLoading()),
+      );
+      final mobileNumber = storage.userInfo.userId;
+
       final repo = ref.read(settingsRepositoryProvider);
-      await repo.deleteAccount(mobileNumber);
-    });
-    await storage.logout();
+      final response = await repo.deleteAccount(mobileNumber ?? '');
 
-    state = AsyncData(
-      current.copyWith(deleteAccountState: AsyncData(result)),
-    );
+      if (response.hasFailed) {
+        state = AsyncData(
+          state.value!.copyWith(
+            deleteAccountState: AsyncError(
+              response.message ?? '',
+              StackTrace.fromString(response.message ?? ''),
+            ),
+          ),
+        );
+        return null;
+      }
+
+      state = AsyncData(
+        state.value!.copyWith(deleteAccountState: AsyncData(response.data!)),
+      );
+      storage.logout();
+      return response.data;
+    } catch (e, st) {
+      state = AsyncData(
+        state.value!.copyWith(deleteAccountState: AsyncError(e, st)),
+      );
+      return null;
+    }
   }
 
   // 🔵 Logout
@@ -63,9 +98,7 @@ class SettingsController extends _$SettingsController {
     final current = state.value;
     if (current == null) return;
     final storage = ref.read(localStorageServiceProvider);
-    state = AsyncData(
-      current.copyWith(logoutState: const AsyncLoading()),
-    );
+    state = AsyncData(current.copyWith(logoutState: const AsyncLoading()));
 
     final result = await AsyncValue.guard(() async {
       final repo = ref.read(settingsRepositoryProvider);
@@ -77,8 +110,6 @@ class SettingsController extends _$SettingsController {
 
     await storage.logout();
 
-    state = AsyncData(
-      current.copyWith(logoutState: AsyncData(result)),
-    );
+    state = AsyncData(current.copyWith(logoutState: AsyncData(result)));
   }
 }

@@ -14,19 +14,38 @@ import '../../domain/model/signUp_params.dart';
 import 'create_account_field.dart';
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({super.key});
+  const SignUpForm({super.key, this.phoneNumber});
+  final String? phoneNumber;
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  String? _phoneNumber;
   String? selectedDate;
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController fullNameController = TextEditingController();
+  late TextEditingController fullNameController = TextEditingController();
+  late TextEditingController lastNameController = TextEditingController();
+
+  late TextEditingController phoneController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    fullNameController = TextEditingController();
+    lastNameController = TextEditingController();
+    phoneController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    fullNameController.dispose();
+    lastNameController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,83 +59,78 @@ class _SignUpFormState extends State<SignUpForm> {
           1.verticalSpace,
           AppTextFormField(
             // hint: 'firstName'.tr(),
-            hint: 'mohamad',
-            label: 'fullName'.tr(),
+            hint: 'firstName'.tr(),
+            label: 'firstName'.tr(),
             controller: fullNameController,
             isRequired: true,
             withIcon: false,
           ),
-         
-          // Consumer(
-          //   builder: (context, ref, _) {
-          //     final controller = ref.read(signUpControllerProvider.notifier);
-          //     final date = controller.selectedDate;
-          //     Dev.logLine(date);
-          //     return CreateAccountDate(
-          //       controller: eventDateController,
-          //       date: date,
-          //       onSelectDate: (picked) {
-          //         ref
-          //             .read(signUpControllerProvider.notifier)
-          //             .setBirthDate(picked);
-          //         setState(() {});
-          //       },
-          //     );
-          //   },
-          // ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 10,
-            children: [
-              Text(
-                'phone_number'.tr(),
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              LoginPageNumberField(
-                phoneController,
-                onChange: (phone) {
-                  // phoneController.setText(phone?.number??"");
-                },
-              ),
-            ],
+          AppTextFormField(
+            // hint: 'firstName'.tr(),
+            hint: 'lastName'.tr(),
+            label: 'lastName'.tr(),
+            controller: lastNameController,
+            isRequired: true,
+            withIcon: false,
           ),
-         
-          Consumer(builder: (context, ref, child) {
-            ref.listen(signUpControllerProvider, (prev, next) {
-              if (next is AsyncData) {
-                // context.maybePop().then((_) {
-                debugPrint("Success check");
-                context.push(AppRoutes.verificationScreen,
-                    extra: phoneController.text);
-                // context
-                //     .pushRoute(VerificationRoute(inputedPhone: _phoneNumber!));
-                // _showDialog();
-                // });
-              } else if (next is AsyncError) {
-                showErrorDialog(context, next.error.toString());
+
+          if (widget.phoneNumber == null)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 10,
+              children: [
+                Text(
+                  'phone_number'.tr(),
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                LoginPageNumberField(
+                  phoneController,
+                  onChange: (phone) {
+                    // phoneController.setText(phone?.number??"");
+                  },
+                ),
+              ],
+            ),
+          Consumer(
+            builder: (context, ref, child) {
+              ref.listen(signUpControllerProvider, (prev, next) {
+                if (next is AsyncData) {
+                  // context.maybePop().then((_) {
+                  debugPrint("Success check");
+                  context.push(
+                    AppRoutes.verificationScreen,
+                    extra: widget.phoneNumber ?? phoneController.text,
+                  );
+                  // context
+                  //     .pushRoute(VerificationRoute(inputedPhone: _phoneNumber!));
+                  // _showDialog();
+                  // });
+                } else if (next is AsyncError) {
+                  showErrorDialog(context, next.error.toString());
+                }
+              });
+
+              final signInProvider = ref.watch(signUpControllerProvider);
+              if (signInProvider is AsyncLoading) {
+                return AppLoader();
+                // const FadeCircleLoadingIndicator();
               }
-            });
+              // signInProvider.isLoading
+              //     ?
 
-            final signInProvider = ref.watch(signUpControllerProvider);
-            if (signInProvider is AsyncLoading) {
-              return AppLoader();
-              // const FadeCircleLoadingIndicator();
-            }
-            // signInProvider.isLoading
-            //     ?
-
-            // :
-            return CustomButtonWidget(
-              text: 'sign_up'.tr(),
-              onTap: () => _submit(ref),
-              isFiled: true,
-              height: 50,
-              width: double.infinity,
-              backgroundColor: AppColors.primary,
-              radius: 10,
-            );
-            // return Container();
-          }),
+              // :
+              return CustomButtonWidget(
+                text: 'sign_up'.tr(),
+                onTap: () => _submit(ref),
+                isFiled: true,
+                height: 50,
+                width: double.infinity,
+                backgroundColor: AppColors.primary,
+                radius: 10,
+              );
+              // return Container();
+            },
+          ),
         ],
       ),
     );
@@ -126,14 +140,17 @@ class _SignUpFormState extends State<SignUpForm> {
     final isValid = _formKey.currentState!.validate();
     debugPrint('FORM VALID: $isValid');
     if (!isValid) return;
+    FocusScope.of(context).unfocus();
 
     // if (_formKey.currentState?.validate() ?? false) {
     _formKey.currentState?.save();
-    await ref.read(signUpControllerProvider.notifier).signUp(
+    await ref
+        .read(signUpControllerProvider.notifier)
+        .signUp(
           SignupParams(
-            fullNamae: fullNameController.text,
+            fullNamae: "${fullNameController.text} ${lastNameController.text}",
 
-            mobileNumber: phoneController.text,
+            mobileNumber: widget.phoneNumber ?? phoneController.text,
           ),
         ); // }
   }

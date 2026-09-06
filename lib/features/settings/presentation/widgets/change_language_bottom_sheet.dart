@@ -30,114 +30,127 @@ class _ChangeLanguageBottomSheetState
   Widget build(BuildContext context) {
     final currentLang = context.locale.languageCode;
 
-    return Container(
-      padding: EdgeInsets.all(22),
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 500),
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+      child: KeyedSubtree(
+        key: ValueKey(context.locale.languageCode),
+        child: Container(
+          padding: EdgeInsets.all(22),
 
-      child: Column(
-        children: [
-          Row(
+          child: Column(
             children: [
-              Text(
-                context.tr('change_language'),
-                style: AppTextStyle.rubikSemiBold20.copyWith(
-                  color: AppColors.primary,
+              Row(
+                children: [
+                  Text(
+                    context.tr('change_language'),
+                    style: AppTextStyle.rubikSemiBold20.copyWith(
+                      color: AppColors.primary,
+                    ),
+                  ),
+                  Spacer(),
+                  20.verticalSpace,
+
+                  GestureDetector(
+                    onTap: () => context.pop(),
+                    child: Icon(Icons.close),
+                  ),
+                ],
+              ),
+              33.verticalSpace,
+
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withValues(alpha: .25),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      context.tr('english'),
+                      style: AppTextStyle.rubikSemiBold18.copyWith(
+                        color: AppColors.primary,
+                      ),
+                    ),
+
+                    Checkbox(
+                      value: currentLang == 'en' ? true : false,
+                      onChanged: (val) {
+                        ref
+                            .read(currentLanguageProvider.notifier)
+                            .changeLanguage(context, 'en');
+                      },
+                      fillColor: WidgetStateProperty.resolveWith<Color>((
+                        states,
+                      ) {
+                        if (states.contains(WidgetState.selected)) {
+                          return AppColors.primary;
+                        }
+                        return AppColors.white;
+                      }),
+                    ),
+                  ],
                 ),
               ),
-              Spacer(),
+
               20.verticalSpace,
 
-              GestureDetector(
-                onTap: () => context.pop(),
-                child:Icon(Icons.close ),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withValues(alpha: .25),
+                      blurRadius: 4,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      context.tr('arabic'),
+                      style: AppTextStyle.rubikSemiBold18.copyWith(
+                        color: AppColors.primary,
+                      ),
+                    ),
+
+                    Checkbox(
+                      value: currentLang == 'ar' ? true : false,
+                      onChanged: (val) {
+                        ref
+                            .read(currentLanguageProvider.notifier)
+                            .changeLanguage(context, 'ar');
+                      },
+                      fillColor: WidgetStateProperty.resolveWith<Color>((
+                        states,
+                      ) {
+                        if (states.contains(WidgetState.selected)) {
+                          return AppColors.primary;
+                        }
+                        return AppColors.white;
+                      }),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          33.verticalSpace,
-
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withValues(alpha: .25),
-                  blurRadius: 4,
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  context.tr('english'),
-                  style: AppTextStyle.rubikSemiBold18.copyWith(
-                    color: AppColors.primary,
-                  ),
-                ),
-
-                Checkbox(
-                  value: currentLang == 'en' ? true : false,
-                  onChanged: (val) {
-                    ref
-                        .read(currentLanguageProvider.notifier)
-                        .changeLanguage(context, 'en');
-                  },
-                  fillColor: WidgetStateProperty.resolveWith<Color>((states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return AppColors.primary;
-                    }
-                    return AppColors.white;
-                  }),
-                ),
-              ],
-            ),
-          ),
-
-          20.verticalSpace,
-
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withValues(alpha: .25),
-                  blurRadius: 4,
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  context.tr('arabic'),
-                  style: AppTextStyle.rubikSemiBold18.copyWith(
-                    color: AppColors.primary,
-                  ),
-                ),
-
-                Checkbox(
-                  value: currentLang == 'ar' ? true : false,
-                  onChanged: (val) {
-                    ref
-                        .read(currentLanguageProvider.notifier)
-                        .changeLanguage(context, 'ar');
-                  },
-                  fillColor: WidgetStateProperty.resolveWith<Color>((states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return AppColors.primary;
-                    }
-                    return AppColors.white;
-                  }),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

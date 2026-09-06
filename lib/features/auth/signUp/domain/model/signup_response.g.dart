@@ -16,11 +16,11 @@ _SignupResponseModel _$SignupResponseModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$SignupResponseModelToJson(
-        _SignupResponseModel instance) =>
-    <String, dynamic>{
-      'user_id': instance.userId,
-      'subscriber': instance.subscriber,
-      'full_name': instance.fullName,
-      'email': instance.email,
-      'mobile_no': instance.mobileNo,
-    };
+  _SignupResponseModel instance,
+) => <String, dynamic>{
+  'user_id': instance.userId,
+  'subscriber': instance.subscriber,
+  'full_name': instance.fullName,
+  'email': instance.email,
+  'mobile_no': instance.mobileNo,
+};

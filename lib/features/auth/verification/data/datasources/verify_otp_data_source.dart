@@ -15,8 +15,8 @@ class VerifyOtpRemoteDataSource {
       final response = await _networkService.post(
         ApiEndPoints.verifyOtp,
         data: {
-          // "mobile_no":phone,
-          "mobile_no": '30255377',
+          "mobile_no":phone,
+          // "mobile_no": '30255377',
           "otp": otp,
         },
       );

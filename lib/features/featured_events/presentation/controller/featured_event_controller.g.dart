@@ -14,16 +14,16 @@ final featuredEventControllerProvider = FeaturedEventControllerFamily._();
 
 final class FeaturedEventControllerProvider
     extends $AsyncNotifierProvider<FeaturedEventController, AllEventsModel> {
-  FeaturedEventControllerProvider._(
-      {required FeaturedEventControllerFamily super.from,
-      required String? super.argument})
-      : super(
-          retry: null,
-          name: r'featuredEventControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+  FeaturedEventControllerProvider._({
+    required FeaturedEventControllerFamily super.from,
+    required String? super.argument,
+  }) : super(
+         retry: null,
+         name: r'featuredEventControllerProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$featuredEventControllerHash();
@@ -57,23 +57,22 @@ String _$featuredEventControllerHash() =>
 final class FeaturedEventControllerFamily extends $Family
     with
         $ClassFamilyOverride<
-            FeaturedEventController,
-            AsyncValue<AllEventsModel>,
-            AllEventsModel,
-            FutureOr<AllEventsModel>,
-            String?> {
+          FeaturedEventController,
+          AsyncValue<AllEventsModel>,
+          AllEventsModel,
+          FutureOr<AllEventsModel>,
+          String?
+        > {
   FeaturedEventControllerFamily._()
-      : super(
-          retry: null,
-          name: r'featuredEventControllerProvider',
-          dependencies: null,
-          $allTransitiveDependencies: null,
-          isAutoDispose: true,
-        );
+    : super(
+        retry: null,
+        name: r'featuredEventControllerProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-  FeaturedEventControllerProvider call({
-    String? eventType,
-  }) =>
+  FeaturedEventControllerProvider call({String? eventType}) =>
       FeaturedEventControllerProvider._(argument: eventType, from: this);
 
   @override
@@ -85,22 +84,19 @@ abstract class _$FeaturedEventController
   late final _$args = ref.$arg as String?;
   String? get eventType => _$args;
 
-  FutureOr<AllEventsModel> build({
-    String? eventType,
-  });
+  FutureOr<AllEventsModel> build({String? eventType});
   @$mustCallSuper
   @override
   void runBuild() {
     final ref = this.ref as $Ref<AsyncValue<AllEventsModel>, AllEventsModel>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<AllEventsModel>, AllEventsModel>,
-        AsyncValue<AllEventsModel>,
-        Object?,
-        Object?>;
-    element.handleCreate(
-        ref,
-        () => build(
-              eventType: _$args,
-            ));
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<AllEventsModel>, AllEventsModel>,
+              AsyncValue<AllEventsModel>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, () => build(eventType: _$args));
   }
 }

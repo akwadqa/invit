@@ -6,7 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
+import 'package:invit/features/event/domain/model/template%20model/template_model.dart';
 import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
+import 'package:invit/features/event/presentation/widgets/templates_screen/template_bottom_sheet_confirm_message.dart';
+import 'package:invit/features/event/presentation/widgets/templates_screen/template_bottom_sheet_decline_message.dart';
+import 'package:invit/features/event/presentation/widgets/templates_screen/template_item.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/app_alert.dart';
@@ -21,19 +25,21 @@ import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
 class TemplatesScreen extends StatelessWidget {
-  const TemplatesScreen({super.key});
+  const TemplatesScreen({super.key, required this.occasionType});
+  final String occasionType;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomDeafultAppbar(title: 'templates'.tr()),
-      body: _TemplatesScreenContent(),
+      body: _TemplatesScreenContent(occasionType: occasionType),
     );
   }
 }
 
 class _TemplatesScreenContent extends ConsumerStatefulWidget {
-  const _TemplatesScreenContent();
+  const _TemplatesScreenContent({required this.occasionType});
+  final String occasionType;
 
   @override
   ConsumerState<_TemplatesScreenContent> createState() =>
@@ -48,7 +54,9 @@ class _TemplatesScreenContentState
   @override
   void initState() {
     Future(() {
-      ref.read(createEventControllerProvider.notifier).getTemplates();
+      ref
+          .read(createEventControllerProvider.notifier)
+          .getTemplates(widget.occasionType);
     });
     controller = PageController(viewportFraction: .85);
 
@@ -64,19 +72,20 @@ class _TemplatesScreenContentState
   @override
   Widget build(BuildContext context) {
     final templatesController = ref.watch(
-        createEventControllerProvider.select((val) => val.value?.templates));
+      createEventControllerProvider.select((val) => val.value?.templates),
+    );
     return templatesController!.when(
-        data: (data) => _buildBody(data),
-        error: (e, st) => AppErrorWidget(
-            onTap: () => ref
-                .read(createEventControllerProvider.notifier)
-                .getTemplates()),
-        loading: () => Center(
-              child: AppLoader(),
-            ));
+      data: (data) => _buildBody(data),
+      error: (e, st) => AppErrorWidget(
+        onTap: () => ref
+            .read(createEventControllerProvider.notifier)
+            .getTemplates(widget.occasionType),
+      ),
+      loading: () => Center(child: AppLoader()),
+    );
   }
 
-  Widget _buildBody(List<InviteTemplateModel> templates) {
+  Widget _buildBody(List<TemplateModel> templates) {
     final image = dotenv.get('IMAGE_BASE_URL');
     return Column(
       spacing: 10,
@@ -99,25 +108,8 @@ class _TemplatesScreenContentState
                 _currentPage = index;
               });
             },
-            itemBuilder: (context, index) => ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: GestureDetector(
-                  onTap: () {
-                    ref
-                        .read(createEventControllerProvider.notifier)
-                        .updateEvent(
-                            EventModel(inviteTemplate: templates[index].name));
-                    showModalBottomSheet(
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (context) => TemplateQrBottomSheet(),
-                    );
-                  },
-                  child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl:
-                          image + (templates[index].appTemplateImage ?? ''))),
-            ),
+            itemBuilder: (context, index) =>
+                TemplateItem(template: templates[index]),
           ),
         ),
         5.verticalSpace,
@@ -142,7 +134,7 @@ class _TemplatesScreenContentState
           width: isActive ? 16 : 8,
           height: 8,
           decoration: BoxDecoration(
-            color: isActive ? AppColors.primary : AppColors.textDart,
+            color: isActive ? AppColors.primary : AppColors.gray02,
             borderRadius: BorderRadius.circular(100),
           ),
         );
@@ -152,10 +144,25 @@ class _TemplatesScreenContentState
 }
 
 class TemplateQrBottomSheet extends ConsumerWidget {
-  const TemplateQrBottomSheet({super.key});
+  const TemplateQrBottomSheet({super.key, required this.template});
+  final TemplateModel template;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final confirmMessage = template.buttons
+        ?.firstWhere((button) => button.buttonLabel?.toLowerCase() == 'confirm')
+        .linkedTemplate;
+
+    final declineMessage = template.buttons
+        ?.firstWhere((button) => button.buttonLabel?.toLowerCase() == 'decline')
+        .linkedTemplate;
+
+    final location = template.buttons
+        ?.firstWhere(
+          (button) => button.buttonLabel?.toLowerCase() == 'location',
+        )
+        .linkedTemplate;
+
     return Container(
       height: 600,
       padding: EdgeInsets.symmetric(horizontal: 33, vertical: 21),
@@ -167,15 +174,16 @@ class TemplateQrBottomSheet extends ConsumerWidget {
               width: 148,
               height: 5,
               decoration: BoxDecoration(
-                  color: AppColors.textDart,
-                  borderRadius: BorderRadius.circular(100)),
+                color: AppColors.textDart,
+                borderRadius: BorderRadius.circular(100),
+              ),
             ),
-            Text(
-              'invitation_choice'.tr(),
-              style: AppTextStyle.rubikSemiBold18,
-            ),
-            Assets.images.qrTemplateImage.image(),
-            Assets.images.templateReplyImage.image(),
+            Text('invitation_choice'.tr(), style: AppTextStyle.rubikSemiBold18),
+            if (confirmMessage != null)
+              TemplateBottomSheetConfirmMessage(linkedTemplate: confirmMessage),
+
+            if (declineMessage != null)
+              TemplateBottomSheetDecloneMessage(linkedTemplate: declineMessage),
             CustomButtonWidget(
               text: 'confirm'.tr(),
               onTap: () {
@@ -183,8 +191,9 @@ class TemplateQrBottomSheet extends ConsumerWidget {
                 // ref.read(createEventControllerProvider.notifier).createEvent();
               },
               isFiled: false,
-              style:
-                  AppTextStyle.rubikMedium18.copyWith(color: AppColors.white),
+              style: AppTextStyle.rubikMedium18.copyWith(
+                color: AppColors.white,
+              ),
               radius: 10,
               height: 48,
               backgroundColor: AppColors.primary,

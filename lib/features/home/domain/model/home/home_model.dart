@@ -10,11 +10,14 @@ part 'home_model.g.dart';
 @freezed
 abstract class HomeModel with _$HomeModel {
   factory HomeModel({
+    @JsonKey(name: 'remaining_balance') num? remainingBalance,
+    @JsonKey(name: 'consuming_balance') num? consumingBalance,
+
     required List<BundleModel> bundles,
     required List<EventModel> events,
-    @JsonKey(name: 'featured_events')
-    required List<EventModel> featuredEvents,
-    @JsonKey(name: 'occasion_types') required List<OcationTypeModel> occasionTypes,
+    @JsonKey(name: 'featured_events') required List<EventModel> featuredEvents,
+    @JsonKey(name: 'occasion_types')
+    required List<OcationTypeModel> occasionTypes,
   }) = _HomeModel;
 
   factory HomeModel.fromJson(Map<String, dynamic> json) =>

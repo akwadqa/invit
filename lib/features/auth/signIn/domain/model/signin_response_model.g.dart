@@ -8,21 +8,18 @@ part of 'signin_response_model.dart';
 
 _SigninResponseModel _$SigninResponseModelFromJson(Map<String, dynamic> json) =>
     _SigninResponseModel(
-      mobileNumber: json['mobile_number'] as String,
-      remainingAttempts: (json['remaining_attempts'] as num).toInt(),
-      allowLoginAfter: (json['allow_login_after'] as num).toInt(),
-      validation:
-          LoginValidation.fromJson(json['validation'] as Map<String, dynamic>),
+      allowLoginAfter: (json['allow_login_after'] as num?)?.toInt(),
+      validation: LoginValidation.fromJson(
+        json['validation'] as Map<String, dynamic>,
+      ),
     );
 
 Map<String, dynamic> _$SigninResponseModelToJson(
-        _SigninResponseModel instance) =>
-    <String, dynamic>{
-      'mobile_number': instance.mobileNumber,
-      'remaining_attempts': instance.remainingAttempts,
-      'allow_login_after': instance.allowLoginAfter,
-      'validation': instance.validation,
-    };
+  _SigninResponseModel instance,
+) => <String, dynamic>{
+  'allow_login_after': instance.allowLoginAfter,
+  'validation': instance.validation,
+};
 
 _LoginValidation _$LoginValidationFromJson(Map<String, dynamic> json) =>
     _LoginValidation(

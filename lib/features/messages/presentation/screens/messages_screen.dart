@@ -21,11 +21,8 @@ class MessagesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ordersNotificationsAsync =
-        ref.watch(appMessagesControllerProvider);
-    final controller = ref.read(
-      appMessagesControllerProvider.notifier,
-    );
+    final ordersNotificationsAsync = ref.watch(appMessagesControllerProvider);
+    final controller = ref.read(appMessagesControllerProvider.notifier);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -34,7 +31,6 @@ class MessagesScreen extends ConsumerWidget {
         child: CustomAppbar(
           title: context.tr('messages'),
           withBackButton: false,
-          
         ),
       ),
       body: ordersNotificationsAsync.when(
@@ -48,10 +44,11 @@ class MessagesScreen extends ConsumerWidget {
           for (final item in notifications) {
             final createdAt = item.creation;
             final dateKey = DateFormat('dd-MM-yyyy').format(createdAt);
-            final formattedTime = item.creation.timeAgo(
-            );
+            final formattedTime = item.creation.timeAgo();
 
-            grouped.putIfAbsent(dateKey, () => []).add(
+            grouped
+                .putIfAbsent(dateKey, () => [])
+                .add(
                   _NotificationWrapper(
                     notification: item,
                     formattedTime: formattedTime,
@@ -105,7 +102,7 @@ class MessagesScreen extends ConsumerWidget {
                       return MessageCard(
                         message: data.emailContent,
                         time: data.creation.timeAgo(),
-                     name:data.subject.toUpperCase(),
+                        name: data.subject.toUpperCase(),
                       );
                     }
                     runningIndex++;
@@ -117,7 +114,11 @@ class MessagesScreen extends ConsumerWidget {
             ),
           );
         },
-        error: (error, stackTrace) => const AppErrorWidget(),
+        error: (error, stackTrace) => AppErrorWidget(
+          onTap: () => ref
+              .read(appMessagesControllerProvider.notifier)
+              .fetchOrdersOffersNotifications(page: 1),
+        ),
         loading: () => const Center(child: AppLoader()),
       ),
     );

@@ -68,6 +68,7 @@
     "delete_user_description": "All your account and invitations will be deleted, are you sure?",
     "delete_user_confirm": "Yes, Delete",
     "firstName": "First Name",
+    "lastName": "Last Name",
     "fullName": "Full Name",
     "selectDate": "Select date",
     "birth_data": "Birth date",
@@ -75,7 +76,7 @@
     "setPassword": "Set password",
     "alreadyHaveAnAccount": "Already have an account?",
     "no_invitations_yet": "No invitations yet",
-    "start_creating_invitations": "Start creating invitations",
+    "start_creating_invitations": "Start by creating your first invitation",
     "enterVerificationCode": "Enter Verification Code",
     "we_sent_a_code_to": "We sent a code to ",
     "seconds": "Seconds",
@@ -147,5 +148,11 @@
     "select_all" : "Select All",
     "unselect_all" : "Unselect All",
     "update_event" : "Update Event",
-    "consumed" : "Consumed"
+    "consumed" : "Consumed",
+    "cards" : "Cards",
+    "qar" : "QAR",
+    "select" : "Select",
+    "invited" : "Invited",
+    "successfullyCompleted" : "Successfully Completed",
+    "retry" : "Retry"
 }

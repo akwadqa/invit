@@ -12,7 +12,8 @@ _AllEventsModel _$AllEventsModelFromJson(Map<String, dynamic> json) =>
           .map((e) => EventModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       guestReport: GuestReportModel.fromJson(
-          json['guest_report'] as Map<String, dynamic>),
+        json['guest_report'] as Map<String, dynamic>,
+      ),
     );
 
 Map<String, dynamic> _$AllEventsModelToJson(_AllEventsModel instance) =>

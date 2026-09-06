@@ -146,5 +146,12 @@
     "update_event": "تحديث المناسبة",
     "select_all": "تحديد الجميع",
     "unselect_all": "إلغاء تحديد الجميع",
-    "consumed": "مستهلك"
+    "consumed": "مستهلك",
+    "cards" : "بطاقة",
+    "qar" : "ر.ق",
+    "select" : "اختيار",
+    "invited" : "مدعو",
+    "successfullyCompleted" : "تم بنجاح",
+    "retry" : "إعادة المحاولة",
+    "lastName" : "الاسم الأخير"
 }

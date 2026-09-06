@@ -5,7 +5,7 @@ import 'package:invit/features/home/domain/model/home/home_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'home_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class HomeController extends _$HomeController {
   @override
   FutureOr<HomeModel?> build() async {
@@ -36,6 +36,8 @@ class HomeController extends _$HomeController {
       final homeModel = HomeModel(
           bundles: response.data?.bundles ?? [],
           events: _items,
+          consumingBalance: response.data?.consumingBalance ,
+          remainingBalance: response.data?.remainingBalance ,
           featuredEvents: response.data?.featuredEvents ?? [],
           occasionTypes: response.data?.occasionTypes ?? []);
 
@@ -54,11 +56,12 @@ class HomeController extends _$HomeController {
     return result?.events.isNotEmpty ?? false;
   }
 
-  Future<void> refresh() async {
+  Future<bool> refresh() async {
     _items.clear();
     _currentPage = 1;
     _totalPages = 1;
     await getHomeData(page: 1);
+    return true;
   }
 }
 

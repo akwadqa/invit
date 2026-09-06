@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:invit/features/settings/presentation/widgets/app_text_styles.dart';
@@ -47,7 +48,7 @@ class EventDetailsReportChart extends StatelessWidget {
                 style: AppTextStyle.nunitoBold16,
               ),
               Text(
-                'Invited',
+                'invited'.tr(),
                 style: AppTextStyle.bodysmallSemibold,
               ),
             ],

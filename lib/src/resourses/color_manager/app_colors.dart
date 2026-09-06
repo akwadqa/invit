@@ -16,6 +16,7 @@ abstract class AppColors {
   static const Color greenOpacity = Color(0xFFE9F7EF);
   static const Color shadow = Color(0x3F3B41C5);
   static const Color dark = Color(0xFF201C11);
+  static const Color cyan = Color(0xFF5AA8CC);
 
   // Invitation Colors – Wedding
   static const Color weddingBg = Color(0xFFFFDCDC);
@@ -70,6 +71,7 @@ abstract class AppColors {
   static const Color red = Color(0xFFBD2C06);
 
   static const Color bodyColor = Color(0xFF576B74);
+  static const Color borderGrey = Color(0xFF979797);
   static const Color black = Color(0xFF000000);
   static const Color black900 = Color(0xFF484848);
   static const Color lightGray = Color(0xFFE5E5E5);

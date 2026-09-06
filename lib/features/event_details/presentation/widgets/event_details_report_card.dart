@@ -24,13 +24,15 @@ class EventDetailsReportCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 12,
       children: [
-        Text('invitation_report'.tr(),
-            style:
-                AppTextStyle.rubikMedium16.copyWith(color: AppColors.primary)),
+        Text(
+          'invitation_report'.tr(),
+          style: AppTextStyle.rubikMedium16.copyWith(color: AppColors.primary),
+        ),
         Card(
           elevation: 2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -63,14 +65,18 @@ class _Legend extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _item('${report.confirmed} ${("Sent".tr())}', AppColors.green),
-        _item('${report.pending} ${("Queued".tr())} ', AppColors.dinnerTop),
-        _item('${report.failed} ${("Failed".tr())}', AppColors.darkRed),
+        _item('${report.confirmed} ${("sent".tr())}', AppColors.green),
+        _item('${report.pending} ${("queued".tr())} ', AppColors.dinnerTop),
+        _item('${report.failed} ${("failed".tr())}', AppColors.darkRed),
         _item(
-            '${report.declined} ${("declined".tr())}', AppColors.secondPrimary),
+          '${report.declined} ${("declined".tr())}',
+          AppColors.secondPrimary,
+        ),
         _item('${report.scannedCount} ${("scanned".tr())}', AppColors.primary),
         _item(
-            '${report.notSent} ${("notSent".tr())}', AppColors.graduationIcon),
+          '${report.notSent} ${("not_sent".tr())}',
+          AppColors.graduationIcon,
+        ),
         // _item(Colors.green, '${report.confirmed} Sent'),
         // _item(Colors.orange, '${report.pending} Queued'),
         // _item(Colors.red, '${report.failed} Failed'),

@@ -71,7 +71,7 @@ class _VerificationScreenTimerState
         _remainingSeconds = ref.read(
           verifyOtpControllerProvider.select((val) {
             return val
-                .asData!.value!.signinResponseModel!.value!.allowLoginAfter;
+                .asData!.value!.signinResponseModel!.value!.allowLoginAfter ?? 60;
           }),
         );
       }

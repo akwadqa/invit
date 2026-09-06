@@ -1,5 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/shared_widgets/custom_button_widget.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/core/utils/extenssions/widget_extensions.dart';
@@ -11,8 +14,14 @@ import '../../../gen/assets.gen.dart';
 class AppErrorWidget extends StatelessWidget {
   final String? errorMsg;
   final void Function()? onTap;
+  final bool withBackButton;
 
-  const AppErrorWidget({super.key, this.errorMsg, this.onTap});
+  const AppErrorWidget({
+    super.key,
+    this.errorMsg,
+    required this.onTap,
+    this.withBackButton = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +32,35 @@ class AppErrorWidget extends StatelessWidget {
           Assets.images.emptyMessages.image(),
           30.verticalSpace,
           Text(
-            context.tr(errorMsg ?? "Unkown error occured"),
+            context.tr(errorMsg ?? "unknown_error_occurred"),
             textAlign: TextAlign.center,
             style: AppTextStyle.rubikSemiBold18,
           ),
-          30.verticalSpace,
+          if (onTap != null) 20.verticalSpace,
           if (onTap != null)
             CustomButtonWidget(
               text: "retry".tr(),
               onTap: onTap!,
               isFiled: true,
               backgroundColor: AppColors.primary,
+              radius: 8,
+              height: 45,
+              width: double.infinity,
+            ).symmetricPadding(horizontal: 22),
+          if (withBackButton) 20.verticalSpace,
+          if (withBackButton)
+            CustomButtonWidget(
+              text: "back".tr(),
+              // style: AppTextS,
+              onTap: () {
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  context.go(AppRoutes.mainScreen);
+                }
+              },
+              isFiled: false,
+              backgroundColor: AppColors.white,
               radius: 8,
               height: 45,
               width: double.infinity,

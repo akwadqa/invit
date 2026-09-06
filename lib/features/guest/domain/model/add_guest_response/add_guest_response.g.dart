@@ -31,8 +31,8 @@ _CreatedInviteeModel _$CreatedInviteeModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$CreatedInviteeModelToJson(
-        _CreatedInviteeModel instance) =>
-    <String, dynamic>{
-      'invitee_id': instance.inviteeId,
-      'full_name': instance.fullName,
-    };
+  _CreatedInviteeModel instance,
+) => <String, dynamic>{
+  'invitee_id': instance.inviteeId,
+  'full_name': instance.fullName,
+};

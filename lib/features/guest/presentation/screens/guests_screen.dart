@@ -12,6 +12,7 @@ import 'package:invit/src/core/shared_widgets/app_error_widget.dart';
 import 'package:invit/src/core/shared_widgets/app_loader.dart';
 import 'package:invit/src/core/shared_widgets/custom_app_bar.dart';
 import 'package:invit/src/core/shared_widgets/custom_appbar.dart';
+import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
 import 'package:invit/src/resourses/color_manager/app_colors.dart';
 import 'package:invit/src/resourses/font_manager/app_text_style.dart';
 
@@ -66,8 +67,9 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
     //     (val) => val.value!.occasionModel ?? AsyncLoading(),
     //   ),
     // );0
-    final controller =
-        ref.watch(eventDetailsControllerProvider(ocassionId: widget.id));
+    final controller = ref.watch(
+      eventDetailsControllerProvider(ocassionId: widget.id),
+    );
     // ref.listen(
     //   guestsControllerProvider.select((val) => val.value!.deleteGuestResponse),
     //   (prev, next) {
@@ -91,35 +93,37 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
     // final event = ref.watch(homeControllerProvider).value!.occasionModel?.value;
     return Scaffold(
       appBar: CustomDeafultAppbar(
-          title: context.tr('all_guests'),
-          actionButton: controller.whenOrNull(
-            data: (data) {
-              // final event = EventModel(
-              //   occasionId: data.occasionId,
-              //   title: data.title,
-              //   date: data.date,
-              //   imageUrl: data.imageUrl,
-              //   guestList: data.guests,
-              // );
-              return GestureDetector(
-                onTap: () => context.push(AppRoutes.updateGuestListScreen,
-                    extra: data.eventId),
-                child: Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.cardWhite,
-                  ),
-                  child: Icon(
-                    Icons.edit,
-                    color: AppColors.primary,
-                    size: 20,
-                  ),
+        title: context.tr('all_guests'),
+        actionButton: controller.whenOrNull(
+          data: (data) {
+            if (data.status == 'Confirmed') {
+              return 30.horizontalSpace;
+            }
+            // final event = EventModel(
+            //   occasionId: data.occasionId,
+            //   title: data.title,
+            //   date: data.date,
+            //   imageUrl: data.imageUrl,
+            //   guestList: data.guests,
+            // );
+            return GestureDetector(
+              onTap: () => context.push(
+                AppRoutes.updateGuestListScreen,
+                extra: data.eventId,
+              ),
+              child: Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.cardWhite,
                 ),
-              );
-            },
-          )),
+                child: Icon(Icons.edit, color: AppColors.primary, size: 20),
+              ),
+            );
+          },
+        ),
+      ),
       body: Column(
         spacing: 16,
         children: [
@@ -158,7 +162,7 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
             ),
             loading: () => AppLoader(),
           ),
-          SizedBox()
+          SizedBox(),
         ],
       ),
     );
@@ -170,8 +174,8 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
     final filteredGuests = statuses.isEmpty
         ? event.guestList
         : event.guestList
-            ?.where((g) => statuses.contains(g.rsvpStatus))
-            .toList();
+              ?.where((g) => statuses.contains(g.rsvpStatus))
+              .toList();
 
     return filteredGuests?.isNotEmpty ?? false
         ? Align(
@@ -179,14 +183,15 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 22),
               decoration: BoxDecoration(
-                  color: AppColors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.black.withValues(alpha: .25),
-                      blurRadius: 4,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(10)),
+                color: AppColors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.black.withValues(alpha: .25),
+                    blurRadius: 4,
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: ListView.separated(
                 shrinkWrap: true,
                 separatorBuilder: (context, index) =>
@@ -200,9 +205,7 @@ class _GuestsScreenState extends ConsumerState<GuestsScreen> {
               ),
             ),
           )
-        : Center(
-            child: Text('empty_guests'.tr()),
-          );
+        : Center(child: Text('empty_guests'.tr()));
     // : Center(child: Assets.icons.emptyIc.svg());
   }
 }
@@ -282,26 +285,27 @@ class GuestsScreenGuestItem extends ConsumerWidget {
       //       )
       //     : null,
       leading: Container(
-          width: 26,
-          height: 26,
-          padding: EdgeInsets.symmetric(horizontal: 4),
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              // color: AppColors.guestName,
-              color: AvatarColors.getColorForName(guest?.fullName ?? 'NA'),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.black.withValues(alpha: .25),
-                  blurRadius: 4,
-                )
-              ]),
-          child: FittedBox(
-            child: Text(
-              guest?.fullName?.substring(0, 2).toUpperCase() ?? 'NA',
-              style:
-                  AppTextStyle.rubikRegular12.copyWith(color: AppColors.white),
+        width: 26,
+        height: 26,
+        padding: EdgeInsets.symmetric(horizontal: 4),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          // color: AppColors.guestName,
+          color: AvatarColors.getColorForName(guest?.fullName ?? 'NA'),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.black.withValues(alpha: .25),
+              blurRadius: 4,
             ),
-          )),
+          ],
+        ),
+        child: FittedBox(
+          child: Text(
+            guest?.fullName?.substring(0, 2).toUpperCase() ?? 'NA',
+            style: AppTextStyle.rubikRegular12.copyWith(color: AppColors.white),
+          ),
+        ),
+      ),
       title: Text(
         guest?.fullName ?? 'name',
         style: AppTextStyle.rubikRegular16.copyWith(color: AppColors.black),
@@ -312,19 +316,19 @@ class GuestsScreenGuestItem extends ConsumerWidget {
           color: guest!.rsvpStatus == 'Confirmed'
               ? AppColors.confirmGuest
               : guest!.rsvpStatus == 'Pending' ||
-                      guest!.rsvpStatus == 'Not Sent' ||
-                      guest!.rsvpStatus == null
-                  ? AppColors.waitingGuest
-                  : AppColors.noticeRed,
+                    guest!.rsvpStatus == 'Not Sent' ||
+                    guest!.rsvpStatus == null
+              ? AppColors.waitingGuest
+              : AppColors.noticeRed,
           borderRadius: BorderRadius.circular(32),
         ),
         child: guest!.rsvpStatus == 'Confirmed'
             ? Assets.icons.confirmGuestIc.svg()
             : guest!.rsvpStatus == 'Pending' ||
-                    guest!.rsvpStatus == 'Not Sent' ||
-                    guest!.rsvpStatus == null
-                ? Assets.icons.waitingGuestIc.svg()
-                : Assets.icons.failedGuestIc.svg(),
+                  guest!.rsvpStatus == 'Not Sent' ||
+                  guest!.rsvpStatus == null
+            ? Assets.icons.waitingGuestIc.svg()
+            : Assets.icons.failedGuestIc.svg(),
         // child: Text(
         //   guest!.rsvpStatus ?? 'Not Sent',
         //   style: AppTextStyle.rubikRegular14.copyWith(

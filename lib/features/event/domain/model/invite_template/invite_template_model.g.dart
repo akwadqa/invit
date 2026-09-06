@@ -14,9 +14,9 @@ _InviteTemplateModel _$InviteTemplateModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$InviteTemplateModelToJson(
-        _InviteTemplateModel instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'template_name': instance.templateName,
-      'app_template_image': instance.appTemplateImage,
-    };
+  _InviteTemplateModel instance,
+) => <String, dynamic>{
+  'name': instance.name,
+  'template_name': instance.templateName,
+  'app_template_image': instance.appTemplateImage,
+};

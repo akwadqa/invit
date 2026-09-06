@@ -5,6 +5,7 @@ import 'package:invit/features/event/domain/model/create_event_response/create_e
 import 'package:invit/features/event/domain/model/event_model/event_model.dart';
 import 'package:invit/features/event/domain/model/invite_template/invite_template_model.dart';
 import 'package:invit/features/event/domain/model/retry_bulk_response/retry_bulk_response.dart';
+import 'package:invit/features/event/domain/model/template%20model/template_model.dart';
 import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/dio_client.dart';
 import 'package:invit/src/logger/failure/exceptions/app_exception.dart';
@@ -34,8 +35,10 @@ class EventRepository {
     // throw AppException(message: response.message);
   }
 
-  Future<ApiResponse<List<InviteTemplateModel>>> getTemplate() async {
-    final response = await _remoteDataSource.getTemplates();
+ Future<ApiResponse<List<TemplateModel>>> getTemplates(
+    String occasionType,
+  )async {
+    final response = await _remoteDataSource.getTemplates(occasionType);
 
     if (response.status == 200) {
       return response;

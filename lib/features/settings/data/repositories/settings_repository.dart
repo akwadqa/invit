@@ -1,6 +1,7 @@
 import 'package:invit/features/home/data/datasources/home_dataSource.dart';
 import 'package:invit/features/home/domain/model/home/home_model.dart';
 import 'package:invit/features/settings/data/datasources/settings_dataSource.dart';
+import 'package:invit/src/infrastructure/api/response/api_response.dart';
 import 'package:invit/src/infrastructure/network/services/dio_client.dart';
 import 'package:invit/src/logger/failure/exceptions/app_exception.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -29,10 +30,10 @@ class SettingsRepository {
       throw AppException(message: 'Failed to fetch HomeModel: $e');
     }
   }
-    Future<bool> deleteAccount(String email) async {
+    Future<ApiResponse<bool>> deleteAccount(String email) async {
     final response = await _remoteDataSource.deleteAccount(email);
     if (response.status == 200) {
-      return response.data ?? false;
+      return response;
     }
     throw AppException(message:  response.message);
   }

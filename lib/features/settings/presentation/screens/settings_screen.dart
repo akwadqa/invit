@@ -24,121 +24,127 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsState = ref.watch(settingsControllerProvider);
     final localStorage = ref.watch(localStorageServiceProvider);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, 65),
-        child: CustomAppbar(
-          title: context.tr('settings'),
-          withBackButton: false,
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        child: Column(
-          spacing: 20,
-          children: [
-            SettingsProfileHeader(
-              name: localStorage.userInfo.fullName,
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 500),
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+
+      child: KeyedSubtree(
+        key: ValueKey(context.locale.languageCode),
+
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: PreferredSize(
+            preferredSize: const Size(double.infinity, 65),
+            child: CustomAppbar(
+              title: context.tr('settings'),
+              withBackButton: false,
             ),
+          ),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: Column(
+              spacing: 20,
+              children: [
+                SettingsProfileHeader(name: localStorage.userInfo.fullName),
 
-            // const SettingsSectionTitle(title: 'account_details'),
+                // const SettingsSectionTitle(title: 'account_details'),
 
-            // SettingsItemCard(
-            //   title: 'edit_my_profile',
-            //   icon: Assets.icons.editProfileIc,
-            // ),
+                // SettingsItemCard(
+                //   title: 'edit_my_profile',
+                //   icon: Assets.icons.editProfileIc,
+                // ),
 
-            // const Divider(),
-            const SettingsSectionTitle(title: 'help_center'),
+                // const Divider(),
+                const SettingsSectionTitle(title: 'help_center'),
 
-            GestureDetector(
-              onTap: () => showModalBottomSheet(
-                context: context,
-                builder: (context) => ChangeLanguageBottomSheet(),
-              ),
-              child: SettingsItemCard(
-                title: 'change_language'.tr(),
-                icon: Assets.icons.langIc,
-              ),
-            ),
+                SettingsItemCard(
+                  onTap: () => showModalBottomSheet(
+                    context: context,
+                    builder: (context) => ChangeLanguageBottomSheet(),
+                  ),
+                  title: 'change_language'.tr(),
+                  icon: Assets.icons.langIc,
+                ),
 
-            SettingsItemCard(
-              onTap: () => context.push(AppRoutes.paymentScreen),
-              title: 'pricing_services'.tr(),
-              icon: Assets.icons.privacyIc,
-            ),
+                SettingsItemCard(
+                  onTap: () => context.push(AppRoutes.paymentScreen),
+                  title: 'pricing_services'.tr(),
+                  icon: Assets.icons.privacyIc,
+                ),
 
-            // SettingsItemCard(
-            //   title: 'Dark Mode',
-            //   trailing: Switch(value: false, onChanged: (_) {}),
-            // ),
-            // SettingsItemCard(
-            //   title: 'notification'.tr(),
-            //   trailing: Padding(
-            //     padding: const EdgeInsets.symmetric(vertical: 10.0),
-            //     child: SizedBox(
-            //       height: 10,
-            //       child: Switch(
-            //         value: settingsState.value?.notificationState ?? false,
-            //         onChanged: (val) {
-            //           ref
-            //               .read(settingsControllerProvider.notifier)
-            //               .onNotificationChange(val);
-            //         },
-            //         activeThumbColor: AppColors.white,
-            //         activeTrackColor: AppColors.primary,
-            //         inactiveThumbColor: AppColors.white,
-            //         inactiveTrackColor: AppColors.gray,
-            //       ),
-            //     ),
-            //   ),
-            //   icon: Assets.icons.notificationIc,
-            // ),
+                // SettingsItemCard(
+                //   title: 'Dark Mode',
+                //   trailing: Switch(value: false, onChanged: (_) {}),
+                // ),
+                // SettingsItemCard(
+                //   title: 'notification'.tr(),
+                //   trailing: Padding(
+                //     padding: const EdgeInsets.symmetric(vertical: 10.0),
+                //     child: SizedBox(
+                //       height: 10,
+                //       child: Switch(
+                //         value: settingsState.value?.notificationState ?? false,
+                //         onChanged: (val) {
+                //           ref
+                //               .read(settingsControllerProvider.notifier)
+                //               .onNotificationChange(val);
+                //         },
+                //         activeThumbColor: AppColors.white,
+                //         activeTrackColor: AppColors.primary,
+                //         inactiveThumbColor: AppColors.white,
+                //         inactiveTrackColor: AppColors.gray,
+                //       ),
+                //     ),
+                //   ),
+                //   icon: Assets.icons.notificationIc,
+                // ),
+                SettingsItemCard(
+                  title: 'logout'.tr(),
+                  icon: Assets.icons.logoutIc,
+                  onTap: () {
+                    showConfirmationDialog(
+                      context: context,
+                      title: "logout_title",
+                      description: "logout_description",
+                      confirmText: "logout_confirm",
+                      confirmColor: AppColors.primary,
+                      icon: Assets.icons.logoutWithCornerIc.svg(),
+                      onConfirm: () {
+                        ref.read(settingsControllerProvider.notifier).logout();
 
-            SettingsItemCard(
-              title: 'logout'.tr(),
-              icon: Assets.icons.logoutIc,
-              onTap: () {
-                showConfirmationDialog(
-                  context: context,
-                  title: "logout_title",
-                  description: "logout_description",
-                  confirmText: "logout_confirm",
-                  confirmColor: AppColors.primary,
-                  icon: Assets.icons.logoutWithCornerIc.svg(),
-                  onConfirm: () {
-                    ref.read(settingsControllerProvider.notifier).logout();
-
-                    // delete user logic
+                        // delete user logic
+                      },
+                      deleteAcc: false,
+                    );
                   },
-                  deleteAcc: false,
-                );
-              },
-            ),
-            SettingsItemCard(
-              title: 'delete_user',
-              icon: Assets.icons.deleteIc,
-              onTap: () {
-                showConfirmationDialog(
-                  context: context,
-                  deleteAcc: true,
-                  title: "delete_user_title",
-                  description: "delete_user_description",
-                  confirmText: "delete_user_confirm",
-                  confirmColor: AppColors.primary,
-                  icon: Assets.icons.deleteWithCornerIc.svg(),
-                  onConfirm: () {
-                    // delete user logic
-                    ref
-                        .read(settingsControllerProvider.notifier)
-                        .deleteAccount();
+                ),
+                SettingsItemCard(
+                  title: 'delete_user',
+                  icon: Assets.icons.deleteIc,
+                  onTap: () {
+                    showConfirmationDialog(
+                      context: context,
+                      deleteAcc: true,
+                      title: "delete_user_title",
+                      description: "delete_user_description",
+                      confirmText: "delete_user_confirm",
+                      confirmColor: AppColors.primary,
+                      icon: Assets.icons.deleteWithCornerIc.svg(),
+                      onConfirm: () {
+                        // delete user logic
+                        ref
+                            .read(settingsControllerProvider.notifier)
+                            .deleteAccount();
+                      },
+                    );
                   },
-                );
-              },
+                ),
+                100.verticalSpace,
+              ],
             ),
-            100.verticalSpace,
-          ],
+          ),
         ),
       ),
     );

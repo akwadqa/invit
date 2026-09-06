@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invit/features/event/presentation/controller/create_event/create_event_controller.dart';
 import 'package:invit/gen/assets.gen.dart';
 import 'package:invit/src/application/router/app_routes.dart';
 import 'package:invit/src/core/utils/extenssions/int_extenssion.dart';
@@ -13,18 +15,17 @@ class SuccessfullEventCreationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _SuccessfullEventCreationScreenContent(occasionId),
-    );
+    return Scaffold(body: _SuccessfullEventCreationScreenContent(occasionId));
   }
 }
 
-class _SuccessfullEventCreationScreenContent extends StatelessWidget {
+class _SuccessfullEventCreationScreenContent extends ConsumerWidget {
   final String occasionId;
   const _SuccessfullEventCreationScreenContent(this.occasionId);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.invalidate(createEventControllerProvider);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22),
       child: Column(
@@ -42,14 +43,15 @@ class _SuccessfullEventCreationScreenContent extends StatelessWidget {
             // height: 485,
             padding: EdgeInsets.symmetric(vertical: 36),
             decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.black.withValues(alpha: .25),
-                    blurRadius: 4,
-                  )
-                ]),
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.black.withValues(alpha: .25),
+                  blurRadius: 4,
+                ),
+              ],
+            ),
             child: Column(
               spacing: 31,
               children: [
@@ -60,13 +62,16 @@ class _SuccessfullEventCreationScreenContent extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 GestureDetector(
-                  onTap: () => context.goNamed(AppRoutes.eventDetails,
-                      extra: occasionId),
+                  onTap: () => context.goNamed(
+                    AppRoutes.eventDetails,
+                    extra: occasionId,
+                  ),
                   child: Text(
                     'view_invitation_status'.tr(),
                     style: AppTextStyle.rubikMedium14.copyWith(
-                        color: AppColors.primary,
-                        decoration: TextDecoration.underline),
+                      color: AppColors.primary,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
                 GestureDetector(
@@ -74,13 +79,14 @@ class _SuccessfullEventCreationScreenContent extends StatelessWidget {
                   child: Text(
                     'back_to_home'.tr(),
                     style: AppTextStyle.rubikMedium14.copyWith(
-                        color: AppColors.primary,
-                        decoration: TextDecoration.underline),
+                      color: AppColors.primary,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

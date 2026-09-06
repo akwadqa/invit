@@ -23,10 +23,7 @@ import '../widgets/guest_list_section.dart';
 class EventDetailsScreen extends ConsumerStatefulWidget {
   final String ocassionId;
 
-  const EventDetailsScreen({
-    super.key,
-    required this.ocassionId,
-  });
+  const EventDetailsScreen({super.key, required this.ocassionId});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -39,16 +36,20 @@ class _EventDetailsScreenState extends ConsumerState<EventDetailsScreen> {
     super.initState();
     Future(() {
       ref
-          .read(eventDetailsControllerProvider(ocassionId: widget.ocassionId)
-              .notifier)
+          .read(
+            eventDetailsControllerProvider(
+              ocassionId: widget.ocassionId,
+            ).notifier,
+          )
           .getEventDetails(ocassionId: widget.ocassionId);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final eventDetailsAsync = ref
-        .watch(eventDetailsControllerProvider(ocassionId: widget.ocassionId));
+    final eventDetailsAsync = ref.watch(
+      eventDetailsControllerProvider(ocassionId: widget.ocassionId),
+    );
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
@@ -60,45 +61,56 @@ class _EventDetailsScreenState extends ConsumerState<EventDetailsScreen> {
         }
       },
       child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: PreferredSize(
-            preferredSize: const Size(double.infinity, 65),
-            child: CustomDeafultAppbar(
-                title: context.tr('event_details'),
-                actionButton: eventDetailsAsync.whenOrNull(
-                  data: (data) {
-                    if (data.status == 'Draft') {
-                      return GestureDetector(
-                        onTap: () => context.push(AppRoutes.updateEventScreen,
-                            extra: data),
-                        child: Container(
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.cardWhite,
-                          ),
-                          child: Icon(
-                            Icons.edit,
-                            color: AppColors.primary,
-                            size: 20,
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                )
-                // withBackButton: false,
-                ),
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, 65),
+          child: CustomDeafultAppbar(
+            title: context.tr('event_details'),
+            actionButton: eventDetailsAsync.whenOrNull(
+              data: (data) {
+                if (data.status == 'Draft') {
+                  return GestureDetector(
+                    onTap: () =>
+                        context.push(AppRoutes.updateEventScreen, extra: data),
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.cardWhite,
+                      ),
+                      child: Icon(
+                        Icons.edit,
+                        color: AppColors.primary,
+                        size: 20,
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+            // withBackButton: false,
           ),
-          body: eventDetailsAsync.when(
+        ),
+        body: RefreshIndicator(
+          color: AppColors.primary,
+          onRefresh: () => ref
+              .read(
+                eventDetailsControllerProvider(
+                  ocassionId: widget.ocassionId,
+                ).notifier,
+              )
+              .getEventDetails(ocassionId: widget.ocassionId),
+          child: eventDetailsAsync.when(
             data: (EventModel data) {
               return ListView(
                 padding: const EdgeInsets.all(16),
                 children: [
                   if (data.guestReport != null)
                     EventDetailsReportCard(
-                        report: data.guestReport!, id: widget.ocassionId),
+                      report: data.guestReport!,
+                      id: widget.ocassionId,
+                    ),
                   16.verticalSpace,
                   EventDetailsHeaderCard(event: data),
                   20.verticalSpace,
@@ -112,9 +124,20 @@ class _EventDetailsScreenState extends ConsumerState<EventDetailsScreen> {
                 ],
               );
             },
-            error: (Object error, StackTrace stackTrace) => AppErrorWidget(),
+            error: (Object error, StackTrace stackTrace) => AppErrorWidget(
+              withBackButton: true,
+              onTap: () => ref
+                  .read(
+                    eventDetailsControllerProvider(
+                      ocassionId: widget.ocassionId,
+                    ).notifier,
+                  )
+                  .getEventDetails(ocassionId: widget.ocassionId),
+            ),
             loading: () => AppLoader(),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -134,77 +157,86 @@ class EventDetailsFooter extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //? For confirm event :
     ref.listen(
-        createEventControllerProvider.select((val) => val.value!.confirmEvent),
-        (previous, next) {
-      if (next is AsyncLoading) {
-        AppAlert.showLoadingDialog(context);
-      } else if (next is AsyncData) {
-        context.pop();
-        ref
-            .read(eventDetailsControllerProvider(ocassionId: id).notifier)
-            .getEventDetails(ocassionId: id);
-      } else if (next is AsyncError) {
-        context.pop();
-        showErrorDialog(context, next!.error.toString());
-      }
-    });
+      createEventControllerProvider.select((val) => val.value!.confirmEvent),
+      (previous, next) {
+        if (next is AsyncLoading) {
+          AppAlert.showLoadingDialog(context);
+        } else if (next is AsyncData) {
+          context.pop();
+          ref
+              .read(eventDetailsControllerProvider(ocassionId: id).notifier)
+              .getEventDetails(ocassionId: id);
+        } else if (next is AsyncError) {
+          context.pop();
+          showErrorDialog(context, next!.error.toString());
+        }
+      },
+    );
 
     //? For retry failed invites :
     ref.listen(
-        createEventControllerProvider.select((val) => val.value!.resendFailed),
-        (previous, next) {
-      if (next is AsyncLoading) {
-        AppAlert.showLoadingDialog(context);
-      } else if (next is AsyncData) {
-        context.pop();
-        ref
-            .read(eventDetailsControllerProvider(ocassionId: id).notifier)
-            .getEventDetails(ocassionId: id);
-      } else if (next is AsyncError) {
-        context.pop();
-        showErrorDialog(context, next!.error.toString());
-      }
-    });
+      createEventControllerProvider.select((val) => val.value!.resendFailed),
+      (previous, next) {
+        if (next is AsyncLoading) {
+          AppAlert.showLoadingDialog(context);
+        } else if (next is AsyncData) {
+          context.pop();
+          ref
+              .read(eventDetailsControllerProvider(ocassionId: id).notifier)
+              .getEventDetails(ocassionId: id);
+        } else if (next is AsyncError) {
+          context.pop();
+          showErrorDialog(context, next!.error.toString());
+        }
+      },
+    );
     return Row(
       spacing: 12,
       children: [
         Expanded(
-            child: CustomButtonWidget(
-          text: "view_status".tr(),
-          onTap: () => context.pushNamed(AppRoutes.guestsScreen, extra: id),
-          color: AppColors.primary,
-          backgroundColor: Colors.white,
-          radius: 8,
-          isFiled: false,
-          height: 45,
-          width: double.infinity,
-        )),
+          child: CustomButtonWidget(
+            text: "view_status".tr(),
+            onTap: () => context.pushNamed(AppRoutes.guestsScreen, extra: id),
+            color: AppColors.primary,
+            backgroundColor: Colors.white,
+            radius: 8,
+            isFiled: false,
+            height: 45,
+            width: double.infinity,
+          ),
+        ),
         if (report.failed > 0)
           Expanded(
-              child: CustomButtonWidget(
-            text: "retry_failed".tr(),
-            onTap: () {
-              ref.read(createEventControllerProvider.notifier).retryFailed(id);
-            },
-            isFiled: true,
-            backgroundColor: AppColors.primary,
-            radius: 8,
-            height: 45,
-            width: double.infinity,
-          )),
+            child: CustomButtonWidget(
+              text: "retry_failed".tr(),
+              onTap: () {
+                ref
+                    .read(createEventControllerProvider.notifier)
+                    .retryFailed(id);
+              },
+              isFiled: true,
+              backgroundColor: AppColors.primary,
+              radius: 8,
+              height: 45,
+              width: double.infinity,
+            ),
+          ),
         if (status == "Draft")
           Expanded(
-              child: CustomButtonWidget(
-            text: "confirm".tr(),
-            onTap: () {
-              ref.read(createEventControllerProvider.notifier).confirmEvent(id);
-            },
-            isFiled: true,
-            backgroundColor: AppColors.primary,
-            radius: 8,
-            height: 45,
-            width: double.infinity,
-          )),
+            child: CustomButtonWidget(
+              text: "confirm".tr(),
+              onTap: () {
+                ref
+                    .read(createEventControllerProvider.notifier)
+                    .confirmEvent(id);
+              },
+              isFiled: true,
+              backgroundColor: AppColors.primary,
+              radius: 8,
+              height: 45,
+              width: double.infinity,
+            ),
+          ),
       ],
     );
   }

@@ -12,18 +12,20 @@ part of 'scan_respository.dart';
 @ProviderFor(scanRepository)
 final scanRepositoryProvider = ScanRepositoryProvider._();
 
-final class ScanRepositoryProvider extends $FunctionalProvider<ScanRespository,
-    ScanRespository, ScanRespository> with $Provider<ScanRespository> {
+final class ScanRepositoryProvider
+    extends
+        $FunctionalProvider<ScanRespository, ScanRespository, ScanRespository>
+    with $Provider<ScanRespository> {
   ScanRepositoryProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'scanRepositoryProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'scanRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$scanRepositoryHash();

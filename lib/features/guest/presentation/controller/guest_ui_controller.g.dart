@@ -15,15 +15,15 @@ final guestUiControllerProvider = GuestUiControllerProvider._();
 final class GuestUiControllerProvider
     extends $AsyncNotifierProvider<GuestUiController, GuestUiState> {
   GuestUiControllerProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'guestUiControllerProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'guestUiControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$guestUiControllerHash();
@@ -41,11 +41,14 @@ abstract class _$GuestUiController extends $AsyncNotifier<GuestUiState> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<AsyncValue<GuestUiState>, GuestUiState>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<AsyncValue<GuestUiState>, GuestUiState>,
-        AsyncValue<GuestUiState>,
-        Object?,
-        Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<GuestUiState>, GuestUiState>,
+              AsyncValue<GuestUiState>,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

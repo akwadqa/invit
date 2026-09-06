@@ -12,20 +12,24 @@ part of 'local_storage_service.dart';
 @ProviderFor(localStorageService)
 final localStorageServiceProvider = LocalStorageServiceProvider._();
 
-final class LocalStorageServiceProvider extends $FunctionalProvider<
-    LocalStorageService,
-    LocalStorageService,
-    LocalStorageService> with $Provider<LocalStorageService> {
+final class LocalStorageServiceProvider
+    extends
+        $FunctionalProvider<
+          LocalStorageService,
+          LocalStorageService,
+          LocalStorageService
+        >
+    with $Provider<LocalStorageService> {
   LocalStorageServiceProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'localStorageServiceProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'localStorageServiceProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$localStorageServiceHash();
@@ -33,8 +37,8 @@ final class LocalStorageServiceProvider extends $FunctionalProvider<
   @$internal
   @override
   $ProviderElement<LocalStorageService> $createElement(
-          $ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   LocalStorageService create(Ref ref) {
@@ -60,15 +64,15 @@ final class IsAuthenticatedProvider
     extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
     with $FutureModifier<bool>, $FutureProvider<bool> {
   IsAuthenticatedProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'isAuthenticatedProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'isAuthenticatedProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$isAuthenticatedHash();

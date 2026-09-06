@@ -12,20 +12,24 @@ part of 'featured_events_repository.dart';
 @ProviderFor(featuredEventsRepository)
 final featuredEventsRepositoryProvider = FeaturedEventsRepositoryProvider._();
 
-final class FeaturedEventsRepositoryProvider extends $FunctionalProvider<
-    FeaturedEventsRepository,
-    FeaturedEventsRepository,
-    FeaturedEventsRepository> with $Provider<FeaturedEventsRepository> {
+final class FeaturedEventsRepositoryProvider
+    extends
+        $FunctionalProvider<
+          FeaturedEventsRepository,
+          FeaturedEventsRepository,
+          FeaturedEventsRepository
+        >
+    with $Provider<FeaturedEventsRepository> {
   FeaturedEventsRepositoryProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'featuredEventsRepositoryProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'featuredEventsRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$featuredEventsRepositoryHash();
@@ -33,8 +37,8 @@ final class FeaturedEventsRepositoryProvider extends $FunctionalProvider<
   @$internal
   @override
   $ProviderElement<FeaturedEventsRepository> $createElement(
-          $ProviderPointer pointer) =>
-      $ProviderElement(pointer);
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
 
   @override
   FeaturedEventsRepository create(Ref ref) {

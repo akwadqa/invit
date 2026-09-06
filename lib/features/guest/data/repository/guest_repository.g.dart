@@ -12,18 +12,20 @@ part of 'guest_repository.dart';
 @ProviderFor(guestRepository)
 final guestRepositoryProvider = GuestRepositoryProvider._();
 
-final class GuestRepositoryProvider extends $FunctionalProvider<GuestRepository,
-    GuestRepository, GuestRepository> with $Provider<GuestRepository> {
+final class GuestRepositoryProvider
+    extends
+        $FunctionalProvider<GuestRepository, GuestRepository, GuestRepository>
+    with $Provider<GuestRepository> {
   GuestRepositoryProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'guestRepositoryProvider',
-          isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'guestRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$guestRepositoryHash();

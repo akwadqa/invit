@@ -18,7 +18,7 @@ class NotificationsDatasource {
         ApiEndPoints.appNotification,
         queryParameters: {
           'page': page,
-        "for_user": "test@email.com"
+        // "for_user": "test@email.com"
 
         },
       );
